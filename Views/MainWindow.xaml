@@ -7,9 +7,9 @@
         xmlns:fa5="http://schemas.fontawesome.com/icons/"  
         xmlns:local="clr-namespace:ItalianPizza"
         mc:Ignorable="d"
-        Title="MainWindow" Height="720" Width="1000" WindowStartupLocation="CenterScreen"
-        ResizeMode="NoResize">
-
+        Title="Italian Pizza" Height="720" Width="1000" WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize" Icon="../Images/pizza.png">
+        
     <Grid>
         <!--<Grid.Background>
             <ImageBrush ImageSource="../Images/background.jpg" />
@@ -117,8 +117,8 @@
                     <Border Width="6px" Height="40" Background="#49E12F" CornerRadius="0,3,3,0" Visibility="Hidden"
                             Name="OrdersGreendBorder"/>
                     <fa5:ImageAwesome Icon="Solid_ShoppingCart" Height="20" Width="20" Margin="25,0,0,0" 
-                                     Foreground="#FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center" 
-                                     ToolTip="Usuarios" />
+                                      Foreground="#FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                                      ToolTip="Usuarios" />
                     <TextBlock Foreground="#FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center" 
                                Margin="18px,0,0,0" FontFamily="Trebuchet MS" FontSize="15">                    
                         Pedidos
@@ -164,6 +164,6 @@
 
         <!--Menu options-->
         <Frame Width="776" Height="720" Margin="209.7px,0,0,0" BorderBrush="#FFF"
-               Opacity="0.91" Name="NavigationFrame" NavigationUIVisibility="Hidden"/>
+               Opacity="1" Name="NavigationFrame" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Window>
