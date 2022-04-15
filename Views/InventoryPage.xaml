@@ -328,7 +328,7 @@
 
 
 
-        <!--#region Dialogue Order-->
+        <!--#region Dialogue Product-->
         <Border Background="#000" Opacity="0.9"  x:Name="ThirdLayerInformationBorder"/>
         <Border Background="#FFF" CornerRadius="10" HorizontalAlignment="Center" VerticalAlignment="Center"
                 Width="500" Height="600" Margin="0,-35,0,0" Opacity="1"
@@ -352,75 +352,61 @@
             </TextBlock>
             <StackPanel Orientation="Vertical" Margin="0,20,0,0" Background="Transparent" HorizontalAlignment="Center"
                         Width="430">
-                <!--#region Order Information-->
+                <!--#region Product Information-->
+                
                 <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left">
                     Nombre del producto
                 </TextBlock>
-                <TextBlock FontFamily="Tw Cen MT" FontSize="15" Foreground="#000">
-                    digite el nombre
-                </TextBlock>
-                <materialDesign:Chip Content="José Daniel Camarillo Villa" FontFamily="Tw Cen MT" FontSize="15" Foreground="#000"/>
+                <TextBox
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                    VerticalAlignment="Top"
+                    AcceptsReturn="True"
+                    TextWrapping="Wrap"
+                    VerticalScrollBarVisibility="Auto"
+                    materialDesign:HintAssist.Hint="This is a text area"
+                    materialDesign:HintAssist.HelperText="Bigger Helper Text"
+                    materialDesign:HintAssist.HelperTextFontSize="13"
+                    materialDesign:TextFieldAssist.UnderlineBrush="Green"
+                    materialDesign:TextFieldAssist.HasClearButton="True"
+                    BorderBrush="#BC4F4F4F" 
+                    Margin="0,0,0,20"/>
                 <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left">
-                    Fecha
+                    Código
                 </TextBlock>
-                <Grid>
-                    <Border Background="#ECDCDE" CornerRadius="15" Width="140" Height="35" HorizontalAlignment="Left"/>
-                    <Border Background="#ECDCDE" CornerRadius="15" Width="140" Height="35" HorizontalAlignment="Left" Margin="170,0,0,0"/>
-                    <StackPanel Orientation="Horizontal">
-                        <DatePicker Width="140" Foreground="#000"
-                                Height="35" Padding="6" FontFamily="Tw Cen MT" FontSize="15" HorizontalAlignment="Left"
-                                BorderBrush="#000" materialDesign:HintAssist.Hint="Fecha establecida"/>
-                        <materialDesign:TimePicker BorderBrush="#000" Height="35" Width="140" Padding="6" Margin="30,0,0,0"
-                                                   materialDesign:HintAssist.Hint="Hora establecida" FontFamily="Tw Cen MT" FontSize="15"/>
-                    </StackPanel>
-                </Grid>
+                <TextBox>
+
+                </TextBox>
                 <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left">
-                    Estatus
+                    Descripción
                 </TextBlock>
-                <Grid Cursor="Hand">
-                    <Border Background="#ECDCDE" CornerRadius="15" Width="200" Height="35" HorizontalAlignment="Left"/>
-                    <ComboBox Style="{StaticResource MaterialDesignOutlinedComboBox}"                              
-                              materialDesign:HintAssist.Hint="Algún estatus predefinido"
-                              ItemsSource="{Binding ShortStringList}" HorizontalAlignment="Left"
-                              Width="200" Height="35" Padding="6" VerticalContentAlignment="Center"
-                              FontFamily="Tw Cen MT" FontSize="15" BorderBrush="Transparent" Foreground="#000" />
-                </Grid>
+                <TextBox>
+
+                </TextBox>
                 <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left" >
-                    Dirección
+                    Precio
                 </TextBlock>
-                <Grid Cursor="Hand">
-                    <Border Background="#ECDCDE" CornerRadius="15" Width="200" Height="35" HorizontalAlignment="Left"/>
-                    <ComboBox Style="{StaticResource MaterialDesignOutlinedComboBox}"
-                              materialDesign:HintAssist.Hint="Algún dirección predefinido"
-                              ItemsSource="{Binding ShortStringList}" HorizontalAlignment="Left"
-                              Width="200" Height="35" Padding="6" VerticalContentAlignment="Center"
-                              FontFamily="Tw Cen MT" FontSize="15" BorderBrush="Transparent" Foreground="#000" />
-                </Grid>
-                <!--#endregion -->
+                <TextBox>
 
-                <!--#region Order product table-->
+                </TextBox>
                 <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left">
-                    Productos
+                    Restricciones
                 </TextBlock>
-                <DataGrid Height="Auto" MaxHeight="170" CanUserAddRows="False"  FontFamily="Tw Cen MT" FontSize="15" 
-                          AutoGenerateColumns="False" HeadersVisibility="All">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Cantidad" CanUserResize="True" Width="90" />
-                        <DataGridTextColumn Header="Nombre" CanUserResize="True" Width="220"/>
-                        <DataGridTextColumn Header="Precio" CanUserResize="True" Width="120"/>
-                    </DataGrid.Columns>
-                </DataGrid>
-                <!--#endregion-->
+                <TextBox>
 
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
-                    <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left"
-                               Margin="0,0,20,0">
-                        Total:
-                    </TextBlock>
-                    <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left">
-                        $1000
-                    </TextBlock>
-                </StackPanel>
+                </TextBox>
+                <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left">
+                    Foto del producto
+                </TextBlock>
+                <TextBox>
+
+                </TextBox>
+                <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left">
+                    Cantidad
+                </TextBlock>
+                <TextBox>
+
+                </TextBox>
+                <!--#endregion -->
             </StackPanel>
 
             <!--Buttons-->
@@ -428,10 +414,10 @@
                 <Button Width="120" Margin="0,0,40,0" materialDesign:ButtonAssist.CornerRadius="8" Height="40"
                         Background="#2C2C2E" BorderBrush="{x:Null}">
                     <StackPanel Orientation="Horizontal">
-                        <fa5:ImageAwesome Icon="Solid_Pen" Height="13" Width="13" Foreground="#FFF" VerticalAlignment="Center" 
+                        <fa5:ImageAwesome Icon="Solid_Check" Height="13" Width="13" Foreground="#FFF" VerticalAlignment="Center" 
                                       ToolTip="Selecciona un filtro" Margin="0,0,4px,0"/>
                         <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" HorizontalAlignment="Left">
-                            Actualizar
+                            Registrar
                         </TextBlock>
                     </StackPanel>
                 </Button>
