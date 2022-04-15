@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace ItalianPizza.Views
 {
@@ -22,6 +23,9 @@ namespace ItalianPizza.Views
     public partial class CheckOrdersPage : Page
     {
         private string usernameLoggedIn;
+
+        private TimeSpan timeSpan;
+        private DispatcherTimer dispatcherTimer;
 
         public CheckOrdersPage(string usernameLoggedIn)
         {
@@ -36,6 +40,9 @@ namespace ItalianPizza.Views
             ThirdLayerInformationBorder.Visibility = Visibility.Visible;
             QuarterLayerInformationBorder.Visibility = Visibility.Visible;
             OrderInformationGrid.Visibility = Visibility.Visible;
+            SearchResultMessageTextBlock.Visibility = Visibility.Visible;
+            SaveOrderButton.Visibility = Visibility.Collapsed;
+            FieldsEnabledMessageTextBlock.Visibility = Visibility.Hidden;
             CustomerNameComboBox.IsEnabled = isEnabled;
             OrderTypeComboBox.IsEnabled = isEnabled;
             OrderAddressComboBox.IsEnabled = isEnabled;
@@ -67,6 +74,13 @@ namespace ItalianPizza.Views
             UpdateOrderButton.Visibility = Visibility.Visible;
             CancelOrderButton.Visibility = Visibility.Visible;
             GenerateOrderTicketButton.Visibility = Visibility.Visible;
+
+            HintAssist.SetHelperText(CustomerNameComboBox, string.Empty);
+            HintAssist.SetHelperText(OrderDateDatePicker, string.Empty);
+            HintAssist.SetHelperText(OrderDateTimePicker, string.Empty);
+            HintAssist.SetHelperText(OrderStatusComboBox, string.Empty);
+            HintAssist.SetHelperText(OrderAddressComboBox, string.Empty);
+            HintAssist.SetHelperText(OrderTypeComboBox, string.Empty);
         }
 
         public void ShowSearchResults(object sender, KeyEventArgs e)
@@ -111,13 +125,14 @@ namespace ItalianPizza.Views
             SearchTextBox.Text = "";
             InitialMessageBorder.Visibility = Visibility.Visible;
             OrderTableGrid.Visibility = Visibility.Hidden;
+            SearchResultMessageTextBlock.Text = "Realiza una búsqueda";
         }
 
         public void HideSpecificOrderInformation(object sender, RoutedEventArgs e)
         {
             bool isRegister = OrderHeaderTextBlock.Text.Equals("Registro de Pedido") ? true : false;
 
-            if  (isRegister && !InvalidFieldsGrid.IsVisible)
+            if ((isRegister && !InvalidFieldsGrid.IsVisible) || (SaveOrderButton.IsVisible && !FifthLayerBorder.IsVisible) || (DeleteConfirmationGrid.IsVisible && !FifthLayerBorder.IsVisible))
             {
                 FifthLayerBorder.Visibility = Visibility.Visible;
                 InvalidFieldsGrid.Visibility = Visibility.Visible;
@@ -134,6 +149,61 @@ namespace ItalianPizza.Views
         {
             FifthLayerBorder.Visibility = Visibility.Hidden;
             InvalidFieldsGrid.Visibility = Visibility.Hidden;
+            DeleteConfirmationGrid.Visibility = Visibility.Hidden;
+        }
+
+        public void ShowOrderUpdateDialog(object sender, RoutedEventArgs e)
+        {
+            GenerateOrderTicketButton.Visibility = Visibility.Collapsed;
+            UpdateOrderButton.Visibility = Visibility.Collapsed;
+            CancelOrderButton.Visibility = Visibility.Collapsed;
+            SaveOrderButton.Visibility = Visibility.Visible;
+            FieldsEnabledMessageTextBlock.Visibility = Visibility.Visible;
+            CustomerNameComboBox.IsEnabled = true;
+            OrderStatusComboBox.IsEnabled = true;
+            OrderAddressComboBox.IsEnabled = true;
+            OrderItemsDataGrid.IsEnabled = true;
+            // OrderItemsDataGrid.CanUserAddRows = true;
+
+            HintAssist.SetHelperText(CustomerNameComboBox, string.Empty);
+            HintAssist.SetHelperText(OrderDateDatePicker, "Este campo no puedo modificarse");
+            HintAssist.SetHelperText(OrderDateTimePicker, "Este campo no puedo modificarse");
+            HintAssist.SetHelperText(OrderStatusComboBox, string.Empty);
+            HintAssist.SetHelperText(OrderAddressComboBox, string.Empty);
+            HintAssist.SetHelperText(OrderTypeComboBox, "Este campo no puedo modificarse");
+        }
+
+        public void ShowOrderCancellationDialog(object sender, RoutedEventArgs e)
+        {
+            FifthLayerBorder.Visibility = Visibility.Visible;
+            DeleteConfirmationGrid.Visibility = Visibility.Visible;
+        }
+
+        public void E(object sender, RoutedEventArgs e)
+        {
+            StarTimer(1);
+        }
+
+        public void StarTimer(int seconds)
+        {
+            timeSpan = TimeSpan.FromSeconds(seconds);
+
+            dispatcherTimer = new DispatcherTimer(new TimeSpan(0, 0, 1), DispatcherPriority.Normal, delegate
+            {
+                FifthLayerBorder.Visibility = Visibility.Visible;
+                ConfirmationGrid.Visibility = Visibility.Visible;
+
+                if (timeSpan == TimeSpan.Zero)
+                {
+                    dispatcherTimer.Stop();
+                    FifthLayerBorder.Visibility = Visibility.Hidden;
+                    ConfirmationGrid.Visibility = Visibility.Hidden;
+                }
+
+                timeSpan = timeSpan.Add(TimeSpan.FromSeconds(-1));
+            }, Application.Current.Dispatcher);
+
+            dispatcherTimer.Start();
         }
 
         #endregion

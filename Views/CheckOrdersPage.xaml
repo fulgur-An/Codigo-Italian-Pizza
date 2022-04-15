@@ -273,6 +273,11 @@
         <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Width="500" Height="660" Margin="0,60,0,0" 
               Name="OrderInformationGrid" Visibility="Hidden" Background="Transparent">
 
+            <TextBlock FontFamily="Tw Cen MT" FontSize="13" Foreground="#8D8D8D" HorizontalAlignment="Center"
+                       Margin="0,7,0,0" Name="FieldsEnabledMessageTextBlock" Visibility="Hidden">
+                        Campos habilitados para su edición
+            </TextBlock>
+
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,-45,5,0" Background="Transparent"
                         Cursor="Hand" Width="51" Height="20" VerticalAlignment="Top" 
                         Style="{StaticResource StackPanelHoverStyle}" MouseLeftButtonUp="HideSpecificOrderInformation">
@@ -371,7 +376,7 @@
                                       materialDesign:HintAssist.HelperTextFontSize="13" IsEnabled="False"
                                       Name="OrderStatusComboBox">
                                 <ComboBoxItem>Entregado</ComboBoxItem>
-                                <ComboBoxItem>Cancelado</ComboBoxItem>
+                                <!--<ComboBoxItem>Cancelado</ComboBoxItem>-->
                                 <ComboBoxItem IsSelected="True">En Proceso</ComboBoxItem>
                             </ComboBox>
                         </Grid>
@@ -457,7 +462,7 @@
                 </StackPanel>
             </StackPanel>
 
-            <!--Buttons Accept, Update and Cancel-->
+            <!--Buttons Accept, Update, Save and Cancel-->
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,0,70">
                 <Button Width="120" Margin="0,0,35,0" materialDesign:ButtonAssist.CornerRadius="8" Height="40"
                         Background="#2C2C2E" BorderBrush="{x:Null}" Visibility="Visible" ToolTip="Generar Ticket"
@@ -485,7 +490,7 @@
 
                 <Button Width="120" Margin="0,0,40,0" materialDesign:ButtonAssist.CornerRadius="8" Height="40"
                         Background="#2C2C2E" BorderBrush="{x:Null}" Visibility="Visible" ToolTip="Actualizar pedido"
-                        Name="UpdateOrderButton">
+                        Name="UpdateOrderButton" Click="ShowOrderUpdateDialog">
                     <StackPanel Orientation="Horizontal">
                         <fa5:ImageAwesome Icon="Solid_Pen" Height="13" Width="13" Foreground="#FFF" VerticalAlignment="Center" 
                                       ToolTip="Selecciona un filtro" Margin="0,0,4px,0"/>
@@ -495,8 +500,21 @@
                     </StackPanel>
                 </Button>
 
+                <Button Width="120" Margin="0,0,40,0" materialDesign:ButtonAssist.CornerRadius="8" Height="40"
+                        Background="#2C2C2E" BorderBrush="{x:Null}" Visibility="Collapsed" ToolTip="Actualizar pedido"
+                        Name="SaveOrderButton" Click="E">
+                    <StackPanel Orientation="Horizontal">
+                        <fa5:ImageAwesome Icon="Solid_Save" Height="13" Width="13" Foreground="#FFF" VerticalAlignment="Center" 
+                                      ToolTip="Selecciona un filtro" Margin="0,0,4px,0"/>
+                        <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" HorizontalAlignment="Left">
+                            Guardar
+                        </TextBlock>
+                    </StackPanel>
+                </Button>
+
                 <Button Width="120" materialDesign:ButtonAssist.CornerRadius="8" Background="#2C2C2E" BorderBrush="{x:Null}"
-                        Height="40" Name="CancelOrderButton" Visibility="Visible" Margin="0,0,35,0" ToolTip="Cancelar pedido"> 
+                        Height="40" Name="CancelOrderButton" Visibility="Visible" Margin="0,0,35,0" ToolTip="Cancelar pedido"
+                        Click="ShowOrderCancellationDialog">
                     <StackPanel Orientation="Horizontal">
                         <fa5:ImageAwesome Icon="Solid_Ban" Height="13" Width="13" Foreground="#FFF" VerticalAlignment="Center" 
                                       ToolTip="Selecciona un filtro" Margin="0,0,4px,0"/>
@@ -548,6 +566,60 @@
                         </StackPanel>
                     </Button>
                 </StackPanel>
+            </StackPanel>
+        </Grid>
+        <!--#endregion-->
+        
+        <!--#region Dialogue Delete Confirmation-->
+        <Grid x:Name="DeleteConfirmationGrid" Width="250" Height="150" HorizontalAlignment="Center"
+              VerticalAlignment="Center" Visibility="Hidden">
+            <Border Background="#FFF" CornerRadius="10"/>
+            <StackPanel>
+                <TextBlock FontFamily="Tw Cen MT" FontSize="20" Foreground="#000" VerticalAlignment="Top" Margin="0,5,0,0"
+                       HorizontalAlignment="Center">
+                        Confirmación de Eliminación
+                </TextBlock>
+                <fa5:ImageAwesome Icon="Solid_ExclamationCircle" Height="20" Width="20" Margin="0,10,0,5"
+                              Foreground="#000" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                <TextBlock FontFamily="Tw Cen MT" FontSize="15" Foreground="#000" VerticalAlignment="Top" Margin="0,10,0,0"
+                       HorizontalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center">
+                        ¿Desea confirmar la eliminación?
+                </TextBlock>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,15,0,0">
+                    <Button Width="90" materialDesign:ButtonAssist.CornerRadius="8" Background="#2C2C2E" BorderBrush="{x:Null}"
+                            Height="30" Click="HideSpecificOrderInformation">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock FontFamily="Tw Cen MT" FontSize="15" Foreground="#FFF">
+                            Aceptar
+                            </TextBlock>
+                        </StackPanel>
+                    </Button>
+
+                    <Button Width="90" materialDesign:ButtonAssist.CornerRadius="8" Background="#2C2C2E" BorderBrush="{x:Null}"
+                         Height="30" Margin="40,0,0,0" Click="BackToOrderRegistration">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock FontFamily="Tw Cen MT" FontSize="15" Foreground="#FFF">
+                            Cancelar
+                            </TextBlock>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+        <!--#endregion-->
+        
+        <!--#region Process Confirmation-->
+        <Grid Width="250" Height="150" HorizontalAlignment="Center"
+              Name="ConfirmationGrid" VerticalAlignment="Center" Visibility="Hidden">
+            <Border Background="#49E12F" CornerRadius="10"/>
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock FontFamily="Tw Cen MT" FontSize="31" Foreground="#FFF" VerticalAlignment="Top" Margin="0,5,0,0"
+                       HorizontalAlignment="Center">
+                       Proceso Realizado
+                </TextBlock>
+                <fa5:ImageAwesome Icon="Solid_CheckCircle" Height="32" Width="32" Margin="0,20,0,0"
+                              Foreground="#FFF" VerticalAlignment="Center" HorizontalAlignment="Center" />
             </StackPanel>
         </Grid>
         <!--#endregion-->
