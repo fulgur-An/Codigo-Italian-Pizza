@@ -101,8 +101,10 @@
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Height="50px" Background="Transparent" Cursor="Hand"
-                            Style="{StaticResource StackPanelHoverStyle}">
-                    <Border Width="6px" Height="40" Background="#49E12F" CornerRadius="0,3,3,0" Visibility="Hidden"/>
+                            Style="{StaticResource StackPanelHoverStyle}" MouseLeftButtonUp="OpenInventoryModule"
+                            Name="InventorysStackPanel">
+                    <Border Width="6px" Height="40" Background="#49E12F" CornerRadius="0,3,3,0" Visibility="Hidden"
+                            Name="IventorysGreenBorder"/>
                     <materialDesign:PackIcon Kind="FoodDrumstick" Foreground="#FFFFFF" VerticalAlignment="Center"
                                              HorizontalAlignment="Center" Height="25" Width="25" Margin="21,0,0,0"/>
                     <TextBlock Foreground="#FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center" 
