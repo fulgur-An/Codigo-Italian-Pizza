@@ -8,10 +8,10 @@
       xmlns:fa5="http://schemas.fontawesome.com/icons/"  
       mc:Ignorable="d" 
       d:DesignHeight="720" d:DesignWidth="776"
-      Title="InventoryPage">
+      Title="Inventory">
 
     <Grid>
-        <Border Background="#27161E" Width="776" Height="720"/>
+        <Border Background="#27161E" Width="776" Height="720" Opacity="0.91"/>
 
         <!--#region Main Elements-->
         <Label Foreground="#FFFFFF" FontFamily="Tw Cen MT" FontSize="30" Content="Inventario" Margin="30,160,0,0"
@@ -22,7 +22,7 @@
         </TextBlock>
         <Button Background="#7FFF0000" Style="{StaticResource MaterialDesignRaisedDarkButton}"                    
                     Content="Validar" BorderBrush="#7F000000" Width="100" Padding="0"
-                    HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,128,33,0"/>
+                    HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,128,33,0" Foreground="White"/>
 
         <!--Initial Message-->
         <Border Background="#5B5B5B" Height="300" Width="550" Margin="0,120,0,0" CornerRadius="10" 
@@ -40,7 +40,7 @@
         <!--#endregion-->
 
         <!--#region InventoryTable -->
-        <Grid Visibility="Hidden" x:Name="InventoryTableGrid">
+        <Grid  x:Name="InventoryTableGrid" Visibility="hidden">
             <!--#region Sort and Recharge-->
             <StackPanel Orientation="Horizontal" Margin="0,200,35,0" HorizontalAlignment="Right">
                 <Button Background="{x:Null}" Width="85" Height="40" VerticalAlignment="Top" Cursor="Hand" Padding="0" 
@@ -73,10 +73,10 @@
             <Border Background="#5B5B5B" Height="45" Width="719" Margin="0,175,0,360" CornerRadius="5,5,0,0" 
                 Opacity="0.4"/>
             <StackPanel Orientation="Horizontal" Height="45" Width="719" Margin="0,175,0,360">
-                <Grid Width="90">
+                <Grid Width="100">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <fa5:ImageAwesome Icon="Solid_Heart" Height="21" Width="21" Foreground="#FFF" VerticalAlignment="Center" 
-                                          Margin="0,0,10,0"/>
+                        <fa5:ImageAwesome Icon="Solid_Edit" Height="21" Width="21" Foreground="#FFF" VerticalAlignment="Center" 
+                                          Margin="10,0,8,0"/>
                         <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" VerticalAlignment="Center">
                             Entrada
                         </TextBlock>
@@ -85,7 +85,7 @@
 
                 <Grid Width="150">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <fa5:ImageAwesome Icon="Regular_Calendar" Height="21" Width="21" Foreground="#FFF" VerticalAlignment="Center" 
+                        <fa5:ImageAwesome Icon="Solid_PizzaSlice" Height="21" Width="21" Foreground="#FFF" VerticalAlignment="Center" 
                                           Margin="0,0,10,0"/>
                         <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" VerticalAlignment="Center">
                             Nombre
@@ -95,7 +95,7 @@
 
                 <Grid Width="150">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <fa5:ImageAwesome Icon="Solid_Question" Height="21" Width="21" Foreground="#FFF" VerticalAlignment="Center" 
+                        <fa5:ImageAwesome Icon="Solid_CalendarCheck" Height="21" Width="21" Foreground="#FFF" VerticalAlignment="Center" 
                                           Margin="0,0,10,0"/>
                         <StackPanel>
                             <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" VerticalAlignment="Center" HorizontalAlignment="Center">
@@ -110,7 +110,7 @@
 
                 <Grid Width="180">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <fa5:ImageAwesome Icon="Solid_Question" Height="21" Width="21" Foreground="#FFF" VerticalAlignment="Center" 
+                        <fa5:ImageAwesome Icon="Solid_ChartLine" Height="21" Width="21" Foreground="#FFF" VerticalAlignment="Center" 
                                           Margin="0,0,10,0"/>
                         <StackPanel>
                             <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" VerticalAlignment="Center" HorizontalAlignment="Center">
@@ -131,7 +131,7 @@
 
                 <Grid Width="120">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <fa5:ImageAwesome Icon="Solid_Question" Height="21" Width="21" Foreground="#FFF" VerticalAlignment="Center" 
+                        <fa5:ImageAwesome Icon="Solid_CalendarDay" Height="21" Width="21" Foreground="#FFF" VerticalAlignment="Center" 
                                           Margin="0,0,10,0"/>
                         <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" VerticalAlignment="Center">
                             Fecha
@@ -244,7 +244,7 @@
 
             <Button Background="#7FFF0000" Style="{StaticResource MaterialDesignRaisedDarkButton}"                    
                     Content="Reiniciar Filtro" BorderBrush="#7F000000" Width="100" Padding="0"
-                    HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,-87,0"/>
+                    HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,-87,0" Foreground="White"/>
 
             <!--#region Filter -->
             <Border Background="Transparent" Width="776" Height="720" Margin="0,-50,-120,0" VerticalAlignment="Top"
@@ -329,12 +329,12 @@
 
 
         <!--#region Dialogue Product-->
-        <Border Background="#000" Opacity="0.9"  x:Name="ThirdLayerInformationBorder"/>
+        <Border Background="#000" Opacity="0.9" Visibility="Hidden" x:Name="ThirdLayerInformationBorder"/>
         <Border Background="#FFF" CornerRadius="10" HorizontalAlignment="Center" VerticalAlignment="Center"
                 Width="500" Height="600" Margin="0,-35,0,0" Opacity="1"
-                Name="QuarterLayerInformationBorder"/>
+                Name="QuarterLayerInformationBorder" Visibility="hidden" />
         <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Width="500" Height="500" Margin="0,-35,0,0" 
-              Name="OrderInformationGrid" >
+              Name="OrderInformationGrid" Visibility="hidden">
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,-45,5,0" Background="Transparent"
                         Cursor="Hand" Width="51" Height="20" VerticalAlignment="Top"
@@ -353,64 +353,135 @@
             <StackPanel Orientation="Vertical" Margin="0,20,0,0" Background="Transparent" HorizontalAlignment="Center"
                         Width="430">
                 <!--#region Product Information-->
-                
-                <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left">
-                    Nombre del producto
+                <StackPanel Orientation="Horizontal"  Background="Transparent" HorizontalAlignment="Stretch">
+                    <TextBlock FontFamily="Tw Cen MT" FontSize="23" Margin="0,0,34,8" Foreground="#000" HorizontalAlignment="Left">
+                        Nombre del producto
+                    </TextBlock>
+
+                    <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left">
+                        Código
+                    </TextBlock>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"  Background="Transparent" HorizontalAlignment="Stretch">
+                    <TextBox
+                        Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                        VerticalAlignment="Top"
+                        AcceptsReturn="True"
+                        TextWrapping="Wrap"
+                        materialDesign:HintAssist.Hint="Harina"
+                        materialDesign:HintAssist.HelperText="Escriba el nombre del producto"
+                        materialDesign:HintAssist.HelperTextFontSize="11"
+                        materialDesign:TextFieldAssist.HasClearButton="True"
+                        BorderBrush="#BC766F6F"
+                        Width="200"
+                        Margin="4,0,26,28" Background="#00000000"/>
+                    <TextBox
+                        Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                        VerticalAlignment="Top"
+                        AcceptsReturn="True"
+                        TextWrapping="Wrap"
+                        materialDesign:HintAssist.Hint="HA28654785s"
+                        materialDesign:HintAssist.HelperText="Escriba el código del producto"
+                        materialDesign:HintAssist.HelperTextFontSize="11"
+                        materialDesign:TextFieldAssist.HasClearButton="True"
+                        BorderBrush="#BC766F6F" 
+                        Width="200"
+                        Margin="0,0,0,28" Background="#00000000"/>
+                </StackPanel>
+                <TextBlock FontFamily="Tw Cen MT" FontSize="23" Margin="0,0,0,8" Foreground="#000" HorizontalAlignment="Left">
+                    Descripción
                 </TextBlock>
                 <TextBox
                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
                     VerticalAlignment="Top"
                     AcceptsReturn="True"
                     TextWrapping="Wrap"
-                    VerticalScrollBarVisibility="Auto"
-                    materialDesign:HintAssist.Hint="This is a text area"
-                    materialDesign:HintAssist.HelperText="Bigger Helper Text"
-                    materialDesign:HintAssist.HelperTextFontSize="13"
-                    materialDesign:TextFieldAssist.UnderlineBrush="Green"
+                    materialDesign:HintAssist.Hint="Escriba la descripción"
+                    materialDesign:HintAssist.HelperText="Max 100 caracteres"
+                    materialDesign:HintAssist.HelperTextFontSize="11"
                     materialDesign:TextFieldAssist.HasClearButton="True"
-                    BorderBrush="#BC4F4F4F" 
-                    Margin="0,0,0,20"/>
-                <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left">
-                    Código
-                </TextBlock>
-                <TextBox>
+                    MaxLength="100"
+                    BorderBrush="#BC766F6F"
+                    Margin="0,0,0,28"
+                    Background="#00000000"/>
+                <StackPanel Orientation="Horizontal"  Background="Transparent" HorizontalAlignment="Stretch">
+                    <TextBlock FontFamily="Tw Cen MT" FontSize="23" Margin="0,0,80,8" Foreground="#000" HorizontalAlignment="Left" >
+                        Precio
+                    </TextBlock>
+                    <TextBlock FontFamily="Tw Cen MT" FontSize="23" Margin="0,0,44,0" Foreground="#000" HorizontalAlignment="Left">
+                        Cantidad
+                    </TextBlock>
+                    <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left">
+                    Foto del producto
+                    </TextBlock>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"  Background="Transparent" HorizontalAlignment="Stretch">
+                    <TextBox
+                        Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                        VerticalAlignment="Top"
+                        AcceptsReturn="True"
+                        TextWrapping="Wrap"
+                        materialDesign:HintAssist.Hint="$ 00.00"
+                        materialDesign:HintAssist.HelperText="Peso mexicano $"
+                        materialDesign:HintAssist.HelperTextFontSize="11"
+                        materialDesign:TextFieldAssist.HasClearButton="True"
+                        materialDesign:TextFieldAssist.PrefixText="$"
+                        BorderBrush="#BC766F6F"
+                        Margin="0,0,18,28"
+                        Width="120"
+                        Background="#00000000"/>
+                    <TextBox
+                        Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                        VerticalAlignment="Top"
+                        AcceptsReturn="True"
+                        TextWrapping="Wrap"
+                        materialDesign:HintAssist.Hint="00.0"
+                        materialDesign:HintAssist.HelperText="Escoja la unidad"
+                        materialDesign:HintAssist.HelperTextFontSize="11"
+                        materialDesign:TextFieldAssist.HasClearButton="True"
+                        materialDesign:TextFieldAssist.SuffixText="U"
+                        BorderBrush="#BC766F6F"
+                        Margin="0,0,0,28"
+                        Width="120"
+                        Background="#00000000"/>
 
-                </TextBox>
-                <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left">
-                    Descripción
-                </TextBlock>
-                <TextBox>
+                </StackPanel>
 
-                </TextBox>
-                <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left" >
-                    Precio
-                </TextBlock>
-                <TextBox>
-
-                </TextBox>
-                <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left">
+                <TextBlock FontFamily="Tw Cen MT" FontSize="23"  Margin="0,0,0,8" Foreground="#000" HorizontalAlignment="Left">
                     Restricciones
                 </TextBlock>
-                <TextBox>
+                <TextBox
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                    VerticalAlignment="Top"
+                    AcceptsReturn="True"
+                    TextWrapping="Wrap"
+                    materialDesign:HintAssist.Hint="Restricciones del producto"
+                    materialDesign:HintAssist.HelperText="Descripción de restricciones"
+                    materialDesign:HintAssist.HelperTextFontSize="11"
+                    materialDesign:TextFieldAssist.HasClearButton="True"
+                    BorderBrush="#BC766F6F"
+                    Margin="0,0,0,28"
+                    Background="#00000000"/>
 
-                </TextBox>
-                <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left">
-                    Foto del producto
-                </TextBlock>
-                <TextBox>
-
-                </TextBox>
-                <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left">
-                    Cantidad
-                </TextBlock>
-                <TextBox>
-
-                </TextBox>
                 <!--#endregion -->
             </StackPanel>
-
+            
             <!--Buttons-->
+            <Button Width="110" Margin="280,200,0,0" materialDesign:ButtonAssist.CornerRadius="8" Height="30"
+                        Background="#FFA3A3D3" BorderBrush="{x:Null}">
+                <StackPanel Orientation="Horizontal">
+                    <fa5:ImageAwesome Icon="Solid_Upload" Height="13" Width="13" Foreground="#FFF" VerticalAlignment="Center" 
+                                      ToolTip="Selecciona un filtro" Margin="0,0,4px,0"/>
+                    <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" HorizontalAlignment="Left">
+                            Cargar
+                    </TextBlock>
+                </StackPanel>
+            </Button>
+
+            
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,-20">
+                
+                <!--Register button-->
                 <Button Width="120" Margin="0,0,40,0" materialDesign:ButtonAssist.CornerRadius="8" Height="40"
                         Background="#2C2C2E" BorderBrush="{x:Null}">
                     <StackPanel Orientation="Horizontal">
@@ -432,7 +503,22 @@
                     </StackPanel>
                 </Button>
             </StackPanel>
+            
         </Grid>
+        <!--Update button-->
+        <Button Width="120" Margin="0,465,160,0" Visibility="hidden" materialDesign:ButtonAssist.CornerRadius="8" Height="40"
+                        Background="#2C2C2E" BorderBrush="{x:Null}">
+            <StackPanel Orientation="Horizontal">
+                <fa5:ImageAwesome Icon="Solid_Check" Height="13" Width="13" Foreground="#FFF" VerticalAlignment="Center" 
+                                      ToolTip="Selecciona un filtro" Margin="0,0,4px,0"/>
+                <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" HorizontalAlignment="Left">
+                            Update
+                </TextBlock>
+            </StackPanel>
+        </Button>
         <!--#endregion-->
+        
+        
+        
     </Grid>
 </Page>

@@ -165,7 +165,6 @@
         <!--#endregion-->
 
         <!--Menu options-->
-        <Frame Width="776" Height="720" Margin="209.7px,0,0,0" BorderBrush="#FFF"
-               Opacity="0.91" Name="NavigationFrame" NavigationUIVisibility="Hidden"/>
+        <Frame Width="776" Height="720" Margin="209.7px,0,0,0" BorderBrush="#FFF" Name="NavigationFrame" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Window>
