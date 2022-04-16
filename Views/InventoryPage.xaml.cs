@@ -65,20 +65,33 @@ namespace ItalianPizza.Views
             }
         }
 
-        public void ShowSpecificOrderInformation(object sender, RoutedEventArgs e)
-        {
-            ThirdLayerInformationBorder.Visibility = Visibility.Visible;
-            QuarterLayerInformationBorder.Visibility = Visibility.Visible;
-            OrderInformationGrid.Visibility = Visibility.Visible;
-        }
-
         public void HideSpecificOrderInformation(object sender, RoutedEventArgs e)
         {
             ThirdLayerInformationBorder.Visibility = Visibility.Hidden;
             QuarterLayerInformationBorder.Visibility = Visibility.Hidden;
             OrderInformationGrid.Visibility = Visibility.Hidden;
         }
+        private void OpenRegistItem(object sender, RoutedEventArgs e)
+        {
+            ThirdLayerInformationBorder.Visibility = Visibility.Visible;
+            QuarterLayerInformationBorder.Visibility = Visibility.Visible;
+            OrderInformationGrid.Visibility = Visibility.Visible;
+        }
 
+        private void ShowDeleteLayout(object sender, MouseButtonEventArgs e)
+        {
+            ThirdLayerDeleteBorder.Visibility = Visibility.Visible;
+            QuarterLayerDeleteBorder.Visibility = Visibility.Visible;
+            DeleteItemGrid.Visibility = Visibility.Visible;
+        }
+
+        private void HideCancelGrid(object sender, RoutedEventArgs e)
+        {
+            ThirdLayerDeleteBorder.Visibility = Visibility.Hidden;
+            QuarterLayerDeleteBorder.Visibility = Visibility.Hidden;
+            DeleteItemGrid.Visibility = Visibility.Hidden;
+        }
         #endregion
+
     }
 }
