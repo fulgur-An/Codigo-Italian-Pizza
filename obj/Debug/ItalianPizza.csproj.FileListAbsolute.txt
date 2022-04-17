@@ -62,3 +62,5 @@ C:\Users\Propietario\Desktop\Codigo-Italian-Pizza\obj\Debug\ItalianPizza.csproj.
 C:\Users\Propietario\Desktop\Codigo-Italian-Pizza\obj\Debug\ItalianPizza.csproj.CopyComplete
 C:\Users\Propietario\Desktop\Codigo-Italian-Pizza\obj\Debug\ItalianPizza.exe
 C:\Users\Propietario\Desktop\Codigo-Italian-Pizza\obj\Debug\ItalianPizza.pdb
+C:\Users\Propietario\Desktop\Codigo-Italian-Pizza\obj\Debug\Views\CheckFoodRecipesPage.g.cs
+C:\Users\Propietario\Desktop\Codigo-Italian-Pizza\obj\Debug\Views\CheckFoodRecipesPage.baml
