@@ -33,7 +33,21 @@
         <!--<TextBlock FontFamily="Tw Cen MT" FontSize="25" Foreground="#FFF" VerticalAlignment="Top" Margin="30,205,0,0">
                     Consulta: Cliente/José Daniel Camarillo Villa
         </TextBlock>-->
+        
+        <!--Initial Message-->
+        <Border Background="Transparent" Height="300" Width="550" Margin="0,120,0,0" CornerRadius="10" 
+                Opacity="0.4" x:Name="InitialMessageBorder">
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock Foreground="#FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                           Margin="0,0,0,0" FontFamily="Trebuchet MS" FontSize="50" Name="SearchResultMessageTextBlock"
+                           TextWrapping="Wrap" TextAlignment="Center">
+                        Realiza una búsqueda
+                </TextBlock>
+            </StackPanel>
+        </Border>
         <!--#endregion-->
+        
+        
     
         <!--#region Food Recipes Table -->
         <Grid Visibility="Hidden" x:Name="FoodRecipeTableGrid">
@@ -72,7 +86,7 @@
                      ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                      ScrollViewer.CanContentScroll="False" Height="400" Cursor="Hand">
                 <ListBoxItem BorderBrush="#CFCFCF" BorderThickness="0,0,0,0" 
-                             Height="auto">
+                             Height="auto" MouseLeftButtonUp="ShowSpecificFoodRecipeInformation">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="150"  />
@@ -430,7 +444,7 @@
                         <!--<materialDesign:Chip Content="José Daniel Camarillo Villa" FontFamily="Tw Cen MT" FontSize="15" Foreground="#000"/>-->
                         <TextBox materialDesign:HintAssist.HelperText="Nombre de la receta de platillo"  
                                   materialDesign:HintAssist.Hint="Ingresa el nombre de la receta del platillo" 
-                                  HorizontalAlignment="Left"
+                                  HorizontalAlignment="Left" materialDesign:TextFieldAssist.HasClearButton="True"
                                   Width="430" Height="35" Padding="6" VerticalContentAlignment="Center"
                                   FontFamily="Tw Cen MT" FontSize="15" BorderBrush="#000" Foreground="#000" 
                                   Background="Transparent" BorderThickness="0.01"
@@ -471,19 +485,19 @@
 
                             <Button Width="25" Margin="0,0,0,0" materialDesign:ButtonAssist.CornerRadius="0" Height="35"
                                     Background="#2C2C2E" BorderBrush="{x:Null}" Visibility="Visible" ToolTip="Incrementar número de porciones"
-                                    Click="IncreaseNumberOfPortions" Padding="0">
+                                    Click="IncreaseNumberOfPortions" Padding="0" Name="AddButton">
                                 <fa5:ImageAwesome Icon="Solid_Plus" Height="10" Width="10" Foreground="#FFF" VerticalAlignment="Center" 
                                                   />
                             </Button>
                             <Button Width="25" Margin="0,0,30,0" materialDesign:ButtonAssist.CornerRadius="0,5,5,0" Height="35"
                                     Background="#2C2C2E" BorderBrush="{x:Null}" Visibility="Visible" ToolTip="Incrementar número de porciones"
-                                    Click="DecreaseNumberOfPortions" Padding="0">
+                                    Click="DecreaseNumberOfPortions" Padding="0" Name="MinusButton">
                                 <fa5:ImageAwesome Icon="Solid_Minus" Height="10" Width="10" Foreground="#FFF" VerticalAlignment="Center" 
                                                   />
                             </Button>
                             <TextBox materialDesign:HintAssist.HelperText="Precio asociado a la receta"  
                                   materialDesign:HintAssist.Hint="Ingresa el precio del platillo" 
-                                  HorizontalAlignment="Left" Margin="0,0,0,0"
+                                  HorizontalAlignment="Left" Margin="0,0,0,0" materialDesign:TextFieldAssist.HasClearButton="True"
                                   Width="200" Height="35" Padding="6" VerticalContentAlignment="Center"
                                   FontFamily="Tw Cen MT" FontSize="15" BorderBrush="#000" Foreground="#000" 
                                   Background="Transparent" BorderThickness="0.01"
@@ -491,7 +505,7 @@
                                   materialDesign:HintAssist.HelperTextFontSize="13"
                                   materialDesign:HintAssist.Background="Transparent" 
                                   materialDesign:HintAssist.Foreground="Transparent"
-                                  />
+                                  Name="FoodRecipePriceTextBox"/>
                         </StackPanel>
                     </Grid>
 
@@ -507,7 +521,7 @@
 
                                 <TextBox materialDesign:HintAssist.HelperText="Descripción de un paso de la Receta de Platillo"  
                                           materialDesign:HintAssist.Hint="Escriba una describición" 
-                                          HorizontalAlignment="Left" Width="430"
+                                          HorizontalAlignment="Left" Width="430" materialDesign:TextFieldAssist.HasClearButton="True"
                                           Height="70" Padding="6" VerticalContentAlignment="Center"
                                           FontFamily="Tw Cen MT" FontSize="15" BorderBrush="#000" Foreground="#000" 
                                           Background="Transparent" BorderThickness="0.01"
@@ -599,7 +613,8 @@
             
             <Grid Background="Transparent" Grid.Column="1" Grid.Row="1" Width="215" HorizontalAlignment="Left" Grid.RowSpan="2"
                   Height="565" VerticalAlignment="top">
-                <StackPanel>
+                <StackPanel x:Name="IngredientesStackPanel">
+                    
                     <Grid>
                         <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left"
                                    Margin="0,0,0,60">
@@ -674,37 +689,38 @@
                     </StackPanel>
                 </StackPanel>
 
-                <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" VerticalAlignment="Center"
-                           Margin="0,15,0,0">
-                        Lista de ingredientes
-                </TextBlock>
+                <Grid x:Name="ListIngredientsGrid" Margin="0,0,0,0" Background="{x:Null}" >
+                    <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" VerticalAlignment="Top"
+                               Margin="0,0,0,0" Name="IngredientHeaderTextBlock">
+                            Lista de ingredientes
+                    </TextBlock>
 
-                <Border Height="200" Width="auto" VerticalAlignment="Bottom" Margin="0,0,0,50" 
-                        BorderBrush="#5B5B5B" BorderThickness="0.7" CornerRadius="5"/>
-                <ListBox Background="Transparent" Height="200" Width="auto" VerticalAlignment="Bottom" Margin="0,0,0,50"
+                    <Border Height="470" Width="auto" VerticalAlignment="Top" Margin="0,25,0,0" 
+                            BorderBrush="#5B5B5B" BorderThickness="0.7" CornerRadius="5" x:Name="SixthLayerBorder"/>
+                    <ListBox Background="Transparent" Height="470" Width="auto" VerticalAlignment="Top" Margin="0,25,0,0"
                          ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                         ScrollViewer.CanContentScroll="False" >
-                    <ListBoxItem>
-                        <Grid>
-                            <StackPanel Orientation="Vertical">
-                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                    <Image Source="../Images/background.jpg" Height="30" Width="30"/>
-                                    <TextBlock FontFamily="Tw Cen MT" FontSize="15" Foreground="#000" HorizontalAlignment="Center"
+                         ScrollViewer.CanContentScroll="False" Name="IngredientListBox">
+                        <ListBoxItem>
+                            <Grid VerticalAlignment="Top">
+                                <StackPanel Orientation="Vertical">
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                                        <Image Source="../Images/background.jpg" Height="30" Width="30"/>
+                                        <TextBlock FontFamily="Tw Cen MT" FontSize="15" Foreground="#000" HorizontalAlignment="Center"
                                                VerticalAlignment="Center" Margin="10,0,0,0"
                                                Background="Transparent" Width="65" TextWrapping="Wrap">
                                         Jitomates
-                                    </TextBlock>
-                                    <TextBlock FontFamily="Tw Cen MT" FontSize="15" Foreground="#000" HorizontalAlignment="Center"
+                                        </TextBlock>
+                                        <TextBlock FontFamily="Tw Cen MT" FontSize="15" Foreground="#000" HorizontalAlignment="Center"
                                                VerticalAlignment="Center" Margin="10,0,0,0" Background="Transparent"
                                                Width="65" TextWrapping="Wrap">
                                         4 piezas
-                                    </TextBlock>
+                                        </TextBlock>
+                                    </StackPanel>
                                 </StackPanel>
-                                
-                            </StackPanel>
-                        </Grid>
-                    </ListBoxItem>
-                </ListBox>
+                            </Grid>
+                        </ListBoxItem>
+                    </ListBox>
+                </Grid>
                     
                 <!--#region Buttons Accept, Update, Save and Cancel-->
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
@@ -712,33 +728,32 @@
                             Background="#2C2C2E" BorderBrush="{x:Null}" Visibility="Visible" ToolTip="Aceptar registro"
                             HorizontalAlignment="Left" Name="AcceptFoodRecipeRegistrationButtton">
                         <fa5:ImageAwesome Icon="Solid_Check" Height="13" Width="13" Foreground="#FFF" VerticalAlignment="Center" 
-                                          ToolTip="Aceptar" Margin="0,0,4px,0"/>
+                                          ToolTip="Aceptar" Margin="0,0,0,0"/>
                     </Button>
 
-                    <Button Width="120" Margin="0,0,40,0" materialDesign:ButtonAssist.CornerRadius="8" Height="40"
-                            Background="#2C2C2E" BorderBrush="{x:Null}" Visibility="Collapsed" ToolTip="Actualizar pedido"
-                            Name="UpdateFoodRecipeButton">
+                    <Button Width="50" Margin="0,0,0,0" materialDesign:ButtonAssist.CornerRadius="8" Height="40"
+                            Background="#2C2C2E" BorderBrush="{x:Null}" Visibility="Collapsed" ToolTip="Actualizar registro"
+                            Name="UpdateFoodRecipeButton" Click="ShowFoodRecipeUpdateDialog">
                         <StackPanel Orientation="Horizontal">
                             <fa5:ImageAwesome Icon="Solid_Pen" Height="13" Width="13" Foreground="#FFF" VerticalAlignment="Center" 
-                                          ToolTip="Actualizar" Margin="0,0,4px,0"/>
+                                          ToolTip="Actualizar" Margin="0,0,0,0"/>
                         </StackPanel>
                     </Button>
 
-                    <Button Width="120" Margin="0,0,40,0" materialDesign:ButtonAssist.CornerRadius="8" Height="40"
-                            Background="#2C2C2E" BorderBrush="{x:Null}" Visibility="Collapsed" ToolTip="Actualizar pedido"
-                            Name="SaveFoodRecipeButton">
+                    <Button Width="50" Margin="0,0,0,0" materialDesign:ButtonAssist.CornerRadius="8" Height="40"
+                            Background="#2C2C2E" BorderBrush="{x:Null}" Visibility="Collapsed" ToolTip="Guardar pedido"
+                            Name="SaveFoodRecipeButton" HorizontalAlignment="Right">
                         <StackPanel Orientation="Horizontal">
                             <fa5:ImageAwesome Icon="Solid_Save" Height="13" Width="13" Foreground="#FFF" VerticalAlignment="Center" 
-                                          ToolTip="Guardar actualización" Margin="0,0,4px,0"/>
+                                          ToolTip="Guardar actualización" Margin="0,0,0,0"/>
                         </StackPanel>
                     </Button>
 
                     <Button Width="50" materialDesign:ButtonAssist.CornerRadius="8" Background="#2C2C2E" BorderBrush="{x:Null}"
-                            Height="40" Name="CancelOrderButton" Visibility="Collapsed" Margin="25,0,0,0" ToolTip="Cancelar registro"
-                            Padding="0" HorizontalAlignment="Right" >
+                            Height="40" Name="DeleteFoodRecipeButton" Visibility="Visible" Margin="20,0,0,0" ToolTip="Eliminar registro"
+                            Padding="0" HorizontalAlignment="Right" Click="ShowDeleteConfirmationDialog">
                         <materialDesign:PackIcon Kind="Trash" Width="25" Height="25" Foreground="#FFF" HorizontalAlignment="Center"
-                                                 VerticalAlignment="Center"
-                                                 Name="DeleteFoodRecipeButton"/>
+                                                 VerticalAlignment="Center"/>
                         
                     </Button>
                 </StackPanel>

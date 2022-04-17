@@ -130,7 +130,7 @@ namespace ItalianPizza.Views
 
         public void HideSpecificOrderInformation(object sender, RoutedEventArgs e)
         {
-            bool isRegister = OrderHeaderTextBlock.Text.Equals("Registro de Pedido") ? true : false;
+            bool isRegister = OrderHeaderTextBlock.Text.Equals("Registro de Pedido");
 
             if ((isRegister && !InvalidFieldsGrid.IsVisible) || (SaveOrderButton.IsVisible && !FifthLayerBorder.IsVisible) || (DeleteConfirmationGrid.IsVisible && !FifthLayerBorder.IsVisible))
             {
