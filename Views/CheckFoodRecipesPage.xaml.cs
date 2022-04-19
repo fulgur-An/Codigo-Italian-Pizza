@@ -32,7 +32,7 @@ namespace ItalianPizza.Views
             InitializeComponent();
             this.usernameLoggedIn = usernameLoggedIn;
         }
-
+                                                        
         #region GUI Methods
 
         public void ShowOrderDialogs(bool isEnabled)
@@ -74,6 +74,10 @@ namespace ItalianPizza.Views
             AddStepButton.Visibility = Visibility.Collapsed;
             DeleteStepButton.Visibility = Visibility.Collapsed;
             IngredientesStackPanel.Visibility = Visibility.Collapsed;
+            FoodRecipeDescriptionStackPanel.Visibility = Visibility.Collapsed;
+            FoodRecipeStepsBorder.Height = 310;
+            FoodRecipeStepsListBox.Height = 310;
+
             HintAssist.SetHelperText(FoodRecipeNameTextBox, string.Empty);
             HintAssist.SetHelperText(FoodRecipePortionsTextBox, string.Empty);
             HintAssist.SetHelperText(FoodRecipeDescriptionTextBox, string.Empty);
@@ -106,8 +110,11 @@ namespace ItalianPizza.Views
             DeleteStepButton.Visibility = Visibility.Visible;     
             IngredientesStackPanel.Visibility = Visibility.Visible;
             FoodRecipePortionsTextBox.Text = "1";
+            FoodRecipeDescriptionStackPanel.Visibility = Visibility.Visible;
+            FoodRecipeStepsBorder.Height = 190;
+            FoodRecipeStepsListBox.Height = 190;
             HintAssist.SetHelperText(FoodRecipePortionsTextBox, "Número de porciones");
-            AccommodateListOfIngredients();         
+            AccommodateListOfIngredients();
         }
 
         public void IncreaseNumberOfPortions(object sender, RoutedEventArgs e)
@@ -153,6 +160,9 @@ namespace ItalianPizza.Views
             AddButton.Visibility = Visibility.Visible;
             MinusButton.Visibility = Visibility.Visible;
             IngredientesStackPanel.Visibility = Visibility.Visible;
+            FoodRecipeDescriptionStackPanel.Visibility = Visibility.Visible;
+            FoodRecipeStepsBorder.Height = 190;
+            FoodRecipeStepsListBox.Height = 190;
             AccommodateListOfIngredients();
         }
 

@@ -30,10 +30,7 @@
         <TextBlock FontFamily="Tw Cen MT" FontSize="25" Foreground="#FFF" VerticalAlignment="Top" Margin="30,205,0,0">
                     Consulta: Filtro/Búsqueda
         </TextBlock>
-        <!--<TextBlock FontFamily="Tw Cen MT" FontSize="25" Foreground="#FFF" VerticalAlignment="Top" Margin="30,205,0,0">
-                    Consulta: Cliente/José Daniel Camarillo Villa
-        </TextBlock>-->
-        
+
         <!--Initial Message-->
         <Border Background="Transparent" Height="300" Width="550" Margin="0,120,0,0" CornerRadius="10" 
                 Opacity="0.4" x:Name="InitialMessageBorder">
@@ -41,7 +38,8 @@
                 <TextBlock Foreground="#FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center" 
                            Margin="0,0,0,0" FontFamily="Trebuchet MS" FontSize="50" Name="SearchResultMessageTextBlock"
                            TextWrapping="Wrap" TextAlignment="Center">
-                        Realiza una búsqueda
+                        Sin resultados de
+                        búsqueda
                 </TextBlock>
             </StackPanel>
         </Border>
@@ -509,7 +507,7 @@
                         </StackPanel>
                     </Grid>
 
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal" Name="FoodRecipeDescriptionStackPanel" Visibility="Collapsed">
                         <StackPanel Orientation="Vertical">
                             <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left"
                                        Margin="0,25,0,0">
@@ -570,11 +568,11 @@
                     </TextBlock>
 
                     <Grid>
-                        <Border Height="190" Background="Transparent" BorderBrush="#5B5B5B" BorderThickness="0.7"
-                                CornerRadius="5"/>
+                        <Border Height="310" Background="Transparent" BorderBrush="#5B5B5B" BorderThickness="0.7"
+                                CornerRadius="5" x:Name="FoodRecipeStepsBorder"/>
                         <ListBox ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                                 ScrollViewer.CanContentScroll="False" Height="190" Background="Transparent"
-                                 >
+                                 ScrollViewer.CanContentScroll="False" Height="310" Background="Transparent"
+                                 Name="FoodRecipeStepsListBox">
                             <ListBoxItem>
                                 <StackPanel>
                                     <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#000" HorizontalAlignment="Left"
