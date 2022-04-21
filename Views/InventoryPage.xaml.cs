@@ -35,8 +35,35 @@ namespace ItalianPizza.Views
             if (e.Key == Key.Return)
             {
                 InitialMessageBorder.Visibility = Visibility.Hidden;
+
+                ValidateInventoryTableBodyBorder.Visibility = Visibility.Hidden;
+                ValidateInventoryTableBodyListBox.Visibility = Visibility.Hidden;
+                ValidateInventoryTableHeaderBorder.Visibility = Visibility.Hidden;
+                ValidateInventoryTableHeaderStackPanel.Visibility = Visibility.Hidden;
+
                 InventoryTableGrid.Visibility = Visibility.Visible;
+                InventoryTableHeaderBorder.Visibility = Visibility.Visible;
+                InventoryTableHeaderStackPanel.Visibility = Visibility.Visible;
+                InventoryTableBodyBorder.Visibility = Visibility.Visible;
+                InventoryTableBodyListBox.Visibility = Visibility.Visible;
             }
+        }
+
+        public void ShowValidateLayout(object sender, RoutedEventArgs e)
+        {
+            
+            InitialMessageBorder.Visibility = Visibility.Hidden;
+
+            ValidateInventoryTableBodyBorder.Visibility = Visibility.Visible;
+            ValidateInventoryTableBodyListBox.Visibility = Visibility.Visible;
+            ValidateInventoryTableHeaderBorder.Visibility = Visibility.Visible;
+            ValidateInventoryTableHeaderStackPanel.Visibility = Visibility.Visible;
+
+            InventoryTableGrid.Visibility = Visibility.Visible;
+            InventoryTableHeaderBorder.Visibility = Visibility.Hidden;
+            InventoryTableHeaderStackPanel.Visibility = Visibility.Hidden;
+            InventoryTableBodyBorder.Visibility = Visibility.Hidden;
+            InventoryTableBodyListBox.Visibility = Visibility.Hidden;
         }
 
         public void ShowFilters(object sender, RoutedEventArgs e)

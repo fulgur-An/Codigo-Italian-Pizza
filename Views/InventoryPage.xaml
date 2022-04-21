@@ -20,10 +20,13 @@
         <TextBlock FontFamily="Tw Cen MT" FontSize="25" Foreground="#FFF" VerticalAlignment="Top" Margin="30,205,0,0">
                     Consulta: Filtro/Busqueda
         </TextBlock>
-        <Button Background="#7FFF0000" Style="{StaticResource MaterialDesignRaisedDarkButton}"                    
-                    Content="Validar" BorderBrush="#7F000000" Width="100" Padding="0"
-                    HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,104,33,0" Foreground="White"/>
-        
+        <StackPanel Orientation="Horizontal" Background="Transparent" Width="120" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,110,25,0" MouseUp="ShowValidateLayout">
+            <materialDesign:PackIcon Kind="TextBoxCheckOutline" Width="30" Height="30" Foreground="White" Margin="0,0,8,0"/>
+            <TextBlock FontFamily="Tw Cen MT" FontSize="25" Foreground="#FFF">
+                Validar
+            </TextBlock>
+        </StackPanel>
+
         <Button Background="#7FFF0000" Style="{StaticResource MaterialDesignRaisedDarkButton}"                    
                     Content="Registrar" BorderBrush="#7F000000" Width="100" Padding="0"
                     HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,148,33,0" Foreground="White" Click="OpenRegistItem"/>
@@ -72,32 +75,39 @@
             <!--#endregion-->
 
             <!--#region Table headers #2C2C2E-->
-            <Border Background="#5B5B5B" Height="45" Width="719" Margin="0,175,0,360" CornerRadius="5,5,0,0" 
+            <Border Name="InventoryTableHeaderBorder" Background="#5B5B5B" Height="45" Width="719" Margin="0,175,0,360" CornerRadius="5,5,0,0" 
                 Opacity="0.4"/>
-            <StackPanel Orientation="Horizontal" Height="45" Width="719" Margin="0,175,0,360">
+            <StackPanel Name="InventoryTableHeaderStackPanel" Orientation="Horizontal" Height="45" Width="769" Margin="0,175,0,360">
                 <Grid Width="100">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <fa5:ImageAwesome Icon="Solid_Edit" Height="21" Width="21" Foreground="#FFF" VerticalAlignment="Center" 
-                                          Margin="10,0,8,0"/>
-                        <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" VerticalAlignment="Center">
-                            Entrada
-                        </TextBlock>
+                        <fa5:ImageAwesome Icon="Solid_SortNumericDown" Height="21" Width="21" Foreground="#FFF" VerticalAlignment="Center" 
+                                          Margin="0,0,0,0"/>
                     </StackPanel>
                 </Grid>
 
-                <Grid Width="150">
+                <Grid Width="150" Margin="-30,0,0,0">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                         <fa5:ImageAwesome Icon="Solid_PizzaSlice" Height="21" Width="21" Foreground="#FFF" VerticalAlignment="Center" 
-                                          Margin="0,0,10,0"/>
+                                          Margin="0,0,8,0"/>
                         <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" VerticalAlignment="Center">
                             Nombre
                         </TextBlock>
                     </StackPanel>
                 </Grid>
 
-                <Grid Width="150">
+                <Grid Width="100" Margin="0,0,0,0">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <fa5:ImageAwesome Icon="Solid_CalendarCheck" Height="21" Width="21" Foreground="#FFF" VerticalAlignment="Center" 
+                        <fa5:ImageAwesome Icon="Solid_Qrcode" Height="21" Width="21" Foreground="#FFF" VerticalAlignment="Center" 
+                                          Margin="0,0,8,0"/>
+                        <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" VerticalAlignment="Center">
+                            codigo
+                        </TextBlock>
+                    </StackPanel>
+                </Grid>
+
+                <Grid Width="100" Margin="0,0,0,0">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <fa5:ImageAwesome Icon="Solid_Book" Height="21" Width="21" Foreground="#FFF" VerticalAlignment="Center" 
                                           Margin="0,0,10,0"/>
                         <StackPanel>
                             <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" VerticalAlignment="Center" HorizontalAlignment="Center">
@@ -110,7 +120,23 @@
                     </StackPanel>
                 </Grid>
 
-                <Grid Width="150">
+                <Grid Width="100" Margin="10,0,0,0">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <fa5:ImageAwesome Icon="Solid_Box" Height="21" Width="21" Foreground="#FFF" VerticalAlignment="Center" 
+                                          Margin="0,0,10,0"/>
+                        <StackPanel>
+                            <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            Cantidad
+                            </TextBlock>
+                            <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            actual
+                            </TextBlock>
+                        </StackPanel>
+                        
+                    </StackPanel>
+                </Grid>
+
+                <Grid Width="150" Margin="10,0,0,0">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                         <fa5:ImageAwesome Icon="Solid_ChartLine" Height="21" Width="21" Foreground="#FFF" VerticalAlignment="Center" 
                                           Margin="0,0,10,0"/>
@@ -130,77 +156,246 @@
 
                     </StackPanel>
                 </Grid>
-
-                <Grid Width="120">
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <fa5:ImageAwesome Icon="Solid_CalendarDay" Height="21" Width="21" Foreground="#FFF" VerticalAlignment="Center" 
-                                          Margin="0,0,10,0"/>
-                        <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" VerticalAlignment="Center">
-                            Fecha
-                        </TextBlock>
-                    </StackPanel>
-                </Grid>
             </StackPanel>
             <!--#endregion-->
 
             <!--#region Table body-->
-            <Border Background="#5B5B5B" Height="350" Width="719" Margin="0,110,0,-100" CornerRadius="0,0,5,5" 
-                Opacity="0"/>
-            <ListBox Height="350" Width="719" Margin="0,110,0,-100" HorizontalAlignment="Center">
+            <Border Name="InventoryTableBodyBorder" Background="#5B5B5B" Height="350" Width="719" Margin="0,110,0,-100" CornerRadius="0,0,5,5" 
+                Opacity="0" />
+            <ListBox Name="InventoryTableBodyListBox" Height="350" Width="719" Margin="0,110,0,-100" HorizontalAlignment="Center" >
                 <ListBoxItem BorderBrush="#CFCFCF" BorderThickness="0,0,0,1">
                     <StackPanel Orientation="Horizontal" Height="35" Width="709" Cursor="Hand" Background="Transparent">
+                        <Grid Width="30"  Margin="4,0,14,0">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <TextBlock FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" TextWrapping="Wrap">
+                                1
+                                </TextBlock>
+                            </StackPanel>
+                        </Grid>
                         
-                        <TextBox
-                            VerticalAlignment="Top"
-                            AcceptsReturn="True"
-                            TextWrapping="Wrap"
-                            materialDesign:HintAssist.Hint="       0" BorderBrush="Transparent" Height="38" Width="83" Margin="10,5,30,0" Foreground="White" FontSize="18" FontFamily="Tw Cen MT" Background="#00000000" TextAlignment="Center" MaxLines="1"/>
-                        
-                        <Grid Width="170" >
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                        <Grid Width="150" >
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" TextWrapping="Wrap">
                                 Harina
                                 </TextBlock>
                             </StackPanel>
                         </Grid>
 
-                        <Grid Width="130">
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-                                <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" TextWrapping="Wrap">
-                                14/04/22
+                        <Grid Width="80" Margin="18,0,0,0">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <TextBlock FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" TextWrapping="Wrap">
+                                86548
                                 </TextBlock>
                             </StackPanel>
                         </Grid>
 
-                        <Grid Width="80">
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-                                <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" TextWrapping="Wrap">
-                                100
+                        <Grid Width="40" Margin="28,0,0,0">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <TextBlock FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" TextWrapping="Wrap">
+                                100 U
                                 </TextBlock>
                             </StackPanel>
                         </Grid>
 
-                        <Grid Width="75">
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-                                <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" TextWrapping="Wrap">
-                                100
+                        <Grid Width="40" Margin="78,0,0,0">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <TextBlock FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" TextWrapping="Wrap">
+                                100 U
                                 </TextBlock>
                             </StackPanel>
                         </Grid>
 
-                        <Grid Width="90">
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-                                <TextBlock FontFamily="Tw Cen MT" FontSize="16" Foreground="#FFF" TextWrapping="Wrap">
-                                14/04/22
+                        <Grid Width="40" Margin="58,0,0,0">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <TextBlock FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" TextWrapping="Wrap">
+                                23
                                 </TextBlock>
                             </StackPanel>
                         </Grid>
-                        <Grid Width="100">
-                            <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top">
-                                <materialDesign:PackIcon Kind="DeleteOutline" Width="40" Height="40" Foreground="#B2AC0329" MouseUp="ShowDeleteLayout"/>
+
+                        <Grid Width="40" Margin="38,0,0,0">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <TextBlock FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" TextWrapping="Wrap">
+                                2300
+                                </TextBlock>
                             </StackPanel>
+                        </Grid>
+
+                        <Grid Width="100" Margin="-20,0,0,0">
+                            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Top">
+                                <fa5:ImageAwesome Icon="Solid_TrashAlt" Width="30" Height="30" Foreground="#B2AC0329" MouseUp="ShowDeleteLayout"/>
+                            </StackPanel>
+                        </Grid>
+                    </StackPanel>
+                </ListBoxItem>
+
+                <!--<ListBox.ItemTemplate>
+                <DataTemplate>
+                    <materialDesign:TransitioningContent OpeningEffectsOffset="{materialDesign:IndexedItemOffsetMultiplier 0:0:0.05}">
+                        <materialDesign:TransitioningContent.OpeningEffects>
+                            <materialDesign:TransitionEffect Kind="SlideInFromRight"/>
+                        </materialDesign:TransitioningContent.OpeningEffects>                        
+                       <Stackpanel>
                             
+                        </Stackpanel>           
+                    </materialDesign:TransitioningContent>
+                </DataTemplate>
+            </ListBox.ItemTemplate>-->
+            </ListBox>
+            <!--#endregion-->
+            
+            <!--#region Validate inventory table-->
+            <Border Name="ValidateInventoryTableHeaderBorder" Background="#5B5B5B" Height="45" Width="719" Margin="0,175,0,360" CornerRadius="5,5,0,0" 
+                Opacity="0.4" Visibility="Hidden"/>
+            <StackPanel Name="ValidateInventoryTableHeaderStackPanel" Orientation="Horizontal" Height="45" Width="719" Margin="0,175,0,360" Visibility="Hidden">
+
+                <Grid Width="40">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <fa5:ImageAwesome Icon="Solid_SortNumericDown" Height="21" Width="21" Foreground="#FFF" VerticalAlignment="Center" 
+                                          Margin="0,0,0,0"/>
+                    </StackPanel>
+                </Grid>
+
+                <Grid Width="40">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <fa5:ImageAwesome Icon="Solid_Edit" Height="21" Width="21" Foreground="#FFF" VerticalAlignment="Center" 
+                                          Margin="10,0,8,0"/>
+                    </StackPanel>
+                </Grid>
+
+                <Grid Width="150" Margin="-20,0,0,0">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <fa5:ImageAwesome Icon="Solid_PizzaSlice" Height="21" Width="21" Foreground="#FFF" VerticalAlignment="Center" 
+                                          Margin="0,0,8,0"/>
+                        <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" VerticalAlignment="Center">
+                            Nombre
+                        </TextBlock>
+                    </StackPanel>
+                </Grid>
+
+                <Grid Width="100" Margin="0,0,0,0">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <fa5:ImageAwesome Icon="Solid_Qrcode" Height="21" Width="21" Foreground="#FFF" VerticalAlignment="Center" 
+                                          Margin="0,0,8,0"/>
+                        <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" VerticalAlignment="Center">
+                            codigo
+                        </TextBlock>
+                    </StackPanel>
+                </Grid>
+
+                <Grid Width="100" Margin="0,0,0,0">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <fa5:ImageAwesome Icon="Solid_Book" Height="21" Width="21" Foreground="#FFF" VerticalAlignment="Center" 
+                                          Margin="0,0,10,0"/>
+                        <StackPanel>
+                            <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            Ultimo
+                            </TextBlock>
+                            <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            inventario
+                            </TextBlock>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+
+                <Grid Width="100" Margin="10,0,0,0">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <fa5:ImageAwesome Icon="Solid_Box" Height="21" Width="21" Foreground="#FFF" VerticalAlignment="Center" 
+                                          Margin="0,0,10,0"/>
+                        <StackPanel>
+                            <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            Cantidad
+                            </TextBlock>
+                            <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            actual
+                            </TextBlock>
+                        </StackPanel>
+
+                    </StackPanel>
+                </Grid>
+
+                <Grid Width="120" Margin="28,0,0,0">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <fa5:ImageAwesome Icon="Solid_Qrcode" Height="21" Width="21" Foreground="#FFF" VerticalAlignment="Center" 
+                                          Margin="0,0,8,0"/>
+                        <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" VerticalAlignment="Center">
+                            Descripción
+                        </TextBlock>
+                    </StackPanel>
+                </Grid>
+
+            </StackPanel>
+            
+            <!--#endregion-->
+
+            <!--#region validate Table body-->
+            <Border Name="ValidateInventoryTableBodyBorder" Background="#5B5B5B" Height="350" Width="719" Margin="0,110,0,-100" CornerRadius="0,0,5,5" 
+                Opacity="0" Visibility="Hidden"/>
+            <ListBox Name="ValidateInventoryTableBodyListBox" Height="350" Width="719" Margin="0,110,0,-100" HorizontalAlignment="Center" Visibility="Hidden">
+                <ListBoxItem BorderBrush="#CFCFCF" BorderThickness="0,0,0,1">
+                    <StackPanel Orientation="Horizontal" Height="35" Width="709" Cursor="Hand" Background="Transparent">
+
+                        <Grid Width="20"  Margin="4,0,4,0">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <TextBlock FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" TextWrapping="Wrap">
+                                1
+                                </TextBlock>
+                            </StackPanel>
                         </Grid>
+
+                        <TextBox
+                            VerticalAlignment="Top"
+                            AcceptsReturn="True"
+                            TextWrapping="Wrap"
+                            materialDesign:HintAssist.Hint="0" 
+                            BorderBrush="Transparent" Height="38" Width="43" 
+                            Margin="10,5,4,0" Foreground="White" 
+                            FontSize="18" FontFamily="Tw Cen MT" 
+                            Background="#00000000" 
+                            TextAlignment="Center" MaxLines="1"/>
+
+                        <Grid Width="150" Margin="-20,0,0,0">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" TextWrapping="Wrap">
+                                Harina
+                                </TextBlock>
+                            </StackPanel>
+                        </Grid>
+
+                        <Grid Width="80" Margin="0,0,0,0">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <TextBlock FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" TextWrapping="Wrap">
+                                86548
+                                </TextBlock>
+                            </StackPanel>
+                        </Grid>
+
+                        <Grid Width="40" Margin="28,0,0,0">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <TextBlock FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" TextWrapping="Wrap">
+                                100 U
+                                </TextBlock>
+                            </StackPanel>
+                        </Grid>
+
+                        <Grid Width="40" Margin="78,0,0,0">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <TextBlock FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" TextWrapping="Wrap">
+                                100 U
+                                </TextBlock>
+                            </StackPanel>
+                        </Grid>
+
+                        <TextBox
+                            VerticalAlignment="Top"
+                            AcceptsReturn="True"
+                            TextWrapping="Wrap"
+                            materialDesign:HintAssist.Hint="Diferencias y motivos" 
+                            BorderBrush="Transparent" Height="38" Width="180" 
+                            Margin="40,5,4,0" Foreground="White" 
+                            FontSize="18" FontFamily="Tw Cen MT" 
+                            Background="#00000000" 
+                            TextAlignment="Center" MaxLines="1"/>
                     </StackPanel>
                 </ListBoxItem>
 
