@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Notifications.Wpf;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,6 +22,9 @@ namespace ItalianPizza.Views
     public partial class InventoryPage : Page
     {
         private string usernameLoggedIn;
+
+        private readonly NotificationManager notificationManager = new NotificationManager();
+
         public InventoryPage(string usernameLoggedIn)
         {
             InitializeComponent();
@@ -118,6 +122,19 @@ namespace ItalianPizza.Views
             QuarterLayerDeleteBorder.Visibility = Visibility.Hidden;
             DeleteItemGrid.Visibility = Visibility.Hidden;
         }
+
+        public void ShowConfirmationToast(object sender, RoutedEventArgs e)
+        {
+            notificationManager.Show(
+                new NotificationContent
+                {
+                    Title = "Confirmación",
+                    Message = "Proceso Realizado",
+                    Type = NotificationType.Success,
+                }, areaName: "ConfirmationToast", expirationTime: TimeSpan.FromSeconds(2)
+            );
+        }
+
         #endregion
 
     }

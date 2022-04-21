@@ -5,7 +5,8 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ItalianPizza.Views"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-      xmlns:fa5="http://schemas.fontawesome.com/icons/"  
+      xmlns:fa5="http://schemas.fontawesome.com/icons/"
+      xmlns:notifications="clr-namespace:Notifications.Wpf.Controls;assembly=Notifications.Wpf"
       mc:Ignorable="d" 
       d:DesignHeight="720" d:DesignWidth="776"
       Title="Inventory">
@@ -417,7 +418,7 @@
         <!--#endregion-->
 
         <!--#region Search -->
-        <Grid Margin="0,50,120,0">
+        <Grid Margin="0,50,120,0" >
             <TextBox Background="#2C2C2E" Width="550px" Height="50px" VerticalAlignment="Top"
                      HorizontalAlignment="Center" Style="{StaticResource  MaterialDesignOutlinedTextBox}"
                      TextWrapping="Wrap" materialDesign:HintAssist.Hint="Buscar" Foreground="#FFFFFF"
@@ -766,6 +767,11 @@
             </StackPanel>
             
         </Grid>
+        <!--#endregion-->
+
+        <!--#region Process Confirmation-->
+        <notifications:NotificationArea x:Name="ConfirmationToast" Position="BottomRight" MaxItems="3" 
+                                        notifications:Notification.CloseOnClick="True" Margin="0,0,15,50" />
         <!--#endregion-->
     </Grid>
 </Page>

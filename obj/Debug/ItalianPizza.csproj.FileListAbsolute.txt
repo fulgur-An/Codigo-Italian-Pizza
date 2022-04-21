@@ -66,3 +66,4 @@ C:\Users\antdg\Documents\Codigo-Italian-Pizza\obj\Debug\ItalianPizza.csproj.Core
 C:\Users\antdg\Documents\Codigo-Italian-Pizza\obj\Debug\ItalianPizza.csproj.CopyComplete
 C:\Users\antdg\Documents\Codigo-Italian-Pizza\obj\Debug\ItalianPizza.exe
 C:\Users\antdg\Documents\Codigo-Italian-Pizza\obj\Debug\ItalianPizza.pdb
+C:\Users\antdg\Documents\Codigo-Italian-Pizza\bin\Debug\Notifications.Wpf.dll
