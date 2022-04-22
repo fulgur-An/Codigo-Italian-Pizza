@@ -40,16 +40,12 @@ namespace ItalianPizza.Views
             {
                 InitialMessageBorder.Visibility = Visibility.Hidden;
 
-                ValidateInventoryTableBodyBorder.Visibility = Visibility.Hidden;
-                ValidateInventoryTableBodyListBox.Visibility = Visibility.Hidden;
-                ValidateInventoryTableHeaderBorder.Visibility = Visibility.Hidden;
-                ValidateInventoryTableHeaderStackPanel.Visibility = Visibility.Hidden;
-
                 InventoryTableGrid.Visibility = Visibility.Visible;
-                InventoryTableHeaderBorder.Visibility = Visibility.Visible;
-                InventoryTableHeaderStackPanel.Visibility = Visibility.Visible;
-                InventoryTableBodyBorder.Visibility = Visibility.Visible;
-                InventoryTableBodyListBox.Visibility = Visibility.Visible;
+                RegionSearchGrid.Visibility = Visibility.Visible;
+                MainElementsInventoryGrid.Visibility = Visibility.Visible;
+                ValidateInventoryTableGrid.Visibility = Visibility.Hidden;
+
+
             }
         }
 
@@ -58,16 +54,27 @@ namespace ItalianPizza.Views
             
             InitialMessageBorder.Visibility = Visibility.Hidden;
 
-            ValidateInventoryTableBodyBorder.Visibility = Visibility.Visible;
-            ValidateInventoryTableBodyListBox.Visibility = Visibility.Visible;
-            ValidateInventoryTableHeaderBorder.Visibility = Visibility.Visible;
-            ValidateInventoryTableHeaderStackPanel.Visibility = Visibility.Visible;
+            InventoryTableGrid.Visibility = Visibility.Hidden;
+            RegionSearchGrid.Visibility = Visibility.Hidden;
+            MainElementsInventoryGrid.Visibility = Visibility.Hidden;
+            ValidateInventoryTableGrid.Visibility = Visibility.Visible;
+        }
 
-            InventoryTableGrid.Visibility = Visibility.Visible;
-            InventoryTableHeaderBorder.Visibility = Visibility.Hidden;
-            InventoryTableHeaderStackPanel.Visibility = Visibility.Hidden;
-            InventoryTableBodyBorder.Visibility = Visibility.Hidden;
-            InventoryTableBodyListBox.Visibility = Visibility.Hidden;
+        public void CancelValidationLayout(object sender, RoutedEventArgs e)
+        {
+            HideValidateLayout();
+            ShowWarningToast();
+        }
+
+        public void HideValidateLayout()
+        {
+            InitialMessageBorder.Visibility = Visibility.Visible;
+
+            InventoryTableGrid.Visibility = Visibility.Hidden;
+
+            RegionSearchGrid.Visibility = Visibility.Visible;
+            MainElementsInventoryGrid.Visibility = Visibility.Visible;
+            ValidateInventoryTableGrid.Visibility = Visibility.Hidden;
         }
 
         public void ShowFilters(object sender, RoutedEventArgs e)
@@ -96,7 +103,17 @@ namespace ItalianPizza.Views
             }
         }
 
-        public void HideSpecificOrderInformation(object sender, RoutedEventArgs e)
+        private void ShowSpecificItemInformation()
+        {
+            ThirdLayerInformationBorder.Visibility = Visibility.Visible;
+            QuarterLayerInformationBorder.Visibility = Visibility.Visible;
+            OrderInformationGrid.Visibility = Visibility.Visible;
+            FieldsAreEditableTextBlock.Visibility = Visibility.Hidden;
+            UpdateFieldsStackPanel.Visibility = Visibility.Visible;
+            ChageEnableProperty(true);
+        }
+
+        public void HideSpecificItemInformation(object sender, RoutedEventArgs e)
         {
             ThirdLayerInformationBorder.Visibility = Visibility.Hidden;
             QuarterLayerInformationBorder.Visibility = Visibility.Hidden;
@@ -104,9 +121,13 @@ namespace ItalianPizza.Views
         }
         private void OpenRegistItem(object sender, RoutedEventArgs e)
         {
-            ThirdLayerInformationBorder.Visibility = Visibility.Visible;
-            QuarterLayerInformationBorder.Visibility = Visibility.Visible;
-            OrderInformationGrid.Visibility = Visibility.Visible;
+            ShowSpecificItemInformation();
+            GetOutStackPanel.Visibility = Visibility.Hidden;
+            RegisterItemButton.Visibility = Visibility.Visible;
+            CancelRegisterItemButton.Visibility = Visibility.Visible;
+            UpdateItemDataButton.Visibility = Visibility.Collapsed;
+            UpdateFieldsStackPanel.Visibility = Visibility.Hidden;
+            FieldsAreEditableTextBlock.Visibility = Visibility.Visible;
         }
 
         private void ShowDeleteLayout(object sender, MouseButtonEventArgs e)
@@ -123,7 +144,62 @@ namespace ItalianPizza.Views
             DeleteItemGrid.Visibility = Visibility.Hidden;
         }
 
-        public void ShowConfirmationToast(object sender, RoutedEventArgs e)
+        public void ShowEspecificDataItem(object sender, RoutedEventArgs e)
+        {
+            ShowSpecificItemInformation();
+            GetOutStackPanel.Visibility = Visibility.Visible;
+            RegisterItemButton.Visibility = Visibility.Collapsed;
+            CancelRegisterItemButton.Visibility = Visibility.Hidden;
+            UpdateItemDataButton.Visibility = Visibility.Collapsed;
+            ChageEnableProperty(false);
+        }
+
+
+        public void ShowUpdateFields(object sender, RoutedEventArgs e)
+        {
+            GetOutStackPanel.Visibility = Visibility.Hidden;
+            RegisterItemButton.Visibility = Visibility.Collapsed;
+            CancelRegisterItemButton.Visibility = Visibility.Visible;
+            UpdateItemDataButton.Visibility = Visibility.Visible;
+            UpdateFieldsStackPanel.Visibility = Visibility.Hidden;
+            FieldsAreEditableTextBlock.Visibility = Visibility.Visible;
+            ChageEnableProperty(true);
+        }
+
+        public void ChageEnableProperty(bool enableProperty)
+        {
+            ItemNameField.IsEnabled = enableProperty;
+            ItemCodeField.IsEnabled = enableProperty;
+            ItemDescriptionField.IsEnabled = enableProperty;
+            ItemValueField.IsEnabled = enableProperty;
+            ItemQuantityField.IsEnabled = enableProperty;
+            ItemRestrictionsField.IsEnabled = enableProperty;
+        }
+
+        public void UpdateItem(object sender, RoutedEventArgs e)
+        {
+            HideSpecificItemInformation(sender, e);
+            ShowConfirmationToast();
+        }
+
+        public void RegistItem(object sender, RoutedEventArgs e)
+        {
+            HideSpecificItemInformation(sender, e);
+            ShowConfirmationToast();
+        }
+        public void CancelProdecure(object sender, RoutedEventArgs e)
+        {
+            HideSpecificItemInformation(sender, e);
+            ShowWarningToast();
+        }
+
+        public void PrintValidationInventoryResult(object sender, RoutedEventArgs e)
+        {
+            HideValidateLayout();
+            ShowConfirmationPrintToast();
+        }
+
+        public void ShowConfirmationToast()
         {
             notificationManager.Show(
                 new NotificationContent
@@ -134,8 +210,32 @@ namespace ItalianPizza.Views
                 }, areaName: "ConfirmationToast", expirationTime: TimeSpan.FromSeconds(2)
             );
         }
+        public void ShowConfirmationPrintToast()
+        {
+            notificationManager.Show(
+                new NotificationContent
+                {
+                    Title = "Confirmación",
+                    Message = "Impresión Realizado",
+                    Type = NotificationType.Success,
+                }, areaName: "ConfirmationToast", expirationTime: TimeSpan.FromSeconds(2)
+            );
+        }
+
+        public void ShowWarningToast()
+        {
+            notificationManager.Show(
+                new NotificationContent
+                {
+                    Title = "Warning",
+                    Message = "Proceso cancelado",
+                    Type = NotificationType.Warning,
+                }, areaName: "ConfirmationToast", expirationTime: TimeSpan.FromSeconds(2)
+            );
+        }
 
         #endregion
+
 
     }
 }
