@@ -24,9 +24,6 @@ namespace ItalianPizza.Views
     {
         private string usernameLoggedIn;
 
-        private TimeSpan timeSpan;
-        private DispatcherTimer dispatcherTimer;
-
         public CheckFoodRecipesPage(string usernameLoggedIn)
         {
             InitializeComponent();
@@ -59,6 +56,13 @@ namespace ItalianPizza.Views
             IngredientListBox.Margin = new Thickness(0, 0, 0, 50);
             IngredientListBox.Height = 200;
             IngredientListBox.VerticalAlignment = VerticalAlignment.Bottom;
+
+            HintAssist.SetHelperText(FoodRecipeNameTextBox, "Nombre de la receta de platillo");
+            HintAssist.SetHelperText(FoodRecipePortionsTextBox, "Número de porciones");
+            HintAssist.SetHelperText(FoodRecipeDescriptionTextBox, "Decripción de un paso de la Receta de platillo");
+            HintAssist.SetHelperText(IngredientesComboBox, "Nombre del ingrediente");
+            HintAssist.SetHelperText(IngredientQuantityTextBox, "Cantidad necesaria del ingrediente");
+            HintAssist.SetHelperText(FoodRecipePriceTextBox, "Precio asociado a la receta");
         }
 
         public void ShowSpecificFoodRecipeInformation(object sender, RoutedEventArgs e)
@@ -113,7 +117,7 @@ namespace ItalianPizza.Views
             FoodRecipeDescriptionStackPanel.Visibility = Visibility.Visible;
             FoodRecipeStepsBorder.Height = 190;
             FoodRecipeStepsListBox.Height = 190;
-            HintAssist.SetHelperText(FoodRecipePortionsTextBox, "Número de porciones");
+                       
             AccommodateListOfIngredients();
         }
 
@@ -163,6 +167,7 @@ namespace ItalianPizza.Views
             FoodRecipeDescriptionStackPanel.Visibility = Visibility.Visible;
             FoodRecipeStepsBorder.Height = 190;
             FoodRecipeStepsListBox.Height = 190;
+
             AccommodateListOfIngredients();
         }
 
@@ -201,6 +206,31 @@ namespace ItalianPizza.Views
             }
         }
 
+        public void ShowSelectedFilter(object sender, RoutedEventArgs e)
+        {
+            if (CookFilterRadioButton.IsChecked == true)
+            {
+                SearchTextBox.Text = "";
+                SearchTextBox.IsEnabled = false;
+                HintAssist.SetHint(SearchTextBox, "Filtro seleccionado: Por Preparar");
+                HintAssist.SetHelperText(SearchTextBox, "Campo de búsqueda desactivado. Lista de recetas por preparar");
+            }
+            else if (NameFilterRadioButton.IsChecked == true)
+            {
+                HintAssist.SetHint(SearchTextBox, "Filtro seleccionado: Nombre");
+                HintAssist.SetHelperText(SearchTextBox, "Ingresa el nombre de alguna receta de platillo");
+            }
+            else if (IngredientFilterRadioButton.IsChecked == true)
+            {
+                HintAssist.SetHint(SearchTextBox, "Filtro seleccionado: Ingrediente");
+                HintAssist.SetHelperText(SearchTextBox, "Ingresa algún el nombre de algún ingrediente");
+            } else if (PortionsFilterRadioButton.IsChecked == true)
+            {
+                HintAssist.SetHint(SearchTextBox, "Filtro seleccionado: N° Porciones");
+                HintAssist.SetHelperText(SearchTextBox, "Ingresa el número de porciones del platillo");
+            }
+        }
+
         public void ResetSearchFilters(object sender, RoutedEventArgs e)
         {
             CookFilterRadioButton.IsChecked = false;
@@ -209,6 +239,11 @@ namespace ItalianPizza.Views
             PortionsFilterRadioButton.IsChecked = false;
             SearchTextBox.Text = "";
             FoodRecipeTableGrid.Visibility = Visibility.Hidden;
+            InitialMessageBorder.Visibility = Visibility.Visible;
+            SearchResultMessageTextBlock.Text = "Realiza una búsqueda";
+            HintAssist.SetHint(SearchTextBox, "Buscar");
+            HintAssist.SetHelperText(SearchTextBox, "Selecciona un filtro de búsqueda");
+
         }
 
         public void HideSpecificFoodRecipeInformation(object sender, RoutedEventArgs e)

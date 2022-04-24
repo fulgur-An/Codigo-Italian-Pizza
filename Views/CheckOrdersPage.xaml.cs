@@ -1,4 +1,5 @@
 ﻿using MaterialDesignThemes.Wpf;
+using Notifications.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,13 +25,13 @@ namespace ItalianPizza.Views
     {
         private string usernameLoggedIn;
 
-        private TimeSpan timeSpan;
-        private DispatcherTimer dispatcherTimer;
+        private readonly NotificationManager notificationManager = new NotificationManager();
 
         public CheckOrdersPage(string usernameLoggedIn)
         {
             InitializeComponent();
             this.usernameLoggedIn = usernameLoggedIn;
+                       
         }
 
         #region GUI Methods  
@@ -63,6 +64,45 @@ namespace ItalianPizza.Views
             OrderAddressComboBox.SelectedIndex = -1;
             OrderDateDatePicker.SelectedDate = DateTime.Now;
             OrderDateTimePicker.SelectedTime = DateTime.Now;
+            OrderItemsDataGrid.CanUserAddRows = true;
+            FieldsEnabledMessageTextBlock.Visibility = Visibility.Visible;
+            FieldsEnabledMessageTextBlock.Text = "Formulario de registro";
+
+            HintAssist.SetHelperText(CustomerNameComboBox, "Selecciona el nombre de un cliente");
+            HintAssist.SetHelperText(OrderDateDatePicker, "Fecha actual establecida");
+            HintAssist.SetHelperText(OrderDateTimePicker, "Hora actual establecida");
+            HintAssist.SetHelperText(OrderStatusComboBox, "Estatus 'En proceso' establecido");
+            HintAssist.SetHelperText(OrderAddressComboBox, "Selecciona el tipo de entrega");
+            HintAssist.SetHelperText(OrderTypeComboBox, "Selecciona una dirección del cliente");
+        }
+
+        public void ChangeOrderType(object sender, EventArgs e)
+        {
+            List<int> tableList = new List<int>();
+            List<string> orderTypeList = new List<string>()
+            {
+                "Domicilio", "Local"
+            };
+            for (int i = 1; i < 10; i++)
+            {
+                tableList.Add(i);
+            }
+
+            string orderType = OrderTypeComboBox.Text;
+
+
+            if (string.Equals(orderType, "Local"))
+            {
+                HeaderAddressTextblock.Text = "Mesa";
+                OrderAddressComboBox.ItemsSource = tableList;
+                HintAssist.SetHelperText(OrderAddressComboBox, "Selecciona el número de mesa");
+            }
+            else
+            {
+                HeaderAddressTextblock.Text = "Dirección";
+                OrderAddressComboBox.ItemsSource  = new List<string>() {"Fidencio Ocaña #64 Col. Francisco Ferrer Guardia"};
+                HintAssist.SetHelperText(OrderAddressComboBox, "Selecciona una dirección del cliente");
+            }
         }
 
         public void ShowSpecificOrderInformation(object sender, RoutedEventArgs e)
@@ -74,6 +114,9 @@ namespace ItalianPizza.Views
             UpdateOrderButton.Visibility = Visibility.Visible;
             CancelOrderButton.Visibility = Visibility.Visible;
             GenerateOrderTicketButton.Visibility = Visibility.Visible;
+
+            FieldsEnabledMessageTextBlock.Visibility = Visibility.Visible;
+            FieldsEnabledMessageTextBlock.Text = "Información detallada";
 
             HintAssist.SetHelperText(CustomerNameComboBox, string.Empty);
             HintAssist.SetHelperText(OrderDateDatePicker, string.Empty);
@@ -117,6 +160,25 @@ namespace ItalianPizza.Views
             }
         }
 
+        public void ShowSelectedFilter(object sender, RoutedEventArgs e)
+        {
+            if (CustomerFilterRadioButton.IsChecked == true)
+            {
+                HintAssist.SetHint(SearchTextBox, "Filtro seleccionado: Cliente");
+                HintAssist.SetHelperText(SearchTextBox, "Ingresa el nombre del cliente");
+            }
+            else if (DateFilterRadioButton.IsChecked == true)
+            {
+                HintAssist.SetHint(SearchTextBox, "Filtro seleccionado: Fecha");
+                HintAssist.SetHelperText(SearchTextBox, "Ingresa una fecha en el formato: dd/mm/aaaaa");
+            } 
+            else if (StatusFilterRadioButton.IsChecked == true)
+            {
+                HintAssist.SetHint(SearchTextBox, "Filtro seleccionado: Estatus");
+                HintAssist.SetHelperText(SearchTextBox, "Ingresa algún estatus: En Proceso, Entregado, Cancelado");
+            }
+        }
+
         public void ResetSearchFilters(object sender, RoutedEventArgs e)
         {
             CustomerFilterRadioButton.IsChecked = false;
@@ -126,18 +188,28 @@ namespace ItalianPizza.Views
             InitialMessageBorder.Visibility = Visibility.Visible;
             OrderTableGrid.Visibility = Visibility.Hidden;
             SearchResultMessageTextBlock.Text = "Realiza una búsqueda";
+            HintAssist.SetHint(SearchTextBox, "Buscar");
+            HintAssist.SetHelperText(SearchTextBox, "Selecciona un filtro de búsqueda");
         }
 
         public void HideSpecificOrderInformation(object sender, RoutedEventArgs e)
         {
             bool isRegister = OrderHeaderTextBlock.Text.Equals("Registro de Pedido");
 
-            if ((isRegister && !InvalidFieldsGrid.IsVisible) || (SaveOrderButton.IsVisible && !FifthLayerBorder.IsVisible) || (DeleteConfirmationGrid.IsVisible && !FifthLayerBorder.IsVisible))
+            if ((isRegister && !InvalidFieldsGrid.IsVisible) || 
+                (SaveOrderButton.IsVisible && !FifthLayerBorder.IsVisible) || 
+                (DeleteConfirmationGrid.IsVisible && !FifthLayerBorder.IsVisible))
             {
                 FifthLayerBorder.Visibility = Visibility.Visible;
-                InvalidFieldsGrid.Visibility = Visibility.Visible;
-            } else
+                InvalidFieldsGrid.Visibility = Visibility.Visible;                
+            } 
+            else
             {
+                if (DeleteConfirmationGrid.IsVisible)
+                {
+                    ShowConfirmationToast(sender, e);
+                }
+
                 ThirdLayerInformationBorder.Visibility = Visibility.Hidden;
                 QuarterLayerInformationBorder.Visibility = Visibility.Hidden;
                 OrderInformationGrid.Visibility = Visibility.Hidden;
@@ -159,17 +231,18 @@ namespace ItalianPizza.Views
             CancelOrderButton.Visibility = Visibility.Collapsed;
             SaveOrderButton.Visibility = Visibility.Visible;
             FieldsEnabledMessageTextBlock.Visibility = Visibility.Visible;
-            CustomerNameComboBox.IsEnabled = true;
+            FieldsEnabledMessageTextBlock.Text = "Formulario de actualización";
+            CustomerNameComboBox.IsEnabled = false;
             OrderStatusComboBox.IsEnabled = true;
-            OrderAddressComboBox.IsEnabled = true;
+            OrderAddressComboBox.IsEnabled = false;
             OrderItemsDataGrid.IsEnabled = true;
-            // OrderItemsDataGrid.CanUserAddRows = true;
+            OrderItemsDataGrid.CanUserAddRows = true;
 
-            HintAssist.SetHelperText(CustomerNameComboBox, string.Empty);
+            HintAssist.SetHelperText(CustomerNameComboBox, "Este campo no puedo modificarse");
             HintAssist.SetHelperText(OrderDateDatePicker, "Este campo no puedo modificarse");
             HintAssist.SetHelperText(OrderDateTimePicker, "Este campo no puedo modificarse");
             HintAssist.SetHelperText(OrderStatusComboBox, string.Empty);
-            HintAssist.SetHelperText(OrderAddressComboBox, string.Empty);
+            HintAssist.SetHelperText(OrderAddressComboBox, "Este campo no puedo modificarse");
             HintAssist.SetHelperText(OrderTypeComboBox, "Este campo no puedo modificarse");
         }
 
@@ -179,33 +252,24 @@ namespace ItalianPizza.Views
             DeleteConfirmationGrid.Visibility = Visibility.Visible;
         }
 
-        public void E(object sender, RoutedEventArgs e)
+        public void ShowConfirmationToast(object sender, RoutedEventArgs e)
         {
-            StarTimer(1);
-        }
+            ThirdLayerInformationBorder.Visibility = Visibility.Hidden;
+            QuarterLayerInformationBorder.Visibility = Visibility.Hidden;
+            OrderInformationGrid.Visibility = Visibility.Hidden;
+            BackToOrderRegistration(sender, e);
 
-        public void StarTimer(int seconds)
-        {
-            timeSpan = TimeSpan.FromSeconds(seconds);
-
-            dispatcherTimer = new DispatcherTimer(new TimeSpan(0, 0, 1), DispatcherPriority.Normal, delegate
-            {
-                FifthLayerBorder.Visibility = Visibility.Visible;
-                ConfirmationGrid.Visibility = Visibility.Visible;
-
-                if (timeSpan == TimeSpan.Zero)
+            notificationManager.Show(
+                new NotificationContent
                 {
-                    dispatcherTimer.Stop();
-                    FifthLayerBorder.Visibility = Visibility.Hidden;
-                    ConfirmationGrid.Visibility = Visibility.Hidden;
-                }
+                    Title = "Confirmación",
+                    Message = "Proceso Realizado",
+                    Type =  NotificationType.Success,
+                }, areaName: "ConfirmationToast", expirationTime: TimeSpan.FromSeconds(2)
+            );
 
-                timeSpan = timeSpan.Add(TimeSpan.FromSeconds(-1));
-            }, Application.Current.Dispatcher);
-
-            dispatcherTimer.Start();
         }
-
+        
         #endregion
     }
 }

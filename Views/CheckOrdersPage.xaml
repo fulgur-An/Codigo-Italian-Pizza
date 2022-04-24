@@ -6,13 +6,14 @@
       xmlns:local="clr-namespace:ItalianPizza.Views"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:fa5="http://schemas.fontawesome.com/icons/"  
+      xmlns:notifications="clr-namespace:Notifications.Wpf.Controls;assembly=Notifications.Wpf"
       mc:Ignorable="d" 
       d:DesignHeight="720" d:DesignWidth="776"
       Title="Check Orders">
-
-    <Grid>
+    
+    <Grid x:Name="grid">
         <Border Background="#27161E" Width="776" Height="720" Opacity="0.91"/>
-        
+
         <!--#region Main Elements-->
         <Button ToolTip="Registrar Pedido" Height="40" Width="125" Padding="0" Background="{x:Null}"
                 Margin="30,158,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" BorderBrush="{x:Null}"
@@ -27,12 +28,12 @@
             </StackPanel>
         </Button>
 
-        <!--<TextBlock FontFamily="Tw Cen MT" FontSize="25" Foreground="#FFF" VerticalAlignment="Top" Margin="30,205,0,0">
-                    Consulta: Filtro/Búsqueda
-        </TextBlock>-->
         <TextBlock FontFamily="Tw Cen MT" FontSize="25" Foreground="#FFF" VerticalAlignment="Top" Margin="30,205,0,0">
-                    Consulta: Cliente/José Daniel Camarillo Villa
+                    Consulta: Filtro/Búsqueda
         </TextBlock>
+        <!--<TextBlock FontFamily="Tw Cen MT" FontSize="25" Foreground="#FFF" VerticalAlignment="Top" Margin="30,205,0,0">
+                    Consulta: Cliente/José Daniel Camarillo Villa
+        </TextBlock>-->
 
         <!--Initial Message-->
         <Border Background="#5B5B5B" Height="300" Width="550" Margin="0,120,0,0" CornerRadius="10" 
@@ -215,7 +216,7 @@
 
                     <RadioButton Margin="0,0,12,0" Background="#000" Cursor="Hand" 
                                  Style="{StaticResource MaterialDesignSwitchToggleButton}" GroupName="Filters"
-                                 Name="CustomerFilterRadioButton">
+                                 Name="CustomerFilterRadioButton" Click="ShowSelectedFilter">
                         <materialDesign:ToggleButtonAssist.SwitchTrackOnBackground>
                             <SolidColorBrush Color="#000000" />
                         </materialDesign:ToggleButtonAssist.SwitchTrackOnBackground>
@@ -233,7 +234,7 @@
                     </TextBlock>
                     <RadioButton Margin="7,0,0,0" Background="#000" Cursor="Hand"
                                  Style="{StaticResource MaterialDesignSwitchToggleButton}" GroupName="Filters"
-                                 Name="DateFilterRadioButton">
+                                 Name="DateFilterRadioButton" Click="ShowSelectedFilter">
                         <materialDesign:ToggleButtonAssist.SwitchTrackOnBackground>
                             <SolidColorBrush Color="#000000" />
                         </materialDesign:ToggleButtonAssist.SwitchTrackOnBackground>
@@ -251,7 +252,7 @@
                     </TextBlock>
                     <RadioButton Margin="1,0,0,0" Background="#000" Cursor="Hand"
                                  Style="{StaticResource MaterialDesignSwitchToggleButton}" GroupName="Filters"
-                                 Name="StatusFilterRadioButton">
+                                 Name="StatusFilterRadioButton" Click="ShowSelectedFilter">
                         <materialDesign:ToggleButtonAssist.SwitchTrackOnBackground>
                             <SolidColorBrush Color="#000000" />
                         </materialDesign:ToggleButtonAssist.SwitchTrackOnBackground>
@@ -328,11 +329,19 @@
                         <ComboBoxItem>José Daniel Camarillo Villa</ComboBoxItem>
                     </ComboBox>
                 </Grid>
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left"
+                               Margin="0,25,0,0">
+                        Fecha
+                    </TextBlock>
+                    <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left"
+                           Margin="175,25,0,0">
+                        Hora
+                    </TextBlock>
+                </StackPanel>
                 
-                <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left"
-                           Margin="0,25,0,0">
-                    Fecha
-                </TextBlock>
+                
                 <Grid>
                     <Border Background="{x:Null}" CornerRadius="5" Width="200" Height="35" HorizontalAlignment="Left"
                             BorderBrush="#8D8D8D" BorderThickness="1,1,1,0" />
@@ -400,7 +409,7 @@
                                       materialDesign:HintAssist.Background="Transparent" 
                                       materialDesign:HintAssist.Foreground="Transparent"
                                       materialDesign:HintAssist.HelperTextFontSize="13"
-                                      Name="OrderTypeComboBox">
+                                      Name="OrderTypeComboBox" DropDownClosed="ChangeOrderType">
                                 <ComboBoxItem>Domicilio</ComboBoxItem>
                                 <ComboBoxItem>Local</ComboBoxItem>
                             </ComboBox>
@@ -410,7 +419,7 @@
 
                 <StackPanel Orientation="Vertical" Margin="0,0,0,0">
                     <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left" 
-                           Margin="0,25,0,0">
+                           Margin="0,25,0,0" Name="HeaderAddressTextblock">
                             Dirección
                     </TextBlock>
                     <Grid Cursor="Hand">
@@ -427,7 +436,7 @@
                                       materialDesign:HintAssist.Foreground="Transparent"
                                       materialDesign:HintAssist.HelperTextFontSize="13"
                                       Name="OrderAddressComboBox">
-                            <ComboBoxItem>Fidencio Ocaña #64. Col. Francisco Ferrer Guardia CP.91020</ComboBoxItem>
+                            <!--<ComboBoxItem>Fidencio Ocaña #64. Col. Francisco Ferrer Guardia CP.91020</ComboBoxItem>-->
                         </ComboBox>
                     </Grid>
                 </StackPanel>
@@ -478,7 +487,7 @@
                 
                 <Button Width="120" Margin="0,0,35,0" materialDesign:ButtonAssist.CornerRadius="8" Height="40"
                         Background="#2C2C2E" BorderBrush="{x:Null}" Visibility="Visible" ToolTip="Aceptar pedido"
-                        Name="AcceptOrderRegistrationButtton">
+                        Name="AcceptOrderRegistrationButtton" Click="ShowConfirmationToast"> 
                     <StackPanel Orientation="Horizontal">
                         <fa5:ImageAwesome Icon="Solid_Check" Height="13" Width="13" Foreground="#FFF" VerticalAlignment="Center" 
                                       ToolTip="Selecciona un filtro" Margin="0,0,4px,0"/>
@@ -500,9 +509,9 @@
                     </StackPanel>
                 </Button>
 
-                <Button Width="120" Margin="0,0,40,0" materialDesign:ButtonAssist.CornerRadius="8" Height="40"
+                <Button Width="120" Margin="0,0,35,0" materialDesign:ButtonAssist.CornerRadius="8" Height="40"
                         Background="#2C2C2E" BorderBrush="{x:Null}" Visibility="Collapsed" ToolTip="Actualizar pedido"
-                        Name="SaveOrderButton" Click="E">
+                        Name="SaveOrderButton" Click="ShowConfirmationToast">
                     <StackPanel Orientation="Horizontal">
                         <fa5:ImageAwesome Icon="Solid_Save" Height="13" Width="13" Foreground="#FFF" VerticalAlignment="Center" 
                                       ToolTip="Selecciona un filtro" Margin="0,0,4px,0"/>
@@ -610,18 +619,8 @@
         <!--#endregion-->
         
         <!--#region Process Confirmation-->
-        <Grid Width="250" Height="150" HorizontalAlignment="Center"
-              Name="ConfirmationGrid" VerticalAlignment="Center" Visibility="Hidden">
-            <Border Background="#49E12F" CornerRadius="10"/>
-            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                <TextBlock FontFamily="Tw Cen MT" FontSize="31" Foreground="#FFF" VerticalAlignment="Top" Margin="0,5,0,0"
-                       HorizontalAlignment="Center">
-                       Proceso Realizado
-                </TextBlock>
-                <fa5:ImageAwesome Icon="Solid_CheckCircle" Height="32" Width="32" Margin="0,20,0,0"
-                              Foreground="#FFF" VerticalAlignment="Center" HorizontalAlignment="Center" />
-            </StackPanel>
-        </Grid>
+        <notifications:NotificationArea x:Name="ConfirmationToast" Position="BottomRight" MaxItems="3" 
+                                        notifications:Notification.CloseOnClick="True" Margin="0,0,15,50" />
         <!--#endregion-->
     </Grid>
 </Page>

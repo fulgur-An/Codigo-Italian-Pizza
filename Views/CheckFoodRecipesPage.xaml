@@ -43,9 +43,7 @@
                 </TextBlock>
             </StackPanel>
         </Border>
-        <!--#endregion-->
-        
-        
+        <!--#endregion-->                
     
         <!--#region Food Recipes Table -->
         <Grid Visibility="Hidden" x:Name="FoodRecipeTableGrid">
@@ -322,7 +320,7 @@
 
                     <RadioButton Margin="25,0,0,0" Background="#000" Cursor="Hand" 
                                  Style="{StaticResource MaterialDesignSwitchToggleButton}" GroupName="Filters"
-                                 Name="CookFilterRadioButton">
+                                 Name="CookFilterRadioButton" Click="ShowSelectedFilter">
                         <materialDesign:ToggleButtonAssist.SwitchTrackOnBackground>
                             <SolidColorBrush Color="#000000" />
                         </materialDesign:ToggleButtonAssist.SwitchTrackOnBackground>
@@ -341,7 +339,7 @@
 
                     <RadioButton Margin="0,0,12,0" Background="#000" Cursor="Hand" 
                                  Style="{StaticResource MaterialDesignSwitchToggleButton}" GroupName="Filters"
-                                 Name="NameFilterRadioButton">
+                                 Name="NameFilterRadioButton" Click="ShowSelectedFilter">
                         <materialDesign:ToggleButtonAssist.SwitchTrackOnBackground>
                             <SolidColorBrush Color="#000000" />
                         </materialDesign:ToggleButtonAssist.SwitchTrackOnBackground>
@@ -359,7 +357,7 @@
                     </TextBlock>
                     <RadioButton Margin="-25,0,0,0" Background="#000" Cursor="Hand"
                                  Style="{StaticResource MaterialDesignSwitchToggleButton}" GroupName="Filters"
-                                 Name="IngredientFilterRadioButton">
+                                 Name="IngredientFilterRadioButton" Click="ShowSelectedFilter">
                         <materialDesign:ToggleButtonAssist.SwitchTrackOnBackground>
                             <SolidColorBrush Color="#000000" />
                         </materialDesign:ToggleButtonAssist.SwitchTrackOnBackground>
@@ -377,7 +375,7 @@
                     </TextBlock>
                     <RadioButton Margin="-35,0,0,0" Background="#000" Cursor="Hand"
                                  Style="{StaticResource MaterialDesignSwitchToggleButton}" GroupName="Filters"
-                                 Name="PortionsFilterRadioButton">
+                                 Name="PortionsFilterRadioButton" Click="ShowSelectedFilter">
                         <materialDesign:ToggleButtonAssist.SwitchTrackOnBackground>
                             <SolidColorBrush Color="#000000" />
                         </materialDesign:ToggleButtonAssist.SwitchTrackOnBackground>
@@ -608,11 +606,11 @@
                     <!--#endregion-->
                 </StackPanel>
             </Grid>
-            
+
             <Grid Background="Transparent" Grid.Column="1" Grid.Row="1" Width="215" HorizontalAlignment="Left" Grid.RowSpan="2"
                   Height="565" VerticalAlignment="top">
                 <StackPanel x:Name="IngredientesStackPanel">
-                    
+
                     <Grid>
                         <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left"
                                    Margin="0,0,0,60">
@@ -719,45 +717,61 @@
                         </ListBoxItem>
                     </ListBox>
                 </Grid>
-                    
+
                 <!--#region Buttons Accept, Update, Save and Cancel-->
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
-                    <Button Width="50" Margin="0,0,0,0" materialDesign:ButtonAssist.CornerRadius="8" Height="40"
-                            Background="#2C2C2E" BorderBrush="{x:Null}" Visibility="Visible" ToolTip="Aceptar registro"
-                            HorizontalAlignment="Left" Name="AcceptFoodRecipeRegistrationButtton">
-                        <fa5:ImageAwesome Icon="Solid_Check" Height="13" Width="13" Foreground="#FFF" VerticalAlignment="Center" 
-                                          ToolTip="Aceptar" Margin="0,0,0,0"/>
-                    </Button>
-
-                    <Button Width="50" Margin="0,0,0,0" materialDesign:ButtonAssist.CornerRadius="8" Height="40"
-                            Background="#2C2C2E" BorderBrush="{x:Null}" Visibility="Collapsed" ToolTip="Actualizar registro"
-                            Name="UpdateFoodRecipeButton" Click="ShowFoodRecipeUpdateDialog">
+                    <Button Width="120" Margin="0,0,0,0" materialDesign:ButtonAssist.CornerRadius="8" Height="40"
+                            Background="#2C2C2E" BorderBrush="{x:Null}" Visibility="Visible" ToolTip="Aceptar pedido"
+                            Name="AcceptFoodRecipeRegistrationButtton">
                         <StackPanel Orientation="Horizontal">
-                            <fa5:ImageAwesome Icon="Solid_Pen" Height="13" Width="13" Foreground="#FFF" VerticalAlignment="Center" 
-                                          ToolTip="Actualizar" Margin="0,0,0,0"/>
+                            <fa5:ImageAwesome Icon="Solid_Check" Height="13" Width="13" Foreground="#FFF" VerticalAlignment="Center" 
+                                          ToolTip="Aceptar" Margin="0,0,0,0"/>
+                            <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" HorizontalAlignment="Left">
+                                Aceptar
+                            </TextBlock>
                         </StackPanel>
                     </Button>
 
-                    <Button Width="50" Margin="0,0,0,0" materialDesign:ButtonAssist.CornerRadius="8" Height="40"
+                    <Button Width="97" Margin="0,0,0,0" materialDesign:ButtonAssist.CornerRadius="8" Height="40"
+                            Background="#2C2C2E" BorderBrush="{x:Null}" Visibility="Collapsed" ToolTip="Actualizar registro"
+                            Name="UpdateFoodRecipeButton" Click="ShowFoodRecipeUpdateDialog" Padding="-5,0,-5,0">
+                        <StackPanel Orientation="Horizontal">
+                            <fa5:ImageAwesome Icon="Solid_Pen" Height="10" Width="10" Foreground="#FFF" VerticalAlignment="Center" 
+                                          ToolTip="Actualizar" Margin="0,0,0,0"/>
+                            <TextBlock FontFamily="Tw Cen MT" FontSize="17" Foreground="#FFF" HorizontalAlignment="Left">
+                                Actualizar
+                            </TextBlock>
+                        </StackPanel>
+                    </Button>
+
+                    <Button Width="120" Margin="0,0,0,0" materialDesign:ButtonAssist.CornerRadius="8" Height="40"
                             Background="#2C2C2E" BorderBrush="{x:Null}" Visibility="Collapsed" ToolTip="Guardar pedido"
-                            Name="SaveFoodRecipeButton" HorizontalAlignment="Right">
+                            Name="SaveFoodRecipeButton" HorizontalAlignment="Right" >
                         <StackPanel Orientation="Horizontal">
                             <fa5:ImageAwesome Icon="Solid_Save" Height="13" Width="13" Foreground="#FFF" VerticalAlignment="Center" 
-                                          ToolTip="Guardar actualización" Margin="0,0,0,0"/>
+                                          ToolTip="Guardar actualización" Margin="0,0,4,0"/>
+                            <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" HorizontalAlignment="Left">
+                                Guardar
+                            </TextBlock>
                         </StackPanel>
                     </Button>
 
-                    <Button Width="50" materialDesign:ButtonAssist.CornerRadius="8" Background="#2C2C2E" BorderBrush="{x:Null}"
+                    <Button Width="97" materialDesign:ButtonAssist.CornerRadius="8" Background="#2C2C2E" BorderBrush="{x:Null}"
                             Height="40" Name="DeleteFoodRecipeButton" Visibility="Visible" Margin="20,0,0,0" ToolTip="Eliminar registro"
                             Padding="0" HorizontalAlignment="Right" Click="ShowDeleteConfirmationDialog">
-                        <materialDesign:PackIcon Kind="Trash" Width="25" Height="25" Foreground="#FFF" HorizontalAlignment="Center"
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Trash" Width="14" Height="14" Foreground="#FFF" HorizontalAlignment="Center"
                                                  VerticalAlignment="Center"/>
-                        
+                            <TextBlock FontFamily="Tw Cen MT" FontSize="17" Foreground="#FFF" HorizontalAlignment="Left"
+                                       VerticalAlignment="Center">
+                                Eliminar
+                            </TextBlock>
+                        </StackPanel>
+
                     </Button>
                 </StackPanel>
                 <!--#endregion-->
             </Grid>
-
         </Grid>
         <!--#endregion-->
 
