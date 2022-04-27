@@ -148,7 +148,19 @@
                     </TextBlock>
                 </StackPanel>
 
-                <StackPanel Orientation="Horizontal" Height="50px" Background="Transparent" Margin="0,42,0,0"
+                <StackPanel Orientation="Horizontal" Height="50px" Background="Transparent" Cursor="Hand"
+                            Style="{StaticResource StackPanelHoverStyle}" Name="ProviderStackPanel" MouseLeftButtonDown="OpenPoviderModule"> 
+                <Border Name="ProviderGreenBorder" Width="6px" Height="40" Background="#49E12F" CornerRadius="0,3,3,0" Visibility="Hidden"/>
+                <fa5:ImageAwesome Icon="Solid_Coins" Height="20" Width="20" Margin="25,0,0,0" 
+                                     Foreground="#FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                                     ToolTip="Usuarios" />
+                <TextBlock Foreground="#FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                               Margin="18px,0,0,0" FontFamily="Trebuchet MS" FontSize="15">                    
+                        Proveedores
+                </TextBlock>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Height="50px" Background="Transparent" Margin="0,0,0,0"
                             Cursor="Hand" Style="{StaticResource StackPanelHoverStyle}" Visibility="Visible">
                     <Border Width="6px" Height="40" Background="#49E12F" CornerRadius="0,3,3,0" Visibility="Hidden"/>
                     <materialDesign:PackIcon Kind="ExitToApp" Foreground="#FFFFFF" VerticalAlignment="Center"
@@ -164,6 +176,6 @@
 
         <!--Menu options-->
         <Frame Width="776" Height="720" Margin="209.7px,0,0,0" BorderBrush="#FFF"
-               Opacity="0.91" Name="NavigationFrame" NavigationUIVisibility="Hidden"/>
+               Opacity="1" Name="NavigationFrame" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Window>
