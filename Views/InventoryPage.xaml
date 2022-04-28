@@ -11,7 +11,7 @@
       d:DesignHeight="720" d:DesignWidth="776"
       Title="Inventory">
 
-    <Grid>
+    <Grid x:Name="MainGrid">
         <Border Background="#27161E" Width="776" Height="720" Opacity="0.91"/>
 
         <!--#region Main Elements-->
@@ -28,6 +28,12 @@
                 <materialDesign:PackIcon Kind="TextBoxCheckOutline" Width="30" Height="30" Foreground="White" Margin="0,0,8,0"/>
                 <TextBlock FontFamily="Tw Cen MT" FontSize="25" Foreground="#FFF">
                 Validar
+                </TextBlock>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="524,154,0,0" MouseLeftButtonUp="GenerateReport">
+                <materialDesign:PackIcon Kind="PrinterCheck" Foreground="#fff" Width="50" Height="50"/>
+                <TextBlock FontFamily="Tw Cen MT" FontSize="25" Foreground="#FFF" Margin="8,14,0,0">
+                    Generar reporte
                 </TextBlock>
             </StackPanel>
 
@@ -53,7 +59,7 @@
         <!--#endregion-->
 
         <!--#region InventoryTable -->
-        <Grid  x:Name="InventoryTableGrid" Visibility="Hidden">
+        <Grid  x:Name="InventoryTableGrid">
             <!--#region Sort and Recharge-->
             <StackPanel Orientation="Horizontal" Margin="0,200,35,0" HorizontalAlignment="Right">
                 <Button Background="{x:Null}" Width="85" Height="40" VerticalAlignment="Top" Cursor="Hand" Padding="0" 
@@ -84,14 +90,14 @@
             <Border Name="InventoryTableHeaderBorder" Background="#5B5B5B" Height="45" Width="719" Margin="0,175,0,360" CornerRadius="5,5,0,0" 
                 Opacity="0.4"/>
             <StackPanel Name="InventoryTableHeaderStackPanel" Orientation="Horizontal" Height="45" Width="769" Margin="0,175,0,360">
-                <Grid Width="100">
+                <Grid Width="20" Margin="40,0,0,0">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                         <fa5:ImageAwesome Icon="Solid_SortNumericDown" Height="21" Width="21" Foreground="#FFF" VerticalAlignment="Center" 
                                           Margin="0,0,0,0"/>
                     </StackPanel>
                 </Grid>
 
-                <Grid Width="150" Margin="-30,0,0,0">
+                <Grid Width="100" Margin="30,0,0,0">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                         <fa5:ImageAwesome Icon="Solid_PizzaSlice" Height="21" Width="21" Foreground="#FFF" VerticalAlignment="Center" 
                                           Margin="0,0,8,0"/>
@@ -169,9 +175,10 @@
             <Border Name="InventoryTableBodyBorder" Background="#5B5B5B" Height="350" Width="719" Margin="0,110,0,-100" CornerRadius="0,0,5,5" 
                 Opacity="0" />
             <ListBox Name="InventoryTableBodyListBox" Height="350" Width="719" Margin="0,110,0,-100" HorizontalAlignment="Center" >
-                <ListBoxItem BorderBrush="#CFCFCF" BorderThickness="0,0,0,1" MouseLeftButtonUp="ShowEspecificDataItem">
+                <ListBoxItem BorderBrush="#CFCFCF" BorderThickness="0,0,0,1" MouseLeftButtonUp="ShowUpdateFields">
                     <StackPanel Orientation="Horizontal" Height="35" Width="709" Cursor="Hand" Background="Transparent">
-                        <Grid Width="30"  Margin="4,0,14,0">
+                        
+                        <Grid Width="30"  Margin="4,0,0,0">
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <TextBlock FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" TextWrapping="Wrap">
                                 1
@@ -187,7 +194,7 @@
                             </StackPanel>
                         </Grid>
 
-                        <Grid Width="80" Margin="18,0,0,0">
+                        <Grid Width="80" Margin="0,0,0,0">
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <TextBlock FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" TextWrapping="Wrap">
                                 86548
@@ -211,7 +218,7 @@
                             </StackPanel>
                         </Grid>
 
-                        <Grid Width="40" Margin="58,0,0,0">
+                        <Grid Width="40" Margin="48,0,0,0">
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <TextBlock FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" TextWrapping="Wrap">
                                 23
@@ -226,12 +233,17 @@
                                 </TextBlock>
                             </StackPanel>
                         </Grid>
-
-                        <Grid Width="100" Margin="-20,0,0,0">
+                        <Grid Width="50" Margin="0,0,0,0"  MouseLeave="PackIcon_DragLeave">
+                            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Top">
+                                <fa5:ImageAwesome Icon="Solid_Eye" Width="30" Height="30" Foreground="#C6BAFF" MouseEnter="PackIcon_DragEnter"/>
+                            </StackPanel>
+                        </Grid>
+                        <Grid Width="50" Margin="-10,0,0,0">
                             <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Top">
                                 <fa5:ImageAwesome Icon="Solid_TrashAlt" Width="30" Height="30" Foreground="#B2AC0329" MouseUp="ShowDeleteLayout"/>
                             </StackPanel>
                         </Grid>
+                        
                     </StackPanel>
                 </ListBoxItem>
 
@@ -263,7 +275,7 @@
             <StackPanel Orientation="Horizontal" Margin="608,8,0,0" MouseLeftButtonUp="PrintValidationInventoryResult">
                 <materialDesign:PackIcon Kind="PrinterCheck" Foreground="#fff" Width="50" Height="50"/>
                 <TextBlock FontFamily="Tw Cen MT" FontSize="25" Foreground="#FFF" Margin="8,14,0,0">
-                    Imprimir
+                    Terminar
                 </TextBlock>
             </StackPanel>
             
@@ -499,10 +511,10 @@
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Margin="0,15,0,0">
-                    <fa5:ImageAwesome Icon="Regular_Calendar" Height="21" Width="21" Foreground="#000" VerticalAlignment="Center" 
+                    <fa5:ImageAwesome Icon="Solid_SortNumericUpAlt" Height="21" Width="21" Foreground="#000" VerticalAlignment="Center" 
                                       Margin="12,0,10px,0"/>
-                    <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#000" Margin="0,0,60,0">
-                        Fecha
+                    <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#000" Margin="0,0,50,0">
+                        Código
                     </TextBlock>
                     <RadioButton Margin="57,0,0,0" Background="#000" Cursor="Hand"
                                  Style="{StaticResource MaterialDesignSwitchToggleButton}" GroupName="Filters">
@@ -516,7 +528,7 @@
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Margin="0,15,0,0">
-                    <fa5:ImageAwesome Icon="Solid_Question" Height="21" Width="21" Foreground="#000" VerticalAlignment="Center" 
+                    <fa5:ImageAwesome Icon="Solid_MoneyBill" Height="21" Width="21" Foreground="#000" VerticalAlignment="Center" 
                                       Margin="12,0,10px,0"/>
                     <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#000" Margin="0,0,45,0">
                         Valor individual
@@ -533,10 +545,10 @@
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Margin="0,15,0,0">
-                    <fa5:ImageAwesome Icon="Solid_Question" Height="21" Width="21" Foreground="#000" VerticalAlignment="Center" 
+                    <fa5:ImageAwesome Icon="Regular_ObjectGroup" Height="21" Width="21" Foreground="#000" VerticalAlignment="Center" 
                                       Margin="12,0,10px,0"/>
-                    <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#000" Margin="0,0,60,0">
-                        Valor total
+                    <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#000" Margin="0,0,20,0">
+                        Cantidad actual
                     </TextBlock>
                     <RadioButton Margin="23,0,0,0" Background="#000" Cursor="Hand"
                                  Style="{StaticResource MaterialDesignSwitchToggleButton}" GroupName="Filters">
@@ -557,46 +569,37 @@
         <Border Background="#000" Opacity="0.9"  x:Name="ThirdLayerInformationBorder" Visibility="Hidden"/>
         <Border Background="#FFF" CornerRadius="10" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Hidden"
                 Width="500" Height="600" Margin="0,-35,0,0" Opacity="1"
-                Name="QuarterLayerInformationBorder" />
-        <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Width="500" Height="500" Margin="0,-35,0,0"  Visibility="Hidden"
+                Name="QuarterLayerInformationBorder">
+            <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Width="500" Height="500" Margin="0,0,0,0"  Visibility="Hidden"
               Name="OrderInformationGrid" >
 
-            <StackPanel Name="GetOutStackPanel" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,-45,5,0" Background="Transparent"
+                <StackPanel Name="GetOutStackPanel" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,-45,5,0" Background="Transparent"
                         Cursor="Hand" Width="51" Height="20" VerticalAlignment="Top"
                         Style="{StaticResource StackPanelHoverStyle}" MouseLeftButtonUp="HideSpecificItemInformation">
-                <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#000" HorizontalAlignment="Left">
+                    <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#000" HorizontalAlignment="Left">
                         Salir
-                </TextBlock>
-                <materialDesign:PackIcon Kind="Close" Foreground="#000" Width="20" Height="20"/>
-            </StackPanel>
-
-
-            <StackPanel Name="UpdateFieldsStackPanel" Orientation="Horizontal" Margin="0,-38,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" MouseLeftButtonUp="ShowUpdateFields">
-                <TextBlock FontFamily="Tw Cen MT" FontSize="50" Foreground="#000">
-                    Producto
-                </TextBlock>
-                <fa5:ImageAwesome Icon="Solid_Pen" Height="30" Width="30" Foreground="#6E22BF" VerticalAlignment="Center" 
-                                      ToolTip="Selecciona un filtro" Margin="8,0,0,0"/>
-            </StackPanel>
-
-            <TextBlock Name="FieldsAreEditableTextBlock" FontFamily="Tw Cen MT" FontSize="50" Foreground="#000" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,-38,0,0" Visibility="Hidden">
-                    Producto
-            </TextBlock>
-
-            <StackPanel Orientation="Vertical" Margin="0,20,0,0" Background="Transparent" HorizontalAlignment="Center"
-                        Width="430">
-                <!--#region Item Information-->
-                <StackPanel Orientation="Horizontal"  Background="Transparent" HorizontalAlignment="Stretch">
-                    <TextBlock FontFamily="Tw Cen MT" FontSize="23" Margin="0,0,34,8" Foreground="#000" HorizontalAlignment="Left">
-                        Nombre del producto
                     </TextBlock>
-
-                    <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left">
-                        Código
-                    </TextBlock>
+                    <materialDesign:PackIcon Kind="Close" Foreground="#000" Width="20" Height="20"/>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal"  Background="Transparent" HorizontalAlignment="Stretch">
-                    <TextBox x:Name="ItemNameField"
+
+                <TextBlock Name="FieldsAreEditableTextBlock" FontFamily="Tw Cen MT" FontSize="50" Foreground="#000" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,-38,0,0">
+                    Producto
+                </TextBlock>
+
+                <StackPanel Orientation="Vertical" Margin="0,20,0,0" Background="Transparent" HorizontalAlignment="Center"
+                        Width="430">
+                    <!--#region Item Information-->
+                    <StackPanel Orientation="Horizontal"  Background="Transparent" HorizontalAlignment="Stretch">
+                        <TextBlock FontFamily="Tw Cen MT" FontSize="23" Margin="0,0,34,8" Foreground="#000" HorizontalAlignment="Left">
+                        Nombre del producto*
+                        </TextBlock>
+
+                        <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left">
+                        Código*
+                        </TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal"  Background="Transparent" HorizontalAlignment="Stretch">
+                        <TextBox x:Name="ItemNameField"
                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
                         VerticalAlignment="Top"
                         AcceptsReturn="True"
@@ -610,7 +613,7 @@
                         BorderBrush="#BC766F6F"
                         Width="200"
                         Margin="4,0,26,28" Background="#00000000"/>
-                    <TextBox x:Name="ItemCodeField"
+                        <TextBox x:Name="ItemCodeField"
                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
                         VerticalAlignment="Top"
                         AcceptsReturn="True"
@@ -624,11 +627,11 @@
                         BorderBrush="#BC766F6F" 
                         Width="200"
                         Margin="0,0,0,28" Background="#00000000"/>
-                </StackPanel>
-                <TextBlock FontFamily="Tw Cen MT" FontSize="23" Margin="0,0,0,8" Foreground="#000" HorizontalAlignment="Left">
-                    Descripción
-                </TextBlock>
-                <TextBox x:Name="ItemDescriptionField"
+                    </StackPanel>
+                    <TextBlock FontFamily="Tw Cen MT" FontSize="23" Margin="0,0,0,8" Foreground="#000" HorizontalAlignment="Left">
+                    Descripción*
+                    </TextBlock>
+                    <TextBox x:Name="ItemDescriptionField"
                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
                     VerticalAlignment="Top"
                     AcceptsReturn="True"
@@ -642,19 +645,19 @@
                     BorderBrush="#BC766F6F"
                     Margin="0,0,0,28"
                     Background="#00000000"/>
-                <StackPanel Orientation="Horizontal"  Background="Transparent" HorizontalAlignment="Stretch">
-                    <TextBlock FontFamily="Tw Cen MT" FontSize="23" Margin="0,0,80,8" Foreground="#000" HorizontalAlignment="Left" >
-                        Precio
-                    </TextBlock>
-                    <TextBlock FontFamily="Tw Cen MT" FontSize="23" Margin="0,0,44,0" Foreground="#000" HorizontalAlignment="Left">
+                    <StackPanel Orientation="Horizontal"  Background="Transparent" HorizontalAlignment="Stretch">
+                        <TextBlock FontFamily="Tw Cen MT" FontSize="23" Margin="0,0,80,8" Foreground="#000" HorizontalAlignment="Left" >
+                        Precio*
+                        </TextBlock>
+                        <TextBlock FontFamily="Tw Cen MT" FontSize="23" Margin="0,0,44,0" Foreground="#000" HorizontalAlignment="Left">
                         Cantidad
-                    </TextBlock>
-                    <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left">
-                    Foto del producto
-                    </TextBlock>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal"  Background="Transparent" HorizontalAlignment="Stretch">
-                    <TextBox x:Name="ItemValueField"
+                        </TextBlock>
+                        <TextBlock FontFamily="Tw Cen MT" FontSize="20" Foreground="#000" HorizontalAlignment="Left">
+                    Foto del producto*
+                        </TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal"  Background="Transparent" HorizontalAlignment="Stretch">
+                        <TextBox x:Name="ItemValueField"
                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
                         VerticalAlignment="Top"
                         AcceptsReturn="True"
@@ -665,34 +668,48 @@
                         materialDesign:HintAssist.HelperTextFontSize="11"
                         materialDesign:TextFieldAssist.HasClearButton="True"
                         materialDesign:TextFieldAssist.PrefixText="$"
+
                         materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
                         BorderBrush="#BC766F6F"
                         Margin="0,0,18,28"
                         Width="120"
                         Background="#00000000"/>
-                    <TextBox x:Name="ItemQuantityField"
-                        Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                        VerticalAlignment="Top"
-                        AcceptsReturn="True"
-                        TextWrapping="Wrap"
-                        MaxLength="5"
-                        materialDesign:HintAssist.Hint="00.0"
-                        materialDesign:HintAssist.HelperText="Escoja la unidad"
-                        materialDesign:HintAssist.HelperTextFontSize="11"
-                        materialDesign:TextFieldAssist.HasClearButton="True"
-                        materialDesign:TextFieldAssist.SuffixText="U"
-                        materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
-                        BorderBrush="#BC766F6F"
-                        Margin="0,0,0,28"
-                        Width="120"
-                        Background="#00000000"/>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,28">
+                            <TextBox x:Name="ItemQuantityField"
+                            Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                            VerticalAlignment="Top"
+                            AcceptsReturn="True"
+                            TextWrapping="Wrap"
+                            MaxLength="5"
+                            materialDesign:HintAssist.Hint="00.0"
+                            materialDesign:HintAssist.HelperText="Escoja la unidad"
+                            materialDesign:HintAssist.HelperTextFontSize="11"
+                            materialDesign:TextFieldAssist.HasClearButton="True"
+                            materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
+                            BorderBrush="#BC766F6F"
+                            Width="70"
+                            Background="#00000000"/>
+                            <ComboBox
+                            materialDesign:HintAssist.Hint="U" Width="70"
+                            Style="{StaticResource MaterialDesignOutlinedComboBox}">
+                                <ComboBoxItem
+                                Content="Kg" />
+                                <ComboBoxItem
+                                Content="Gm" />
+                                <ComboBoxItem
+                                Content="Ml" />
+                                <ComboBoxItem
+                                Content="Pz" />
+                            </ComboBox>
+                        </StackPanel>
 
-                </StackPanel>
 
-                <TextBlock FontFamily="Tw Cen MT" FontSize="23"  Margin="0,0,0,8" Foreground="#000" HorizontalAlignment="Left">
+                    </StackPanel>
+
+                    <TextBlock FontFamily="Tw Cen MT" FontSize="23"  Margin="0,0,0,8" Foreground="#000" HorizontalAlignment="Left">
                     Restricciones
-                </TextBlock>
-                <TextBox x:Name="ItemRestrictionsField"
+                    </TextBlock>
+                    <TextBox x:Name="ItemRestrictionsField"
                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
                     VerticalAlignment="Top"
                     AcceptsReturn="True"
@@ -707,56 +724,66 @@
                     Margin="0,0,0,28"
                     Background="#00000000"/>
 
-                <!--#endregion -->
-            </StackPanel>
+                    <!--#endregion -->
+                </StackPanel>
 
-            <!--Buttons-->
+                <!--Buttons-->
+                <ToggleButton
+                Content="{materialDesign:PackIcon Kind=Food}" HorizontalAlignment="Right" Margin="0,0,38,450"
+                Style="{StaticResource MaterialDesignActionToggleButton}"
+                ToolTip="MaterialDesignActionToggleButton"
+                IsChecked="False"
+                Height="34" Width="34"
+                materialDesign:ToggleButtonAssist.OnContent="{materialDesign:PackIcon Kind=FoodOff}"
+                materialDesign:ShadowAssist.ShadowDepth="Depth3" />
 
-            <Border Background="BlueViolet" Width="64" Height="64" CornerRadius="40" Margin="280,130,0,0">
-                <fa5:ImageAwesome Icon="Solid_Upload" Height="23" Width="23" Foreground="#FFF" VerticalAlignment="Center" 
+                <Border Background="BlueViolet" Width="44" Height="44" CornerRadius="40" Margin="280,100,0,0">
+                    <fa5:ImageAwesome Icon="Solid_Upload" Height="23" Width="23" Foreground="#FFF" VerticalAlignment="Center" 
                                       ToolTip="Selecciona un filtro" Margin="0,0,0,0"/>
-            </Border>
+                </Border>
 
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,-20">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,-20">
 
-                <!--Register button-->
-                <Button Name="RegisterItemButton" Width="120" Margin="0,0,40,0" materialDesign:ButtonAssist.CornerRadius="8" Height="40" Click="RegistItem"
+                    <!--Register button-->
+                    <Button Name="RegisterItemButton" Width="120" Margin="0,0,40,0" materialDesign:ButtonAssist.CornerRadius="8" Height="40" Click="RegistItem"
                         Background="#2C2C2E" BorderBrush="{x:Null}">
-                    <StackPanel Orientation="Horizontal" >
-                        <fa5:ImageAwesome Icon="Solid_Check" Height="13" Width="13" Foreground="#FFF" VerticalAlignment="Center" 
+                        <StackPanel Orientation="Horizontal" >
+                            <fa5:ImageAwesome Icon="Solid_Check" Height="13" Width="13" Foreground="#FFF" VerticalAlignment="Center" 
                                       ToolTip="Selecciona un filtro" Margin="0,0,4px,0"/>
-                        <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" HorizontalAlignment="Left">
+                            <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" HorizontalAlignment="Left">
                             Registrar
-                        </TextBlock>
-                    </StackPanel>
-                </Button>
-                <!--Update button-->
-                <Button Name="UpdateItemDataButton" Width="120" Margin="0,0,40,0" Visibility="Collapsed" materialDesign:ButtonAssist.CornerRadius="8" Height="40" Click="UpdateItem"
+                            </TextBlock>
+                        </StackPanel>
+                    </Button>
+                    <!--Update button-->
+                    <Button Name="UpdateItemDataButton" Width="120" Margin="0,0,40,0" Visibility="Collapsed" materialDesign:ButtonAssist.CornerRadius="8" Height="40" Click="UpdateItem"
                         Background="#2C2C2E" BorderBrush="{x:Null}">
-                    <StackPanel Orientation="Horizontal">
-                        <fa5:ImageAwesome Icon="Solid_Check" Height="13" Width="13" Foreground="#FFF" VerticalAlignment="Center" 
+                        <StackPanel Orientation="Horizontal">
+                            <fa5:ImageAwesome Icon="Solid_Check" Height="13" Width="13" Foreground="#FFF" VerticalAlignment="Center" 
                                       ToolTip="Selecciona un filtro" Margin="0,0,4px,0"/>
-                        <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" HorizontalAlignment="Left">
+                            <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" HorizontalAlignment="Left">
                             Actualizar
-                        </TextBlock>
-                    </StackPanel>
-                </Button>
-                
-                <Button Name="CancelRegisterItemButton" Width="120" materialDesign:ButtonAssist.CornerRadius="8" Background="#2C2C2E" BorderBrush="{x:Null}" Click="CancelProdecure"
-                         Height="40">
-                    <StackPanel Orientation="Horizontal">
-                        <fa5:ImageAwesome Icon="Solid_Ban" Height="13" Width="13" Foreground="#FFF" VerticalAlignment="Center" 
-                                      ToolTip="Selecciona un filtro" Margin="0,0,4px,0"/>
-                        <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" HorizontalAlignment="Left">
-                            Cancelar
-                        </TextBlock>
-                    </StackPanel>
-                </Button>
-                
-            </StackPanel>
-            
+                            </TextBlock>
+                        </StackPanel>
+                    </Button>
 
-        </Grid>
+                    <Button Name="CancelRegisterItemButton" Width="120" materialDesign:ButtonAssist.CornerRadius="8" Background="#2C2C2E" BorderBrush="{x:Null}" Click="CancelProdecure"
+                         Height="40">
+                        <StackPanel Orientation="Horizontal">
+                            <fa5:ImageAwesome Icon="Solid_Ban" Height="13" Width="13" Foreground="#FFF" VerticalAlignment="Center" 
+                                      ToolTip="Selecciona un filtro" Margin="0,0,4px,0"/>
+                            <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" HorizontalAlignment="Left">
+                            Cancelar
+                            </TextBlock>
+                        </StackPanel>
+                    </Button>
+
+                </StackPanel>
+
+
+            </Grid>
+        </Border>
+       
         <!--#endregion-->
 
         <!--#region Delete product-->
@@ -805,6 +832,44 @@
             </StackPanel>
             
         </Grid>
+        <!--#endregion-->
+        
+        <!--#region DepartureConfirmationLayout-->
+        <Border Background="#000" Opacity="0.4"  x:Name="ConfirmationBackBorder" Visibility="Hidden"/>
+        <Border x:Name="DeparureConfirmationBorder" Background="#fff" CornerRadius="30" HorizontalAlignment="Center" VerticalAlignment="Center" Width="354" Height="200" Visibility="Hidden">
+            <Grid>
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="30" FontFamily="Tw Cen Mt" Margin="0,8,0,0">
+                    Confirmación
+                    </TextBlock>
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" FontFamily="Tw Cen Mt" Margin="0,24,0,0">
+                    ¿Está seguro que desea confirmar el proceso?
+                    </TextBlock>
+                    <StackPanel Name="DeparureConfirmationButton" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,48,0,0">
+                        <Button  HorizontalAlignment="Left" Width="120" Margin="0,0,40,0" materialDesign:ButtonAssist.CornerRadius="8" Height="40" Click="AcceptDepartureConfirmation"
+                        Background="#2C2C2E" BorderBrush="{x:Null}">
+                            <StackPanel Orientation="Horizontal" >
+                                <fa5:ImageAwesome Icon="Solid_ClipboardCheck" Height="13" Width="13" Foreground="#FFF" VerticalAlignment="Center" 
+                                      ToolTip="Selecciona un filtro" Margin="0,0,0,0"/>
+                                <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" HorizontalAlignment="Left">
+                                    Aceptar
+                                </TextBlock>
+                            </StackPanel>
+                        </Button>
+                        <Button  HorizontalAlignment="Right" Width="120" Margin="0,0,0,0" materialDesign:ButtonAssist.CornerRadius="8" Height="40" Click="HideDepartureConfirmation"
+                        Background="#2C2C2E" BorderBrush="{x:Null}">
+                            <StackPanel Orientation="Horizontal" >
+                                <fa5:ImageAwesome Icon="Solid_WindowClose" Height="13" Width="13" Foreground="#FFF" VerticalAlignment="Center" 
+                                      ToolTip="Selecciona un filtro" Margin="0,0,4px,0"/>
+                                <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" HorizontalAlignment="Left">
+                                    Cancelar
+                                </TextBlock>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </Border>
         <!--#endregion-->
 
         <!--#region Process Confirmation-->

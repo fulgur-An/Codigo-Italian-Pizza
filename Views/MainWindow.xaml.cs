@@ -63,12 +63,23 @@ namespace ItalianPizza
             IventorysGreenBorder.Visibility = Visibility;
         }
 
+        public void OpenFinancesModule(object sender, RoutedEventArgs e)
+        {
+            FinancesPage financesPage = new FinancesPage(usernameLoggedIn);
+            NavigationFrame.NavigationService.Navigate(financesPage);
+            HiddeMenuBorders();
+            FinanceStackPanel.Opacity = 1;
+            FinanceGreenBorder.Visibility = Visibility;
+        }
+
         public void HiddeMenuBorders()
         {
             OrdersStackPanel.Opacity = 0.5;
             OrdersGreendBorder.Visibility = Visibility.Hidden;
             InventorysStackPanel.Opacity = 0.5;
             IventorysGreenBorder.Visibility = Visibility.Hidden;
+            FinanceStackPanel.Opacity = 0.5;
+            FinanceGreenBorder.Visibility = Visibility.Hidden;
         }
 
         #endregion

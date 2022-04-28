@@ -48,7 +48,6 @@ C:\Users\antdg\Documents\Codigo-Italian-Pizza\bin\Debug\FontAwesome5.Net.xml
 C:\Users\antdg\Documents\Codigo-Italian-Pizza\bin\Debug\MaterialDesignColors.pdb
 C:\Users\antdg\Documents\Codigo-Italian-Pizza\bin\Debug\MaterialDesignThemes.Wpf.pdb
 C:\Users\antdg\Documents\Codigo-Italian-Pizza\bin\Debug\MaterialDesignThemes.Wpf.xml
-C:\Users\antdg\Documents\Codigo-Italian-Pizza\obj\Debug\ItalianPizza.csproj.AssemblyReference.cache
 C:\Users\antdg\Documents\Codigo-Italian-Pizza\obj\Debug\Views\CheckOrdersPage.g.cs
 C:\Users\antdg\Documents\Codigo-Italian-Pizza\obj\Debug\Views\ErrorPage.g.cs
 C:\Users\antdg\Documents\Codigo-Italian-Pizza\obj\Debug\Views\InventoryPage.g.cs
@@ -67,3 +66,6 @@ C:\Users\antdg\Documents\Codigo-Italian-Pizza\obj\Debug\ItalianPizza.csproj.Copy
 C:\Users\antdg\Documents\Codigo-Italian-Pizza\obj\Debug\ItalianPizza.exe
 C:\Users\antdg\Documents\Codigo-Italian-Pizza\obj\Debug\ItalianPizza.pdb
 C:\Users\antdg\Documents\Codigo-Italian-Pizza\bin\Debug\Notifications.Wpf.dll
+C:\Users\antdg\Documents\Codigo-Italian-Pizza\obj\Debug\Views\FinancesPage.g.cs
+C:\Users\antdg\Documents\Codigo-Italian-Pizza\obj\Debug\Views\FinancesPage.baml
+C:\Users\antdg\Documents\Codigo-Italian-Pizza\obj\Debug\ItalianPizza.csproj.AssemblyReference.cache

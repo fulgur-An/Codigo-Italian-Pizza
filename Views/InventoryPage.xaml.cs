@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -62,8 +63,9 @@ namespace ItalianPizza.Views
 
         public void CancelValidationLayout(object sender, RoutedEventArgs e)
         {
-            HideValidateLayout();
-            ShowWarningToast();
+            ShowConfirmationDeparture();
+            
+            
         }
 
         public void HideValidateLayout()
@@ -105,12 +107,31 @@ namespace ItalianPizza.Views
 
         private void ShowSpecificItemInformation()
         {
+
             ThirdLayerInformationBorder.Visibility = Visibility.Visible;
             QuarterLayerInformationBorder.Visibility = Visibility.Visible;
             OrderInformationGrid.Visibility = Visibility.Visible;
             FieldsAreEditableTextBlock.Visibility = Visibility.Hidden;
-            UpdateFieldsStackPanel.Visibility = Visibility.Visible;
             ChageEnableProperty(true);
+        }
+        private void PackIcon_DragEnter(object sender, RoutedEventArgs e)
+        {
+            Thread.Sleep(500);
+
+            QuarterLayerInformationBorder.Visibility = Visibility.Visible;
+            OrderInformationGrid.Visibility = Visibility.Visible;
+            FieldsAreEditableTextBlock.Visibility = Visibility.Hidden;
+            GetOutStackPanel.Visibility = Visibility.Hidden;
+            CancelRegisterItemButton.Visibility = Visibility.Hidden;
+            RegisterItemButton.Visibility = Visibility.Hidden;
+            UpdateItemDataButton.Visibility = Visibility.Hidden;
+            ChageEnableProperty(false);
+        }
+
+        private void PackIcon_DragLeave(object sender, RoutedEventArgs e)
+        {
+            HideSpecificItemInformation(sender, e);
+            
         }
 
         public void HideSpecificItemInformation(object sender, RoutedEventArgs e)
@@ -126,7 +147,6 @@ namespace ItalianPizza.Views
             RegisterItemButton.Visibility = Visibility.Visible;
             CancelRegisterItemButton.Visibility = Visibility.Visible;
             UpdateItemDataButton.Visibility = Visibility.Collapsed;
-            UpdateFieldsStackPanel.Visibility = Visibility.Hidden;
             FieldsAreEditableTextBlock.Visibility = Visibility.Visible;
         }
 
@@ -135,6 +155,7 @@ namespace ItalianPizza.Views
             ThirdLayerDeleteBorder.Visibility = Visibility.Visible;
             QuarterLayerDeleteBorder.Visibility = Visibility.Visible;
             DeleteItemGrid.Visibility = Visibility.Visible;
+            
         }
 
         private void HideCancelGrid(object sender, RoutedEventArgs e)
@@ -157,13 +178,17 @@ namespace ItalianPizza.Views
 
         public void ShowUpdateFields(object sender, RoutedEventArgs e)
         {
+            ShowEspecificDataItem(sender, e);
             GetOutStackPanel.Visibility = Visibility.Hidden;
             RegisterItemButton.Visibility = Visibility.Collapsed;
             CancelRegisterItemButton.Visibility = Visibility.Visible;
             UpdateItemDataButton.Visibility = Visibility.Visible;
-            UpdateFieldsStackPanel.Visibility = Visibility.Hidden;
             FieldsAreEditableTextBlock.Visibility = Visibility.Visible;
             ChageEnableProperty(true);
+            if(DeleteItemGrid.Visibility == Visibility.Visible)
+            {
+                HideSpecificItemInformation(sender, e);
+            }
         }
 
         public void ChageEnableProperty(bool enableProperty)
@@ -189,15 +214,41 @@ namespace ItalianPizza.Views
         }
         public void CancelProdecure(object sender, RoutedEventArgs e)
         {
-            HideSpecificItemInformation(sender, e);
+            ShowConfirmationDeparture();
+        }
+
+        public void ShowConfirmationDeparture()
+        {
+            ConfirmationBackBorder.Visibility = Visibility.Visible;
+            DeparureConfirmationBorder.Visibility = Visibility.Visible;
+            
+        }
+
+        public void HideDepartureConfirmation(object sender, RoutedEventArgs e)
+        {
+            ConfirmationBackBorder.Visibility = Visibility.Hidden;
+            DeparureConfirmationBorder.Visibility = Visibility.Hidden;
+        }
+
+        private void AcceptDepartureConfirmation(object sender, RoutedEventArgs e)
+        {
             ShowWarningToast();
+            HideSpecificItemInformation(sender, e);
+            HideValidateLayout();
+            HideDepartureConfirmation(sender, e);
         }
 
         public void PrintValidationInventoryResult(object sender, RoutedEventArgs e)
         {
             HideValidateLayout();
-            ShowConfirmationPrintToast();
+            ShowConfirmationFileToast();
         }
+
+        public void GenerateReport(object sender, RoutedEventArgs e)
+        {
+            ShowConfirmationFileToast();
+        }
+
 
         public void ShowConfirmationToast()
         {
@@ -210,13 +261,13 @@ namespace ItalianPizza.Views
                 }, areaName: "ConfirmationToast", expirationTime: TimeSpan.FromSeconds(2)
             );
         }
-        public void ShowConfirmationPrintToast()
+        public void ShowConfirmationFileToast()
         {
             notificationManager.Show(
                 new NotificationContent
                 {
                     Title = "Confirmación",
-                    Message = "Impresión Realizado",
+                    Message = "Archivo creaado",
                     Type = NotificationType.Success,
                 }, areaName: "ConfirmationToast", expirationTime: TimeSpan.FromSeconds(2)
             );
@@ -234,8 +285,11 @@ namespace ItalianPizza.Views
             );
         }
 
+
+
+
         #endregion
 
-
+        
     }
 }
