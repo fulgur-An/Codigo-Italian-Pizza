@@ -68,3 +68,4 @@ C:\Users\Propietario\Desktop\Codigo-Italian-Pizza\obj\Debug\ItalianPizza.pdb
 C:\Users\Propietario\Desktop\Codigo-Italian-Pizza\bin\Debug\BouncyCastle.Crypto.dll
 C:\Users\Propietario\Desktop\Codigo-Italian-Pizza\bin\Debug\itextsharp.dll
 C:\Users\Propietario\Desktop\Codigo-Italian-Pizza\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\Propietario\Desktop\Codigo-Italian-Pizza\obj\Debug\ItalianPizza.csproj.AssemblyReference.cache

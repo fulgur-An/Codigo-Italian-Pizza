@@ -142,7 +142,7 @@
             <Border Background="#5B5B5B" Height="350" Width="709" Margin="0,110,0,-100" CornerRadius="0,0,5,5" 
                 Opacity="0"/>
             <ListBox Height="350" Width="709" Margin="0,110,0,-100" HorizontalAlignment="Center">
-                <ListBoxItem BorderBrush="#CFCFCF" BorderThickness="0,0,0,0.5" MouseLeftButtonUp="ShowSpecificOrderInformation">
+                <ListBoxItem BorderBrush="#CFCFCF" BorderThickness="0,0,0,0.5">
                     <StackPanel Orientation="Horizontal" Height="35" Width="709" Cursor="Hand" Background="Transparent">
                         <Grid Width="250">
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
@@ -170,6 +170,15 @@
 
                         <Grid Width="114.5" Background="Transparent">
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,14,0">
+                                <Button materialDesign:ButtonAssist.CornerRadius="5" Background="#5B5B5B" BorderBrush="{x:Null}"
+                                        Visibility="Visible" Margin="0,0,10,0" ToolTip="Visualizar pedido" Click="ShowSpecificOrderInformation"
+                                        Padding="4,0,4,0" HorizontalAlignment="Center">
+
+                                    <fa5:ImageAwesome Icon="Solid_Eye" Height="18" Width="18" Foreground="#FFF" VerticalAlignment="Center" 
+                                                      Margin="0,0,0,0"/>
+                                </Button>
+                                
+                                
                                 <Button materialDesign:ButtonAssist.CornerRadius="5" Background="#5B5B5B" BorderBrush="{x:Null}"
                                         Visibility="Visible" Margin="0,0,10,0" ToolTip="Actualizar pedido" Click="ShowOrderUpdateDialog"
                                         Padding="4,0,4,0" HorizontalAlignment="Center">
@@ -769,7 +778,8 @@
                                     Background="#2C2C2E" BorderBrush="{x:Null}" Visibility="Visible" ToolTip="Actualizar pedido"
                                     Name="UpdateOrderButton" Click="ShowOrderUpdateDialog">
                                 <StackPanel Orientation="Horizontal">
-                                    <fa5:ImageAwesome Icon="Solid_Pen" Height="13" Width="13" Foreground="#FFF" VerticalAlignment="Center" 
+                                    <fa5:ImageAwesome Icon="Solid_
+                    " Height="13" Width="13" Foreground="#FFF" VerticalAlignment="Center" 
                                                       ToolTip="Selecciona un filtro" Margin="0,0,4px,0"/>
                                     <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" HorizontalAlignment="Left">
                                         Actualizar
