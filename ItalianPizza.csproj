@@ -39,6 +39,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -85,6 +86,16 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="BusinessObjects\FoodRecipeViewModel.cs" />
+    <Compile Include="BusinessObjects\IngredientViewModel.cs" />
+    <Compile Include="BusinessObjects\OrderViewModel.cs" />
+    <Compile Include="BusinessObjects\QuantityFoodRecipeViewModel.cs" />
+    <Compile Include="BusinessObjects\QuantityItemViewModel.cs" />
+    <Compile Include="Validations\AlphabeticCharacter.cs" />
+    <Compile Include="Validations\DecimalNumber.cs" />
+    <Compile Include="Validations\Integer.cs" />
+    <Compile Include="Validations\NotNull.cs" />
+    <Compile Include="Validations\NotNullList.cs" />
     <Compile Include="Views\CheckFoodRecipesPage.xaml.cs">
       <DependentUpon>CheckFoodRecipesPage.xaml</DependentUpon>
     </Compile>
@@ -141,6 +152,9 @@
     <PackageReference Include="FontAwesome5">
       <Version>2.1.6</Version>
     </PackageReference>
+    <PackageReference Include="iTextSharp">
+      <Version>5.5.13.3</Version>
+    </PackageReference>
     <PackageReference Include="MaterialDesignThemes">
       <Version>4.4.0</Version>
     </PackageReference>
@@ -151,5 +165,12 @@
       <Version>0.1.1</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\marketing.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\cooking.png" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

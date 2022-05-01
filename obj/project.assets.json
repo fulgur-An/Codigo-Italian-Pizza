@@ -2,6 +2,15 @@
   "version": 3,
   "targets": {
     ".NETFramework,Version=v4.7.2": {
+      "BouncyCastle/1.8.9": {
+        "type": "package",
+        "compile": {
+          "lib/BouncyCastle.Crypto.dll": {}
+        },
+        "runtime": {
+          "lib/BouncyCastle.Crypto.dll": {}
+        }
+      },
       "FontAwesome5/2.1.6": {
         "type": "package",
         "compile": {
@@ -11,6 +20,18 @@
         "runtime": {
           "lib/net472/FontAwesome5.Net.dll": {},
           "lib/net472/FontAwesome5.dll": {}
+        }
+      },
+      "iTextSharp/5.5.13.3": {
+        "type": "package",
+        "dependencies": {
+          "BouncyCastle": "1.8.9"
+        },
+        "compile": {
+          "lib/itextsharp.dll": {}
+        },
+        "runtime": {
+          "lib/itextsharp.dll": {}
         }
       },
       "MaterialDesignColors/2.0.5": {
@@ -211,6 +232,15 @@
       }
     },
     ".NETFramework,Version=v4.7.2/win": {
+      "BouncyCastle/1.8.9": {
+        "type": "package",
+        "compile": {
+          "lib/BouncyCastle.Crypto.dll": {}
+        },
+        "runtime": {
+          "lib/BouncyCastle.Crypto.dll": {}
+        }
+      },
       "FontAwesome5/2.1.6": {
         "type": "package",
         "compile": {
@@ -220,6 +250,18 @@
         "runtime": {
           "lib/net472/FontAwesome5.Net.dll": {},
           "lib/net472/FontAwesome5.dll": {}
+        }
+      },
+      "iTextSharp/5.5.13.3": {
+        "type": "package",
+        "dependencies": {
+          "BouncyCastle": "1.8.9"
+        },
+        "compile": {
+          "lib/itextsharp.dll": {}
+        },
+        "runtime": {
+          "lib/itextsharp.dll": {}
         }
       },
       "MaterialDesignColors/2.0.5": {
@@ -420,6 +462,15 @@
       }
     },
     ".NETFramework,Version=v4.7.2/win-x64": {
+      "BouncyCastle/1.8.9": {
+        "type": "package",
+        "compile": {
+          "lib/BouncyCastle.Crypto.dll": {}
+        },
+        "runtime": {
+          "lib/BouncyCastle.Crypto.dll": {}
+        }
+      },
       "FontAwesome5/2.1.6": {
         "type": "package",
         "compile": {
@@ -429,6 +480,18 @@
         "runtime": {
           "lib/net472/FontAwesome5.Net.dll": {},
           "lib/net472/FontAwesome5.dll": {}
+        }
+      },
+      "iTextSharp/5.5.13.3": {
+        "type": "package",
+        "dependencies": {
+          "BouncyCastle": "1.8.9"
+        },
+        "compile": {
+          "lib/itextsharp.dll": {}
+        },
+        "runtime": {
+          "lib/itextsharp.dll": {}
         }
       },
       "MaterialDesignColors/2.0.5": {
@@ -629,6 +692,15 @@
       }
     },
     ".NETFramework,Version=v4.7.2/win-x86": {
+      "BouncyCastle/1.8.9": {
+        "type": "package",
+        "compile": {
+          "lib/BouncyCastle.Crypto.dll": {}
+        },
+        "runtime": {
+          "lib/BouncyCastle.Crypto.dll": {}
+        }
+      },
       "FontAwesome5/2.1.6": {
         "type": "package",
         "compile": {
@@ -638,6 +710,18 @@
         "runtime": {
           "lib/net472/FontAwesome5.Net.dll": {},
           "lib/net472/FontAwesome5.dll": {}
+        }
+      },
+      "iTextSharp/5.5.13.3": {
+        "type": "package",
+        "dependencies": {
+          "BouncyCastle": "1.8.9"
+        },
+        "compile": {
+          "lib/itextsharp.dll": {}
+        },
+        "runtime": {
+          "lib/itextsharp.dll": {}
         }
       },
       "MaterialDesignColors/2.0.5": {
@@ -839,6 +923,19 @@
     }
   },
   "libraries": {
+    "BouncyCastle/1.8.9": {
+      "sha512": "axnBgvdD5n+FnEG6efk/tfKuMFru7R/EoISH9zjh319yb3HD24TEHSAbNN/lTRT2ulOGRxDgOsCjkuk08iwWPg==",
+      "type": "package",
+      "path": "bouncycastle/1.8.9",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "bouncycastle.1.8.9.nupkg.sha512",
+        "bouncycastle.nuspec",
+        "lib/BouncyCastle.Crypto.dll"
+      ]
+    },
     "FontAwesome5/2.1.6": {
       "sha512": "K/fuziBuB4B7D3ChlaBEaTJSuX0bk0PtyOQ3/TrsoL/fuAJnXoZrAwbNw+XYuhqLgvEq5SrVwTWPsbiY0gVkBw==",
       "type": "package",
@@ -895,6 +992,22 @@
         "lib/uap10.0/FontAwesome5.UWP/Fonts/Font Awesome 5 Free-Solid-900.otf",
         "lib/uap10.0/FontAwesome5.dll",
         "lib/uap10.0/FontAwesome5.xml"
+      ]
+    },
+    "iTextSharp/5.5.13.3": {
+      "sha512": "vtnMhTEJdZFCkLqaQLjD8aqTBIVKHPrSFuSXnxbLEJlvE/j/l88fvG9wtsejXTmhtErMo0lA9T2LdfdfbwplYw==",
+      "type": "package",
+      "path": "itextsharp/5.5.13.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.md",
+        "gnu-agpl-v3.0.md",
+        "itextsharp.5.5.13.3.nupkg.sha512",
+        "itextsharp.nuspec",
+        "lib/iTextSharp.xml",
+        "lib/itextsharp.dll",
+        "notice.txt"
       ]
     },
     "MaterialDesignColors/2.0.5": {
@@ -1774,7 +1887,8 @@
       "FontAwesome5 >= 2.1.6",
       "MaterialDesignThemes >= 4.4.0",
       "Microsoft.Toolkit.Uwp.Notifications >= 7.1.2",
-      "Notifications.Wpf >= 0.1.1"
+      "Notifications.Wpf >= 0.1.1",
+      "iTextSharp >= 5.5.13.3"
     ]
   },
   "packageFolders": {
@@ -1833,6 +1947,10 @@
           "Notifications.Wpf": {
             "target": "Package",
             "version": "[0.1.1, )"
+          },
+          "iTextSharp": {
+            "target": "Package",
+            "version": "[5.5.13.3, )"
           }
         }
       }

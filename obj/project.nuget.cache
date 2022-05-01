@@ -1,10 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "BHXhxwQ1b39096mVp9yvl/stH35ELqtVoCU/yONlYKa6G64XeTTMkXnqie9nwz6Wa1dmIFLCZeV6nLWTZMqdgg==",
+  "dgSpecHash": "qir3g7sUYxC8klslPNq/pklNk+HI340diYQjuLWFHW9PVPeEkHZRXMRhbA3p/M6uZXZ71uLlaBmU8H05cv+5ow==",
   "success": true,
   "projectFilePath": "C:\\Users\\Propietario\\Desktop\\Codigo-Italian-Pizza\\ItalianPizza.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Propietario\\.nuget\\packages\\bouncycastle\\1.8.9\\bouncycastle.1.8.9.nupkg.sha512",
     "C:\\Users\\Propietario\\.nuget\\packages\\fontawesome5\\2.1.6\\fontawesome5.2.1.6.nupkg.sha512",
+    "C:\\Users\\Propietario\\.nuget\\packages\\itextsharp\\5.5.13.3\\itextsharp.5.5.13.3.nupkg.sha512",
     "C:\\Users\\Propietario\\.nuget\\packages\\materialdesigncolors\\2.0.5\\materialdesigncolors.2.0.5.nupkg.sha512",
     "C:\\Users\\Propietario\\.nuget\\packages\\materialdesignthemes\\4.4.0\\materialdesignthemes.4.4.0.nupkg.sha512",
     "C:\\Users\\Propietario\\.nuget\\packages\\microsoft.netframework.referenceassemblies\\1.0.0\\microsoft.netframework.referenceassemblies.1.0.0.nupkg.sha512",

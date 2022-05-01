@@ -61,6 +61,15 @@ namespace ItalianPizza
             OrdersStackPanel.Opacity = 1;
             OrdersGreendBorder.Visibility = Visibility;
         }
+        
+        public void OpenProviderModule(object sender, RoutedEventArgs e)
+        {
+            ClearMenuSelections();
+            CheckOrdersPage checkOrdersPage = new CheckOrdersPage(usernameLoggedIn);
+            NavigationFrame.NavigationService.Navigate(checkOrdersPage);
+            OrdersStackPanel.Opacity = 1;
+            OrdersGreendBorder.Visibility = Visibility;
+        }
 
         public void OpeenFoodRecipeModule(object sender, RoutedEventArgs e)
         {

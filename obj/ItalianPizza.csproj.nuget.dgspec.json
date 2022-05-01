@@ -55,6 +55,10 @@
             "Notifications.Wpf": {
               "target": "Package",
               "version": "[0.1.1, )"
+            },
+            "iTextSharp": {
+              "target": "Package",
+              "version": "[5.5.13.3, )"
             }
           }
         }

@@ -1,6 +1,9 @@
-﻿using MaterialDesignThemes.Wpf;
+﻿using ItalianPizza.BusinessObjects;
+using MaterialDesignThemes.Wpf;
+using Notifications.Wpf;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,14 +25,20 @@ namespace ItalianPizza.Views
     /// </summary>
     public partial class CheckFoodRecipesPage : Page
     {
+        private FoodRecipeViewModel foodRecipe = new FoodRecipeViewModel();
         private string usernameLoggedIn;
 
+        private readonly NotificationManager notificationManager = new NotificationManager();
+
+        private List<string> recipeStepList = new List<string>();
+        
         public CheckFoodRecipesPage(string usernameLoggedIn)
         {
             InitializeComponent();
+            DataContext = foodRecipe;
             this.usernameLoggedIn = usernameLoggedIn;
         }
-                                                        
+
         #region GUI Methods
 
         public void ShowOrderDialogs(bool isEnabled)
@@ -41,9 +50,10 @@ namespace ItalianPizza.Views
             SaveFoodRecipeButton.Visibility = Visibility.Collapsed;
             FoodRecipeNameTextBox.IsEnabled = isEnabled;
             PortionsAndPriceGrid.IsEnabled = isEnabled;
-            FoodRecipeDescriptionTextBox.IsEnabled = isEnabled;       
+            FoodRecipeDescriptionTextBox.IsEnabled = isEnabled;
             IngredientesComboBox.IsEnabled = isEnabled;
-            IngredientQuantityTextBox.IsEnabled = isEnabled;   
+            IngredientQuantityTextBox.IsEnabled = isEnabled;
+            FoodRecipePortionsComboBox.IsEnabled = isEnabled;
         }
 
         public void AccommodateListOfIngredients()
@@ -58,7 +68,7 @@ namespace ItalianPizza.Views
             IngredientListBox.VerticalAlignment = VerticalAlignment.Bottom;
 
             HintAssist.SetHelperText(FoodRecipeNameTextBox, "Nombre de la receta de platillo");
-            HintAssist.SetHelperText(FoodRecipePortionsTextBox, "Número de porciones");
+            HintAssist.SetHelperText(FoodRecipePortionsComboBox, "Número de porciones");
             HintAssist.SetHelperText(FoodRecipeDescriptionTextBox, "Decripción de un paso de la Receta de platillo");
             HintAssist.SetHelperText(IngredientesComboBox, "Nombre del ingrediente");
             HintAssist.SetHelperText(IngredientQuantityTextBox, "Cantidad necesaria del ingrediente");
@@ -73,8 +83,8 @@ namespace ItalianPizza.Views
             AcceptFoodRecipeRegistrationButtton.Visibility = Visibility.Collapsed;
             UpdateFoodRecipeButton.Visibility = Visibility.Visible;
             DeleteFoodRecipeButton.Visibility = Visibility.Visible;
-            AddButton.Visibility = Visibility.Hidden;
-            MinusButton.Visibility = Visibility.Hidden;
+            //AddButton.Visibility = Visibility.Hidden;
+            //MinusButton.Visibility = Visibility.Hidden;
             AddStepButton.Visibility = Visibility.Collapsed;
             DeleteStepButton.Visibility = Visibility.Collapsed;
             IngredientesStackPanel.Visibility = Visibility.Collapsed;
@@ -83,7 +93,7 @@ namespace ItalianPizza.Views
             FoodRecipeStepsListBox.Height = 310;
 
             HintAssist.SetHelperText(FoodRecipeNameTextBox, string.Empty);
-            HintAssist.SetHelperText(FoodRecipePortionsTextBox, string.Empty);
+            HintAssist.SetHelperText(FoodRecipePortionsComboBox, string.Empty);
             HintAssist.SetHelperText(FoodRecipeDescriptionTextBox, string.Empty);
             HintAssist.SetHelperText(IngredientesComboBox, string.Empty);
             HintAssist.SetHelperText(IngredientQuantityTextBox, string.Empty);
@@ -107,13 +117,12 @@ namespace ItalianPizza.Views
             AcceptFoodRecipeRegistrationButtton.Visibility = Visibility.Visible;
             UpdateFoodRecipeButton.Visibility = Visibility.Collapsed;            
             DeleteFoodRecipeButton.Visibility = Visibility.Collapsed;
-            AddButton.Visibility = Visibility.Visible;
-            MinusButton.Visibility = Visibility.Visible;
+            //AddButton.Visibility = Visibility.Visible;
+            //MinusButton.Visibility = Visibility.Visible;
             IngredientesComboBox.SelectedIndex = -1;
             AddStepButton.Visibility = Visibility.Visible;
             DeleteStepButton.Visibility = Visibility.Visible;     
             IngredientesStackPanel.Visibility = Visibility.Visible;
-            FoodRecipePortionsTextBox.Text = "1";
             FoodRecipeDescriptionStackPanel.Visibility = Visibility.Visible;
             FoodRecipeStepsBorder.Height = 190;
             FoodRecipeStepsListBox.Height = 190;
@@ -121,34 +130,34 @@ namespace ItalianPizza.Views
             AccommodateListOfIngredients();
         }
 
-        public void IncreaseNumberOfPortions(object sender, RoutedEventArgs e)
-        {       
-            int ingredientQuantity = Int32.Parse(FoodRecipePortionsTextBox.Text);
+        //public void IncreaseNumberOfPortions(object sender, RoutedEventArgs e)
+        //{       
+        //    int ingredientQuantity = Int32.Parse(FoodRecipePortionsTextBox.Text);
 
-            if (ingredientQuantity < 20)
-            {
-                ingredientQuantity++;
-                FoodRecipePortionsTextBox.Text = ingredientQuantity + "";
-            }
-            else
-            {
-                HintAssist.SetHelperText(FoodRecipePortionsTextBox, "Rango superior alcanzado");
-            }
-        }
+        //    if (ingredientQuantity < 20)
+        //    {
+        //        ingredientQuantity++;
+        //        FoodRecipePortionsTextBox.Text = ingredientQuantity + "";
+        //    }
+        //    else
+        //    {
+        //        HintAssist.SetHelperText(FoodRecipePortionsTextBox, "Rango superior alcanzado");
+        //    }
+        //}
 
-        public void DecreaseNumberOfPortions(object sender, RoutedEventArgs e)
-        {
-            int ingredientQuantity = Int32.Parse(FoodRecipePortionsTextBox.Text);
+        //public void DecreaseNumberOfPortions(object sender, RoutedEventArgs e)
+        //{
+        //    int ingredientQuantity = Int32.Parse(FoodRecipePortionsTextBox.Text);
 
-            if (ingredientQuantity > 1)
-            {
-                ingredientQuantity--;
-                FoodRecipePortionsTextBox.Text = ingredientQuantity + "";
-            } else
-            {
-                HintAssist.SetHelperText(FoodRecipePortionsTextBox, "Rango inferior alcanzado");
-            }
-        }
+        //    if (ingredientQuantity > 1)
+        //    {
+        //        ingredientQuantity--;
+        //        FoodRecipePortionsTextBox.Text = ingredientQuantity + "";
+        //    } else
+        //    {
+        //        HintAssist.SetHelperText(FoodRecipePortionsTextBox, "Rango inferior alcanzado");
+        //    }
+        //}
 
         public void ShowFoodRecipeUpdateDialog(object sender, RoutedEventArgs e)
         {
@@ -161,8 +170,8 @@ namespace ItalianPizza.Views
             SaveFoodRecipeButton.Visibility = Visibility.Visible;
             AddStepButton.Visibility = Visibility.Visible;
             DeleteStepButton.Visibility = Visibility.Visible;
-            AddButton.Visibility = Visibility.Visible;
-            MinusButton.Visibility = Visibility.Visible;
+            //AddButton.Visibility = Visibility.Visible;
+            //MinusButton.Visibility = Visibility.Visible;
             IngredientesStackPanel.Visibility = Visibility.Visible;
             FoodRecipeDescriptionStackPanel.Visibility = Visibility.Visible;
             FoodRecipeStepsBorder.Height = 190;
@@ -250,13 +259,20 @@ namespace ItalianPizza.Views
         {
             bool isRegister = FoodRecipeHeaderTextBlock.Text.Equals("Registro de Receta de Platillo");
 
-            if ((isRegister && !InvalidFieldsGrid.IsVisible) || (SaveFoodRecipeButton.IsVisible && !FifthLayerBorder.IsVisible) || (DeleteConfirmationGrid.IsVisible && !FifthLayerBorder.IsVisible))
+            if ((isRegister && !InvalidFieldsGrid.IsVisible) || 
+                (SaveFoodRecipeButton.IsVisible && !FifthLayerBorder.IsVisible) || 
+                (DeleteConfirmationGrid.IsVisible && !FifthLayerBorder.IsVisible))
             {
                 FifthLayerBorder.Visibility = Visibility.Visible;
                 InvalidFieldsGrid.Visibility = Visibility.Visible;
             }
             else
             {
+                if (DeleteConfirmationGrid.IsVisible)
+                {
+                    ShowConfirmationToast(sender, e);
+                }
+
                 ThirdLayerInformationBorder.Visibility = Visibility.Hidden;
                 QuarterLayerInformationBorder.Visibility = Visibility.Hidden;
                 FoodRecipeGrid.Visibility = Visibility.Hidden;
@@ -275,6 +291,122 @@ namespace ItalianPizza.Views
         {
             FifthLayerBorder.Visibility = Visibility.Visible;
             DeleteConfirmationGrid.Visibility = Visibility.Visible;
+        }
+
+        public void AddStepToRecipe(object sender, RoutedEventArgs e)
+        {
+            int stepsNumber = FoodRecipeStepsListBox.Items.Count + 1;
+            string step = FoodRecipeDescriptionTextBox.Text;            
+            FoodRecipeStepsListBox.Items.Add(stepsNumber + ".\n" + step);
+            FoodRecipeDescriptionTextBox.Text = "";
+            DeleteStepButton.IsEnabled = true;
+        }
+
+        public void DeleteStepToRecipe(object sender, RoutedEventArgs e)
+        {
+            if (FoodRecipeStepsListBox.SelectedItem != null)
+            {
+                FoodRecipeStepsListBox.Items.RemoveAt
+                (
+                    FoodRecipeStepsListBox.Items.IndexOf(FoodRecipeStepsListBox.SelectedItem)
+                );
+
+                recipeStepList.Clear();
+
+                foreach (var step in FoodRecipeStepsListBox.Items)
+                {
+                    string[] value = step.ToString().Split('\n');
+                    recipeStepList.Add(value[1]);
+                }
+
+                FoodRecipeStepsListBox.Items.Clear();
+
+                for (int i = 0; i < recipeStepList.Count; i++)
+                {
+                    FoodRecipeStepsListBox.Items.Add((i + 1) + ".\n" + recipeStepList[i]);
+                }
+
+                DeleteStepButton.IsEnabled = FoodRecipeStepsListBox.Items.Count >= 1;
+            } 
+            else
+            {
+                ShowUnselectedItemToast();
+            }    
+        }
+
+        public void AddIngredientToRecipe(object sender, RoutedEventArgs e)
+        {
+            IngredientViewModel ingredient = new IngredientViewModel();
+
+            ingredient.IngredientName = IngredientesComboBox.Text;
+            ingredient.IngredientQuantity = IngredientQuantityTextBox.Text;
+
+            IngredientListBox.Items.Add(ingredient);
+
+            IngredientesComboBox.SelectedIndex = -1;
+            IngredientQuantityTextBox.Text = "";
+            DeleteIngredientButton.IsEnabled = true;
+        }
+
+        public void DeleteIngredientToRecipe(object sender, RoutedEventArgs e)
+        {
+            if (IngredientListBox.SelectedItem != null)
+            {
+                IngredientListBox.Items.RemoveAt
+                (
+                    IngredientListBox.Items.IndexOf(IngredientListBox.SelectedItem)
+                );
+
+                if (IngredientListBox.Items.Count <= 0)
+                {
+                    DeleteIngredientButton.IsEnabled = false;
+                }
+            }
+            else
+            {
+                ShowUnselectedItemToast();
+            }
+        }
+
+        public void ShowConfirmationToast(object sender, RoutedEventArgs e)
+        {
+            ThirdLayerInformationBorder.Visibility = Visibility.Hidden;
+            QuarterLayerInformationBorder.Visibility = Visibility.Hidden;
+            FoodRecipeGrid.Visibility = Visibility.Hidden;
+            BackToFoodRecipeRegistration(sender, e);
+
+            notificationManager.Show(
+                new NotificationContent
+                {
+                    Title = "Confirmación",
+                    Message = "Proceso Realizado",
+                    Type = NotificationType.Success,
+                }, areaName: "ConfirmationToast", expirationTime: TimeSpan.FromSeconds(2)
+            );
+        }
+
+        public void ShowUnrealizedChangesToast(object sender, RoutedEventArgs e)
+        {
+            notificationManager.Show(
+                new NotificationContent
+                {
+                    Title = "Sin cambios en la actualización",
+                    Message = "Proceso no realizado",
+                    Type = NotificationType.Warning,
+                }, areaName: "ConfirmationToast", expirationTime: TimeSpan.FromSeconds(2)
+            );
+        }
+
+        public void ShowUnselectedItemToast()
+        {
+            notificationManager.Show(
+                new NotificationContent
+                {
+                    Title = "Selecciona un elemento de la lista",
+                    Message = "Proceso no realizado",
+                    Type = NotificationType.Warning,
+                }, areaName: "ConfirmationToast", expirationTime: TimeSpan.FromSeconds(2)
+            );
         }
 
         #endregion

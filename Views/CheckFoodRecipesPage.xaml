@@ -6,6 +6,8 @@
       xmlns:local="clr-namespace:ItalianPizza.Views"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:fa5="http://schemas.fontawesome.com/icons/"  
+      xmlns:notifications="clr-namespace:Notifications.Wpf.Controls;assembly=Notifications.Wpf" 
+      xmlns:validations="clr-namespace:ItalianPizza.Validations"
       mc:Ignorable="d" 
       d:DesignHeight="720" d:DesignWidth="776"
       Title="Check Food Recipes">
@@ -32,17 +34,20 @@
         </TextBlock>
 
         <!--Initial Message-->
-        <Border Background="Transparent" Height="300" Width="550" Margin="0,120,0,0" CornerRadius="10" 
-                Opacity="0.4" x:Name="InitialMessageBorder">
-            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+        <Grid Background="Transparent" Margin="0,295,0,0" 
+                Opacity="0.4" x:Name="InitialMessageBorder" VerticalAlignment="Center">
+            <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center">
+                <!--<fa5:ImageAwesome Icon="Regular_Smile" Height="100" Width="100" Margin="0,0,0,20px" 
+                                     Foreground="#FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                                     ToolTip="Usuarios" />-->
                 <TextBlock Foreground="#FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center" 
-                           Margin="0,0,0,0" FontFamily="Trebuchet MS" FontSize="50" Name="SearchResultMessageTextBlock"
+                           Margin="0,0,0,30" FontFamily="Trebuchet MS" FontSize="50" Name="SearchResultMessageTextBlock"
                            TextWrapping="Wrap" TextAlignment="Center">
-                        Sin resultados de
-                        búsqueda
+                        Realiza una búsqueda
                 </TextBlock>
+                <Image Source="../Images/cooking.png" Width="300" Height="300" Margin="0,0,0,0" Opacity="1"/>
             </StackPanel>
-        </Border>
+        </Grid>
         <!--#endregion-->                
     
         <!--#region Food Recipes Table -->
@@ -432,7 +437,7 @@
                             Width="430">
                     <!--#region Food Recipe Information-->
                     <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left">
-                            Nombre de la receta
+                            *Nombre de la receta
                     </TextBlock>
                     <Grid Cursor="Hand">
                         <Border Background="{x:Null}" CornerRadius="5" Width="430" Height="35" HorizontalAlignment="Left"
@@ -443,22 +448,31 @@
                                   HorizontalAlignment="Left" materialDesign:TextFieldAssist.HasClearButton="True"
                                   Width="430" Height="35" Padding="6" VerticalContentAlignment="Center"
                                   FontFamily="Tw Cen MT" FontSize="15" BorderBrush="#000" Foreground="#000" 
-                                  Background="Transparent" BorderThickness="0.01"
-                                  materialDesign:HintAssist.FloatingOffset="0,0" 
+                                  Background="Transparent" BorderThickness="0.01" MaxLength="50"
+                                  materialDesign:HintAssist.FloatingOffset="0,0"  TextWrapping="Wrap"
                                   materialDesign:HintAssist.HelperTextFontSize="13"
                                   materialDesign:HintAssist.Background="Transparent" 
                                   materialDesign:HintAssist.Foreground="Transparent"
-                                  Name="FoodRecipeNameTextBox"/>
+                                  Name="FoodRecipeNameTextBox">
+
+                            <TextBox.Text>
+                                <Binding Path="Name" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">                                    
+                                    <Binding.ValidationRules>
+                                        <validations:AlphabeticCharacter ValidatesOnTargetUpdated="True"/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
                     </Grid>
 
                     <StackPanel Orientation="Horizontal">
                         <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left"
                                    Margin="0,25,0,0">
-                            Número de porciones
+                            *Número de porciones
                         </TextBlock>
                         <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left"
-                                   Margin="35,25,0,0">
-                            Precio $
+                                   Margin="25,25,0,0">
+                            *Precio
                         </TextBlock>
                     </StackPanel>
                     <Grid Name="PortionsAndPriceGrid">
@@ -467,19 +481,49 @@
                         <Border Background="{x:Null}" CornerRadius="5" Width="200" Height="35" HorizontalAlignment="Left" Margin="230,0,0,0"
                                 BorderBrush="#8D8D8D" BorderThickness="1"/>
                         <StackPanel Orientation="Horizontal" Cursor="Hand">
-                            <TextBox materialDesign:HintAssist.HelperText="Número de porciones"  
+                            <ComboBox materialDesign:HintAssist.HelperText="Número de porciones"  
                                   materialDesign:HintAssist.Hint="Incrementa la cantidad" 
-                                  HorizontalAlignment="Left"
-                                  Width="150" Height="35" Padding="6" VerticalContentAlignment="Center"
+                                  HorizontalAlignment="Left" materialDesign:TextFieldAssist.HasClearButton="True"
+                                  Width="200" Height="35" Padding="6" VerticalContentAlignment="Center"
                                   FontFamily="Tw Cen MT" FontSize="15" BorderBrush="#000" Foreground="#000" 
                                   Background="Transparent" BorderThickness="0.01"
                                   materialDesign:HintAssist.FloatingOffset="0,0" 
                                   materialDesign:HintAssist.HelperTextFontSize="13"
                                   materialDesign:HintAssist.Background="Transparent" 
                                   materialDesign:HintAssist.Foreground="Transparent"                                 
-                                  IsEnabled="False" Name="FoodRecipePortionsTextBox"/>
+                                  IsEnabled="True" Name="FoodRecipePortionsComboBox">
 
-                            <Button Width="25" Margin="0,0,0,0" materialDesign:ButtonAssist.CornerRadius="0" Height="35"
+                                <ComboBox.Text>
+                                    <Binding Path="Portions" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                                        <Binding.ValidationRules>
+                                            <validations:DecimalNumber ValidatesOnTargetUpdated="True"/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </ComboBox.Text>
+                                
+                                <ComboBoxItem>1</ComboBoxItem>
+                                <ComboBoxItem>2</ComboBoxItem>
+                                <ComboBoxItem>3</ComboBoxItem>
+                                <ComboBoxItem>4</ComboBoxItem>
+                                <ComboBoxItem>5</ComboBoxItem>
+                                <ComboBoxItem>6</ComboBoxItem>
+                                <ComboBoxItem>7</ComboBoxItem>
+                                <ComboBoxItem>8</ComboBoxItem>
+                                <ComboBoxItem>9</ComboBoxItem>
+                                <ComboBoxItem>10</ComboBoxItem>
+                                <ComboBoxItem>11</ComboBoxItem>
+                                <ComboBoxItem>12</ComboBoxItem>
+                                <ComboBoxItem>13</ComboBoxItem>
+                                <ComboBoxItem>14</ComboBoxItem>
+                                <ComboBoxItem>15</ComboBoxItem>
+                                <ComboBoxItem>16</ComboBoxItem>
+                                <ComboBoxItem>17</ComboBoxItem>
+                                <ComboBoxItem>18</ComboBoxItem>
+                                <ComboBoxItem>19</ComboBoxItem>
+                                <ComboBoxItem>20</ComboBoxItem>
+                            </ComboBox>
+
+                            <!--<Button Width="25" Margin="0,0,0,0" materialDesign:ButtonAssist.CornerRadius="0" Height="35"
                                     Background="#2C2C2E" BorderBrush="{x:Null}" Visibility="Visible" ToolTip="Incrementar número de porciones"
                                     Click="IncreaseNumberOfPortions" Padding="0" Name="AddButton">
                                 <fa5:ImageAwesome Icon="Solid_Plus" Height="10" Width="10" Foreground="#FFF" VerticalAlignment="Center" 
@@ -490,18 +534,27 @@
                                     Click="DecreaseNumberOfPortions" Padding="0" Name="MinusButton">
                                 <fa5:ImageAwesome Icon="Solid_Minus" Height="10" Width="10" Foreground="#FFF" VerticalAlignment="Center" 
                                                   />
-                            </Button>
+                            </Button>-->
                             <TextBox materialDesign:HintAssist.HelperText="Precio asociado a la receta"  
                                   materialDesign:HintAssist.Hint="Ingresa el precio del platillo" 
-                                  HorizontalAlignment="Left" Margin="0,0,0,0" materialDesign:TextFieldAssist.HasClearButton="True"
+                                  HorizontalAlignment="Left" Margin="30,0,0,0" materialDesign:TextFieldAssist.HasClearButton="True"
                                   Width="200" Height="35" Padding="6" VerticalContentAlignment="Center"
                                   FontFamily="Tw Cen MT" FontSize="15" BorderBrush="#000" Foreground="#000" 
+                                  materialDesign:TextFieldAssist.PrefixText="$" MaxLength="10"
                                   Background="Transparent" BorderThickness="0.01"
-                                  materialDesign:HintAssist.FloatingOffset="0,0" 
+                                  materialDesign:HintAssist.FloatingOffset="0,0"
                                   materialDesign:HintAssist.HelperTextFontSize="13"
                                   materialDesign:HintAssist.Background="Transparent" 
                                   materialDesign:HintAssist.Foreground="Transparent"
-                                  Name="FoodRecipePriceTextBox"/>
+                                  Name="FoodRecipePriceTextBox">
+                                <TextBox.Text>
+                                    <Binding Path="Price" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                                        <Binding.ValidationRules>
+                                            <validations:DecimalNumber ValidatesOnTargetUpdated="True"/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
                         </StackPanel>
                     </Grid>
 
@@ -509,7 +562,7 @@
                         <StackPanel Orientation="Vertical">
                             <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left"
                                        Margin="0,25,0,0">
-                                Descripción
+                                *Descripción
                             </TextBlock>
                             <Grid Cursor="Hand">
                                 <Border Background="{x:Null}" CornerRadius="5" Width="430" Height="70" HorizontalAlignment="Left"
@@ -525,16 +578,24 @@
                                           materialDesign:HintAssist.Background="Transparent" 
                                           materialDesign:HintAssist.Foreground="Transparent"
                                           materialDesign:HintAssist.HelperTextFontSize="13"
-                                          TextWrapping="Wrap" VerticalAlignment="Top" 
-                                          Name="FoodRecipeDescriptionTextBox"/>
+                                          TextWrapping="Wrap" VerticalAlignment="Top" MaxLength="500"
+                                          Name="FoodRecipeDescriptionTextBox">
+                                    <TextBox.Text>
+                                        <Binding Path="Description" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                                            <Binding.ValidationRules>
+                                                <validations:NotNullList ValidatesOnTargetUpdated="True"/>
+                                            </Binding.ValidationRules>
+                                        </Binding>
+                                    </TextBox.Text>
+                                </TextBox>
                             </Grid>
                         </StackPanel>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal">
-                        <Button VerticalAlignment="Bottom" Background="#2C2C2E" materialDesign:ButtonAssist.CornerRadius="8"
-                                Height="34" Margin="0,35,0,0" Width="200" BorderBrush="{x:Null}"
-                                Name="AddStepButton">
+                        <Button VerticalAlignment="Bottom" materialDesign:ButtonAssist.CornerRadius="8"
+                                Height="34" Margin="0,35,0,0" Width="200" BorderBrush="{x:Null}" Background="#2C2C2E"
+                                Name="AddStepButton" Click="AddStepToRecipe">
                             <StackPanel Orientation="Horizontal">
                                 <fa5:ImageAwesome Icon="Solid_Utensils" Height="13" Width="13" Foreground="#FFF" VerticalAlignment="Center" 
                                           ToolTip="Agregar paso" Margin="0,0,4px,0"/>
@@ -542,11 +603,22 @@
                                     Agregar paso
                                 </TextBlock>
                             </StackPanel>
+
+                            <Button.Style>
+                                <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedDarkButton}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ElementName=FoodRecipeDescriptionTextBox, 
+                                                     Path=(Validation.HasError)}" Value="True">
+                                            <Setter Property="IsEnabled" Value="False"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
                         </Button>
 
                         <Button VerticalAlignment="Bottom" Background="#2C2C2E" materialDesign:ButtonAssist.CornerRadius="8"
                                 Height="34" Margin="30,35,0,0" Width="200" BorderBrush="{x:Null}"
-                                Name="DeleteStepButton">
+                                Name="DeleteStepButton" Click="DeleteStepToRecipe" IsEnabled="False">
                             <StackPanel Orientation="Horizontal">
                                 <fa5:ImageAwesome Icon="Solid_Trash" Height="13" Width="13" Foreground="#FFF" VerticalAlignment="Center" 
                                           ToolTip="Agregar paso" Margin="0,0,4px,0"/>
@@ -571,7 +643,25 @@
                         <ListBox ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                  ScrollViewer.CanContentScroll="False" Height="310" Background="Transparent"
                                  Name="FoodRecipeStepsListBox">
-                            <ListBoxItem>
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#000" HorizontalAlignment="Left"
+                                               TextWrapping="Wrap" TextAlignment="Justify" Text="{Binding Path=.}"
+                                               Width="396"/>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+
+                            <!--<ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel>
+                                        <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#000" HorizontalAlignment="Left"
+                                                   TextWrapping="Wrap" TextAlignment="Justify" Text="{Binding Path=.}"
+                                                   Width="396"/>
+                                        
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>-->
+                            <!--<ListBoxItem>
                                 <StackPanel>
                                     <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#000" HorizontalAlignment="Left"
                                                TextWrapping="Wrap" TextAlignment="Justify">
@@ -600,7 +690,7 @@
                                         Lleva la pizza al horno precalentado y hornea durante 10 a 15 minutos. Si ves que se está tostando mucho retírala antes. Antes de servir coloca un chorrito de aceite de oliva sobre la pizza.
                                     </TextBlock>
                                 </StackPanel>
-                            </ListBoxItem>
+                            </ListBoxItem>-->
                         </ListBox>
                     </Grid>
                     <!--#endregion-->
@@ -614,14 +704,14 @@
                     <Grid>
                         <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left"
                                    Margin="0,0,0,60">
-                            Nombre de Ingrediente
+                            *Ingrediente
                         </TextBlock>
                         <Border Background="{x:Null}" CornerRadius="5" Width="215" Height="35" HorizontalAlignment="Left"
                                 BorderBrush="#8D8D8D" BorderThickness="1"/>
                         <!--<materialDesign:Chip Content="José Daniel Camarillo Villa" FontFamily="Tw Cen MT" FontSize="15" Foreground="#000"/>-->
                         <ComboBox materialDesign:HintAssist.HelperText="Nombre del ingrediente"  
-                                  materialDesign:HintAssist.Hint="Seleciona un nombre" 
-                                  ItemsSource="{Binding ShortStringList}" HorizontalAlignment="Left"
+                                  materialDesign:HintAssist.Hint="Seleciona un nombre" materialDesign:TextFieldAssist.HasClearButton="True"
+                                   HorizontalAlignment="Left"
                                   Width="215" Height="35" Padding="6" VerticalContentAlignment="Center"
                                   FontFamily="Tw Cen MT" FontSize="15" BorderBrush="#000" Foreground="#000" 
                                   Background="Transparent" BorderThickness="0.01"
@@ -630,6 +720,15 @@
                                   materialDesign:HintAssist.Background="Transparent" 
                                   materialDesign:HintAssist.Foreground="Transparent"
                                   Name="IngredientesComboBox">
+
+                            <ComboBox.Text>
+                                <Binding Path="IngredientName" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                                    <Binding.ValidationRules>
+                                        <validations:NotNullList ValidatesOnTargetUpdated="True"/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </ComboBox.Text>
+                            
                             <ComboBoxItem>Jitomate</ComboBoxItem>
                             <ComboBoxItem>Masa</ComboBoxItem>
                             <ComboBoxItem>Ajo</ComboBoxItem>
@@ -640,27 +739,34 @@
                     <Grid Margin="0,0,0,0" Visibility="Visible">
                         <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left"
                                    Margin="0,0,0,60">
-                            Cantidad
+                            *Cantidad
                         </TextBlock>
                         <Border Background="{x:Null}" CornerRadius="5" Width="215" Height="35" HorizontalAlignment="Left"
                                 BorderBrush="#8D8D8D" BorderThickness="1"/>
                         <!--<materialDesign:Chip Content="José Daniel Camarillo Villa" FontFamily="Tw Cen MT" FontSize="15" Foreground="#000"/>-->
-                        <TextBox materialDesign:HintAssist.HelperText="Cantidad necesaria del ingrediente"  
+                        <TextBox materialDesign:HintAssist.HelperText="Cantidad del Ingrediente."  
                                   materialDesign:HintAssist.Hint="Ingrese una cantidad" 
                                   HorizontalAlignment="Left" materialDesign:TextFieldAssist.HasClearButton="True"
                                   Width="215" Height="35" Padding="6" VerticalContentAlignment="Center"
                                   FontFamily="Tw Cen MT" FontSize="15" BorderBrush="#000" Foreground="#000" 
-                                  Background="Transparent" BorderThickness="0.01"
-                                  materialDesign:HintAssist.FloatingOffset="0,0" 
+                                  Background="Transparent" BorderThickness="0.01" 
+                                  materialDesign:HintAssist.FloatingOffset="0,0" MaxLength="50"
                                   materialDesign:HintAssist.HelperTextFontSize="13"
                                   materialDesign:HintAssist.Background="Transparent" 
                                   materialDesign:HintAssist.Foreground="Transparent"
-                                  Name="IngredientQuantityTextBox"/>
+                                  Name="IngredientQuantityTextBox">
+
+                            <Binding Path="QuantityItem" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                                <Binding.ValidationRules>
+                                    <validations:NotNullList ValidatesOnTargetUpdated="True"/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox>
                     </Grid>
 
                     <StackPanel>
                         <Button VerticalAlignment="Bottom" Background="#2C2C2E" materialDesign:ButtonAssist.CornerRadius="8"
-                                Height="34" Width="auto" BorderBrush="{x:Null}" Margin="0,20,0,9"
+                                Height="34" Width="auto" BorderBrush="{x:Null}" Margin="0,20,0,9" Click="AddIngredientToRecipe"
                                 Name="AddIngredientButton">
                             <StackPanel Orientation="Horizontal">
                                 <fa5:ImageAwesome Icon="Solid_DrumstickBite" Height="13" Width="13" Foreground="#FFF" VerticalAlignment="Center" 
@@ -669,10 +775,26 @@
                                     Agregar ingrediente
                                 </TextBlock>
                             </StackPanel>
+
+                            <Button.Style>
+                                <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedDarkButton}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ElementName=IngredientesComboBox, 
+                                                     Path=(Validation.HasError)}" Value="True">
+                                            <Setter Property="IsEnabled" Value="False"/>
+                                        </DataTrigger>
+
+                                        <DataTrigger Binding="{Binding ElementName=IngredientQuantityTextBox, 
+                                                     Path=(Validation.HasError)}" Value="True">
+                                            <Setter Property="IsEnabled" Value="False"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
                         </Button>
 
                         <Button VerticalAlignment="Bottom" Background="#2C2C2E" materialDesign:ButtonAssist.CornerRadius="8"
-                                Height="34" Width="auto" BorderBrush="{x:Null}"
+                                Height="34" Width="auto" BorderBrush="{x:Null}" IsEnabled="False" Click="DeleteIngredientToRecipe"
                                 Name="DeleteIngredientButton">
                             <StackPanel Orientation="Horizontal">
                                 <fa5:ImageAwesome Icon="Solid_Trash" Height="13" Width="13" Foreground="#FFF" VerticalAlignment="Center" 
@@ -695,26 +817,44 @@
                             BorderBrush="#5B5B5B" BorderThickness="0.7" CornerRadius="5" x:Name="SixthLayerBorder"/>
                     <ListBox Background="Transparent" Height="470" Width="auto" VerticalAlignment="Top" Margin="0,25,0,0"
                          ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                         ScrollViewer.CanContentScroll="False" Name="IngredientListBox">
-                        <ListBoxItem>
+                         ScrollViewer.CanContentScroll="False" Name="IngredientListBox" ItemsSource="{Binding}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid VerticalAlignment="Top">
+                                    <StackPanel Orientation="Vertical" VerticalAlignment="Top">
+                                        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="0,0,0,0">
+                                            <Image Source="../Images/background.jpg" Height="30" Width="30"/>
+                                            <TextBlock FontFamily="Tw Cen MT" FontSize="15" Foreground="#000" HorizontalAlignment="Center"
+                                               VerticalAlignment="Center" Margin="10,0,0,0" Text="{Binding IngredientName}" Name="IngredientNameTextBlock"
+                                               Background="Transparent" Width="65" TextWrapping="Wrap">
+                                            </TextBlock>
+                                            <TextBlock FontFamily="Tw Cen MT" FontSize="15" Foreground="#000" HorizontalAlignment="Center"
+                                               VerticalAlignment="Center" Margin="10,0,0,0" Background="Transparent" Text="{Binding IngredientQuantity}"
+                                               Width="65" TextWrapping="Wrap" Name="QuantityItemTextBlock">
+                                            </TextBlock>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                        
+                        <!--<ListBoxItem>
                             <Grid VerticalAlignment="Top">
                                 <StackPanel Orientation="Vertical">
                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
                                         <Image Source="../Images/background.jpg" Height="30" Width="30"/>
                                         <TextBlock FontFamily="Tw Cen MT" FontSize="15" Foreground="#000" HorizontalAlignment="Center"
-                                               VerticalAlignment="Center" Margin="10,0,0,0"
+                                               VerticalAlignment="Center" Margin="10,0,0,0" Text="{Binding Path=.}"
                                                Background="Transparent" Width="65" TextWrapping="Wrap">
-                                        Jitomates
                                         </TextBlock>
                                         <TextBlock FontFamily="Tw Cen MT" FontSize="15" Foreground="#000" HorizontalAlignment="Center"
-                                               VerticalAlignment="Center" Margin="10,0,0,0" Background="Transparent"
+                                               VerticalAlignment="Center" Margin="10,0,0,0" Background="Transparent" Text="{Binding Path=.}"
                                                Width="65" TextWrapping="Wrap">
-                                        4 piezas
                                         </TextBlock>
                                     </StackPanel>
                                 </StackPanel>
                             </Grid>
-                        </ListBoxItem>
+                        </ListBoxItem>-->
                     </ListBox>
                 </Grid>
 
@@ -722,7 +862,7 @@
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
                     <Button Width="120" Margin="0,0,0,0" materialDesign:ButtonAssist.CornerRadius="8" Height="40"
                             Background="#2C2C2E" BorderBrush="{x:Null}" Visibility="Visible" ToolTip="Aceptar pedido"
-                            Name="AcceptFoodRecipeRegistrationButtton">
+                            Name="AcceptFoodRecipeRegistrationButtton" Click="ShowConfirmationToast">
                         <StackPanel Orientation="Horizontal">
                             <fa5:ImageAwesome Icon="Solid_Check" Height="13" Width="13" Foreground="#FFF" VerticalAlignment="Center" 
                                           ToolTip="Aceptar" Margin="0,0,0,0"/>
@@ -730,6 +870,37 @@
                                 Aceptar
                             </TextBlock>
                         </StackPanel>
+
+                        <Button.Style>
+                            <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedDarkButton}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ElementName=FoodRecipeNameTextBox, 
+                                                     Path=(Validation.HasError)}" Value="True">
+                                        <Setter Property="IsEnabled" Value="False"/>
+                                    </DataTrigger>
+
+                                    <DataTrigger Binding="{Binding ElementName=FoodRecipePortionsComboBox, 
+                                                     Path=(Validation.HasError)}" Value="True">
+                                        <Setter Property="IsEnabled" Value="False"/>
+                                    </DataTrigger>
+
+                                    <DataTrigger Binding="{Binding ElementName=FoodRecipePriceTextBox, 
+                                                     Path=(Validation.HasError)}" Value="True">
+                                        <Setter Property="IsEnabled" Value="False"/>
+                                    </DataTrigger>
+
+                                    <DataTrigger Binding="{Binding ElementName=DeleteStepButton, 
+                                                     Path=IsEnabled}" Value="False">
+                                        <Setter Property="IsEnabled" Value="False"/>
+                                    </DataTrigger>
+
+                                    <DataTrigger Binding="{Binding ElementName=DeleteIngredientButton, 
+                                                     Path=IsEnabled}" Value="False">
+                                        <Setter Property="IsEnabled" Value="False"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
                     </Button>
 
                     <Button Width="97" Margin="0,0,0,0" materialDesign:ButtonAssist.CornerRadius="8" Height="40"
@@ -746,7 +917,7 @@
 
                     <Button Width="120" Margin="0,0,0,0" materialDesign:ButtonAssist.CornerRadius="8" Height="40"
                             Background="#2C2C2E" BorderBrush="{x:Null}" Visibility="Collapsed" ToolTip="Guardar pedido"
-                            Name="SaveFoodRecipeButton" HorizontalAlignment="Right" >
+                            Name="SaveFoodRecipeButton" HorizontalAlignment="Right" Click="ShowUnrealizedChangesToast">
                         <StackPanel Orientation="Horizontal">
                             <fa5:ImageAwesome Icon="Solid_Save" Height="13" Width="13" Foreground="#FFF" VerticalAlignment="Center" 
                                           ToolTip="Guardar actualización" Margin="0,0,4,0"/>
@@ -754,6 +925,37 @@
                                 Guardar
                             </TextBlock>
                         </StackPanel>
+
+                        <Button.Style>
+                            <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedDarkButton}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ElementName=FoodRecipeNameTextBox, 
+                                                     Path=(Validation.HasError)}" Value="True">
+                                        <Setter Property="IsEnabled" Value="False"/>
+                                    </DataTrigger>
+
+                                    <DataTrigger Binding="{Binding ElementName=FoodRecipePortionsComboBox, 
+                                                     Path=(Validation.HasError)}" Value="True">
+                                        <Setter Property="IsEnabled" Value="False"/>
+                                    </DataTrigger>
+
+                                    <DataTrigger Binding="{Binding ElementName=FoodRecipePriceTextBox, 
+                                                     Path=(Validation.HasError)}" Value="True">
+                                        <Setter Property="IsEnabled" Value="False"/>
+                                    </DataTrigger>
+
+                                    <DataTrigger Binding="{Binding ElementName=DeleteStepButton, 
+                                                     Path=IsEnabled}" Value="False">
+                                        <Setter Property="IsEnabled" Value="False"/>
+                                    </DataTrigger>
+
+                                    <DataTrigger Binding="{Binding ElementName=DeleteIngredientButton, 
+                                                     Path=IsEnabled}" Value="False">
+                                        <Setter Property="IsEnabled" Value="False"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
                     </Button>
 
                     <Button Width="97" materialDesign:ButtonAssist.CornerRadius="8" Background="#2C2C2E" BorderBrush="{x:Null}"
@@ -856,5 +1058,10 @@
             </StackPanel>
         </Grid>
         <!--#endregion-->
+
+        <!--#region Process Confirmation-->
+        <notifications:NotificationArea x:Name="ConfirmationToast" Position="BottomRight" MaxItems="3" 
+                                        notifications:Notification.CloseOnClick="false" Margin="0,0,15,50"/>
+        <!--#endregion-->               
     </Grid>
 </Page>
