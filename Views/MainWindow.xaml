@@ -78,8 +78,10 @@
                 </TextBlock>
 
                 <StackPanel Orientation="Horizontal" Height="50px" Background="Transparent" Margin="0,-15,0,0"
-                            Cursor="Hand" Style="{StaticResource StackPanelHoverStyle}" MouseLeftButtonUp="OpenCustomerModule">
-                    <Border Width="6px" Height="40" Background="#49E12F" CornerRadius="0,3,3,0" Visibility="Hidden"/>
+                            Cursor="Hand" Style="{StaticResource StackPanelHoverStyle}" MouseLeftButtonUp="OpenCustomerModule"
+                            Name="CustomersStackPanel">
+                    <Border Width="6px" Height="40" Background="#49E12F" CornerRadius="0,3,3,0" Visibility="Hidden"
+                            Name="CustomersGreendBorder"/>
                     <fa5:ImageAwesome Icon="Solid_Heart" Height="20" Width="20" Margin="25,0,0,0" 
                                      Foreground="#FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center" 
                                      ToolTip="Usuarios" />
@@ -89,8 +91,10 @@
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Height="50px" Background="Transparent" Cursor="Hand"
-                            Style="{StaticResource StackPanelHoverStyle}">
-                    <Border Width="6px" Height="40" Background="#49E12F" CornerRadius="0,3,3,0" Visibility="Hidden"/>
+                            Style="{StaticResource StackPanelHoverStyle}" MouseLeftButtonUp="OpenEmployeeModule"
+                            Name="EmployeesStackPanel">
+                    <Border Width="6px" Height="40" Background="#49E12F" CornerRadius="0,3,3,0" Visibility="Hidden"
+                            Name="EmployeesGreendBorder"/>
                     <fa5:ImageAwesome Icon="Solid_User" Height="20" Width="20" Margin="25,0,0,0" 
                                      Foreground="#FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center" 
                                      ToolTip="Usuarios" />
@@ -164,6 +168,6 @@
 
         <!--Menu options-->
         <Frame Width="776" Height="720" Margin="209.7px,0,0,0" BorderBrush="#FFF"
-               Opacity="0.91" Name="NavigationFrame" NavigationUIVisibility="Hidden"/>
+               Name="NavigationFrame" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Window>

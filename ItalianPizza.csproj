@@ -49,6 +49,9 @@
     <Reference Include="MaterialDesignThemes.Wpf, Version=4.4.0.0, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">
       <HintPath>packages\MaterialDesignThemes.4.4.0\lib\net452\MaterialDesignThemes.Wpf.dll</HintPath>
     </Reference>
+    <Reference Include="Notifications.Wpf, Version=0.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Notifications.Wpf.0.1.1\lib\net461\Notifications.Wpf.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -81,6 +84,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\ListCustomersPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ListEmployeesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -93,11 +104,28 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="BusinessObjects\AddressViewModel.cs" />
+    <Compile Include="BusinessObjects\CustomerViewModel.cs" />
+    <Compile Include="BusinessObjects\EmployeeViewModel.cs" />
+    <Compile Include="BusinessObjects\WorkShiftViewModel.cs" />
+    <Compile Include="Validations\AlphabeticCharacter.cs" />
+    <Compile Include="Validations\DecimalNumber.cs" />
+    <Compile Include="Validations\Email.cs" />
+    <Compile Include="Validations\Integer.cs" />
+    <Compile Include="Validations\NotNull.cs" />
+    <Compile Include="Validations\NotNullList.cs" />
+    <Compile Include="Validations\Phone.cs" />
     <Compile Include="Views\CheckOrdersPage.xaml.cs">
       <DependentUpon>CheckOrdersPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ErrorPage.xaml.cs">
       <DependentUpon>ErrorPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ListCustomersPage.xaml.cs">
+      <DependentUpon>ListCustomersPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ListEmployeesPage.xaml.cs">
+      <DependentUpon>ListEmployeesPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -139,6 +167,10 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\background_rotate.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\customers.png" />
+    <Resource Include="Images\employees.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="packages\MaterialDesignThemes.4.4.0\build\MaterialDesignThemes.targets" Condition="Exists('packages\MaterialDesignThemes.4.4.0\build\MaterialDesignThemes.targets')" />

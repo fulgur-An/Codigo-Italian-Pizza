@@ -41,12 +41,36 @@ namespace ItalianPizza
             OrdersGreendBorder.Visibility = Visibility.Hidden;
         }
 
-        public void OpenCustomerModule(object sender, RoutedEventArgs e) {
+        public void ClearMenuSelections()
+        {
+            OrdersStackPanel.Opacity = 0.5;
+            OrdersGreendBorder.Visibility = Visibility.Hidden;
+            EmployeesStackPanel.Opacity = 0.5;
+            EmployeesGreendBorder.Visibility = Visibility.Hidden;
+            CustomersStackPanel.Opacity = 0.5;
+            CustomersGreendBorder.Visibility = Visibility.Hidden;
+        }
 
+        public void OpenCustomerModule(object sender, RoutedEventArgs e) {
+            ClearMenuSelections();
+            ListCustomersPage listCustomersPage = new ListCustomersPage(usernameLoggedIn);
+            NavigationFrame.NavigationService.Navigate(listCustomersPage);
+            CustomersStackPanel.Opacity = 1;
+            CustomersGreendBorder.Visibility = Visibility;
+        }
+
+        public void OpenEmployeeModule(object sender, RoutedEventArgs e)
+        {
+            ClearMenuSelections();
+            ListEmployeesPage listEmployeesPage = new ListEmployeesPage(usernameLoggedIn);
+            NavigationFrame.NavigationService.Navigate(listEmployeesPage);
+            EmployeesStackPanel.Opacity = 1;
+            EmployeesGreendBorder.Visibility = Visibility;
         }
 
         public  void OpenOrderModule(object sender, RoutedEventArgs e)
         {
+            ClearMenuSelections();
             CheckOrdersPage checkOrdersPage = new CheckOrdersPage(usernameLoggedIn);
             NavigationFrame.NavigationService.Navigate(checkOrdersPage);
             OrdersStackPanel.Opacity = 1;
