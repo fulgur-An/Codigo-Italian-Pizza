@@ -180,7 +180,100 @@ namespace ItalianPizza.Views
             MonetaryExpeditureInformationGrid.Visibility = Visibility.Visible;
             ChoiceRegisterStackPanel.Visibility = Visibility.Visible;
         }
+
+        private void MilPesosKeyUp(object sender, KeyEventArgs e)
+        {
+
+            string amountstring = milPesos.Text;
+            double amount = double.Parse(amountstring);
+            Calculate(amount * 1000);
+        }
+
+        private void QuinientosPesosKeyUp(object sender, KeyEventArgs e)
+        {
+
+            string amountstring = quinientosPesos.Text;
+            double amount = double.Parse(amountstring);
+            Calculate(amount * 500);
+        }
+
+        private void DoscientosPesosKeyUp(object sender, KeyEventArgs e)
+        {
+
+            string amountstring = doscientosPesos.Text;
+            double amount = double.Parse(amountstring);
+            Calculate(amount * 200);
+        }
+
+        private void CienPesosKeyUp(object sender, KeyEventArgs e)
+        {
+
+            string amountstring = cienPesos.Text;
+            double amount = double.Parse(amountstring);
+            Calculate(amount * 100);
+        }
+
+        private void CincuentaPesosKeyUp(object sender, KeyEventArgs e)
+        {
+
+            string amountstring = cincuentaPesos.Text;
+            double amount = double.Parse(amountstring);
+            Calculate(amount * 50);
+        }
+
+        private void VeintePesosKeyUp(object sender, KeyEventArgs e)
+        {
+
+            string amountstring = veintePesos.Text;
+            double amount = double.Parse(amountstring);
+            Calculate(amount * 20);
+        }
+
+        private void DiezPesosKeyUp(object sender, KeyEventArgs e)
+        {
+
+            string amountstring = diezPesos.Text;
+            double amount = double.Parse(amountstring);
+            Calculate(amount * 10);
+        }
+
+        private void CincoPesosKeyUp(object sender, KeyEventArgs e)
+        {
+
+            string amountstring = cincoPesos.Text;
+            double amount = double.Parse(amountstring);
+            Calculate(amount * 5);
+        }
+
+        private void DosPesosKeyUp(object sender, KeyEventArgs e)
+        {
+
+            string amountstring = dosPesos.Text;
+            double amount = double.Parse(amountstring);
+            Calculate(amount * 2);
+        }
+
+        private void PesoKeyUp(object sender, KeyEventArgs e)
+        {
+
+            string amountstring = peso.Text;
+            double amount = double.Parse(amountstring);
+            Calculate(amount * 1);
+        }
+
+        private void Calculate(double amount)
+        {
+            string totalString = total.Text;
+
+            double totalDouble = double.Parse(totalString);
+
+            totalDouble += amount;
+
+            total.Text = totalDouble.ToString();
+        }
+
         #endregion
+
 
 
     }

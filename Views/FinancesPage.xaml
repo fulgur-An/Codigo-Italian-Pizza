@@ -590,7 +590,8 @@
                                     AcceptsReturn="True"
                                     TextWrapping="Wrap"
                                     MaxLength="24"
-                                    materialDesign:HintAssist.Hint="Nombre del empleado"
+                                    Text="Antonio de Jesús Dompinguez García"
+                                    IsEnabled="False"
                                     materialDesign:HintAssist.HelperText="Este campos no se puede modificar"
                                     materialDesign:HintAssist.HelperTextFontSize="11"
                                     materialDesign:TextFieldAssist.HasClearButton="True"
@@ -752,7 +753,6 @@
                                             AcceptsReturn="True"
                                             TextWrapping="Wrap"
                                             MaxLength="24"
-                                            materialDesign:HintAssist.Hint="Nombre del empleado"
                                             materialDesign:HintAssist.HelperText="Este campos no se puede modificar"
                                             materialDesign:HintAssist.HelperTextFontSize="11"
                                             materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
@@ -945,7 +945,13 @@
                                     VerticalAlignment="Center"
                                     HorizontalAlignment="Right"
                                     FontSize="20"
-                                    Text="$00.00" />
+                                    Text="$" />
+                                <TextBlock x:Name="total"
+                                    Margin="0 0 0 0"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Right"
+                                    FontSize="20"
+                                    Text="00.00" />
                             </StackPanel>
                         </materialDesign:ColorZone>
                         <StackPanel Grid.Row="1" Orientation="Horizontal">
@@ -954,7 +960,7 @@
                                     <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,18,0">
                                         $1,000
                                     </TextBlock>
-                                    <TextBox x:Name="cash"
+                                    <TextBox x:Name="milPesos"  KeyUp="MilPesosKeyUp"
                                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                         AcceptsReturn="True"
                                         TextWrapping="Wrap"
@@ -973,7 +979,7 @@
                                     <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,18,0">
                                         $500
                                     </TextBlock>
-                                    <TextBox x:Name="cash2"
+                                    <TextBox x:Name="quinientosPesos" KeyUp="QuinientosPesosKeyUp"
                                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                         AcceptsReturn="True"
                                         TextWrapping="Wrap"
@@ -992,7 +998,7 @@
                                     <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,18,0">
                                         $200
                                     </TextBlock>
-                                    <TextBox x:Name="cash3"
+                                    <TextBox x:Name="doscientosPesos" KeyUp="DoscientosPesosKeyUp"
                                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                         AcceptsReturn="True"
                                         TextWrapping="Wrap"
@@ -1011,7 +1017,7 @@
                                     <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,18,0">
                                         $100
                                     </TextBlock>
-                                    <TextBox x:Name="cash4"
+                                    <TextBox x:Name="cienPesos" KeyUp="CienPesosKeyUp"
                                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                         AcceptsReturn="True"
                                         TextWrapping="Wrap"
@@ -1030,7 +1036,7 @@
                                     <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,18,0">
                                         $50
                                     </TextBlock>
-                                    <TextBox x:Name="cash5"
+                                    <TextBox x:Name="cincuentaPesos" KeyUp="CincuentaPesosKeyUp"
                                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                         AcceptsReturn="True"
                                         TextWrapping="Wrap"
@@ -1051,7 +1057,7 @@
                                     <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,18,0">
                                         $20
                                     </TextBlock>
-                                    <TextBox x:Name="cash12"
+                                    <TextBox x:Name="veintePesos" KeyUp="VeintePesosKeyUp"
                                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                         AcceptsReturn="True"
                                         TextWrapping="Wrap"
@@ -1070,7 +1076,7 @@
                                     <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,18,0">
                                         $10
                                     </TextBlock>
-                                    <TextBox x:Name="cash13"
+                                    <TextBox x:Name="diezPesos" KeyUp="DiezPesosKeyUp"
                                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                         AcceptsReturn="True"
                                         TextWrapping="Wrap"
@@ -1089,7 +1095,7 @@
                                     <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,18,0">
                                        $5
                                     </TextBlock>
-                                    <TextBox x:Name="cash14"
+                                    <TextBox x:Name="cincoPesos" KeyUp="CincoPesosKeyUp"
                                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                         AcceptsReturn="True"
                                         TextWrapping="Wrap"
@@ -1108,7 +1114,7 @@
                                     <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,18,0">
                                        $2
                                     </TextBlock>
-                                    <TextBox x:Name="cash15"
+                                    <TextBox x:Name="dosPesos" KeyUp="DosPesosKeyUp"
                                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                         AcceptsReturn="True"
                                         TextWrapping="Wrap"
@@ -1127,7 +1133,7 @@
                                     <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,18,0">
                                        $1
                                     </TextBlock>
-                                    <TextBox x:Name="cash16"
+                                    <TextBox x:Name="peso" KeyUp="PesoKeyUp"
                                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                         AcceptsReturn="True"
                                         TextWrapping="Wrap"

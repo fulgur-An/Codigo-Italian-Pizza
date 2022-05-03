@@ -116,22 +116,12 @@ namespace ItalianPizza.Views
         }
         private void PackIcon_DragEnter(object sender, RoutedEventArgs e)
         {
-            Thread.Sleep(500);
-
-            QuarterLayerInformationBorder.Visibility = Visibility.Visible;
-            OrderInformationGrid.Visibility = Visibility.Visible;
-            FieldsAreEditableTextBlock.Visibility = Visibility.Hidden;
-            GetOutStackPanel.Visibility = Visibility.Hidden;
+            ShowSpecificItemInformation();
+            GetOutStackPanel.Visibility = Visibility.Visible;
             CancelRegisterItemButton.Visibility = Visibility.Hidden;
             RegisterItemButton.Visibility = Visibility.Hidden;
             UpdateItemDataButton.Visibility = Visibility.Hidden;
             ChageEnableProperty(false);
-        }
-
-        private void PackIcon_DragLeave(object sender, RoutedEventArgs e)
-        {
-            HideSpecificItemInformation(sender, e);
-            
         }
 
         public void HideSpecificItemInformation(object sender, RoutedEventArgs e)
@@ -188,6 +178,14 @@ namespace ItalianPizza.Views
             if(DeleteItemGrid.Visibility == Visibility.Visible)
             {
                 HideSpecificItemInformation(sender, e);
+            } else if (VisualizeIcon.IsMouseOver)
+            {
+                GetOutStackPanel.Visibility = Visibility.Visible;
+                RegisterItemButton.Visibility = Visibility.Collapsed;
+                CancelRegisterItemButton.Visibility = Visibility.Hidden;
+                UpdateItemDataButton.Visibility = Visibility.Hidden;
+                FieldsAreEditableTextBlock.Visibility = Visibility.Hidden;
+                ChageEnableProperty(false);
             }
         }
 
@@ -199,6 +197,7 @@ namespace ItalianPizza.Views
             ItemValueField.IsEnabled = enableProperty;
             ItemQuantityField.IsEnabled = enableProperty;
             ItemRestrictionsField.IsEnabled = enableProperty;
+            isIngredientButton.IsEnabled = enableProperty;
         }
 
         public void UpdateItem(object sender, RoutedEventArgs e)

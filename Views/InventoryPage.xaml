@@ -233,14 +233,14 @@
                                 </TextBlock>
                             </StackPanel>
                         </Grid>
-                        <Grid Width="50" Margin="0,0,0,0"  MouseLeave="PackIcon_DragLeave">
+                        <Grid Width="50" Margin="0,0,0,0" >
                             <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Top">
-                                <fa5:ImageAwesome Icon="Solid_Eye" Width="30" Height="30" Foreground="#C6BAFF" MouseEnter="PackIcon_DragEnter"/>
+                                <fa5:ImageAwesome Icon="Solid_Eye" Name="VisualizeIcon" Width="30" Height="30" Foreground="#C6BAFF" MouseLeftButtonUp="PackIcon_DragEnter"/>
                             </StackPanel>
                         </Grid>
                         <Grid Width="50" Margin="-10,0,0,0">
                             <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Top">
-                                <fa5:ImageAwesome Icon="Solid_TrashAlt" Width="30" Height="30" Foreground="#B2AC0329" MouseUp="ShowDeleteLayout"/>
+                                <fa5:ImageAwesome Icon="Solid_TrashAlt" Width="30" Height="30" Foreground="#B2AC0329" MouseLeftButtonUp="ShowDeleteLayout"/>
                             </StackPanel>
                         </Grid>
                         
@@ -728,7 +728,7 @@
                 </StackPanel>
 
                 <!--Buttons-->
-                <ToggleButton
+                <ToggleButton x:Name="isIngredientButton"
                 Content="{materialDesign:PackIcon Kind=Food}" HorizontalAlignment="Right" Margin="0,0,38,450"
                 Style="{StaticResource MaterialDesignActionToggleButton}"
                 ToolTip="MaterialDesignActionToggleButton"
