@@ -59,7 +59,7 @@
         <!--#endregion-->
 
         <!--#region InventoryTable -->
-        <Grid  x:Name="InventoryTableGrid">
+        <Grid  x:Name="InventoryTableGrid" Visibility="Hidden">
             <!--#region Sort and Recharge-->
             <StackPanel Orientation="Horizontal" Margin="0,200,35,0" HorizontalAlignment="Right">
                 <Button Background="{x:Null}" Width="85" Height="40" VerticalAlignment="Top" Cursor="Hand" Padding="0" 
