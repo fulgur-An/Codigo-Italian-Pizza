@@ -789,7 +789,7 @@
 
                     <Button Width="120" Margin="0,0,0,0" materialDesign:ButtonAssist.CornerRadius="8" Height="40"
                         Background="#2C2C2E" BorderBrush="{x:Null}" Visibility="Collapsed" ToolTip="Actualizar pedido"
-                        Name="SaveOrderButton" Click="ShowUnrealizedChangesToast">
+                        Name="SaveOrderButton" Click="ShowConfirmationToast">
                         <StackPanel Orientation="Horizontal">
                             <fa5:ImageAwesome Icon="Solid_Save" Height="13" Width="13" Foreground="#FFF" VerticalAlignment="Center" 
                                       ToolTip="Selecciona un filtro" Margin="0,0,4px,0"/>
