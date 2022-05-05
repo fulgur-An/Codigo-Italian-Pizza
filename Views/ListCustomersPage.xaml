@@ -284,12 +284,12 @@
         <!--#endregion-->
 
         <!--#region Dialogue Employee-->
-        <Border Background="#000" Opacity="0.9" Visibility="Visible" x:Name="ThirdLayerInformationBorder"/>
+        <Border Background="#000" Opacity="0.9" Visibility="Hidden" x:Name="ThirdLayerInformationBorder"/>
         <Border Background="#FFFFFF" CornerRadius="10" HorizontalAlignment="Center" VerticalAlignment="Center"
-                Width="750" Height="660" Margin="0,-40,0,0" Visibility="Visible"
+                Width="750" Height="660" Margin="0,-40,0,0" Visibility="Hidden"
                 Name="QuarterLayerInformationBorder"/>
         <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Width="750" Height="660" Margin="0,60,0,0" 
-              Name="CustomerInformationGrid" Visibility="Visible" Background="Transparent">
+              Name="CustomerInformationGrid" Visibility="Hidden" Background="Transparent">
 
             <TextBlock FontFamily="Tw Cen MT" FontSize="13" Foreground="#8D8D8D" HorizontalAlignment="Center"
                        Margin="0,7,0,0" Name="FieldsEnabledMessageTextBlock" Visibility="Hidden">
