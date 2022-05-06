@@ -1,0 +1,8 @@
+.vs/*
+bin/*
+obj/*
+Properties/*
+App.config
+App.xaml.cs
+ItalianPizza.csproj
+ItalianPizza.sln
