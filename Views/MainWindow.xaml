@@ -7,9 +7,9 @@
         xmlns:fa5="http://schemas.fontawesome.com/icons/"  
         xmlns:local="clr-namespace:ItalianPizza"
         mc:Ignorable="d"
-        Title="MainWindow" Height="720" Width="1000" WindowStartupLocation="CenterScreen"
-        ResizeMode="NoResize">
-
+        Title="Italian Pizza" Height="720" Width="1000" WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize" Icon="../Images/pizza.png">
+        
     <Grid>
         <!--<Grid.Background>
             <ImageBrush ImageSource="../Images/background.jpg" />
@@ -35,7 +35,8 @@
         <!--Tw Cen MT
         Trebuchet MS-->
         <!--#region Menu -->
-        <Grid Background="#372727" Width="210px" HorizontalAlignment="Left" Opacity="0.91">
+        <Border Background="#372727" Width="210px" HorizontalAlignment="Left" Opacity="0.8"/>
+        <Grid Width="210px" HorizontalAlignment="Left">
             <StackPanel Orientation="Vertical" Background="Transparent">
                 <StackPanel Orientation="Horizontal" Margin="0,30px,0,0">
                     <fa5:ImageAwesome Icon="Solid_PizzaSlice" Height="30" Width="30" Margin="25,0,0,0" 
@@ -119,8 +120,8 @@
                     <Border Width="6px" Height="40" Background="#49E12F" CornerRadius="0,3,3,0" Visibility="Hidden"
                             Name="OrdersGreendBorder"/>
                     <fa5:ImageAwesome Icon="Solid_ShoppingCart" Height="20" Width="20" Margin="25,0,0,0" 
-                                     Foreground="#FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center" 
-                                     ToolTip="Usuarios" />
+                                      Foreground="#FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                                      ToolTip="Usuarios" />
                     <TextBlock Foreground="#FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center" 
                                Margin="18px,0,0,0" FontFamily="Trebuchet MS" FontSize="15">                    
                         Pedidos
@@ -128,8 +129,10 @@
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Height="50px" Background="Transparent" Cursor="Hand"
-                            Style="{StaticResource StackPanelHoverStyle}">
-                    <Border Width="6px" Height="40" Background="#49E12F" CornerRadius="0,3,3,0" Visibility="Hidden"/>
+                            Style="{StaticResource StackPanelHoverStyle}" Name="FoodRecipeStackPanel" 
+                            MouseLeftButtonUp="OpeenFoodRecipeModule">
+                    <Border Width="6px" Height="40" Background="#49E12F" CornerRadius="0,3,3,0" Visibility="Hidden"
+                            Name="FoodRecipesGreendBorder"/>
                     <materialDesign:PackIcon Kind="ChefHat" Foreground="#FFFFFF" VerticalAlignment="Center"
                                              HorizontalAlignment="Center" Height="25" Width="25" Margin="21,0,0,0"/>
                     <TextBlock Foreground="#FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center" 
@@ -167,6 +170,7 @@
         <!--#endregion-->
 
         <!--Menu options-->
-        <Frame Width="776" Height="720" Margin="209.7px,0,0,0" BorderBrush="#FFF" Name="NavigationFrame" NavigationUIVisibility="Hidden"/>
+        <Frame Width="776" Height="720" Margin="209.7px,0,0,0" BorderBrush="#FFF"
+               Opacity="1" Name="NavigationFrame" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Window>

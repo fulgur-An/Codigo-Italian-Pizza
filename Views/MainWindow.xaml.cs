@@ -37,8 +37,16 @@ namespace ItalianPizza
         {
             MainPage mainPage = new MainPage();
             NavigationFrame.NavigationService.Navigate(mainPage);
+            ClearMenuSelections();
+        }
+
+        public void ClearMenuSelections()
+        {
             OrdersStackPanel.Opacity = 0.5;
             OrdersGreendBorder.Visibility = Visibility.Hidden;
+            FoodRecipeStackPanel.Opacity = 0.5;
+            FoodRecipesGreendBorder.Visibility = Visibility.Hidden;
+
         }
 
         public void OpenCustomerModule(object sender, RoutedEventArgs e) {
@@ -47,6 +55,16 @@ namespace ItalianPizza
 
         public  void OpenOrderModule(object sender, RoutedEventArgs e)
         {
+            ClearMenuSelections();
+            CheckOrdersPage checkOrdersPage = new CheckOrdersPage(usernameLoggedIn);
+            NavigationFrame.NavigationService.Navigate(checkOrdersPage);
+            OrdersStackPanel.Opacity = 1;
+            OrdersGreendBorder.Visibility = Visibility;
+        }
+        
+        public void OpenProviderModule(object sender, RoutedEventArgs e)
+        {
+            ClearMenuSelections();
             CheckOrdersPage checkOrdersPage = new CheckOrdersPage(usernameLoggedIn);
             NavigationFrame.NavigationService.Navigate(checkOrdersPage);
             HiddeMenuBorders();
@@ -80,6 +98,13 @@ namespace ItalianPizza
             IventorysGreenBorder.Visibility = Visibility.Hidden;
             FinanceStackPanel.Opacity = 0.5;
             FinanceGreenBorder.Visibility = Visibility.Hidden;
+        public void OpeenFoodRecipeModule(object sender, RoutedEventArgs e)
+        {
+            ClearMenuSelections();
+            CheckFoodRecipesPage checkFoodRecipesPage = new CheckFoodRecipesPage(usernameLoggedIn);
+            NavigationFrame.NavigationService.Navigate(checkFoodRecipesPage);
+            FoodRecipeStackPanel.Opacity = 1;
+            FoodRecipesGreendBorder.Visibility = Visibility;
         }
 
         #endregion
