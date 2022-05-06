@@ -152,7 +152,7 @@
                         <Grid Width="114.5" Background="Transparent">
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,14,0">
                                 <Button materialDesign:ButtonAssist.CornerRadius="5" Background="#5B5B5B" BorderBrush="{x:Null}"
-                                        Visibility="Visible" Margin="0,0,10,0" ToolTip="Visualizar pedido" Click="ShowSpecificEmployeeInformation"
+                                        Visibility="Visible" Margin="0,0,10,0" ToolTip="Visualizar empleado" Click="ShowSpecificEmployeeInformation"
                                         Padding="4,0,4,0" HorizontalAlignment="Center">
 
                                     <fa5:ImageAwesome Icon="Solid_Eye" Height="18" Width="18" Foreground="#FFF" VerticalAlignment="Center" 
@@ -160,7 +160,7 @@
                                 </Button>
                                 
                                 <Button materialDesign:ButtonAssist.CornerRadius="5" Background="#5B5B5B" BorderBrush="{x:Null}"
-                                        Visibility="Visible" Margin="0,0,10,0" ToolTip="Actualizar pedido" Click="ShowEmployeeUpdateDialog"
+                                        Visibility="Visible" Margin="0,0,10,0" ToolTip="Actualizar empleado" Click="ShowEmployeeUpdateDialog"
                                         Padding="4,0,4,0" HorizontalAlignment="Center">
 
                                     <fa5:ImageAwesome Icon="Solid_Pen" Height="18" Width="18" Foreground="#FFF" VerticalAlignment="Center" 
@@ -168,7 +168,7 @@
                                 </Button>
 
                                 <Button materialDesign:ButtonAssist.CornerRadius="5" Background="#5B5B5B" BorderBrush="{x:Null}"
-                                        Visibility="Visible" Margin="0,0,0,0" ToolTip="Cancelar pedido" Click="ShowEmployeDeleteDialog"
+                                        Visibility="Visible" Margin="0,0,0,0" ToolTip="Eliminar empleado" Click="ShowEmployeDeleteDialog"
                                         Padding="4,0,4,0" HorizontalAlignment="Center">
 
                                     <fa5:ImageAwesome Icon="Solid_Trash" Height="18" Width="18" Foreground="#FFF" VerticalAlignment="Center" 

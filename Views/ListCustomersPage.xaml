@@ -152,7 +152,7 @@
                         <Grid Width="114.5" Background="Transparent">
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,14,0">
                                 <Button materialDesign:ButtonAssist.CornerRadius="5" Background="#5B5B5B" BorderBrush="{x:Null}"
-                                        Visibility="Visible" Margin="0,0,10,0" ToolTip="Visualizar pedido" Click="ShowSpecificCustomerInformation"
+                                        Visibility="Visible" Margin="0,0,10,0" ToolTip="Visualizar cliente" Click="ShowSpecificCustomerInformation"
                                         Padding="4,0,4,0" HorizontalAlignment="Center">
 
                                     <fa5:ImageAwesome Icon="Solid_Eye" Height="18" Width="18" Foreground="#FFF" VerticalAlignment="Center" 
@@ -160,7 +160,7 @@
                                 </Button>
 
                                 <Button materialDesign:ButtonAssist.CornerRadius="5" Background="#5B5B5B" BorderBrush="{x:Null}"
-                                        Visibility="Visible" Margin="0,0,10,0" ToolTip="Actualizar pedido" Click="ShowCustomerUpdateDialog"
+                                        Visibility="Visible" Margin="0,0,10,0" ToolTip="Actualizar cliente" Click="ShowCustomerUpdateDialog"
                                         Padding="4,0,4,0" HorizontalAlignment="Center">
 
                                     <fa5:ImageAwesome Icon="Solid_Pen" Height="18" Width="18" Foreground="#FFF" VerticalAlignment="Center" 
@@ -168,7 +168,7 @@
                                 </Button>
 
                                 <Button materialDesign:ButtonAssist.CornerRadius="5" Background="#5B5B5B" BorderBrush="{x:Null}"
-                                        Visibility="Visible" Margin="0,0,0,0" ToolTip="Cancelar pedido" Click="ShowEmployeDeleteDialog"
+                                        Visibility="Visible" Margin="0,0,0,0" ToolTip="Cancelar cliente" Click="ShowEmployeDeleteDialog"
                                         Padding="4,0,4,0" HorizontalAlignment="Center">
 
                                     <fa5:ImageAwesome Icon="Solid_Trash" Height="18" Width="18" Foreground="#FFF" VerticalAlignment="Center" 
@@ -284,12 +284,12 @@
         <!--#endregion-->
 
         <!--#region Dialogue Employee-->
-        <Border Background="#000" Opacity="0.9" Visibility="Visible" x:Name="ThirdLayerInformationBorder"/>
+        <Border Background="#000" Opacity="0.9" Visibility="Hidden" x:Name="ThirdLayerInformationBorder"/>
         <Border Background="#FFFFFF" CornerRadius="10" HorizontalAlignment="Center" VerticalAlignment="Center"
-                Width="750" Height="660" Margin="0,-40,0,0" Visibility="Visible"
+                Width="750" Height="660" Margin="0,-40,0,0" Visibility="Hidden"
                 Name="QuarterLayerInformationBorder"/>
         <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Width="750" Height="660" Margin="0,60,0,0" 
-              Name="CustomerInformationGrid" Visibility="Visible" Background="Transparent">
+              Name="CustomerInformationGrid" Visibility="Hidden" Background="Transparent">
 
             <TextBlock FontFamily="Tw Cen MT" FontSize="13" Foreground="#8D8D8D" HorizontalAlignment="Center"
                        Margin="0,7,0,0" Name="FieldsEnabledMessageTextBlock" Visibility="Hidden">
@@ -658,7 +658,7 @@
                                 Name="AddAddressButton" Click="AddAddress">
                         <StackPanel Orientation="Horizontal">
                             <fa5:ImageAwesome Icon="Solid_HouseUser" Height="13" Width="13" Foreground="#FFF" VerticalAlignment="Center" 
-                                          ToolTip="Agregar paso" Margin="0,0,4px,0"/>
+                                          ToolTip="Agregar dirección" Margin="0,0,4px,0"/>
                             <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" HorizontalAlignment="Left">
                                     Agregar dirección
                             </TextBlock>
@@ -707,7 +707,7 @@
                                 Name="DeleteAddressButton" Click="DeleteAddress" IsEnabled="False">
                         <StackPanel Orientation="Horizontal">
                             <fa5:ImageAwesome Icon="Solid_Trash" Height="13" Width="13" Foreground="#FFF" VerticalAlignment="Center" 
-                                          ToolTip="Agregar paso" Margin="0,0,4px,0"/>
+                                          ToolTip="Eliminar dirección" Margin="0,0,4px,0"/>
                             <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" HorizontalAlignment="Left">
                                     Eliminar dirección
                             </TextBlock>
