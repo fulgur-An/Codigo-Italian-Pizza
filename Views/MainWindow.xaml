@@ -101,8 +101,10 @@
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Height="50px" Background="Transparent" Cursor="Hand"
-                            Style="{StaticResource StackPanelHoverStyle}">
-                    <Border Width="6px" Height="40" Background="#49E12F" CornerRadius="0,3,3,0" Visibility="Hidden"/>
+                            Style="{StaticResource StackPanelHoverStyle}" MouseLeftButtonUp="OpenInventoryModule"
+                            Name="InventorysStackPanel">
+                    <Border Width="6px" Height="40" Background="#49E12F" CornerRadius="0,3,3,0" Visibility="Hidden"
+                            Name="IventorysGreenBorder"/>
                     <materialDesign:PackIcon Kind="FoodDrumstick" Foreground="#FFFFFF" VerticalAlignment="Center"
                                              HorizontalAlignment="Center" Height="25" Width="25" Margin="21,0,0,0"/>
                     <TextBlock Foreground="#FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center" 
@@ -137,8 +139,10 @@
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Height="50px" Background="Transparent" Cursor="Hand"
-                            Style="{StaticResource StackPanelHoverStyle}">
-                    <Border Width="6px" Height="40" Background="#49E12F" CornerRadius="0,3,3,0" Visibility="Hidden"/>
+                            Style="{StaticResource StackPanelHoverStyle}" MouseLeftButtonUp="OpenFinancesModule"
+                            Name="FinanceStackPanel">
+                    <Border Width="6px" Height="40" Background="#49E12F" CornerRadius="0,3,3,0" Visibility="Hidden"
+                            Name="FinanceGreenBorder"/>
                     <fa5:ImageAwesome Icon="Solid_Coins" Height="20" Width="20" Margin="25,0,0,0" 
                                      Foreground="#FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center" 
                                      ToolTip="Usuarios" />
@@ -163,7 +167,6 @@
         <!--#endregion-->
 
         <!--Menu options-->
-        <Frame Width="776" Height="720" Margin="209.7px,0,0,0" BorderBrush="#FFF"
-               Opacity="0.91" Name="NavigationFrame" NavigationUIVisibility="Hidden"/>
+        <Frame Width="776" Height="720" Margin="209.7px,0,0,0" BorderBrush="#FFF" Name="NavigationFrame" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Window>
