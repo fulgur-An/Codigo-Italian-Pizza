@@ -59,6 +59,17 @@ namespace ItalianPizza
             CustomersGreendBorder.Visibility = Visibility.Hidden;
         }
 
+
+        public void ClearMenuSelections()
+        {
+            OrdersStackPanel.Opacity = 0.5;
+            OrdersGreendBorder.Visibility = Visibility.Hidden;
+            EmployeesStackPanel.Opacity = 0.5;
+            EmployeesGreendBorder.Visibility = Visibility.Hidden;
+            CustomersStackPanel.Opacity = 0.5;
+            CustomersGreendBorder.Visibility = Visibility.Hidden;
+        }
+
         public void OpenCustomerModule(object sender, RoutedEventArgs e) {
             ClearMenuSelections();
             ListCustomersPage listCustomersPage = new ListCustomersPage(usernameLoggedIn);

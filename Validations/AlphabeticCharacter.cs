@@ -8,11 +8,6 @@ namespace ItalianPizza.Validations
     {
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
-            var text = value as string;          
-
-            if (text == null)
-            {
-                return new ValidationResult(false, "El campo es obligatorio");
             }
 
             string regularPhrase = @"^[a-zA-ZáéíóúüñÁÉÍÓÚÑ]+(?:[\s][a-zA-ZáéíóúüñÁÉÍÓÚÑ]+)*$";

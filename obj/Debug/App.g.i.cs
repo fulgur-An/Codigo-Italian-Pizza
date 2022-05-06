@@ -9,8 +9,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using FontAwesome5;
-using FontAwesome5.Converters;
 using ItalianPizza;
 using Notifications.Wpf.Controls;
 using System;

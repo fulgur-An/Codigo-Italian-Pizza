@@ -9,12 +9,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using FontAwesome5;
-using FontAwesome5.Converters;
+using ItalianPizza.Validations;
 using ItalianPizza.Views;
 using MaterialDesignThemes.Wpf;
 using MaterialDesignThemes.Wpf.Converters;
 using MaterialDesignThemes.Wpf.Transitions;
+using Notifications.Wpf.Controls;
 using System;
 using System.Diagnostics;
 using System.Windows;
