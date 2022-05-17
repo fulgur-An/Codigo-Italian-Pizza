@@ -98,6 +98,9 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ListEmployeesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\InventoryPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -149,6 +152,7 @@
     </Compile>
     <Compile Include="Views\ListEmployeesPage.xaml.cs">
       <DependentUpon>ListEmployeesPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\FinancesPage.xaml.cs">
       <DependentUpon>FinancesPage.xaml</DependentUpon>
     </Compile>
@@ -199,6 +203,7 @@
     <Resource Include="Images\customers.png" />
     <Resource Include="Images\employees.png" />
   </ItemGroup>
+  <ItemGroup>
     <Resource Include="Images\pizza.png" />
   </ItemGroup>
   <ItemGroup>

@@ -33,22 +33,6 @@ namespace ItalianPizza
 
         #region GUI Methods
 
-        public void OpenStartupModule(object sender, RoutedEventArgs e)
-        {
-            MainPage mainPage = new MainPage();
-            NavigationFrame.NavigationService.Navigate(mainPage);
-            ClearMenuSelections();
-        }
-
-        public void ClearMenuSelections()
-        {
-            OrdersStackPanel.Opacity = 0.5;
-            OrdersGreendBorder.Visibility = Visibility.Hidden;
-            FoodRecipeStackPanel.Opacity = 0.5;
-            FoodRecipesGreendBorder.Visibility = Visibility.Hidden;
-
-        }
-
         public void ClearMenuSelections()
         {
             OrdersStackPanel.Opacity = 0.5;
@@ -57,6 +41,13 @@ namespace ItalianPizza
             EmployeesGreendBorder.Visibility = Visibility.Hidden;
             CustomersStackPanel.Opacity = 0.5;
             CustomersGreendBorder.Visibility = Visibility.Hidden;
+        }
+
+        public void OpenStartupModule(object sender, RoutedEventArgs e)
+        {
+            MainPage mainPage = new MainPage();
+            NavigationFrame.NavigationService.Navigate(mainPage);
+            ClearMenuSelections();
         }
 
         public void OpenCustomerModule(object sender, RoutedEventArgs e) {

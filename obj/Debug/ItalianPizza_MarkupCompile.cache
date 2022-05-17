@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\antdg\Documents\Codigo-Italian-Pizza\obj\Debug\
+C:\Users\Propietario\Desktop\Codigo-Italian-Pizza\obj\Debug\
 ItalianPizza
 none
 false
 DEBUG;TRACE
-C:\Users\antdg\Documents\Codigo-Italian-Pizza\App.xaml
-7-1438172992
+C:\Users\Propietario\Desktop\Codigo-Italian-Pizza\App.xaml
+10847559312
 
-101762490352
-18-1619497483
-Views\CheckOrdersPage.xaml;Views\FinancesPage.xaml;Views\HoverStylesDictionary.xaml;Views\ErrorPage.xaml;Views\InventoryPage.xaml;Views\MainPage.xaml;Views\MainWindow.xaml;
+34-427740032
+212-1940083631
+Views\CheckFoodRecipesPage.xaml;Views\CheckOrdersPage.xaml;Views\FinancesPage.xaml;Views\HoverStylesDictionary.xaml;Views\ErrorPage.xaml;Views\ListCustomersPage.xaml;Views\ListEmployeesPage.xaml;Views\InventoryPage.xaml;Views\MainPage.xaml;Views\MainWindow.xaml;
 
 False
 
