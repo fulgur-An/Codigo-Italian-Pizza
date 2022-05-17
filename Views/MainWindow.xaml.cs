@@ -73,8 +73,37 @@ namespace ItalianPizza
             ClearMenuSelections();
             CheckOrdersPage checkOrdersPage = new CheckOrdersPage(usernameLoggedIn);
             NavigationFrame.NavigationService.Navigate(checkOrdersPage);
+            HiddeMenuBorders();
             OrdersStackPanel.Opacity = 1;
             OrdersGreendBorder.Visibility = Visibility;
+        }
+
+        public void OpenInventoryModule(object sender, RoutedEventArgs e)
+        {
+            InventoryPage inventoryPage = new InventoryPage(usernameLoggedIn);
+            NavigationFrame.NavigationService.Navigate(inventoryPage);
+            HiddeMenuBorders();
+            InventorysStackPanel.Opacity = 1;
+            IventorysGreenBorder.Visibility = Visibility;
+        }
+
+        public void OpenFinancesModule(object sender, RoutedEventArgs e)
+        {
+            FinancesPage financesPage = new FinancesPage(usernameLoggedIn);
+            NavigationFrame.NavigationService.Navigate(financesPage);
+            HiddeMenuBorders();
+            FinanceStackPanel.Opacity = 1;
+            FinanceGreenBorder.Visibility = Visibility;
+        }
+
+        public void HiddeMenuBorders()
+        {
+            OrdersStackPanel.Opacity = 0.5;
+            OrdersGreendBorder.Visibility = Visibility.Hidden;
+            InventorysStackPanel.Opacity = 0.5;
+            IventorysGreenBorder.Visibility = Visibility.Hidden;
+            FinanceStackPanel.Opacity = 0.5;
+            FinanceGreenBorder.Visibility = Visibility.Hidden;
         }
 
         #endregion

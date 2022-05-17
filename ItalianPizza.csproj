@@ -76,6 +76,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\FinancesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\HoverStylesDictionary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -89,6 +93,7 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ListEmployeesPage.xaml">
+    <Page Include="Views\InventoryPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -126,6 +131,11 @@
     </Compile>
     <Compile Include="Views\ListEmployeesPage.xaml.cs">
       <DependentUpon>ListEmployeesPage.xaml</DependentUpon>
+    <Compile Include="Views\FinancesPage.xaml.cs">
+      <DependentUpon>FinancesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\InventoryPage.xaml.cs">
+      <DependentUpon>InventoryPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
