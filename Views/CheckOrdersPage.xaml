@@ -6,34 +6,59 @@
       xmlns:local="clr-namespace:ItalianPizza.Views"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:fa5="http://schemas.fontawesome.com/icons/"  
+      xmlns:notifications="clr-namespace:Notifications.Wpf.Controls;assembly=Notifications.Wpf"
+      xmlns:validations="clr-namespace:ItalianPizza.Validations"
       mc:Ignorable="d" 
       d:DesignHeight="720" d:DesignWidth="776"
       Title="Check Orders">
 
+    <Page.Resources>
+        <Style TargetType="{x:Type TextBlock}" x:Key="WrapText">
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <!--<Setter Property="TextAlignment" Value="Center"/>-->
+        </Style>
+    </Page.Resources>
+    
     <Grid>
-        <Border Background="#27161E" Width="776" Height="720"/>
-        
+        <Border Background="#27161E" Width="776" Height="720" Opacity="0.91"/>
+
         <!--#region Main Elements-->
-        <Label Foreground="#FFFFFF" FontFamily="Tw Cen MT" FontSize="30" Content="Pedidos" Margin="30,160,0,0"
-               Background="Transparent" Height="30" Width="96" Padding="0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        <Button ToolTip="Registrar Pedido" Height="40" Width="125" Padding="0" Background="{x:Null}"
+                Margin="30,158,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" BorderBrush="{x:Null}"
+                Click="ShowOrderRegistrarionDialogue"> 
+            <StackPanel Orientation="Horizontal" Cursor="Hand">
+                <TextBlock Foreground="#FFFFFF" FontFamily="Tw Cen MT" FontSize="30" 
+                       Padding="0" HorizontalAlignment="Center">
+                Pedidos
+                </TextBlock>
+                <fa5:ImageAwesome Icon="Solid_Plus" Height="20" Width="20"  Foreground="#FFFFFF" Margin="7,0,0,0"
+                              VerticalAlignment="Center" />
+            </StackPanel>
+        </Button>
 
         <TextBlock FontFamily="Tw Cen MT" FontSize="25" Foreground="#FFF" VerticalAlignment="Top" Margin="30,205,0,0">
-                    Consulta: Filtro/Busqueda
+                    Consulta: Filtro/Búsqueda
         </TextBlock>
+        <!--<TextBlock FontFamily="Tw Cen MT" FontSize="25" Foreground="#FFF" VerticalAlignment="Top" Margin="30,205,0,0">
+                    Consulta: Cliente/José Daniel Camarillo Villa
+        </TextBlock>-->
 
-        <!--Initial Message-->
-        <Border Background="#5B5B5B" Height="300" Width="550" Margin="0,120,0,0" CornerRadius="10" 
-                Opacity="0.4" x:Name="InitialMessageBorder">
-            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                <fa5:ImageAwesome Icon="Regular_Smile" Height="100" Width="100" Margin="0,0,0,20px" 
+        <!--Initial Message 5B5B5B-->
+        <Grid Background="Transparent" Margin="0,295,0,0" 
+                Opacity="0.4" x:Name="InitialMessageBorder" VerticalAlignment="Center">
+            <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center">
+                <!--<fa5:ImageAwesome Icon="Regular_Smile" Height="100" Width="100" Margin="0,0,0,20px" 
                                      Foreground="#FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center" 
-                                     ToolTip="Usuarios" />
+                                     ToolTip="Usuarios" />-->
                 <TextBlock Foreground="#FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center" 
-                               Margin="0,0,0,0" FontFamily="Trebuchet MS" FontSize="50">
+                           Margin="0,0,0,30" FontFamily="Trebuchet MS" FontSize="50" Name="SearchResultMessageTextBlock"
+                           TextWrapping="Wrap" TextAlignment="Center">
                         Realiza una búsqueda
                 </TextBlock>
+                <Image Source="../Images/marketing.png" Width="300" Height="300" Margin="0,0,0,0" Opacity="0.8"/>
             </StackPanel>
-        </Border>
+            <!--<Image Source="../Images/marketing.png" Width="300" Height="300" Margin="0,250,0,0" Opacity="1"/>-->
+        </Grid>
         <!--#endregion-->
         
         <!--#region OrderTable -->        
@@ -90,7 +115,7 @@
                     </StackPanel>
                 </Grid>
 
-                <Grid Width="229.5">
+                <Grid Width="114.75">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                         <fa5:ImageAwesome Icon="Solid_Question" Height="21" Width="21" Foreground="#FFF" VerticalAlignment="Center" 
                                           Margin="0,0,10,0"/>
@@ -99,6 +124,17 @@
                         </TextBlock>
                     </StackPanel>
                 </Grid>
+                
+                <Grid Width="114.75">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <!--<fa5:ImageAwesome Icon="Solid_Question" Height="21" Width="21" Foreground="#FFF" VerticalAlignment="Center" 
+                                          Margin="0,0,10,0"/>-->
+                        <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" VerticalAlignment="Center">
+                            Operaciones
+                        </TextBlock>
+                    </StackPanel>
+                </Grid>
+                
             </StackPanel>
             <!--#endregion-->
 
@@ -106,7 +142,7 @@
             <Border Background="#5B5B5B" Height="350" Width="709" Margin="0,110,0,-100" CornerRadius="0,0,5,5" 
                 Opacity="0"/>
             <ListBox Height="350" Width="709" Margin="0,110,0,-100" HorizontalAlignment="Center">
-                <ListBoxItem BorderBrush="#CFCFCF" BorderThickness="0,0,0,1" MouseLeftButtonUp="ShowSpecificOrderInformation">
+                <ListBoxItem BorderBrush="#CFCFCF" BorderThickness="0,0,0,0.5">
                     <StackPanel Orientation="Horizontal" Height="35" Width="709" Cursor="Hand" Background="Transparent">
                         <Grid Width="250">
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
@@ -119,16 +155,45 @@
                         <Grid Width="229.5">
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
                                 <TextBlock FontFamily="Tw Cen MT" FontSize="16" Foreground="#FFF" TextWrapping="Wrap">
-                                11 de Abril de 2022 23:00
+                                13 de Abril de 2022 6:20 PM
                                 </TextBlock>
                             </StackPanel>
                         </Grid>
 
-                        <Grid Width="229.5">
+                        <Grid Width="114.5">
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
                                 <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" TextWrapping="Wrap">
                                 En proceso
                                 </TextBlock>
+                            </StackPanel>
+                        </Grid>
+
+                        <Grid Width="114.5" Background="Transparent">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,14,0">
+                                <Button materialDesign:ButtonAssist.CornerRadius="5" Background="#5B5B5B" BorderBrush="{x:Null}"
+                                        Visibility="Visible" Margin="0,0,10,0" ToolTip="Visualizar pedido" Click="ShowSpecificOrderInformation"
+                                        Padding="4,0,4,0" HorizontalAlignment="Center">
+
+                                    <fa5:ImageAwesome Icon="Solid_Eye" Height="18" Width="18" Foreground="#FFF" VerticalAlignment="Center" 
+                                                      Margin="0,0,0,0"/>
+                                </Button>
+                                
+                                
+                                <Button materialDesign:ButtonAssist.CornerRadius="5" Background="#5B5B5B" BorderBrush="{x:Null}"
+                                        Visibility="Visible" Margin="0,0,10,0" ToolTip="Actualizar pedido" Click="ShowOrderUpdateDialog"
+                                        Padding="4,0,4,0" HorizontalAlignment="Center">
+
+                                    <fa5:ImageAwesome Icon="Solid_Pen" Height="18" Width="18" Foreground="#FFF" VerticalAlignment="Center" 
+                                                      Margin="0,0,0,0"/>
+                                </Button>
+
+                                <Button materialDesign:ButtonAssist.CornerRadius="5" Background="#5B5B5B" BorderBrush="{x:Null}"
+                                        Visibility="Visible" Margin="0,0,0,0" ToolTip="Cancelar pedido"
+                                        Padding="4,0,4,0" HorizontalAlignment="Center" Click="ShowOrderCancellationDialog">
+
+                                    <fa5:ImageAwesome Icon="Solid_Trash" Height="18" Width="18" Foreground="#FFF" VerticalAlignment="Center" 
+                                                      Margin="0,0,0,0"/>
+                                </Button>
                             </StackPanel>
                         </Grid>
                     </StackPanel>
@@ -164,7 +229,17 @@
                      materialDesign:HintAssist.FloatingScale="1" BorderThickness="0"
                      materialDesign:HintAssist.FloatingOffset="0, -40"                               
                      materialDesign:TextFieldAssist.HasClearButton="True"
-                     KeyUp="ShowSearchResults"/>
+                     KeyUp="ShowSearchResults" materialDesign:ValidationAssist.Background="Transparent"
+                     Name="SearchTextBox">
+                <!--<TextBox.Text>
+                    <Binding Path="." UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                        <Binding.ValidationRules>
+                            <validations:AlphabeticCharacter ValidatesOnTargetUpdated="True"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>-->
+
+            </TextBox>
 
             <fa5:ImageAwesome Icon="Solid_Search" Height="18" Width="18" Foreground="#8D8D8D" VerticalAlignment="Top" 
                               HorizontalAlignment="Center" ToolTip="Selecciona un filtro" Margin="-590,17,0,0" />
@@ -181,7 +256,8 @@
 
             <Button Background="#FF0000" Style="{StaticResource MaterialDesignRaisedDarkButton}"                    
                     Content="Reiniciar Filtro" BorderBrush="#FF0000" Width="100" Padding="0"
-                    HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,-87,0"/>
+                    HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,-87,0" 
+                    Click="ResetSearchFilters"/>
 
             <!--#region Filter -->
             <Border Background="Transparent" Width="776" Height="720" Margin="0,-50,-120,0" VerticalAlignment="Top"
@@ -198,7 +274,8 @@
                     </TextBlock>
 
                     <RadioButton Margin="0,0,12,0" Background="#000" Cursor="Hand" 
-                                 Style="{StaticResource MaterialDesignSwitchToggleButton}" GroupName="Filters">
+                                 Style="{StaticResource MaterialDesignSwitchToggleButton}" GroupName="Filters"
+                                 Name="CustomerFilterRadioButton" Click="ShowSelectedFilter">
                         <materialDesign:ToggleButtonAssist.SwitchTrackOnBackground>
                             <SolidColorBrush Color="#000000" />
                         </materialDesign:ToggleButtonAssist.SwitchTrackOnBackground>
@@ -215,7 +292,8 @@
                         Fecha
                     </TextBlock>
                     <RadioButton Margin="7,0,0,0" Background="#000" Cursor="Hand"
-                                 Style="{StaticResource MaterialDesignSwitchToggleButton}" GroupName="Filters">
+                                 Style="{StaticResource MaterialDesignSwitchToggleButton}" GroupName="Filters"
+                                 Name="DateFilterRadioButton" Click="ShowSelectedFilter">
                         <materialDesign:ToggleButtonAssist.SwitchTrackOnBackground>
                             <SolidColorBrush Color="#000000" />
                         </materialDesign:ToggleButtonAssist.SwitchTrackOnBackground>
@@ -232,7 +310,8 @@
                         Estatus
                     </TextBlock>
                     <RadioButton Margin="1,0,0,0" Background="#000" Cursor="Hand"
-                                 Style="{StaticResource MaterialDesignSwitchToggleButton}" GroupName="Filters">
+                                 Style="{StaticResource MaterialDesignSwitchToggleButton}" GroupName="Filters"
+                                 Name="StatusFilterRadioButton" Click="ShowSelectedFilter">
                         <materialDesign:ToggleButtonAssist.SwitchTrackOnBackground>
                             <SolidColorBrush Color="#000000" />
                         </materialDesign:ToggleButtonAssist.SwitchTrackOnBackground>
@@ -248,127 +327,726 @@
 
         <!--#region Dialogue Order-->
         <Border Background="#000" Opacity="0.9" Visibility="Hidden" x:Name="ThirdLayerInformationBorder"/>
-        <Border Background="#FFF" CornerRadius="10" HorizontalAlignment="Center" VerticalAlignment="Center"
-                Width="500" Height="600" Margin="0,-35,0,0" Opacity="1" Visibility="Hidden"
+        <Border Background="#FFFFFF" CornerRadius="10" HorizontalAlignment="Center" VerticalAlignment="Center"
+                Width="750" Height="660" Margin="0,-40,0,0" Visibility="Hidden"
                 Name="QuarterLayerInformationBorder"/>
-        <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Width="500" Height="500" Margin="0,-35,0,0" 
-              Name="OrderInformationGrid" Visibility="Hidden">
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Width="750" Height="660" Margin="0,60,0,0"  
+              Name="OrderInformationGrid" Visibility="Hidden" Background="Transparent">
 
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,-45,5,0" Background="Transparent"
-                        Cursor="Hand" Width="51" Height="20" VerticalAlignment="Top"
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="500"  />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="30"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Column="0" Grid.Row="0" Grid.RowSpan="1" Grid.ColumnSpan="2" Background="Transparent">
+                <TextBlock FontFamily="Tw Cen MT" FontSize="13" Foreground="#8D8D8D" HorizontalAlignment="Center"
+                       Margin="0,7,0,0" Name="FieldsEnabledMessageTextBlock" Visibility="Hidden">
+                        Campos habilitados para su edición
+                </TextBlock>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,-45,5,0" Background="Transparent"
+                        Cursor="Hand" Width="51" Height="20" VerticalAlignment="Top" 
                         Style="{StaticResource StackPanelHoverStyle}" MouseLeftButtonUp="HideSpecificOrderInformation">
-                <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#000" HorizontalAlignment="Left">
+                    <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#000" HorizontalAlignment="Left">
                         Salir
-                </TextBlock>
-                <materialDesign:PackIcon Kind="Close" Foreground="#000" Width="20" Height="20"/>
-            </StackPanel>
+                    </TextBlock>
+                    <materialDesign:PackIcon Kind="Close" Foreground="#000" Width="20" Height="20"/>
+                </StackPanel>
 
-
-            <TextBlock FontFamily="Tw Cen MT" FontSize="50" Foreground="#000" VerticalAlignment="Top" HorizontalAlignment="Center"
-                       Margin="0,-38,0,0">
+                <TextBlock FontFamily="Tw Cen MT" FontSize="50" Foreground="#000" VerticalAlignment="Top" HorizontalAlignment="Center"
+                       Margin="0,-38,0,0" Name="OrderHeaderTextBlock">
                     Pedido
-            </TextBlock>
-            <StackPanel Orientation="Vertical" Margin="0,20,0,0" Background="Transparent" HorizontalAlignment="Center"
-                        Width="430">
-                <!--#region Order Information-->
-                <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left">
-                    Nombre del cliente
                 </TextBlock>
-                <materialDesign:Chip Content="José Daniel Camarillo Villa" FontFamily="Tw Cen MT" FontSize="15" Foreground="#000"/>
-                <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left">
-                    Fecha
-                </TextBlock>
-                <Grid>
-                    <Border Background="#ECDCDE" CornerRadius="15" Width="140" Height="35" HorizontalAlignment="Left"/>
-                    <Border Background="#ECDCDE" CornerRadius="15" Width="140" Height="35" HorizontalAlignment="Left" Margin="170,0,0,0"/>
-                    <StackPanel Orientation="Horizontal">
-                        <DatePicker Width="140" Foreground="#000"
-                                Height="35" Padding="6" FontFamily="Tw Cen MT" FontSize="15" HorizontalAlignment="Left"
-                                BorderBrush="#000" materialDesign:HintAssist.Hint="Fecha establecida"/>
-                        <materialDesign:TimePicker BorderBrush="#000" Height="35" Width="140" Padding="6" Margin="30,0,0,0"
-                                                   materialDesign:HintAssist.Hint="Hora establecida" FontFamily="Tw Cen MT" FontSize="15"/>
+
+                <Button Padding="10,0,10,0" Height="30" Margin="0,13,34,0" HorizontalAlignment="Right" Background="#2C2C2E"
+                    BorderBrush="{x:Null}" VerticalAlignment="Top" materialDesign:ButtonAssist.CornerRadius="8"
+                    Name="RegisterCustomerButton" Cursor="Hand">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                        <fa5:ImageAwesome Icon="Solid_UserPlus" Height="10" Width="10" Foreground="#FFF"
+                                              ToolTip="Registrar nuevo Cliente" Margin="0,0,5,0"/>
+                        <TextBlock FontFamily="Tw Cen MT" FontSize="10" Foreground="#FFF" VerticalAlignment="Center">
+                                Registrar Cliente
+                        </TextBlock>
                     </StackPanel>
-                </Grid>
-                <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left">
-                    Estatus
-                </TextBlock>
-                <Grid Cursor="Hand">
-                    <Border Background="#ECDCDE" CornerRadius="15" Width="200" Height="35" HorizontalAlignment="Left"/>
-                    <ComboBox Style="{StaticResource MaterialDesignOutlinedComboBox}"                              
-                              materialDesign:HintAssist.Hint="Algún estatus predefinido"
-                              ItemsSource="{Binding ShortStringList}" HorizontalAlignment="Left"
-                              Width="200" Height="35" Padding="6" VerticalContentAlignment="Center"
-                              FontFamily="Tw Cen MT" FontSize="15" BorderBrush="Transparent" Foreground="#000" />
-                </Grid>
-                <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left" >
-                    Dirección
-                </TextBlock>
-                <Grid Cursor="Hand">
-                    <Border Background="#ECDCDE" CornerRadius="15" Width="200" Height="35" HorizontalAlignment="Left"/>
-                    <ComboBox Style="{StaticResource MaterialDesignOutlinedComboBox}"
-                              materialDesign:HintAssist.Hint="Algún dirección predefinido"
-                              ItemsSource="{Binding ShortStringList}" HorizontalAlignment="Left"
-                              Width="200" Height="35" Padding="6" VerticalContentAlignment="Center"
-                              FontFamily="Tw Cen MT" FontSize="15" BorderBrush="Transparent" Foreground="#000" />
-                </Grid>
-                <!--#endregion -->
+                </Button>
+            </Grid>
 
-                <!--#region Order product table-->
-                <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left">
-                    Productos
-                </TextBlock>
-                <DataGrid Height="Auto" MaxHeight="170" CanUserAddRows="False"  FontFamily="Tw Cen MT" FontSize="15" 
-                          AutoGenerateColumns="False" HeadersVisibility="All">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Cantidad" CanUserResize="True" Width="90" />
-                        <DataGridTextColumn Header="Nombre" CanUserResize="True" Width="220"/>
-                        <DataGridTextColumn Header="Precio" CanUserResize="True" Width="120"/>
-                    </DataGrid.Columns>
-                </DataGrid>
-                <!--#endregion-->
+            <Grid Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="1" Height="auto" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,-20,0,0"
+                  Grid.RowSpan="2" Background="Transparent" Width="680" Name="MainOrderFieldsGrid">
+                <StackPanel Orientation="Vertical" Margin="0,20,0,0" Background="{x:Null}" HorizontalAlignment="Center"
+                            Width="auto">
+                    <!--#region Order Information-->
 
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+                    <StackPanel>
+                        <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000"  HorizontalAlignment="Left">
+                            *Tipo de entrega
+                        </TextBlock>
+                        <Grid Cursor="Hand">
+                            <Border Background="{x:Null}" CornerRadius="5" Width="430" Height="35" HorizontalAlignment="Left"
+                                BorderBrush="#8D8D8D" BorderThickness="1" Name="OrderTypeBorder"/>
+                            <!--<materialDesign:Chip Content="José Daniel Camarillo Villa" FontFamily="Tw Cen MT" FontSize="15" Foreground="#000"/>-->
+                            <ComboBox materialDesign:HintAssist.HelperText="Seleciona el tipo de entrega"  
+                                          materialDesign:HintAssist.Hint="Selecciona una opción" 
+                                          HorizontalAlignment="Left"                                                                                                                              
+                                          Width="430" Height="35" Padding="6" VerticalContentAlignment="Center"
+                                          FontFamily="Tw Cen MT" FontSize="15" BorderBrush="#000" Foreground="#000" 
+                                          Background="Transparent" BorderThickness="0.01"
+                                          materialDesign:HintAssist.FloatingOffset="0,0"
+                                          materialDesign:HintAssist.Background="Transparent" 
+                                          materialDesign:HintAssist.Foreground="Transparent"
+                                          materialDesign:HintAssist.HelperTextFontSize="13"
+                                          Name="OrderTypeComboBox" DropDownClosed="ChangeOrderType">
+                                
+                                <ComboBox.Text>
+                                    <Binding Path="TypeOfDelivery" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                                        <Binding.ValidationRules>
+                                            <validations:NotNull ValidatesOnTargetUpdated="True"/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </ComboBox.Text>
+
+                                <ComboBoxItem>Domicilio</ComboBoxItem>
+                                <ComboBoxItem>Local</ComboBoxItem>
+                            </ComboBox>
+                        </Grid>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left"
+                               Margin="0,25,0,0">
+                        ✓Fecha
+                        </TextBlock>
+                        <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left"
+                           Margin="160,25,0,0" Name="HourTitleTextBlock">
+                        ✓Hora
+                        </TextBlock>
+                    </StackPanel>
+
+
+                    <Grid>
+                        <Border Background="{x:Null}" CornerRadius="5" Width="200" Height="35" HorizontalAlignment="Left"
+                            BorderBrush="#8D8D8D" BorderThickness="1,1,1,0" Name="OrderDateBorder"/>
+                        <Border Background="{x:Null}" CornerRadius="5" Width="200" Height="35" HorizontalAlignment="Left" Margin="230,0,0,0"
+                            BorderBrush="#8D8D8D" BorderThickness="1,1,1,0" Name="OrderHourBorder"/>
+                        <StackPanel Orientation="Horizontal" Cursor="Hand">
+                            <DatePicker Width="200" Foreground="#000"
+                                    Height="35" Padding="6" FontFamily="Tw Cen MT" FontSize="15" HorizontalAlignment="Left"
+                                    BorderBrush="#000" materialDesign:HintAssist.Hint="Fecha establecida" Cursor="Hand"
+                                    materialDesign:HintAssist.HelperText="Fecha actual establecida" IsEnabled="False" 
+                                    materialDesign:HintAssist.HelperTextFontSize="13" Background="Transparent"
+                                    Name="OrderDateDatePicker"/>
+                            <materialDesign:TimePicker BorderBrush="#000" Height="35" Width="200" Padding="6" Margin="30,0,0,0"
+                                                   materialDesign:HintAssist.Hint="Hora establecida" FontFamily="Tw Cen MT" FontSize="15"
+                                                   materialDesign:HintAssist.HelperText="Hora actual establecida" 
+                                                   materialDesign:HintAssist.HelperTextFontSize="13" IsEnabled="False"
+                                                   Name="OrderDateTimePicker"/>
+                        </StackPanel>
+                    </Grid>
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left"
+                                   Margin="0,25,0,0">
+                            ✓Estatus
+                            </TextBlock>
+                            <Grid Cursor="Hand">
+                                <Border Background="{x:Null}" CornerRadius="5" Width="200" Height="35" HorizontalAlignment="Left"
+                                    BorderBrush="#8D8D8D" BorderThickness="1,1,1,1" Name="OrderStatusBorder"/>
+                                <!--<Rectangle Stroke="#8D8D8D" Height="1.5" StrokeThickness="5" StrokeDashArray="0.7, 0.65" SnapsToDevicePixels="True"
+                                       Margin="0,33,0,0"/>-->
+
+                                <ComboBox materialDesign:HintAssist.HelperText="Estatus 'En proceso' establecido"  
+                                      materialDesign:HintAssist.Hint="Selecciona una opción" 
+                                      HorizontalAlignment="Left"
+                                      Width="200" Height="35" Padding="6" VerticalContentAlignment="Center"
+                                      FontFamily="Tw Cen MT" FontSize="15" BorderBrush="#000" Foreground="#000" 
+                                      Background="Transparent" BorderThickness="0.01"
+                                      materialDesign:HintAssist.FloatingOffset="0,0"
+                                      materialDesign:HintAssist.Background="Transparent" 
+                                      materialDesign:HintAssist.Foreground="Transparent"
+                                      materialDesign:HintAssist.HelperTextFontSize="13" IsEnabled="False"
+                                      Name="OrderStatusComboBox">
+                                    <ComboBoxItem>Entregado</ComboBoxItem>
+                                    <!--<ComboBoxItem>Cancelado</ComboBoxItem>-->
+                                    <ComboBoxItem IsSelected="True">En Proceso</ComboBoxItem>
+                                </ComboBox>
+                            </Grid>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Vertical" Margin="30,0,0,0" Name="CustomerNameStackPanel">
+                            <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left" 
+                                       Margin="0,25,0,0" Name="CustomerTitleTextBlock">
+                            *Nombre del cliente
+                            </TextBlock>
+                            <Grid Cursor="Hand">
+                                <Border Background="{x:Null}" CornerRadius="5" Width="200" Height="35" HorizontalAlignment="Left"
+                                    BorderBrush="#8D8D8D" BorderThickness="1" Name="CustomerNameBorder"/>
+                                <ComboBox materialDesign:HintAssist.HelperText="Seleciona un nombre"  
+                                      materialDesign:HintAssist.Hint="Seleciona un nombre" 
+                                      HorizontalAlignment="Left"
+                                      Width="200" Height="35" Padding="6" VerticalContentAlignment="Center"
+                                      FontFamily="Tw Cen MT" FontSize="15" BorderBrush="#000" Foreground="#000" 
+                                      Background="Transparent" BorderThickness="0.01"
+                                      materialDesign:HintAssist.FloatingOffset="0,0"  materialDesign:TextFieldAssist.HasClearButton="True"
+                                      materialDesign:HintAssist.HelperTextFontSize="13"
+                                      materialDesign:HintAssist.Background="Transparent" 
+                                      materialDesign:HintAssist.Foreground="Transparent"
+                                      Name="CustomerNameComboBox">
+
+                                    <ComboBox.Text>
+                                        <Binding Path="CustomerName" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                                            <Binding.ValidationRules>
+                                                <validations:NotNull ValidatesOnTargetUpdated="True"/>
+                                            </Binding.ValidationRules>
+                                        </Binding>
+                                    </ComboBox.Text>
+
+                                    <ComboBoxItem>José Daniel Camarillo Villa</ComboBoxItem>
+                                </ComboBox>
+                            </Grid>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Vertical" Margin="0,0,0,0">
+                        <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left" 
+                           Margin="0,25,0,0" Name="HeaderAddressTextblock">
+                            *Dirección
+                        </TextBlock>
+                        <Grid Cursor="Hand">
+                            <Border Background="{x:Null}" CornerRadius="5" Width="430" Height="35" HorizontalAlignment="Left"
+                                    BorderBrush="#8D8D8D" BorderThickness="1" Name="OrderAddressBorder"/>
+                            <ComboBox materialDesign:HintAssist.HelperText="Seleciona una dirección del cliente"  
+                                      materialDesign:HintAssist.Hint="Selecciona una opción" 
+                                      HorizontalAlignment="Left"
+                                      Width="430" Height="35" Padding="6" VerticalContentAlignment="Center"
+                                      FontFamily="Tw Cen MT" FontSize="15" BorderBrush="#000" Foreground="#000" 
+                                      Background="Transparent" BorderThickness="0.01"
+                                      materialDesign:HintAssist.FloatingOffset="0,0"
+                                      materialDesign:HintAssist.Background="Transparent" 
+                                      materialDesign:HintAssist.Foreground="Transparent"
+                                      materialDesign:HintAssist.HelperTextFontSize="13"
+                                      Name="OrderAddressComboBox">
+                                <!--<ComboBoxItem>Fidencio Ocaña #64. Col. Francisco Ferrer Guardia CP.91020</ComboBoxItem>-->
+
+                                <ComboBox.Text>
+                                    <Binding Path="Address" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                                        <Binding.ValidationRules>
+                                            <validations:NotNull ValidatesOnTargetUpdated="True"/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </ComboBox.Text>
+                            </ComboBox>
+                        </Grid>
+                    </StackPanel>
+                    <!--#endregion-->                    
+                </StackPanel>
+            </Grid>
+
+
+            <Grid Background="Transparent" Grid.Column="1" Grid.Row="1" Width="215" HorizontalAlignment="Left" Grid.RowSpan="2"
+                  Height="565" VerticalAlignment="top">
+                <StackPanel Orientation="Vertical" Name="AddProductsGrid">
+                    <!--#region Order FoodRecipes-->
+                    <Grid>
+                        <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left"
+                                   Margin="0,0,0,60">
+                            Recetas
+                        </TextBlock>
+                        <Border Background="{x:Null}" CornerRadius="5" Width="215" Height="35" HorizontalAlignment="Left"
+                                BorderBrush="#8D8D8D" BorderThickness="1"/>
+                        <!--<materialDesign:Chip Content="José Daniel Camarillo Villa" FontFamily="Tw Cen MT" FontSize="15" Foreground="#000"/>-->
+                        <ComboBox materialDesign:HintAssist.HelperText="Nombre de la receta"  
+                                  materialDesign:HintAssist.Hint="Seleciona una receta" 
+                                  HorizontalAlignment="Left"
+                                  Width="215" Height="35" Padding="6" VerticalContentAlignment="Center"
+                                  FontFamily="Tw Cen MT" FontSize="15" BorderBrush="#000" Foreground="#000" 
+                                  Background="Transparent" BorderThickness="0.01"
+                                  materialDesign:HintAssist.FloatingOffset="0,0" 
+                                  materialDesign:HintAssist.HelperTextFontSize="13"
+                                  materialDesign:HintAssist.Background="Transparent" 
+                                  materialDesign:HintAssist.Foreground="Transparent"
+                                  Name="FoodRecipeComboBox">
+
+                            <ComboBox.Text>
+                                <Binding Path="FoodRecipeName" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                                    <Binding.ValidationRules>
+                                        <validations:NotNullList ValidatesOnTargetUpdated="True"/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </ComboBox.Text>
+
+                            <ComboBoxItem>Pizza Grande $100</ComboBoxItem>
+                            <ComboBoxItem>Pizza Mediana $200</ComboBoxItem>
+                            <ComboBoxItem>Pizza casera $300</ComboBoxItem>
+                            <ComboBoxItem>Pizza de piña $400</ComboBoxItem>
+                        </ComboBox>
+                    </Grid>
+                    <StackPanel Orientation="Horizontal">
+                        <Button VerticalAlignment="Bottom" Background="#2C2C2E" materialDesign:ButtonAssist.CornerRadius="8"
+                                Height="34" Width="100" BorderBrush="{x:Null}" Margin="0,20,15,9" Click="AddRecipeToOrder"
+                                Name="AddFoodRecipeButton" Padding="0">
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="ChefHat" Height="20" Width="20" Foreground="#FFF" VerticalAlignment="Center" 
+                                                 ToolTip="Agregar ingrediente" Margin="0,0,4px,0"/>
+                                <TextBlock FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" HorizontalAlignment="Left"
+                                           TextWrapping="Wrap" Width="60" TextAlignment="Center">
+                                    Agregar 
+                                    Receta
+                                </TextBlock>
+                            </StackPanel>
+
+                            <Button.Style>
+                                <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedDarkButton}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ElementName=FoodRecipeComboBox, 
+                                                     Path=(Validation.HasError)}" Value="True">
+                                            <Setter Property="IsEnabled" Value="False"/>
+                                        </DataTrigger>
+
+                                        <!--<DataTrigger Binding="{Binding ElementName=QuantityDataGridTextColumn, 
+                                                     Path=(Validation.HasError)}" Value="True">
+                                            <Setter Property="IsEnabled" Value="False"/>
+                                        </DataTrigger>-->
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+
+                        <Button VerticalAlignment="Bottom" Background="#2C2C2E" materialDesign:ButtonAssist.CornerRadius="8"
+                                Height="34" Width="100" BorderBrush="{x:Null}" Margin="0,20,0,9" Click="DeleteRecipeToOrder"
+                                Name="DeleteFoodRecipeButton" Padding="0" IsEnabled="False">
+                            <StackPanel Orientation="Horizontal">
+                                <fa5:ImageAwesome Icon="Solid_Trash" Height="15" Width="20" Foreground="#FFF" VerticalAlignment="Center" 
+                                                 ToolTip="Agregar ingrediente" Margin="0,0,4px,0"/>
+                                <TextBlock FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" HorizontalAlignment="Left"
+                                           TextWrapping="Wrap" TextAlignment="Center" Width="60">
+                                    Eliminar 
+                                    Receta
+                                </TextBlock>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                    <!--#endregion-->
+
+                    <!--#region Order Items-->
+                    <Grid>
+                        <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left"
+                                   Margin="0,20,0,80">
+                            Extras
+                        </TextBlock>
+                        <Border Background="{x:Null}" CornerRadius="5" Width="215" Height="35" HorizontalAlignment="Left"
+                                BorderBrush="#8D8D8D" BorderThickness="1"/>
+                        <!--<materialDesign:Chip Content="José Daniel Camarillo Villa" FontFamily="Tw Cen MT" FontSize="15" Foreground="#000"/>-->
+                        <ComboBox materialDesign:HintAssist.HelperText="Nombre del insumo"  
+                                  materialDesign:HintAssist.Hint="Seleciona una receta" 
+                                  HorizontalAlignment="Left"
+                                  Width="215" Height="35" Padding="6" VerticalContentAlignment="Center"
+                                  FontFamily="Tw Cen MT" FontSize="15" BorderBrush="#000" Foreground="#000" 
+                                  Background="Transparent" BorderThickness="0.01"
+                                  materialDesign:HintAssist.FloatingOffset="0,0" 
+                                  materialDesign:HintAssist.HelperTextFontSize="13"
+                                  materialDesign:HintAssist.Background="Transparent" 
+                                  materialDesign:HintAssist.Foreground="Transparent"
+                                  Name="ItemsComboBox">
+
+                            <ComboBox.Text>
+                                <Binding Path="ItemName" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                                    <Binding.ValidationRules>
+                                        <validations:NotNullList ValidatesOnTargetUpdated="True"/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </ComboBox.Text>
+
+                            <ComboBoxItem>Fanta 500ml $15</ComboBoxItem>
+                            <ComboBoxItem>Coca Cola 1L $25</ComboBoxItem>
+                            <ComboBoxItem>Boing de guayaba 500ml $20</ComboBoxItem>
+                        </ComboBox>
+                    </Grid>
+                    <StackPanel Orientation="Horizontal">
+                        <Button VerticalAlignment="Bottom" Background="#2C2C2E" materialDesign:ButtonAssist.CornerRadius="8"
+                                Height="34" Width="100" BorderBrush="{x:Null}" Margin="0,10,15,9" Click="AddItemToOrder"
+                                Name="AddItemButton" Padding="0">
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="FoodDrumstick" Height="20" Width="20" Foreground="#FFF" VerticalAlignment="Center" 
+                                                 ToolTip="Agregar insumo" Margin="0,0,4px,0"/>
+                                <TextBlock FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" HorizontalAlignment="Left"
+                                           Width="60" TextAlignment="Center" TextWrapping="Wrap">
+                                    Agregar 
+                                    Extra
+                                </TextBlock>
+                            </StackPanel>
+
+                            <Button.Style>
+                                <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedDarkButton}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ElementName=ItemsComboBox, 
+                                                     Path=(Validation.HasError)}" Value="True">
+                                            <Setter Property="IsEnabled" Value="False"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+
+                        <Button VerticalAlignment="Bottom" Background="#2C2C2E" materialDesign:ButtonAssist.CornerRadius="8"
+                                Height="34" Width="100" BorderBrush="{x:Null}" Margin="0,10,0,9" Padding="0" Click="DeleteItemToOrder"
+                                Name="DeleteItemButton" IsEnabled="False">
+                            <StackPanel Orientation="Horizontal">
+                                <fa5:ImageAwesome Icon="Solid_Trash" Height="15" Width="20" Foreground="#FFF" VerticalAlignment="Center" 
+                                                 ToolTip="Agregar ingrediente" Margin="0,0,4px,0"/>
+                                <TextBlock FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" HorizontalAlignment="Center" 
+                                           TextWrapping="Wrap" Width="60" TextAlignment="Center">
+                                    Eliminar
+                                    Extra
+                                </TextBlock>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                    <!--#endregion-->                    
+                </StackPanel>
+                <!--Buttons Accept, Update, Save and Cancel-->
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,180,0,20" >
+                    <Button Width="120" Margin="0,0,0,0" materialDesign:ButtonAssist.CornerRadius="8" Height="40"
+                                Background="#2C2C2E" BorderBrush="{x:Null}" Visibility="Collapsed" ToolTip="Generar Ticket"
+                                Name="GenerateOrderTicketButton">
+                        <StackPanel Orientation="Horizontal">
+                            <fa5:ImageAwesome Icon="Solid_TicketAlt" Height="13" Width="13" Foreground="#FFF" VerticalAlignment="Center" 
+                                              ToolTip="Selecciona un filtro" Margin="0,0,4px,0" Rotation="90"
+                                              />
+                            <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" HorizontalAlignment="Left">
+                                    Ticket
+                            </TextBlock>
+                        </StackPanel>
+                    </Button>
+
+                    <Button Width="120" Margin="0,0,0,0" materialDesign:ButtonAssist.CornerRadius="8" Height="40"
+                                Background="#2C2C2E" BorderBrush="{x:Null}" Visibility="Visible" ToolTip="Aceptar pedido"
+                                Name="AcceptOrderRegistrationButtton" Click="ShowConfirmationToast">
+                        <StackPanel Orientation="Horizontal">
+                            <fa5:ImageAwesome Icon="Solid_Check" Height="13" Width="13" Foreground="#FFF" VerticalAlignment="Center" 
+                                                  ToolTip="Selecciona un filtro" Margin="0,0,4px,0"/>
+                            <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" HorizontalAlignment="Left">
+                                    Aceptar
+                            </TextBlock>
+                        </StackPanel>
+
+                        <Button.Style>
+                            <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedDarkButton}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ElementName=OrderTypeComboBox, 
+                                                     Path=(Validation.HasError)}" Value="True">
+                                        <Setter Property="IsEnabled" Value="False"/>
+                                    </DataTrigger>
+
+                                    <DataTrigger Binding="{Binding ElementName=OrderAddressComboBox, 
+                                                     Path=(Validation.HasError)}" Value="True">
+                                        <Setter Property="IsEnabled" Value="False"/>
+                                    </DataTrigger>
+
+                                    <DataTrigger Binding="{Binding ElementName=DeleteFoodRecipeButton, 
+                                                     Path=IsEnabled}" Value="False">
+                                        <Setter Property="IsEnabled" Value="False"/>
+                                    </DataTrigger>
+
+                                    <DataTrigger Binding="{Binding ElementName=DeleteItemButton, 
+                                                     Path=IsEnabled}" Value="False">
+                                        <Setter Property="IsEnabled" Value="False"/>
+                                    </DataTrigger>
+
+
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions >
+                                            <Condition Binding="{Binding ElementName=CustomerNameStackPanel, 
+                                                       Path=Visibility}" Value="Visible"/>
+
+                                            <Condition Binding="{Binding ElementName=CustomerNameComboBox, 
+                                                       Path=(Validation.HasError)}" Value="True"/>
+                                        </MultiDataTrigger.Conditions>
+                                        <Setter Property="IsEnabled" Value="False"/>
+                                    </MultiDataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+
+                    <!--<Button Width="120" Margin="0,0,40,0" materialDesign:ButtonAssist.CornerRadius="8" Height="40"
+                                    Background="#2C2C2E" BorderBrush="{x:Null}" Visibility="Visible" ToolTip="Actualizar pedido"
+                                    Name="UpdateOrderButton" Click="ShowOrderUpdateDialog">
+                                <StackPanel Orientation="Horizontal">
+                                    <fa5:ImageAwesome Icon="Solid_
+                    " Height="13" Width="13" Foreground="#FFF" VerticalAlignment="Center" 
+                                                      ToolTip="Selecciona un filtro" Margin="0,0,4px,0"/>
+                                    <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" HorizontalAlignment="Left">
+                                        Actualizar
+                                    </TextBlock>
+                                </StackPanel>
+                        </Button>-->
+
+                    <Button Width="120" Margin="0,0,0,0" materialDesign:ButtonAssist.CornerRadius="8" Height="40"
+                        Background="#2C2C2E" BorderBrush="{x:Null}" Visibility="Collapsed" ToolTip="Actualizar pedido"
+                        Name="SaveOrderButton" Click="ShowConfirmationToast">
+                        <StackPanel Orientation="Horizontal">
+                            <fa5:ImageAwesome Icon="Solid_Save" Height="13" Width="13" Foreground="#FFF" VerticalAlignment="Center" 
+                                      ToolTip="Selecciona un filtro" Margin="0,0,4px,0"/>
+                            <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" HorizontalAlignment="Left">
+                            Guardar
+                            </TextBlock>
+                        </StackPanel>
+                    </Button>
+
+                    <!--<Button Width="120" materialDesign:ButtonAssist.CornerRadius="8" Background="#2C2C2E" BorderBrush="{x:Null}"
+                                Height="40" Name="CancelOrderButton" Visibility="Visible" Margin="0,0,35,0" ToolTip="Cancelar pedido"
+                                Click="ShowOrderCancellationDialog">
+                            <StackPanel Orientation="Horizontal">
+                                <fa5:ImageAwesome Icon="Solid_Ban" Height="13" Width="13" Foreground="#FFF" VerticalAlignment="Center" 
+                                                  ToolTip="Selecciona un filtro" Margin="0,0,4px,0"/>
+                                <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" HorizontalAlignment="Left">
+                                    Cancelar
+                                </TextBlock>
+                            </StackPanel>
+                        </Button>-->
+                </StackPanel>
+            </Grid>
+
+            <!--#region Order product table-->
+            <StackPanel Grid.ColumnSpan="2" Grid.RowSpan="3" Margin="0,290,0,0" Background="Transparent" Width="680" Height="170">
+                <StackPanel Orientation="Horizontal">
                     <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left"
                                Margin="0,0,20,0">
-                        Total:
+                            *Recetas del pedido
                     </TextBlock>
-                    <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left">
-                        $1000
+
+                    <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left"
+                               Margin="145,0,20,0">
+                            *Extras del pedido
+                    </TextBlock>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <DataGrid Height="110" MaxHeight="110" CanUserAddRows="False"  FontFamily="Tw Cen MT" FontSize="13" 
+                              Background="Transparent" BorderBrush="#8D8D8D" IsReadOnly="False" Cursor="Pen"
+                              BorderThickness="1" Name="OrderFoodRecipeDataGrid" Width="325" Margin="0,0,30,0" CellEditEnding="RecalculateOrderTotal"
+                              SelectionMode="Single" AutoGenerateColumns="False">
+                        <DataGrid.Resources>
+                            <Style TargetType="DataGridCell">
+                                <Style.Triggers>
+                                    <Trigger Property="IsSelected" Value="True" >
+                                        <Setter Property="Background" Value="#D6D6D6" />
+                                        <Setter Property="Foreground" Value="Black" />
+                                        <Setter Property="BorderBrush" Value="Transparent"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                                <Style.Resources>
+                                    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent"/>
+                                </Style.Resources>
+                            </Style>
+                        </DataGrid.Resources>
+
+                        <DataGrid.Columns>
+                            <!--<DataGridTemplateColumn Header="Cantidad" Width="90" CanUserResize="False">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                            <Button Padding="0" Background="#2C2C2E" Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
+                                                    Height="15" Width="15" Margin="0,0,0,0" BorderBrush="{x:Null}"
+                                                    Click="IncreaseRecipeAmount">
+                                                <fa5:ImageAwesome Icon="Solid_Plus" Height="7" Width="7"  Foreground="#FFFFFF" Margin="0"
+                                                                  VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                            </Button>
+
+                                            <TextBlock Text="{Binding Quantity}" Margin="5,0,5,0"  FontFamily="Tw Cen MT" FontSize="15" 
+                                                       Foreground="#000" TextWrapping="Wrap"/>
+
+                                            <Button Padding="0" Background="#2C2C2E" Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
+                                                    Height="15" Width="15" BorderBrush="{x:Null}">
+                                                <fa5:ImageAwesome Icon="Solid_Minus" Height="7" Width="7"  Foreground="#FFFFFF" Margin="0"
+                                                                  VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                            </Button>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>-->
+
+                            <DataGridTextColumn Header="Cantidad" CanUserResize="False" Width="90"
+                                                ElementStyle="{StaticResource WrapText}" IsReadOnly="False" x:Name="QuantityDataGridTextColumn">
+                                <DataGridTextColumn.Binding>
+                                    <Binding Path="Cantidad" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                                        <Binding.ValidationRules>
+                                            <validations:Integer ValidatesOnTargetUpdated="True"/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </DataGridTextColumn.Binding>
+                            </DataGridTextColumn>
+
+                            <DataGridTextColumn Header="Nombre" CanUserResize="False" Width="145" Binding="{Binding Nombre}"
+                                                ElementStyle="{StaticResource WrapText}" IsReadOnly="True"/>
+
+                            <DataGridTextColumn Header="Precio" CanUserResize="False" Width="*" Binding="{Binding Precio}"
+                                                ElementStyle="{StaticResource WrapText}" IsReadOnly="True"/>
+                            
+                            <!--<DataGridTemplateColumn Header="Eliminar" Width="90" IsReadOnly="True" CanUserResize="False">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
+                                            <Button Padding="0" Background="#2C2C2E" Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
+                                                    Height="15" Width="15" BorderBrush="{x:Null}">
+                                                <fa5:ImageAwesome Icon="Solid_Trash" Height="7" Width="7"  Foreground="#FFFFFF" Margin="0"
+                                                                  VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                            </Button>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>-->
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+
+                    <DataGrid Height="110" MaxHeight="110" CanUserAddRows="False"  FontFamily="Tw Cen MT" FontSize="13" 
+                              Background="Transparent" BorderBrush="#8D8D8D" IsReadOnly="False" Cursor="Pen"
+                              BorderThickness="1" Name="OrderItemsDataGrid" Width="325" CellEditEnding="RecalculateOrderTotal"
+                              SelectionMode="Single" AutoGenerateColumns="False">
+                        <DataGrid.Resources>
+                            <Style TargetType="DataGridCell">
+                                <Style.Triggers>
+                                    <Trigger Property="IsSelected" Value="True" >
+                                        <Setter Property="Background" Value="#D6D6D6" />
+                                        <Setter Property="Foreground" Value="Black" />
+                                        <Setter Property="BorderBrush" Value="Transparent"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                                <Style.Resources>
+                                    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent"/>
+                                </Style.Resources>
+                            </Style>
+                        </DataGrid.Resources>
+                        
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Cantidad" CanUserResize="False" Width="90"
+                                                ElementStyle="{StaticResource WrapText}" IsReadOnly="False"
+                                                >
+                                <DataGridTextColumn.Binding>
+                                    <Binding Path="Cantidad" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                                        <Binding.ValidationRules>
+                                            <validations:Integer ValidatesOnTargetUpdated="True"/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </DataGridTextColumn.Binding>
+                            </DataGridTextColumn>
+
+                            <DataGridTextColumn Header="Nombre" CanUserResize="False" Width="145" Binding="{Binding Nombre}"
+                                                ElementStyle="{StaticResource WrapText}" IsReadOnly="True"/>
+
+                            <DataGridTextColumn Header="Precio" CanUserResize="False" Width="*" Binding="{Binding Precio}"
+                                                ElementStyle="{StaticResource WrapText}" IsReadOnly="True"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,5,0,0">
+                    <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left"
+                               Margin="0,0,0,0">
+                        ✓Total $
+                    </TextBlock>
+                    <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left"
+                                   Name="OrderTotalTextBlock" VerticalAlignment="Center" Margin="0,0,10,0">
+                       0
                     </TextBlock>
                 </StackPanel>
             </StackPanel>
+        </Grid>
+        <!--#endregion-->
 
-            <!--Buttons-->
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,-20">
-                <Button Width="120" Margin="0,0,40,0" materialDesign:ButtonAssist.CornerRadius="8" Height="40"
-                        Background="#2C2C2E" BorderBrush="{x:Null}">
-                    <StackPanel Orientation="Horizontal">
-                        <fa5:ImageAwesome Icon="Solid_Pen" Height="13" Width="13" Foreground="#FFF" VerticalAlignment="Center" 
-                                      ToolTip="Selecciona un filtro" Margin="0,0,4px,0"/>
-                        <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" HorizontalAlignment="Left">
-                            Actualizar
-                        </TextBlock>
-                    </StackPanel>
-                </Button>
-                <Button Width="120" materialDesign:ButtonAssist.CornerRadius="8" Background="#2C2C2E" BorderBrush="{x:Null}"
-                         Height="40">
-                    <StackPanel Orientation="Horizontal">
-                        <fa5:ImageAwesome Icon="Solid_Ban" Height="13" Width="13" Foreground="#FFF" VerticalAlignment="Center" 
-                                      ToolTip="Selecciona un filtro" Margin="0,0,4px,0"/>
-                        <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" HorizontalAlignment="Left">
+        <!--#region Dialogue Departure Confirmation-->
+        <Border Background="#000" HorizontalAlignment="Center" VerticalAlignment="Center"
+                Width="776" Height="720" Margin="0,0,0,0" Visibility="Hidden" Opacity="0.8"
+                Name="FifthLayerBorder"/>     
+        <Grid x:Name="InvalidFieldsGrid" Width="250" Height="150" HorizontalAlignment="Center"
+              VerticalAlignment="Center" Visibility="Hidden"> 
+            <Border Background="#FFF" CornerRadius="10"/>
+            <StackPanel>
+                <TextBlock FontFamily="Tw Cen MT" FontSize="25" Foreground="#000" VerticalAlignment="Top" Margin="0,5,0,0"
+                       HorizontalAlignment="Center">
+                        Confirmación de salida
+                </TextBlock>
+                <fa5:ImageAwesome Icon="Solid_ExclamationCircle" Height="20" Width="20" Margin="0,0,0,-4"
+                              Foreground="#000" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                <TextBlock FontFamily="Tw Cen MT" FontSize="15" Foreground="#000" VerticalAlignment="Top" Margin="0,10,0,0"
+                       HorizontalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center">
+                        ¿Está seguro qué desea 
+                        cancelar el proceso?
+                </TextBlock>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,15,0,0">
+                    <Button Width="90" materialDesign:ButtonAssist.CornerRadius="8" Background="#2C2C2E" BorderBrush="{x:Null}"
+                            Height="30" Click="HideSpecificOrderInformation">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock FontFamily="Tw Cen MT" FontSize="15" Foreground="#FFF">
+                            Aceptar
+                            </TextBlock>
+                        </StackPanel>
+                    </Button>
+
+                    <Button Width="90" materialDesign:ButtonAssist.CornerRadius="8" Background="#2C2C2E" BorderBrush="{x:Null}"
+                         Height="30" Margin="40,0,0,0" Click="BackToOrderRegistration">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock FontFamily="Tw Cen MT" FontSize="15" Foreground="#FFF">
                             Cancelar
-                        </TextBlock>
-                    </StackPanel>
-                </Button>
+                            </TextBlock>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
             </StackPanel>
         </Grid>
         <!--#endregion-->
         
-        <!--#region Dialogue Invalid Fields-->
-        <!--<Frame Width="250" Background="Transparent" Height="150" BorderBrush="Transparent"
-               Opacity="1" Name="NavigationFrame" NavigationUIVisibility="Hidden" HorizontalAlignment="Center"
-               VerticalAlignment="Center" Source="/ItalianPizza;component/Views/ErrorPage.xaml"/>-->
+        <!--#region Dialogue Delete Confirmation-->
+        <Grid x:Name="DeleteConfirmationGrid" Width="250" Height="150" HorizontalAlignment="Center"
+              VerticalAlignment="Center" Visibility="Hidden">
+            <Border Background="#FFF" CornerRadius="10"/>
+            <StackPanel>
+                <TextBlock FontFamily="Tw Cen MT" FontSize="20" Foreground="#000" VerticalAlignment="Top" Margin="0,5,0,0"
+                       HorizontalAlignment="Center">
+                        Confirmación de Eliminación
+                </TextBlock>
+                <fa5:ImageAwesome Icon="Solid_ExclamationCircle" Height="20" Width="20" Margin="0,10,0,5"
+                              Foreground="#000" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                <TextBlock FontFamily="Tw Cen MT" FontSize="15" Foreground="#000" VerticalAlignment="Top" Margin="0,10,0,0"
+                       HorizontalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center">
+                        ¿Desea confirmar la eliminación?
+                </TextBlock>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,15,0,0">
+                    <Button Width="90" materialDesign:ButtonAssist.CornerRadius="8" Background="#2C2C2E" BorderBrush="{x:Null}"
+                            Height="30" Click="HideSpecificOrderInformation">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock FontFamily="Tw Cen MT" FontSize="15" Foreground="#FFF">
+                            Aceptar
+                            </TextBlock>
+                        </StackPanel>
+                    </Button>
+
+                    <Button Width="90" materialDesign:ButtonAssist.CornerRadius="8" Background="#2C2C2E" BorderBrush="{x:Null}"
+                         Height="30" Margin="40,0,0,0" Click="BackToOrderRegistration">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock FontFamily="Tw Cen MT" FontSize="15" Foreground="#FFF">
+                            Cancelar
+                            </TextBlock>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+        <!--#endregion-->
         
+        <!--#region Process Confirmation-->
+        <notifications:NotificationArea x:Name="ConfirmationToast" Position="BottomRight" MaxItems="3" 
+                                        notifications:Notification.CloseOnClick="false" Margin="0,0,15,50" />
         <!--#endregion-->
     </Grid>
 </Page>

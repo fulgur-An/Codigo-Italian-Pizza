@@ -8,7 +8,7 @@ namespace ItalianPizza.Validations
     {
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
-            var text = value as string;
+            var text = value as string;          
 
             if (text == null)
             {
