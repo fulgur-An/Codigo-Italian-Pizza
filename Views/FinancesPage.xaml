@@ -103,7 +103,7 @@
                 </StackPanel>
             </Grid>
             <materialDesign:DrawerHost.LeftDrawerContent>
-                <!--#region DiaryBalanceTable -->
+                <!--#region DialyBalanceTable -->
                 <Grid  x:Name="InventoryTableGrid">
                     <StackPanel Orientation="Vertical">
 
@@ -214,82 +214,75 @@
                         <!--#region Table body-->
                         <Grid>
 
-                            <Border Name="InventoryTableBodyBorder" Background="#5B5B5B" Height="350" Width="719" CornerRadius="0,0,5,5" 
+                            <Border Name="dailyBalanceTableBodyBorder" Background="#5B5B5B" Height="350" Width="719" CornerRadius="0,0,5,5" 
                                 Opacity="0" />
-                            <ListBox Name="InventoryTableBodyListBox" Height="350" Width="719"  HorizontalAlignment="Center" >
-                                <ListBoxItem BorderBrush="#CFCFCF" BorderThickness="0,0,0,1" >
-                                    <StackPanel Orientation="Horizontal" Height="35" Width="709" Cursor="Hand" Background="Transparent">
-                                        <Grid Width="80"  Margin="4,0,0,0">
-                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                <TextBlock FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" TextWrapping="Wrap">
-                                                    24/04/2022
-                                                </TextBlock>
-                                            </StackPanel>
-                                        </Grid>
+                            <ListBox Name="dailyBalanceTableBodyListBox" Height="350" Width="719"  HorizontalAlignment="Center" ItemsSource="{Binding}">
+                                <ListBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <UniformGrid Columns="1" VerticalAlignment="Top"/>
+                                    </ItemsPanelTemplate>
+                                </ListBox.ItemsPanel>
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <!--BorderBrush="#CFCFCF" BorderThickness="0,0,0,1"-->
+                                        <materialDesign:TransitioningContent OpeningEffectsOffset="{materialDesign:IndexedItemOffsetMultiplier 0:0:0.05}">
+                                            <materialDesign:TransitioningContent.OpeningEffects>
+                                                <materialDesign:TransitionEffect Kind="SlideInFromRight"/>
+                                            </materialDesign:TransitioningContent.OpeningEffects>
+                                            <StackPanel Orientation="Horizontal" Height="35" Width="709" Cursor="Hand" Background="Transparent">
+                                                <Grid Width="100"  Margin="4,0,0,0">
+                                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                        <TextBlock Text="{Binding CurrentDate}" FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" TextWrapping="Wrap"/>
+                                                    </StackPanel>
+                                                </Grid>
 
-                                        <Grid Width="40" Margin="38,0,0,0">
-                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                <TextBlock FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" TextWrapping="Wrap">
-                                                    $7500
-                                                </TextBlock>
-                                            </StackPanel>
-                                        </Grid>
+                                                <Grid Width="40" Margin="38,0,0,0">
+                                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                        <TextBlock Text="$" FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" TextWrapping="Wrap"/>
+                                                        <TextBlock Text="{Binding EntryBalance}" FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" TextWrapping="Wrap"/>
+                                                    </StackPanel>
+                                                </Grid>
 
-                                        <Grid Width="40" Margin="38,0,0,0">
-                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                <TextBlock FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" TextWrapping="Wrap">
-                                                    $5000
-                                                </TextBlock>
-                                            </StackPanel>
-                                        </Grid>
+                                                <Grid Width="40" Margin="38,0,0,0">
+                                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                        <TextBlock Text="$" FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" TextWrapping="Wrap"/>
+                                                        <TextBlock Text="{Binding InitialBalance}" FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" TextWrapping="Wrap"/>
+                                                    </StackPanel>
+                                                </Grid>
 
-                                        <Grid Width="40" Margin="38,0,0,0">
-                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                <TextBlock FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" TextWrapping="Wrap">
-                                                    $5000
-                                                </TextBlock>
-                                            </StackPanel>
-                                        </Grid>
+                                                <Grid Width="40" Margin="38,0,0,0">
+                                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                        <TextBlock Text="$" FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" TextWrapping="Wrap"/>
+                                                        <TextBlock Text="{Binding ExitBalance}" FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" TextWrapping="Wrap"/>
+                                                    </StackPanel>
+                                                </Grid>
 
-                                        <Grid Width="40" Margin="38,0,0,0">
-                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                <TextBlock FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" TextWrapping="Wrap">
-                                                    $7500
-                                                </TextBlock>
-                                            </StackPanel>
-                                        </Grid>
+                                                <Grid Width="40" Margin="38,0,0,0">
+                                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                        <TextBlock Text="$" FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" TextWrapping="Wrap"/>
+                                                        <TextBlock Text="{Binding CashBalance}" FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" TextWrapping="Wrap"/>
+                                                    </StackPanel>
+                                                </Grid>
 
-                                        <Grid Width="40" Margin="38,0,0,0">
-                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                <TextBlock FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" TextWrapping="Wrap">
-                                                    $7500
-                                                </TextBlock>
-                                            </StackPanel>
-                                        </Grid>
+                                                <Grid Width="40" Margin="38,0,0,0">
+                                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                        <TextBlock Text="$" FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" TextWrapping="Wrap"/>
+                                                        <TextBlock Text="{Binding PhsycalBalance}" FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" TextWrapping="Wrap"/>
+                                                    </StackPanel>
+                                                </Grid>
 
-                                        <Grid Width="200" Margin="28,0,0,0">
-                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                <TextBlock FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" TextWrapping="Wrap">
+                                                <Grid Width="200" Margin="28,0,0,0">
+                                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                        <TextBlock FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" TextWrapping="Wrap">
                                                     Antonio de Jesús Domínguez García
-                                                </TextBlock>
+                                                        </TextBlock>
+                                                    </StackPanel>
+                                                </Grid>
+
                                             </StackPanel>
-                                        </Grid>
-
-                                    </StackPanel>
-                                </ListBoxItem>
-
-                                <!--<ListBox.ItemTemplate>
-                <DataTemplate>
-                    <materialDesign:TransitioningContent OpeningEffectsOffset="{materialDesign:IndexedItemOffsetMultiplier 0:0:0.05}">
-                        <materialDesign:TransitioningContent.OpeningEffects>
-                            <materialDesign:TransitionEffect Kind="SlideInFromRight"/>
-                        </materialDesign:TransitioningContent.OpeningEffects>                        
-                       <Stackpanel>
-                            
-                        </Stackpanel>           
-                    </materialDesign:TransitioningContent>
-                </DataTemplate>
-            </ListBox.ItemTemplate>-->
+                                        </materialDesign:TransitioningContent>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate> 
                             </ListBox>
 
                         </Grid>
@@ -301,7 +294,7 @@
 
             <materialDesign:DrawerHost.RightDrawerContent>
                 <!--#region Monetary expediture table -->
-                <Grid  x:Name="InventoryaTableGrid">
+                <Grid  x:Name="monetaryExpeditureTableGrid">
                     <StackPanel Orientation="Vertical">
 
                         <Button Click="CloseElementsDrawer"
@@ -348,11 +341,11 @@
                         <!--#region Table headers #2C2C2E-->
                         <Grid Height="50" Margin="0,4,0,0">
 
-                            <Border Name="InventoryTablaeHeaderBorder" Background="#5B5B5B" Height="45" Width="719"  CornerRadius="5,5,0,0" 
+                            <Border Name="monetaryExpeditureTablaHeaderBorder" Background="#5B5B5B" Height="45" Width="719"  CornerRadius="5,5,0,0" 
                                 Opacity="0.4">
 
                             </Border>
-                            <StackPanel Name="InventoryTableHeadaerStackPanel" Orientation="Horizontal" Height="45" Width="769">
+                            <StackPanel Name="monetaryExpeditureTablHeaderStackPanel" Orientation="Horizontal" Height="45" Width="769">
 
                                 <Grid Width="100" Margin="28,0,0,0">
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
@@ -402,57 +395,50 @@
                         <!--#region Table body-->
                         <Grid>
 
-                            <Border Name="InventoryTabledBodyBorder" Background="#5B5B5B" Height="350" Width="719" CornerRadius="0,0,5,5" 
+                            <Border Name="monetaryExpeditureTableBodyBorder" Background="#5B5B5B" Height="350" Width="719" CornerRadius="0,0,5,5" 
                                 Opacity="0" />
-                            <ListBox Name="InventoryTableBodyLdistBox" Height="350" Width="719"  HorizontalAlignment="Center" >
-                                <ListBoxItem BorderBrush="#CFCFCF" BorderThickness="0,0,0,1" HorizontalAlignment="Center">
-                                    <StackPanel Orientation="Horizontal" Height="35" Width="709" Cursor="Hand" Background="Transparent" HorizontalAlignment="Center">
-                                        <Grid Width="50"  Margin="28,0,44,0" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                <TextBlock FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" TextWrapping="Wrap">
-                                                    $2500
-                                                </TextBlock>
-                                            </StackPanel>
-                                        </Grid>
+                            <ListBox Name="monetaryExpeditureTableBodyListBox" Height="350" Width="719"  HorizontalAlignment="Center" ItemsSource="{Binding}">
+                                <ListBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <UniformGrid Columns="1" VerticalAlignment="Top"/>
+                                    </ItemsPanelTemplate>
+                                </ListBox.ItemsPanel>
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate  >
+                                        <!-- BorderBrush="#CFCFCF" BorderThickness="0,0,0,1" HorizontalAlignment="Center"-->
+                                        <materialDesign:TransitioningContent OpeningEffectsOffset="{materialDesign:IndexedItemOffsetMultiplier 0:0:0.05}">
+                                            <materialDesign:TransitioningContent.OpeningEffects>
+                                                <materialDesign:TransitionEffect Kind="SlideInFromRight"/>
+                                            </materialDesign:TransitioningContent.OpeningEffects>
+                                            <StackPanel Orientation="Horizontal" Height="35" Width="709" Cursor="Hand" Background="Transparent" HorizontalAlignment="Center">
+                                                <Grid Width="50"  Margin="28,0,44,0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                        <TextBlock Text="{Binding Amount}" FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" TextWrapping="Wrap"/>
+                                                    </StackPanel>
+                                                </Grid>
 
-                                        <Grid Width="80" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                <TextBlock FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" TextWrapping="Wrap">
-                                                    24/04/2022
-                                                </TextBlock>
-                                            </StackPanel>
-                                        </Grid>
+                                                <Grid Width="200" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                        <TextBlock Text="{Binding Date}" FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" TextWrapping="Wrap"/>
+                                                    </StackPanel>
+                                                </Grid>
 
-                                        <Grid Width="250" Margin="18,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                <TextBlock FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" TextWrapping="Wrap">
-                                                    Pago del servicio de luz de la pizzeria
-                                                </TextBlock>
-                                            </StackPanel>
-                                        </Grid>
+                                                <Grid Width="250" Margin="18,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                        <TextBlock Text="{Binding Description}" FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" TextWrapping="Wrap"/>
+                                                    </StackPanel>
+                                                </Grid>
 
-                                        <Grid Width="200" Margin="18,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                <TextBlock FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" TextWrapping="Wrap">
-                                                    Antonio de Jesús Domínguez García
-                                                </TextBlock>
+                                                <Grid Width="200" Margin="18,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                        <TextBlock Text="{Binding EmployeeName}" FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" TextWrapping="Wrap"/>
+                                                    </StackPanel>
+                                                </Grid>
                                             </StackPanel>
-                                        </Grid>
-                                    </StackPanel>
-                                </ListBoxItem>
+                                        </materialDesign:TransitioningContent>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
 
-                                <!--<ListBox.ItemTemplate>
-                <DataTemplate>
-                    <materialDesign:TransitioningContent OpeningEffectsOffset="{materialDesign:IndexedItemOffsetMultiplier 0:0:0.05}">
-                        <materialDesign:TransitioningContent.OpeningEffects>
-                            <materialDesign:TransitionEffect Kind="SlideInFromRight"/>
-                        </materialDesign:TransitioningContent.OpeningEffects>                        
-                       <Stackpanel>
-                            
-                        </Stackpanel>           
-                    </materialDesign:TransitioningContent>
-                </DataTemplate>
-            </ListBox.ItemTemplate>-->
                             </ListBox>
 
                         </Grid>
@@ -691,7 +677,7 @@
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,18,0,0">
                     <!--Register button-->
                     <Button Name="RegisterItemButton" Width="120" Margin="0,0,140,0" materialDesign:ButtonAssist.CornerRadius="8" Height="40" 
-                        Background="#2C2C2E" BorderBrush="{x:Null}">
+                        Background="#2C2C2E" BorderBrush="{x:Null}" Click="SaveRegistMonetaryExpediture">
                         <StackPanel Orientation="Horizontal" >
                             <fa5:ImageAwesome Icon="Solid_Check" Height="13" Width="13" Foreground="#FFF" VerticalAlignment="Center" 
                                       ToolTip="Selecciona un filtro" Margin="0,0,4px,0"/>
@@ -764,7 +750,7 @@
                                         <TextBlock FontFamily="Tw Cen MT" FontSize="23" Margin="0,0,0,8" Foreground="#000" HorizontalAlignment="Center">
                                             Saldo físico
                                         </TextBlock>
-                                        <TextBox x:Name="DailyBalanceald" HorizontalAlignment="Center"  IsEnabled="False" Text="00.00"
+                                        <TextBox x:Name="DailyBalancePhysicBalanceField" HorizontalAlignment="Center"  IsEnabled="False" Text="00.00"
                                             Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                             VerticalAlignment="Top"
                                             AcceptsReturn="True"
@@ -785,7 +771,7 @@
                                         <TextBlock FontFamily="Tw Cen MT" FontSize="23" Margin="0,0,0,8" Foreground="#000">
                                             Saldo inicial
                                         </TextBlock>
-                                        <TextBox x:Name="DailyBalanceImportField" IsEnabled="False" Text="500"
+                                        <TextBox x:Name="DailyBalanceInitialBalanceField" IsEnabled="False" Text="500"
                                             Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                             VerticalAlignment="Top"
                                             AcceptsReturn="True"
@@ -805,7 +791,7 @@
                                         <TextBlock FontFamily="Tw Cen MT" FontSize="23" Margin="0,0,0,8" Foreground="#000">
                                             Saldo en caja
                                         </TextBlock>
-                                        <TextBox x:Name="DailyBalanceImpotField" IsEnabled="False" Text="500"
+                                        <TextBox x:Name="DailyBalanceCashBalanceField" IsEnabled="False" Text="500"
                                             Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                             VerticalAlignment="Top"
                                             AcceptsReturn="True"
@@ -827,7 +813,7 @@
                                         <TextBlock FontFamily="Tw Cen MT" FontSize="23" Margin="0,0,0,8" Foreground="#000" HorizontalAlignment="Left" >
                                             Saldo de entrada
                                         </TextBlock>
-                                        <TextBox x:Name="DailyBalanceImportFied" IsEnabled="False" Text="500"
+                                        <TextBox x:Name="DailyBalanceEntryBalanceField" IsEnabled="False" Text="500"
                                             Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                             VerticalAlignment="Top"
                                             AcceptsReturn="True"
@@ -846,7 +832,7 @@
                                         <TextBlock FontFamily="Tw Cen MT" FontSize="23" Margin="0,0,0,8" Foreground="#000" HorizontalAlignment="Center">
                                             Saldo de salida
                                         </TextBlock>
-                                        <TextBox x:Name="DailyBalanceImpotFeld" IsEnabled="False" Text="500"
+                                        <TextBox x:Name="DailyBalanceExitBalanceField" IsEnabled="False" Text="500"
                                             Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                             VerticalAlignment="Top"
                                             AcceptsReturn="True"
@@ -1157,7 +1143,7 @@
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,20">
                 <!--Register button-->
                 <Button Name="DailyBalanceRegisterItemButton" Width="120" Margin="0,0,140,0" materialDesign:ButtonAssist.CornerRadius="8" Height="40" 
-                        Background="#2C2C2E" BorderBrush="{x:Null}">
+                        Background="#2C2C2E" BorderBrush="{x:Null}" Click="SaveRegistDailyBalance">
                     <StackPanel Orientation="Horizontal" >
                         <fa5:ImageAwesome Icon="Solid_Check" Height="13" Width="13" Foreground="#FFF" VerticalAlignment="Center" 
                                       ToolTip="Selecciona un filtro" Margin="0,0,4px,0"/>
@@ -1193,7 +1179,6 @@
                     Content="Balance diario" />
         </StackPanel>
         <!--#endregion-->
-
 
         <!--#region DepartureConfirmationLayout-->
         <Border Background="#000" Opacity="0.4"  x:Name="ConfirmationBackBorder" Visibility="Hidden"/>
@@ -1232,7 +1217,9 @@
             </Grid>
         </Border>
         <!--#endregion-->
-
+        
+        <!--#endregion-->
+        
         <!--#region Process Confirmation-->
         <notifications:NotificationArea x:Name="ConfirmationToast" Position="BottomRight" MaxItems="3" 
                                         notifications:Notification.CloseOnClick="False" Margin="0,0,15,50"/>

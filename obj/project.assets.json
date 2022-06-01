@@ -229,6 +229,27 @@
         "runtime": {
           "lib/net47/System.ValueTuple.dll": {}
         }
+      },
+      "BackendItalianPizza/1.0.0": {
+        "type": "project",
+        "compile": {
+          "bin/placeholder/BackendItalianPizza.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BackendItalianPizza.dll": {}
+        }
+      },
+      "ServerItalianPizza/1.0.0": {
+        "type": "project",
+        "dependencies": {
+          "BackendItalianPizza": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/ServerItalianPizza.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ServerItalianPizza.dll": {}
+        }
       }
     },
     ".NETFramework,Version=v4.7.2/win": {
@@ -458,6 +479,27 @@
         },
         "runtime": {
           "lib/net47/System.ValueTuple.dll": {}
+        }
+      },
+      "BackendItalianPizza/1.0.0": {
+        "type": "project",
+        "compile": {
+          "bin/placeholder/BackendItalianPizza.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BackendItalianPizza.dll": {}
+        }
+      },
+      "ServerItalianPizza/1.0.0": {
+        "type": "project",
+        "dependencies": {
+          "BackendItalianPizza": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/ServerItalianPizza.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ServerItalianPizza.dll": {}
         }
       }
     },
@@ -689,6 +731,27 @@
         "runtime": {
           "lib/net47/System.ValueTuple.dll": {}
         }
+      },
+      "BackendItalianPizza/1.0.0": {
+        "type": "project",
+        "compile": {
+          "bin/placeholder/BackendItalianPizza.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BackendItalianPizza.dll": {}
+        }
+      },
+      "ServerItalianPizza/1.0.0": {
+        "type": "project",
+        "dependencies": {
+          "BackendItalianPizza": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/ServerItalianPizza.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ServerItalianPizza.dll": {}
+        }
       }
     },
     ".NETFramework,Version=v4.7.2/win-x86": {
@@ -918,6 +981,27 @@
         },
         "runtime": {
           "lib/net47/System.ValueTuple.dll": {}
+        }
+      },
+      "BackendItalianPizza/1.0.0": {
+        "type": "project",
+        "compile": {
+          "bin/placeholder/BackendItalianPizza.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BackendItalianPizza.dll": {}
+        }
+      },
+      "ServerItalianPizza/1.0.0": {
+        "type": "project",
+        "dependencies": {
+          "BackendItalianPizza": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/ServerItalianPizza.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ServerItalianPizza.dll": {}
         }
       }
     }
@@ -1880,39 +1964,48 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
+    },
+    "BackendItalianPizza/1.0.0": {
+      "type": "project",
+      "path": "../Backend-ItalianPizza/BackendItalianPizza.csproj",
+      "msbuildProject": "../Backend-ItalianPizza/BackendItalianPizza.csproj"
+    },
+    "ServerItalianPizza/1.0.0": {
+      "type": "project",
+      "path": "../Server-ItalianPizza/ServerItalianPizza.csproj",
+      "msbuildProject": "../Server-ItalianPizza/ServerItalianPizza.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETFramework,Version=v4.7.2": [
+      "BackendItalianPizza >= 1.0.0",
       "FontAwesome5 >= 2.1.6",
       "MaterialDesignThemes >= 4.4.0",
       "Microsoft.Toolkit.Uwp.Notifications >= 7.1.2",
       "Notifications.Wpf >= 0.1.1",
+      "ServerItalianPizza >= 1.0.0",
       "iTextSharp >= 5.5.13.3"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Propietario\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {},
+    "C:\\Users\\antdg\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Propietario\\Desktop\\Codigo-Italian-Pizza\\ItalianPizza.csproj",
+      "projectUniqueName": "C:\\Users\\antdg\\Documents\\Codigo-Italian-Pizza\\ItalianPizza.csproj",
       "projectName": "ItalianPizza",
-      "projectPath": "C:\\Users\\Propietario\\Desktop\\Codigo-Italian-Pizza\\ItalianPizza.csproj",
-      "packagesPath": "C:\\Users\\Propietario\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Propietario\\Desktop\\Codigo-Italian-Pizza\\obj\\",
+      "projectPath": "C:\\Users\\antdg\\Documents\\Codigo-Italian-Pizza\\ItalianPizza.csproj",
+      "packagesPath": "C:\\Users\\antdg\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\antdg\\Documents\\Codigo-Italian-Pizza\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
         "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
       ],
       "configFilePaths": [
-        "C:\\Users\\Propietario\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\antdg\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
@@ -1925,7 +2018,14 @@
       },
       "frameworks": {
         "net472": {
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\antdg\\Documents\\Backend-ItalianPizza\\BackendItalianPizza.csproj": {
+              "projectPath": "C:\\Users\\antdg\\Documents\\Backend-ItalianPizza\\BackendItalianPizza.csproj"
+            },
+            "C:\\Users\\antdg\\Documents\\Server-ItalianPizza\\ServerItalianPizza.csproj": {
+              "projectPath": "C:\\Users\\antdg\\Documents\\Server-ItalianPizza\\ServerItalianPizza.csproj"
+            }
+          }
         }
       }
     },

@@ -37,9 +37,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FontAwesome5, Version=2.1.6.0, Culture=neutral, PublicKeyToken=9cfaf01297a008f8, processorArchitecture=MSIL">
-      <HintPath>packages\FontAwesome5.2.1.6\lib\net472\FontAwesome5.dll</HintPath>
-    </Reference>
     <Reference Include="FontAwesome5.Net, Version=2.1.6.0, Culture=neutral, PublicKeyToken=9cfaf01297a008f8, processorArchitecture=MSIL">
       <HintPath>packages\FontAwesome5.2.1.6\lib\net472\FontAwesome5.Net.dll</HintPath>
     </Reference>
@@ -49,12 +46,10 @@
     <Reference Include="MaterialDesignThemes.Wpf, Version=4.4.0.0, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">
       <HintPath>packages\MaterialDesignThemes.4.4.0\lib\net452\MaterialDesignThemes.Wpf.dll</HintPath>
     </Reference>
-    <Reference Include="Notifications.Wpf, Version=0.1.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Notifications.Wpf.0.1.1\lib\net461\Notifications.Wpf.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -121,6 +116,8 @@
     <Compile Include="BusinessObjects\CustomerViewModel.cs" />
     <Compile Include="BusinessObjects\EmployeeViewModel.cs" />
     <Compile Include="BusinessObjects\WorkShiftViewModel.cs" />
+    <Compile Include="GenerateFile.cs" />
+    <Compile Include="ItalianPizzaServiceCallback.cs" />
     <Compile Include="Validations\AlphabeticCharacter.cs" />
     <Compile Include="Validations\DecimalNumber.cs" />
     <Compile Include="Validations\Email.cs" />
@@ -229,6 +226,18 @@
   <ItemGroup>
     <Resource Include="Images\cooking.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Backend-ItalianPizza\BackendItalianPizza.csproj">
+      <Project>{F39885F7-163B-4DC6-9BDF-65AEBC612148}</Project>
+      <Name>BackendItalianPizza</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Server-ItalianPizza\ServerItalianPizza.csproj">
+      <Project>{64e1a512-639a-481c-b4a2-1349a9781c9b}</Project>
+      <Name>ServerItalianPizza</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

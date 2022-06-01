@@ -1,26 +1,39 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Propietario\\Desktop\\Codigo-Italian-Pizza\\ItalianPizza.csproj": {}
+    "C:\\Users\\antdg\\Documents\\Codigo-Italian-Pizza\\ItalianPizza.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Propietario\\Desktop\\Codigo-Italian-Pizza\\ItalianPizza.csproj": {
+    "C:\\Users\\antdg\\Documents\\Backend-ItalianPizza\\BackendItalianPizza.csproj": {
+      "restore": {
+        "projectUniqueName": "C:\\Users\\antdg\\Documents\\Backend-ItalianPizza\\BackendItalianPizza.csproj",
+        "projectName": "BackendItalianPizza",
+        "projectPath": "C:\\Users\\antdg\\Documents\\Backend-ItalianPizza\\BackendItalianPizza.csproj",
+        "frameworks": {
+          "net472": {
+            "projectReferences": {}
+          }
+        }
+      },
+      "frameworks": {
+        "net472": {}
+      }
+    },
+    "C:\\Users\\antdg\\Documents\\Codigo-Italian-Pizza\\ItalianPizza.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Propietario\\Desktop\\Codigo-Italian-Pizza\\ItalianPizza.csproj",
+        "projectUniqueName": "C:\\Users\\antdg\\Documents\\Codigo-Italian-Pizza\\ItalianPizza.csproj",
         "projectName": "ItalianPizza",
-        "projectPath": "C:\\Users\\Propietario\\Desktop\\Codigo-Italian-Pizza\\ItalianPizza.csproj",
-        "packagesPath": "C:\\Users\\Propietario\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Propietario\\Desktop\\Codigo-Italian-Pizza\\obj\\",
+        "projectPath": "C:\\Users\\antdg\\Documents\\Codigo-Italian-Pizza\\ItalianPizza.csproj",
+        "packagesPath": "C:\\Users\\antdg\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\antdg\\Documents\\Codigo-Italian-Pizza\\obj\\",
         "projectStyle": "PackageReference",
         "skipContentFileWrite": true,
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
           "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
         ],
         "configFilePaths": [
-          "C:\\Users\\Propietario\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\antdg\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
@@ -33,7 +46,14 @@
         },
         "frameworks": {
           "net472": {
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\Users\\antdg\\Documents\\Backend-ItalianPizza\\BackendItalianPizza.csproj": {
+                "projectPath": "C:\\Users\\antdg\\Documents\\Backend-ItalianPizza\\BackendItalianPizza.csproj"
+              },
+              "C:\\Users\\antdg\\Documents\\Server-ItalianPizza\\ServerItalianPizza.csproj": {
+                "projectPath": "C:\\Users\\antdg\\Documents\\Server-ItalianPizza\\ServerItalianPizza.csproj"
+              }
+            }
           }
         }
       },
@@ -73,6 +93,25 @@
         "win-x86": {
           "#import": []
         }
+      }
+    },
+    "C:\\Users\\antdg\\Documents\\Server-ItalianPizza\\ServerItalianPizza.csproj": {
+      "restore": {
+        "projectUniqueName": "C:\\Users\\antdg\\Documents\\Server-ItalianPizza\\ServerItalianPizza.csproj",
+        "projectName": "ServerItalianPizza",
+        "projectPath": "C:\\Users\\antdg\\Documents\\Server-ItalianPizza\\ServerItalianPizza.csproj",
+        "frameworks": {
+          "net472": {
+            "projectReferences": {
+              "C:\\Users\\antdg\\Documents\\Backend-ItalianPizza\\BackendItalianPizza.csproj": {
+                "projectPath": "C:\\Users\\antdg\\Documents\\Backend-ItalianPizza\\BackendItalianPizza.csproj"
+              }
+            }
+          }
+        }
+      },
+      "frameworks": {
+        "net472": {}
       }
     }
   }

@@ -1,6 +1,10 @@
-﻿using Notifications.Wpf;
+﻿using Backend.Contracts;
+using Backend.Service;
+using Notifications.Wpf;
+using Server;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,6 +25,10 @@ namespace ItalianPizza.Views
     /// </summary>
     public partial class FinancesPage : Page
     {
+
+        private ServerItalianPizzaProxy serverItalianPizzaProxy;
+        private IItalianPizzaService serviceChannel;
+
         private string usernameLoggedIn;
 
         private readonly NotificationManager notificationManager = new NotificationManager();
@@ -30,6 +38,143 @@ namespace ItalianPizza.Views
             InitializeComponent();
             this.usernameLoggedIn = usernameLoggedIn;
         }
+
+        #region service connection
+
+        #region Monetary expediture
+        public void SaveMonetaryExpediture()
+        {
+            var service = new ItalianPizzaServiceCallback();
+            service.RegisterMonetaryExpeditureEvent += ConfirmMonetaryExpeditureSaved;
+            serverItalianPizzaProxy = new ServerItalianPizzaProxy(service);
+            serviceChannel = serverItalianPizzaProxy.ChannelFactory.CreateChannel();
+            MonetaryExpeditureContract monetaryExpediture = new MonetaryExpeditureContract();
+            monetaryExpediture.Amount = int.Parse(MonetaryExpeditureImportField.Text);
+            monetaryExpediture.Description = MonetaryExpeditureDescriptionField.Text;
+            monetaryExpediture.Date = DateTime.Now;
+            monetaryExpediture.IdEmployee = 1;
+            serviceChannel.RegisterMonetaryExpediture(monetaryExpediture);
+        }
+
+        public void ConsultMonetaryExpediture()
+        {
+
+            var service = new ItalianPizzaServiceCallback();
+            service.GetMonetaryExpeditureEvent += ShowMonetaryExpeditureList;
+            serverItalianPizzaProxy = new ServerItalianPizzaProxy(service);
+            serviceChannel = serverItalianPizzaProxy.ChannelFactory.CreateChannel();
+            serviceChannel.GetMonetaryExpediture(DateTime.Now);
+
+        }
+        #endregion
+
+        #region Daily balance
+        public void SaveDailyBalance()
+        {
+            var service = new ItalianPizzaServiceCallback();
+
+
+            service.RegisterDailyBalanceEvent += ConfirmDailyBalanceSaved;
+
+
+            serverItalianPizzaProxy = new ServerItalianPizzaProxy(service);
+            serviceChannel = serverItalianPizzaProxy.ChannelFactory.CreateChannel();
+            DailyBalanceContract dailyBalance = new DailyBalanceContract();
+
+            try
+            {
+                
+                dailyBalance.EntryBalance = decimal.Parse(DailyBalanceEntryBalanceField.Text);
+                dailyBalance.ExitBalance = decimal.Parse(DailyBalanceExitBalanceField.Text);
+                dailyBalance.InitialBalance = decimal.Parse(DailyBalanceInitialBalanceField.Text);
+                dailyBalance.CashBalance = decimal.Parse(DailyBalanceCashBalanceField.Text);
+                dailyBalance.PhsycalBalance = decimal.Parse(DailyBalancePhysicBalanceField.Text);
+                dailyBalance.CurrentDate = Convert.ToDateTime(DateTime.Now.ToString("d", CultureInfo.CreateSpecificCulture("en-NZ")));
+                dailyBalance.IdEmployee = 1;
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            serviceChannel.RegisterDailyBalance(dailyBalance);
+        }
+
+        public void ConsultDailyBalance()
+        {
+
+            var service = new ItalianPizzaServiceCallback();
+            service.GetDailyBalanceEvent += ShowDailyBalanceList;
+            serverItalianPizzaProxy = new ServerItalianPizzaProxy(service);
+            serviceChannel = serverItalianPizzaProxy.ChannelFactory.CreateChannel();
+            serviceChannel.GetDailyBalance(DateTime.Now);
+
+        }
+
+        public void FillAmountsFields()
+        {
+
+            var service = new ItalianPizzaServiceCallback();
+            service.GetAmountsEvent += ShowAmountsFields;
+            serverItalianPizzaProxy = new ServerItalianPizzaProxy(service);
+            serviceChannel = serverItalianPizzaProxy.ChannelFactory.CreateChannel();
+            serviceChannel.GetAmounts();
+
+        }
+        #endregion
+
+        #endregion
+
+        #region Callbacks connection
+
+        #region Monetary expediture
+        public void ConfirmMonetaryExpeditureSaved(int result)
+        {
+            if (!result.Equals(0))
+            {
+                ShowConfirmationFileToast();
+            }
+        }
+
+        public void ShowMonetaryExpeditureList(List<MonetaryExpeditureContract> monetaryExpeditures)
+        {
+            if (!monetaryExpeditures.Count.Equals(0))
+            {
+                monetaryExpeditureTableBodyListBox.ItemsSource = monetaryExpeditures;
+            }
+        }
+
+        #endregion
+
+        #region Daily Balance
+        public void ConfirmDailyBalanceSaved(int result)
+        {
+            if (!result.Equals(0))
+            {
+                ShowConfirmationFileToast();
+            }
+        }
+
+        public void ShowDailyBalanceList(List<DailyBalanceContract> dailyBalances)
+        {
+            if (!dailyBalances.Count.Equals(0))
+            {
+                dailyBalanceTableBodyListBox.ItemsSource = dailyBalances;
+            }
+        }
+
+        public void ShowAmountsFields(decimal dialyEntrys, decimal dialyExits, decimal cashBalance)
+        {
+            DailyBalanceInitialBalanceField.Text = "1000";
+            DailyBalanceEntryBalanceField.Text = dialyEntrys.ToString();
+            DailyBalanceExitBalanceField.Text = dialyExits.ToString();
+            DailyBalanceCashBalanceField.Text = cashBalance.ToString();
+
+        }
+
+        #endregion
+
+        #endregion
 
 
         #region GUI Methods
@@ -44,6 +189,8 @@ namespace ItalianPizza.Views
                 //MainElementsInventoryGrid.Visibility = Visibility.Visible;
                 //ValidateInventoryTableGrid.Visibility = Visibility.Hidden;
             }
+            ConsultMonetaryExpediture();
+            ConsultDailyBalance();
         }
 
         public void ShowFilters(object sender, RoutedEventArgs e)
@@ -88,6 +235,16 @@ namespace ItalianPizza.Views
             DailyBalanceInformationGrid.Visibility = Visibility.Hidden;
         }
 
+        public void SaveRegistMonetaryExpediture(object sender, RoutedEventArgs e)
+        {
+            SaveMonetaryExpediture();
+        }
+
+        public void SaveRegistDailyBalance(object sender, RoutedEventArgs e)
+        {
+            SaveDailyBalance();
+        }
+
         public void HideDepartureConfirmation(object sender, RoutedEventArgs e)
         {
             ConfirmationBackBorder.Visibility = Visibility.Hidden;
@@ -102,6 +259,7 @@ namespace ItalianPizza.Views
         public void OpenDiaryBalanceDrawer(object sender, RoutedEventArgs e)
         {
             HideElementsToOpenDrawer();
+            
         }
 
         private void CloseElementsDrawer(object sender, RoutedEventArgs e)
@@ -179,6 +337,7 @@ namespace ItalianPizza.Views
             QuarterLayerInformationBorder.Visibility = Visibility.Visible;
             MonetaryExpeditureInformationGrid.Visibility = Visibility.Visible;
             ChoiceRegisterStackPanel.Visibility = Visibility.Visible;
+            FillAmountsFields();
         }
 
         private void MilPesosKeyUp(object sender, KeyEventArgs e)
@@ -270,6 +429,7 @@ namespace ItalianPizza.Views
             totalDouble += amount;
 
             total.Text = totalDouble.ToString();
+            DailyBalancePhysicBalanceField.Text = totalDouble.ToString();
         }
 
         #endregion
