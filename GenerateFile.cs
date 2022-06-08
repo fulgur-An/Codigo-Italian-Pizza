@@ -12,10 +12,10 @@ namespace ItalianPizza
 {
     public class GenerateFile
     {
-        public void MakeInventoryReport(Uri filename, List<ItemContract> items)
+        public void MakeInventoryReport(Uri filename, List<StockTakingContract> stockTakings)
         {
             // Creamos el documento con el tamaño de página tradicional
-            Document doc = new Document(PageSize.LETTER);
+            Document doc = new Document(PageSize.A4.Rotate());
             // Indicamos donde vamos a guardar el documento
             PdfWriter writer = PdfWriter.GetInstance(doc,
                                         new FileStream(filename.OriginalString, FileMode.Create));
@@ -34,16 +34,18 @@ namespace ItalianPizza
 
             PdfPTable table = new PdfPTable(7);
 
-            table = MakeTableInventory();
+
+            table = MakeTableInventory(stockTakings);
+            
             table.SpacingBefore = 20f;
             table.SpacingAfter = 30f;
-            FillInventoryTtable(table, items);
+            
             doc.Add(table);
             doc.Close();
             doc.OpenDocument();
         }
 
-        private PdfPTable MakeTableInventory()
+        private PdfPTable MakeTableInventory(List<StockTakingContract> stockTakings)
         {
             PdfPTable table = new PdfPTable(7);
 
@@ -53,8 +55,20 @@ namespace ItalianPizza
             {
                 Font = fontHeader
             };
-            phraseEntry.Add("Entrada");
+            phraseEntry.Add("id");
             PdfPCell cellEntry = new PdfPCell(phraseEntry)
+            {
+                BackgroundColor = BaseColor.BLACK,
+                HorizontalAlignment = 1
+            };
+
+
+            Phrase phrasePhysicQuantity = new Phrase()
+            {
+                Font = fontHeader
+            };
+            phrasePhysicQuantity.Add("Cantidad fisica");
+            PdfPCell cellPhysicQuantity = new PdfPCell(phrasePhysicQuantity)
             {
                 BackgroundColor = BaseColor.BLACK,
                 HorizontalAlignment = 1
@@ -72,12 +86,11 @@ namespace ItalianPizza
                 HorizontalAlignment = 1
             };
 
-
             Phrase phraseSku = new Phrase()
             {
                 Font = fontHeader
             };
-            phraseSku.Add("Nombre del articulo");
+            phraseSku.Add("Código");
             PdfPCell cellSku = new PdfPCell(phraseSku)
             {
                 BackgroundColor = BaseColor.BLACK,
@@ -89,7 +102,7 @@ namespace ItalianPizza
             {
                 Font = fontHeader
             };
-            phraseLastInventory.Add("Nombre del articulo");
+            phraseLastInventory.Add("Cantidad Actual");
             PdfPCell cellLastInventory = new PdfPCell(phraseLastInventory)
             {
                 BackgroundColor = BaseColor.BLACK,
@@ -102,7 +115,7 @@ namespace ItalianPizza
             {
                 Font = fontHeader
             };
-            phraseQuantity.Add("Nombre del articulo");
+            phraseQuantity.Add("Fecha");
             PdfPCell cellQuantity = new PdfPCell(phraseQuantity)
             {
                 BackgroundColor = BaseColor.BLACK,
@@ -115,7 +128,7 @@ namespace ItalianPizza
             {
                 Font = fontHeader
             };
-            phraseUnit.Add("Nombre del articulo");
+            phraseUnit.Add("Cantidad fisica");
             PdfPCell cellUnit = new PdfPCell(phraseUnit)
             {
                 BackgroundColor = BaseColor.BLACK,
@@ -124,61 +137,116 @@ namespace ItalianPizza
 
 
 
-            Phrase phrasePrice = new Phrase()
+            Phrase phraseDescription = new Phrase()
             {
                 Font = fontHeader
             };
-            phrasePrice.Add("Nombre del articulo");
-            PdfPCell cellPrice = new PdfPCell(phrasePrice)
-            {
-                BackgroundColor = BaseColor.BLACK,
-                HorizontalAlignment = 1
-            };
-
-
-
-            Phrase phraseTotal = new Phrase()
-            {
-                Font = fontHeader
-            };
-            phraseTotal.Add("Nombre del articulo");
-            PdfPCell cellTotal = new PdfPCell(phraseTotal)
+            phraseDescription.Add("Descripción");
+            PdfPCell cellDescription = new PdfPCell(phraseDescription)
             {
                 BackgroundColor = BaseColor.BLACK,
                 HorizontalAlignment = 1
             };
 
             table.AddCell(cellEntry);
+            table.AddCell(cellPhysicQuantity);
             table.AddCell(cellName);
             table.AddCell(cellSku);
             table.AddCell(cellLastInventory);
             table.AddCell(cellQuantity);
-            table.AddCell(cellUnit);
-            table.AddCell(cellPrice);
-            table.AddCell(cellTotal);
+            table.AddCell(cellDescription);
+
+            Font fontCell = FontFactory.GetFont(FontFactory.HELVETICA, 12f, BaseColor.BLACK);
+            foreach (StockTakingContract item in stockTakings)
+            {
+                Phrase id = new Phrase()
+                {
+                    Font = fontCell
+                };
+                id.Add(item.IdItem.ToString());
+                PdfPCell itemId = new PdfPCell(id)
+                {
+                    BackgroundColor = BaseColor.WHITE,
+                    HorizontalAlignment = 1
+                };
+
+                Phrase name = new Phrase()
+                {
+                    Font = fontCell
+                };
+                name.Add(item.Name.ToString());
+                PdfPCell itemNAme = new PdfPCell(name)
+                {
+                    BackgroundColor = BaseColor.WHITE,
+                    HorizontalAlignment = 1
+                };
+
+                Phrase sku = new Phrase()
+                {
+                    Font = fontCell
+                };
+                sku.Add(item.Sku.ToString());
+                PdfPCell itemSku = new PdfPCell(sku)
+                {
+                    BackgroundColor = BaseColor.WHITE,
+                    HorizontalAlignment = 1
+                };
+
+                Phrase lastInventory = new Phrase()
+                {
+                    Font = fontCell
+                };
+                lastInventory.Add(item.Date.ToString());
+                PdfPCell itemDate = new PdfPCell(lastInventory)
+                {
+                    BackgroundColor = BaseColor.WHITE,
+                    HorizontalAlignment = 1
+                };
+
+                Phrase quantity = new Phrase()
+                {
+                    Font = fontCell
+                };
+                quantity.Add(item.CurrentAmount.ToString());
+                PdfPCell itemQuantity = new PdfPCell(quantity)
+                {
+                    BackgroundColor = BaseColor.WHITE,
+                    HorizontalAlignment = 1
+                };
+                Phrase physicAmount = new Phrase()
+                {
+                    Font = fontCell
+                };
+                physicAmount.Add(item.PhysicalAmount.ToString());
+                PdfPCell itemphysicAmount = new PdfPCell(physicAmount)
+                {
+                    BackgroundColor = BaseColor.WHITE,
+                    HorizontalAlignment = 1
+                };
+                Phrase description = new Phrase()
+                {
+                    Font = fontCell
+                };
+                description.Add(item.Description.ToString());
+                PdfPCell itemDescription = new PdfPCell(description)
+                {
+                    BackgroundColor = BaseColor.WHITE,
+                    HorizontalAlignment = 1
+                };
+
+                table.AddCell(itemId);
+                table.AddCell(itemphysicAmount);
+                table.AddCell(itemNAme);
+                table.AddCell(itemSku);
+                table.AddCell(itemQuantity);
+                table.AddCell(itemDate);
+                table.AddCell(itemDescription);
+
+            }
+            
 
             return table;
         }
 
-        private void FillInventoryTtable(PdfPTable table, List<ItemContract> items)
-        {
-            foreach (ItemContract item in items)
-            {
-                PdfPCell cell = new PdfPCell(new Phrase(item.Name))
-                {
-                    HorizontalAlignment = 1
-                };
-
-                table.AddCell(cell);
-                table.AddCell(cell);
-                table.AddCell(cell);
-                table.AddCell(cell);
-                table.AddCell(cell);
-                table.AddCell(cell);
-                table.AddCell(cell);
-                table.AddCell(cell);
-            }
-            
-        }
     }
 }

@@ -293,7 +293,11 @@ namespace ItalianPizza.Views
 
         public void ShowConfirmationFileToast()
         {
-            notificationManager.Show(
+
+            try
+            {
+                Console.WriteLine("Estoy entradno");
+                notificationManager.Show(
                 new NotificationContent
                 {
                     Title = "Confirmación",
@@ -301,6 +305,12 @@ namespace ItalianPizza.Views
                     Type = NotificationType.Success,
                 }, areaName: "ConfirmationToast", expirationTime: TimeSpan.FromSeconds(2)
             );
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Estoy capturando la excepción HDTPM");
+            }
+            
         }
 
         public void ShowWarningToast()

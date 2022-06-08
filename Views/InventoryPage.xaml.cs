@@ -30,9 +30,9 @@ namespace ItalianPizza.Views
 
         private ServerItalianPizzaProxy serverItalianPizzaProxy;
         private IItalianPizzaService serviceChannel;
-
+        private string saveFileDialogName;
         private string usernameLoggedIn;
-
+        private List<StockTakingContract> stocktakingToPrint = new List<StockTakingContract>();
         private readonly NotificationManager notificationManager = new NotificationManager();
 
         public InventoryPage(string usernameLoggedIn)
@@ -107,7 +107,7 @@ namespace ItalianPizza.Views
             serviceChannel = serverItalianPizzaProxy.ChannelFactory.CreateChannel();
             serviceChannel.DeleteItem(itemId);
         }
-
+          
         private void ConfirmDeleteItem(object sender, RoutedEventArgs e)
         {
             int itemId = 0;
@@ -130,8 +130,27 @@ namespace ItalianPizza.Views
             service.GetStockTakingEvent += LoadStockTaking;
             serverItalianPizzaProxy = new ServerItalianPizzaProxy(service);
             serviceChannel = serverItalianPizzaProxy.ChannelFactory.CreateChannel();
-            DateTime date = new DateTime().Date;
-            serviceChannel.GetStockTaking(date);
+            DateTime date = DateTime.Now;
+            serviceChannel.GetStockTaking(DateTime.Now);
+        }
+
+        private void LoadStockTakingList()
+        {
+            var service = new ItalianPizzaServiceCallback();
+            service.GetItemsForStocktakingEvent += FillStockTaking;
+            serverItalianPizzaProxy = new ServerItalianPizzaProxy(service);
+            serviceChannel = serverItalianPizzaProxy.ChannelFactory.CreateChannel();
+            serviceChannel.GetItemsForStocktaking();
+        }
+
+        private void SaveStockTaking()
+        {
+            List<StockTakingContract> items = (List<StockTakingContract>)StocktakingDataGrid.ItemsSource;
+            var service = new ItalianPizzaServiceCallback();
+            service.RegisterStockTakingEvent += RegistStockTaking;
+            serverItalianPizzaProxy = new ServerItalianPizzaProxy(service);
+            serviceChannel = serverItalianPizzaProxy.ChannelFactory.CreateChannel();
+            serviceChannel.RegisterStockTaking(items);
         }
 
         #endregion
@@ -187,15 +206,72 @@ namespace ItalianPizza.Views
         {
             if (!stockTakings.Count().Equals(0))
             {
-                ValidateInventoryTableBodyListBox.ItemsSource = stockTakings;
+                try
+                {
+                    
+
+
+                    GenerateFile file = new GenerateFile();
+
+                    file.MakeInventoryReport(new Uri(saveFileDialogName), stockTakings);
+                }
+                catch (Exception ex)
+                {
+                    ShowWarningToast();
+                }
+                finally
+                {
+                    ShowConfirmationFileToast();
+                }
+                //stocktakingToPrint = stockTakings;
+                //ValidateInventoryTableBodyListBox.ItemsSource = stockTakings;
+                //ShowConfirmationToast();
+            }
+        }
+
+        public void FillStockTaking(List<StockTakingContract> Items)
+        {
+            if (!Items.Count.Equals(0))
+            {
+                StocktakingDataGrid.ItemsSource = Items;
+            }
+        }
+
+        public void RegistStockTaking(int result)
+        {
+            if (result > 0)
+            {
                 ShowConfirmationToast();
             }
-            
+            else
+            {
+                ShowWarningToast();
+            }
         }
 
         #endregion
 
         #region GUI Methods
+
+        public void RecalculateOrderTotal(object sender, DataGridCellEditEndingEventArgs e)
+        {
+            if (e.EditAction == DataGridEditAction.Commit)
+            {
+                var column = e.Column as DataGridBoundColumn;
+                if (column != null)
+                {
+                    string quantityEdited = e.EditingElement.ToString();
+                    string[] value = quantityEdited.Split(':');
+                    int quantity = 0;
+                    bool isNumber = int.TryParse(value[1], out quantity);
+
+                    if (isNumber)
+                    {
+                        //UpdateOrderTotal();
+                    }
+                }
+            }
+        }
 
         public int GetFilterSelection()
         {
@@ -251,6 +327,7 @@ namespace ItalianPizza.Views
             RegionSearchGrid.Visibility = Visibility.Hidden;
             MainElementsInventoryGrid.Visibility = Visibility.Hidden;
             ValidateInventoryTableGrid.Visibility = Visibility.Visible;
+            LoadStockTakingList();
         }
 
         public void CancelValidationLayout(object sender, RoutedEventArgs e)
@@ -458,13 +535,15 @@ namespace ItalianPizza.Views
 
         public void PrintValidationInventoryResult(object sender, RoutedEventArgs e)
         {
+            SaveStockTaking();
             HideValidateLayout();
-            ShowConfirmationFileToast();
+            //ShowConfirmationFileToast();
         }
 
         public void GenerateReport(object sender, RoutedEventArgs e)
         {
             MakeInventoryReport();
+            
         }
 
         public void ClearItemFields()
@@ -482,37 +561,73 @@ namespace ItalianPizza.Views
 
         public void ShowConfirmationToast()
         {
-            notificationManager.Show(
-                new NotificationContent
-                {
-                    Title = "Confirmación",
-                    Message = "Proceso Realizado",
-                    Type = NotificationType.Success,
-                }, areaName: "ConfirmationToast", expirationTime: TimeSpan.FromSeconds(2)
-            );
+            MessageBox.Show("Estoy fuera");
+            //Console.WriteLine("Estoy fuera");
+            try
+            {
+                MessageBox.Show("Estoy entrando");
+                //Console.WriteLine("Estoy entrando");
+                notificationManager.Show(
+                    new NotificationContent
+                    {
+                        Title = "Confirmación",
+                        Message = "Proceso Realizado",
+                        Type = NotificationType.Success,
+                    }, areaName: "ConfirmationToast", expirationTime: TimeSpan.FromSeconds(2)
+                );
+            }
+            catch (Exception ex)
+            {
+                //Console.WriteLine("Estoy capturando la excepción HDTPM");
+                MessageBox.Show("Estoy capturando la excepción HDTPM");
+            }
+            
         }
         public void ShowConfirmationFileToast()
         {
-            notificationManager.Show(
-                new NotificationContent
-                {
-                    Title = "Confirmación",
-                    Message = "Archivo creaado",
-                    Type = NotificationType.Success,
-                }, areaName: "ConfirmationToast", expirationTime: TimeSpan.FromSeconds(2)
-            );
+            MessageBox.Show("Estoy fuera");
+            //Console.WriteLine("Estoy fuera");
+            try
+            {
+                MessageBox.Show("Estoy entrando");
+                //Console.WriteLine("Estoy entrando");
+                notificationManager.Show(
+                    new NotificationContent
+                    {
+                        Title = "Confirmación",
+                        Message = "Archivo creaado",
+                        Type = NotificationType.Success,
+                    }, areaName: "ConfirmationToast", expirationTime: TimeSpan.FromSeconds(2)
+                );
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Estoy capturando la excepción HDTPM");
+                //Console.WriteLine("Estoy capturando la excepción HDTPM");
+
+            }
+            
         }
 
         public void ShowWarningToast()
         {
-            notificationManager.Show(
-                new NotificationContent
-                {
-                    Title = "Warning",
-                    Message = "Proceso cancelado",
-                    Type = NotificationType.Warning,
-                }, areaName: "ConfirmationToast", expirationTime: TimeSpan.FromSeconds(2)
-            );
+            try
+            {
+                notificationManager.Show(
+                    new NotificationContent
+                    {
+                        Title = "Warning",
+                        Message = "Proceso cancelado",
+                        Type = NotificationType.Warning,
+                    }, areaName: "ConfirmationToast", expirationTime: TimeSpan.FromSeconds(2)
+                );
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Estoy capturando la excepción HDTPM");
+
+            }
+            
         }
 
 
@@ -591,26 +706,8 @@ namespace ItalianPizza.Views
             if (saveFileDialog1.FileName != "")
             {
 
-                try
-                {
-                    List<ItemContract> items = new List<ItemContract>();
-                    if (!InventoryTableBodyListBox.Items.Count.Equals(0))
-                    {
-                        items = (List<ItemContract>)InventoryTableBodyListBox.ItemsSource;
-                    }
-                    
-                    GenerateFile file = new GenerateFile();
-
-                    file.MakeInventoryReport(new Uri(saveFileDialog1.FileName), items);
-                }
-                catch (Exception ex)
-                {
-                    ShowWarningToast();
-                }
-                finally
-                {
-                    ShowConfirmationFileToast();
-                }
+                saveFileDialogName = saveFileDialog1.FileName;
+                GetStockTakingList();
             }
 
 

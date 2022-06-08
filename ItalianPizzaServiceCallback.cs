@@ -42,6 +42,9 @@ namespace ItalianPizza
         public delegate void RegisterStockTakingDelegate(int Result);
         public event RegisterStockTakingDelegate RegisterStockTakingEvent;
 
+        public delegate void GetItemsForStocktakingDelegate(List<StockTakingContract> items);
+        public event GetItemsForStocktakingDelegate GetItemsForStocktakingEvent;
+
         #endregion
 
         #region monetary expediture delegates
@@ -132,6 +135,14 @@ namespace ItalianPizza
             if (RegisterStockTakingEvent != null)
             {
                 RegisterStockTakingEvent(Result);
+            }
+        }
+
+        public void GetItemsForStocktaking(List<StockTakingContract> items)
+        {
+            if (GetItemsForStocktakingEvent != null)
+            {
+                GetItemsForStocktakingEvent(items);
             }
         }
 
