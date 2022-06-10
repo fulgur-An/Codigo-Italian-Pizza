@@ -130,11 +130,6 @@
     <Compile Include="BusinessObjects\OrderViewModel.cs" />
     <Compile Include="BusinessObjects\QuantityFoodRecipeViewModel.cs" />
     <Compile Include="BusinessObjects\QuantityItemViewModel.cs" />
-    <Compile Include="Validations\AlphabeticCharacter.cs" />
-    <Compile Include="Validations\DecimalNumber.cs" />
-    <Compile Include="Validations\Integer.cs" />
-    <Compile Include="Validations\NotNull.cs" />
-    <Compile Include="Validations\NotNullList.cs" />
     <Compile Include="Views\CheckFoodRecipesPage.xaml.cs">
       <DependentUpon>CheckFoodRecipesPage.xaml</DependentUpon>
     </Compile>

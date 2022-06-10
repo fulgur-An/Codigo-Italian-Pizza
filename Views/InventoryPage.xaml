@@ -38,7 +38,7 @@
                 </TextBlock>
             </StackPanel>
 
-            <TextBlock FontFamily="Tw Cen MT" FontSize="25" Foreground="#FFF" VerticalAlignment="Top" Margin="30,205,0,0">
+            <TextBlock x:Name="SearchFilterTextBlock" FontFamily="Tw Cen MT" FontSize="25" Foreground="#FFF" VerticalAlignment="Top" Margin="30,205,0,0">
                     Consulta: Filtro/Busqueda
             </TextBlock>
         </Grid>
@@ -98,10 +98,8 @@
                     </StackPanel>
                 </Grid>
 
-                <Grid Width="100" Margin="30,0,0,0">
+                <Grid Width="100" Margin="10,0,0,0">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <fa5:ImageAwesome Icon="Solid_PizzaSlice" Height="21" Width="21" Foreground="#FFF" VerticalAlignment="Center" 
-                                          Margin="0,0,8,0"/>
                         <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" VerticalAlignment="Center">
                             Nombre
                         </TextBlock>
@@ -110,8 +108,6 @@
 
                 <Grid Width="100" Margin="0,0,0,0">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <fa5:ImageAwesome Icon="Solid_Qrcode" Height="21" Width="21" Foreground="#FFF" VerticalAlignment="Center" 
-                                          Margin="0,0,8,0"/>
                         <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" VerticalAlignment="Center">
                             codigo
                         </TextBlock>
@@ -120,8 +116,6 @@
 
                 <Grid Width="100" Margin="0,0,0,0">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <fa5:ImageAwesome Icon="Solid_Book" Height="21" Width="21" Foreground="#FFF" VerticalAlignment="Center" 
-                                          Margin="0,0,10,0"/>
                         <StackPanel>
                             <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" VerticalAlignment="Center" HorizontalAlignment="Center">
                             Ultimo
@@ -133,10 +127,8 @@
                     </StackPanel>
                 </Grid>
 
-                <Grid Width="100" Margin="10,0,0,0">
+                <Grid Width="100" Margin="20,0,0,0">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <fa5:ImageAwesome Icon="Solid_Box" Height="21" Width="21" Foreground="#FFF" VerticalAlignment="Center" 
-                                          Margin="0,0,10,0"/>
                         <StackPanel>
                             <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" VerticalAlignment="Center" HorizontalAlignment="Center">
                             Cantidad
@@ -151,8 +143,6 @@
 
                 <Grid Width="150" Margin="10,0,0,0">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <fa5:ImageAwesome Icon="Solid_ChartLine" Height="21" Width="21" Foreground="#FFF" VerticalAlignment="Center" 
-                                          Margin="0,0,10,0"/>
                         <StackPanel>
                             <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" VerticalAlignment="Center" HorizontalAlignment="Center">
                             Valor
@@ -176,77 +166,7 @@
             <Border Name="InventoryTableBodyBorder" Background="#5B5B5B" Height="350" Width="719" Margin="0,110,0,-100" CornerRadius="0,0,5,5" 
                 Opacity="0" />
             <ListBox Name="InventoryTableBodyListBox" Height="350" Width="719" Margin="0,110,0,-100" HorizontalAlignment="Center" ItemsSource="{Binding}">
-                <!--<ListBoxItem BorderBrush="#CFCFCF" BorderThickness="0,0,0,1" MouseLeftButtonUp="ShowUpdateFields">
-                    <StackPanel Orientation="Horizontal" Height="35" Width="709" Cursor="Hand" Background="Transparent">
-                        
-                        <Grid Width="30"  Margin="4,0,0,0">
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <TextBlock FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" TextWrapping="Wrap">
-                                1
-                                </TextBlock>
-                            </StackPanel>
-                        </Grid>
-                        
-                        <Grid Width="150" >
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" TextWrapping="Wrap">
-                                Harina
-                                </TextBlock>
-                            </StackPanel>
-                        </Grid>
-
-                        <Grid Width="80" Margin="0,0,0,0">
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <TextBlock FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" TextWrapping="Wrap">
-                                86548
-                                </TextBlock>
-                            </StackPanel>
-                        </Grid>
-
-                        <Grid Width="40" Margin="28,0,0,0">
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <TextBlock FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" TextWrapping="Wrap">
-                                100 U
-                                </TextBlock>
-                            </StackPanel>
-                        </Grid>
-
-                        <Grid Width="40" Margin="78,0,0,0">
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <TextBlock FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" TextWrapping="Wrap">
-                                100 U
-                                </TextBlock>
-                            </StackPanel>
-                        </Grid>
-
-                        <Grid Width="40" Margin="48,0,0,0">
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <TextBlock FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" TextWrapping="Wrap">
-                                23
-                                </TextBlock>
-                            </StackPanel>
-                        </Grid>
-
-                        <Grid Width="40" Margin="38,0,0,0">
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <TextBlock FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" TextWrapping="Wrap">
-                                2300
-                                </TextBlock>
-                            </StackPanel>
-                        </Grid>
-                        <Grid Width="50" Margin="0,0,0,0" >
-                            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Top">
-                                <fa5:ImageAwesome Icon="Solid_Eye" Name="VisualizeIcon" Width="30" Height="30" Foreground="#C6BAFF" MouseLeftButtonUp="PackIcon_DragEnter"/>
-                            </StackPanel>
-                        </Grid>
-                        <Grid Width="50" Margin="-10,0,0,0">
-                            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Top">
-                                <fa5:ImageAwesome Icon="Solid_TrashAlt" Width="30" Height="30" Foreground="#B2AC0329" MouseLeftButtonUp="ShowDeleteLayout"/>
-                            </StackPanel>
-                        </Grid>
-                        
-                    </StackPanel>
-                </ListBoxItem>-->
+               
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <UniformGrid Columns="1" VerticalAlignment="Top"/>
@@ -260,14 +180,14 @@
                             </materialDesign:TransitioningContent.OpeningEffects>
                             <StackPanel Orientation="Horizontal" Height="35" Width="709" Cursor="Hand" Background="Transparent">
 
-                                <Grid Width="30"  Margin="0,0,0,0">
+                                <Grid Width="20"  Margin="8,0,0,0">
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                                         <TextBlock Text="{Binding IdItem}" FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" TextWrapping="Wrap">
                                         </TextBlock>
                                     </StackPanel>
                                 </Grid>
 
-                                <Grid Width="100" Margin="12,0,0,0">
+                                <Grid Width="100" Margin="4,0,0,0">
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                                         <TextBlock Text="{Binding Name}" FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" TextWrapping="Wrap"/>
                                     </StackPanel>
@@ -281,7 +201,7 @@
                                     </StackPanel>
                                 </Grid>
 
-                                <Grid Width="40" Margin="0,0,90,0">
+                                <Grid Width="40" Margin="0,0,80,0">
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                                         <TextBlock Text="{Binding Name}" FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" TextWrapping="Wrap">
 
@@ -300,7 +220,7 @@
                                 <Grid Width="40" Margin="0,0,30,0">
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                                         <TextBlock Text="{Binding Price}" FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" TextWrapping="Wrap">
-
+1
                                         </TextBlock>
                                     </StackPanel>
                                 </Grid>
@@ -312,14 +232,19 @@
                                         </TextBlock>
                                     </StackPanel>
                                 </Grid>
-                                <Grid Width="50" Margin="0,0,0,0" >
+                                <Grid Width="30" Margin="14,0,0,0" >
                                     <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Top">
-                                        <fa5:ImageAwesome Icon="Solid_Eye" x:Name="visualizeIcon" Width="30" Height="30" Foreground="#C6BAFF" MouseLeftButtonUp="ShowItemSpecification"/>
+                                        <fa5:ImageAwesome Icon="Solid_Pen" x:Name="editIcon" Width="20" Height="20" Foreground="#C6BAFF" MouseLeftButtonUp="UpdateItemSpecification"/>
                                     </StackPanel>
                                 </Grid>
-                                <Grid Width="50" Margin="0,0,0,0">
+                                <Grid Width="30" Margin="0,0,0,0" >
                                     <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Top">
-                                        <fa5:ImageAwesome x:Name="deleteItemIcon" Icon="Solid_TrashAlt" Width="30" Height="30" Foreground="#B2AC0329" MouseLeftButtonUp="ShowDeleteLayout"/>
+                                        <fa5:ImageAwesome Icon="Solid_Eye" x:Name="visualizeIcon" Width="20" Height="20" Foreground="#C6BAFF" MouseLeftButtonUp="ShowItemSpecification"/>
+                                    </StackPanel>
+                                </Grid>
+                                <Grid Width="30" Margin="0,0,0,0">
+                                    <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Top">
+                                        <fa5:ImageAwesome x:Name="deleteItemIcon" Icon="Solid_TrashAlt" Width="20" Height="20" Foreground="#B2AC0329" MouseLeftButtonUp="ShowDeleteLayout"/>
                                     </StackPanel>
                                 </Grid>
 
@@ -678,7 +603,7 @@
                     </TextBlock>
 
                     <RadioButton x:Name="itemNameFilter" Margin="40,0,19,0" Background="#000" Cursor="Hand" 
-                                 Style="{StaticResource MaterialDesignSwitchToggleButton}" GroupName="Filters">
+                                 Style="{StaticResource MaterialDesignSwitchToggleButton}" GroupName="Filters" Click="ShowSelectedFilter">
                         <materialDesign:ToggleButtonAssist.SwitchTrackOnBackground>
                             <SolidColorBrush Color="#000000" />
                         </materialDesign:ToggleButtonAssist.SwitchTrackOnBackground>
@@ -695,7 +620,7 @@
                         Código
                     </TextBlock>
                     <RadioButton x:Name="itemSkuFilter" Margin="57,0,0,0" Background="#000" Cursor="Hand"
-                                 Style="{StaticResource MaterialDesignSwitchToggleButton}" GroupName="Filters">
+                                 Style="{StaticResource MaterialDesignSwitchToggleButton}" GroupName="Filters" Click="ShowSelectedFilter">
                         <materialDesign:ToggleButtonAssist.SwitchTrackOnBackground>
                             <SolidColorBrush Color="#000000" />
                         </materialDesign:ToggleButtonAssist.SwitchTrackOnBackground>
@@ -711,7 +636,7 @@
                     <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#000" Margin="0,0,45,0">
                         Valor individual
                     </TextBlock>
-                    <RadioButton x:Name="itemPriceFilter" Margin="0,0,0,0" Background="#000" Cursor="Hand"
+                    <RadioButton x:Name="itemPriceFilter" Margin="0,0,0,0" Background="#000" Cursor="Hand" Click="ShowSelectedFilter"
                                  Style="{StaticResource MaterialDesignSwitchToggleButton}" GroupName="Filters">
                         <materialDesign:ToggleButtonAssist.SwitchTrackOnBackground>
                             <SolidColorBrush Color="#000000" />
@@ -728,7 +653,7 @@
                     <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#000" Margin="0,0,20,0">
                         Cantidad actual
                     </TextBlock>
-                    <RadioButton x:Name="itemQuantityFilter" Margin="23,0,0,0" Background="#000" Cursor="Hand"
+                    <RadioButton x:Name="itemQuantityFilter" Margin="23,0,0,0" Background="#000" Cursor="Hand" Click="ShowSelectedFilter"
                                  Style="{StaticResource MaterialDesignSwitchToggleButton}" GroupName="Filters">
                         <materialDesign:ToggleButtonAssist.SwitchTrackOnBackground>
                             <SolidColorBrush Color="#000000" />

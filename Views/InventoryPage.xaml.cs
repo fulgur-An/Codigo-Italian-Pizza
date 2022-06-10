@@ -1,5 +1,6 @@
 ﻿using Backend.Contracts;
 using Backend.Service;
+using MaterialDesignThemes.Wpf;
 using Microsoft.Win32;
 using Notifications.Wpf;
 using Server;
@@ -186,10 +187,12 @@ namespace ItalianPizza.Views
         {
             if (!Items.Count.Equals(0) && InventoryTableGrid.IsVisible)
             {
+
                 InventoryTableBodyListBox.ItemsSource = null;
                 InventoryTableBodyListBox.ItemsSource = Items;
                 InventoryTableBodyListBox.Items.Refresh();
                 ShowConfirmationToast();
+
             }
         }
 
@@ -302,20 +305,49 @@ namespace ItalianPizza.Views
 
             string searchFilter = GettInventory.Text;
             int filterInt = 0;
-            if (e.Key == Key.Return)
-            {
-                InitialMessageBorder.Visibility = Visibility.Hidden;
+            InitialMessageBorder.Visibility = Visibility.Hidden;
 
-                InventoryTableGrid.Visibility = Visibility.Visible;
-                RegionSearchGrid.Visibility = Visibility.Visible;
-                MainElementsInventoryGrid.Visibility = Visibility.Visible;
-                ValidateInventoryTableGrid.Visibility = Visibility.Hidden;
-            }
+            InventoryTableGrid.Visibility = Visibility.Visible;
+            RegionSearchGrid.Visibility = Visibility.Visible;
+            MainElementsInventoryGrid.Visibility = Visibility.Visible;
+            ValidateInventoryTableGrid.Visibility = Visibility.Hidden;
             if (option != 1)
             {
                 filterInt = int.Parse(searchFilter);
             }
             GetInventory(searchFilter, filterInt, option);
+        }
+
+        public void ShowSelectedFilter(object sender, RoutedEventArgs e)
+        {
+            if (itemNameFilter.IsChecked == true)
+            {
+                HintAssist.SetHint(GettInventory, "Filtro seleccionado: Nombre");
+                HintAssist.SetHelperText(GettInventory, "Ingresa el nombre de algun producto");
+                SearchFilterTextBlock.Text = "Consulta: " + "Nombre" + "/" + "Búsqueda";
+                GettInventory.Text = "";
+            }
+            else if (itemSkuFilter.IsChecked == true)
+            {
+                HintAssist.SetHint(GettInventory, "Filtro seleccionado: Código");
+                HintAssist.SetHelperText(GettInventory, "Ingresa el codigo de algun producto");
+                SearchFilterTextBlock.Text = "Consulta: " + "Código" + "/" + "Búsqueda";
+                GettInventory.Text = "";
+            }
+            else if (itemPriceFilter.IsChecked == true)
+            {
+                HintAssist.SetHint(GettInventory, "Filtro seleccionado: Precio");
+                HintAssist.SetHelperText(GettInventory, "Ingresa el precio de los productos a buscar");
+                SearchFilterTextBlock.Text = "Consulta: " + "precio" + "/" + "Búsqueda";
+                GettInventory.Text = "";
+            }
+            else if (itemQuantityFilter.IsChecked == true)
+            {
+                HintAssist.SetHint(GettInventory, "Filtro seleccionado: Cantidad");
+                HintAssist.SetHelperText(GettInventory, "Ingresa la cantidad que desea buscar");
+                SearchFilterTextBlock.Text = "Consulta: " + "cantidad" + "/" + "Búsqueda";
+                GettInventory.Text = "";
+            }
         }
 
         public void ShowValidateLayout(object sender, RoutedEventArgs e)
@@ -391,6 +423,17 @@ namespace ItalianPizza.Views
             RegisterItemButton.Visibility = Visibility.Hidden;
             UpdateItemDataButton.Visibility = Visibility.Hidden;
             ChageEnableProperty(false);
+            FillItemSpecification();
+        }
+
+        private void UpdateItemSpecification(object sender, RoutedEventArgs e)
+        {
+            ShowSpecificItemInformation();
+            GetOutStackPanel.Visibility = Visibility.Hidden;
+            CancelRegisterItemButton.Visibility = Visibility.Visible;
+            RegisterItemButton.Visibility = Visibility.Hidden;
+            UpdateItemDataButton.Visibility = Visibility.Visible;
+            ChageEnableProperty(true);
             FillItemSpecification();
         }
 
@@ -561,11 +604,9 @@ namespace ItalianPizza.Views
 
         public void ShowConfirmationToast()
         {
-            MessageBox.Show("Estoy fuera");
             //Console.WriteLine("Estoy fuera");
             try
             {
-                MessageBox.Show("Estoy entrando");
                 //Console.WriteLine("Estoy entrando");
                 notificationManager.Show(
                     new NotificationContent
@@ -578,18 +619,14 @@ namespace ItalianPizza.Views
             }
             catch (Exception ex)
             {
-                //Console.WriteLine("Estoy capturando la excepción HDTPM");
-                MessageBox.Show("Estoy capturando la excepción HDTPM");
             }
             
         }
         public void ShowConfirmationFileToast()
         {
-            MessageBox.Show("Estoy fuera");
             //Console.WriteLine("Estoy fuera");
             try
             {
-                MessageBox.Show("Estoy entrando");
                 //Console.WriteLine("Estoy entrando");
                 notificationManager.Show(
                     new NotificationContent
@@ -602,8 +639,6 @@ namespace ItalianPizza.Views
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Estoy capturando la excepción HDTPM");
-                //Console.WriteLine("Estoy capturando la excepción HDTPM");
 
             }
             
@@ -624,7 +659,6 @@ namespace ItalianPizza.Views
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Estoy capturando la excepción HDTPM");
 
             }
             
