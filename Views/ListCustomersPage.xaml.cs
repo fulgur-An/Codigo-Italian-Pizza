@@ -1,6 +1,9 @@
-﻿using ItalianPizza.BusinessObjects;
+﻿using Backend.Contracts;
+using Backend.Service;
+using ItalianPizza.BusinessObjects;
 using MaterialDesignThemes.Wpf;
 using Notifications.Wpf;
+using Server;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,22 +26,172 @@ namespace ItalianPizza.Views
     /// </summary>
     public partial class ListCustomersPage : Page
     {
+        private ServerItalianPizzaProxy serverProxy;
+        private IItalianPizzaService channel;
         private CustomerViewModel customer = new CustomerViewModel();
-
+        private List<AddressContract> allAddresses = new List<AddressContract>();
+        private List<int> addressIdRemoved = new List<int>();
         private string usernameLoggedIn;
-
         private readonly NotificationManager notificationManager = new NotificationManager();
 
-        private List<string> addressList = new List<string>();
+
+        private enum statusOfCustomers
+        {
+            Available
+        }
+
         public ListCustomersPage(string usernameLoggedIn)
         {
             InitializeComponent();
             DataContext = customer;
             this.usernameLoggedIn = usernameLoggedIn;
+            RequestCustomerList();
         }
 
+        #region Request
+
+        public void RequestRegisterCustomer()
+        {
+            DateTime dateOfBirtCustomer = (DateTime)DateOfBirthDatePicker.SelectedDate;
+            bool isOfLegalAge = (DateTime.Now.Year - dateOfBirtCustomer.Year) >= 18;
+
+            CustomerContract customer = new CustomerContract
+            {
+                Email = CustomerEmailTextBox.Text,
+                Name = CustomerNameTextBox.Text,
+                LastName = CustomerLastNameTextBox.Text,
+                Phone = CustomerPhoneTextBox.Text,
+                Status = statusOfCustomers.Available.ToString(),
+                DateOfBirth = dateOfBirtCustomer,
+                IsEnabled = true,
+                IdEmployee = 1
+            };
+
+            List<AddressContract> addresses = new List<AddressContract>();
+
+            foreach (var address in AddressListBox.Items)
+            {
+                addresses.Add((AddressContract)address);
+            }
+
+            if (isOfLegalAge)
+            {
+                string header = CustomerHeaderTextBlock.Text;
+
+                if (string.Equals(header, "Registro de cliente"))
+                {
+                    ItalianPizzaServiceCallback service = new ItalianPizzaServiceCallback();
+                    service.RegisterCustomerEvent += ConfirmRegistrationCustomer;
+                    serverProxy = new ServerItalianPizzaProxy(service);
+                    channel = serverProxy.ChannelFactory.CreateChannel();
+                    channel.RegisterCustomer(customer, addresses);
+                }
+                else if (string.Equals(header, "Actualización de cliente"))
+                {
+                    int customerId = ((CustomerContract)CustomerListBox.SelectedItem).IdUserCustomer;
+                    customer.IdUserCustomer = customerId;
+                    ItalianPizzaServiceCallback service = new ItalianPizzaServiceCallback();
+                    service.UpdateCustomerEvent += ConfirmRegistrationCustomer;
+                    serverProxy = new ServerItalianPizzaProxy(service);
+                    channel = serverProxy.ChannelFactory.CreateChannel();
+                    channel.UpdateCustomer(customer, addresses);
+                }
+            }
+            else
+            {
+                NotificationType notificationType = NotificationType.Warning;
+                PersonalizeToast(notificationType, "El Cliente debe tener al menos 18 años");
+                ShowCustomerDialogs();
+            }
+        }
+
+        public void RequestCustomerList()
+        {
+            ItalianPizzaServiceCallback service = new ItalianPizzaServiceCallback();
+            service.GetCustomerListSortedByNameEvent += LoadAllCustomers;
+            serverProxy = new ServerItalianPizzaProxy(service);
+            channel = serverProxy.ChannelFactory.CreateChannel();
+            channel.GetCustomerListSortedByName();
+        }
+
+        public void RequestDeleteCustomer(int idCustomer)
+        {
+            ItalianPizzaServiceCallback service = new ItalianPizzaServiceCallback();
+            service.DeleteCustomerByIdEvent += ConfirmDeleteCustomer;
+            serverProxy = new ServerItalianPizzaProxy(service);
+            channel = serverProxy.ChannelFactory.CreateChannel();
+            channel.DeleteCustomerById(idCustomer);
+        }
+
+        #endregion
+
+        #region Implementation methods
+
+        public void ConfirmRegistrationCustomer(int result)
+        {
+            if (result > 0)
+            {
+                CustomerListBox.Items.Clear();
+                RequestCustomerList();
+                NotificationType notificationType = NotificationType.Success;
+                PersonalizeToast(notificationType, "Proceso Realizado");
+            }
+            else if (result == -1)
+            {
+                NotificationType notificationType = NotificationType.Warning;
+                PersonalizeToast(notificationType, "Nombre de Cliente ya registrado");
+                ShowCustomerDialogs();
+            }
+            else
+            {
+                NotificationType notificationType = NotificationType.Error;
+                PersonalizeToast(notificationType, "Proceso no realizado. Intentelo de nuevo");
+                ShowCustomerDialogs();
+            }
+        }
+
+        public void LoadAllCustomers(List<CustomerContract> customerContracts, List<AddressContract> addressContracts)
+        {
+            allAddresses.Clear();
+
+            foreach (AddressContract addressContract in addressContracts)
+            {
+                allAddresses.Add(addressContract);
+            }
+
+            foreach (CustomerContract customer in customerContracts)
+            {
+                foreach (var addreess in addressContracts)
+                {
+                    string fullAddres = "\n• " + addreess.StreetName + " #" + addreess.OutsideNumber + " Ext#" + addreess.InsideNumber +
+                        " Col. " + addreess.Colony + ", CP " + addreess.PostalCode + ", " + addreess.City + "\n";
+
+                    if (addreess.IdCustomer == customer.IdUserCustomer)
+                    {
+                        customer.FullAddress += fullAddres;
+                    }
+
+                }
+                CustomerListBox.Items.Add(customer);
+            }
+        }
+
+        public void ConfirmDeleteCustomer(int result)
+        {
+            if (result > 0)
+            {
+                NotificationType notificationType = NotificationType.Success;
+                PersonalizeToast(notificationType, "Proceso Realizado");
+                CustomerListBox.Items.Clear();
+                RequestCustomerList();
+            }
+        }
+
+        #endregion
+
         #region GUI Methods
-        public void ShowCustomerDialogs(bool isEnabled)
+
+        public void ShowCustomerDialogs()
         {
             ThirdLayerInformationBorder.Visibility = Visibility.Visible;
             QuarterLayerInformationBorder.Visibility = Visibility.Visible;
@@ -49,16 +202,30 @@ namespace ItalianPizza.Views
 
         public void ShowCustomerRegistrarionDialogue(object sender, RoutedEventArgs e)
         {
-            ShowCustomerDialogs(true);
+            ShowCustomerDialogs();
+            RemoveValidationAssistant(false);
             CustomerHeaderTextBlock.Text = "Registro de cliente";
 
-            AddAddressButton.Visibility = Visibility.Visible;
-            DeleteAddressButton.Visibility = Visibility.Visible;
-            AcceptButtonTextBlock.Text = "Registrar";
+            //AddAddressButton.Visibility = Visibility.Visible;
+            //DeleteAddressButton.Visibility = Visibility.Visible;
             AcceptButton.Visibility = Visibility.Visible;
-            DateOfBirthDatePicker.SelectedDate = DateTime.Now;
+            SaveButton.Visibility = Visibility.Collapsed;
+            //DateOfBirthDatePicker.SelectedDate = DateTime.Now;
             FieldsEnabledMessageTextBlock.Visibility = Visibility.Visible;
             FieldsEnabledMessageTextBlock.Text = "Formulario de registro";
+
+            CustomerNameTextBox.Text = "";
+            CustomerLastNameTextBox.Text = "";
+            CustomerEmailTextBox.Text = "";
+            CustomerPhoneTextBox.Text = "";
+            //DateOfBirthDatePicker.SelectedDate = null;
+            DateOfBirthDatePicker.Text = "";
+            OutsideNumberTextBox.Text = "";
+            InsideNumberTextBox.Text = "";
+            ColonyTextBox.Text = "";
+            CityTextBox.Text = "";
+            PostalCodeTextBox.Text = "";
+            AddressListBox.Items.Clear();
 
             HintAssist.SetHelperText(CustomerNameTextBox, "Ingrese nombre del cliente");
             HintAssist.SetHelperText(CustomerLastNameTextBox, "Ingrese apellidos del cliente");
@@ -75,27 +242,23 @@ namespace ItalianPizza.Views
 
         public void ShowSpecificCustomerInformation(object sender, RoutedEventArgs e)
         {
-            ShowCustomerDialogs(false);
-            CustomerHeaderTextBlock.Text = "Cliente";
-            AddressHeaderTextBlock.Text = "Direcciones";
-            AcceptButton.Visibility = Visibility.Hidden;
-            AddAddressButton.Visibility = Visibility.Hidden;
-            DeleteAddressButton.Visibility = Visibility.Hidden;
+            AdressesViewListBox.Items.Clear();
+            ThirdLayerInformationBorder.Visibility = Visibility.Visible;
+            SeventhLayerBorder.Visibility = Visibility.Visible;
+            CustomerViewGrid.Visibility = Visibility.Visible;
+            CustomerContract customerContract = (CustomerContract)CustomerListBox.SelectedItem;
+            CustomerNameViewTextBox.Text = customerContract.Name;
+            CustomerLastNameViewTextBox.Text = customerContract.LastName;
+            CustomerEmailViewTextBox.Text = customerContract.Email;
+            CustomerPhoneViewTextBox.Text = customerContract.Phone;
+            CustomerViewDatePicker.SelectedDate = customerContract.DateOfBirth;
 
-            FieldsEnabledMessageTextBlock.Visibility = Visibility.Visible;
-            FieldsEnabledMessageTextBlock.Text = "Información detallada";
+            List<string> addresses = customerContract.FullAddress.Split('•').ToList();
 
-            HintAssist.SetHelperText(CustomerNameTextBox, string.Empty);
-            HintAssist.SetHelperText(CustomerLastNameTextBox, string.Empty);
-            HintAssist.SetHelperText(CustomerEmailTextBox, string.Empty);
-            HintAssist.SetHelperText(CustomerPhoneTextBox, string.Empty);
-            HintAssist.SetHelperText(DateOfBirthDatePicker, string.Empty);
-            HintAssist.SetHelperText(StreetNameTextBox, string.Empty);
-            HintAssist.SetHelperText(OutsideNumberTextBox, string.Empty);
-            HintAssist.SetHelperText(InsideNumberTextBox, string.Empty);
-            HintAssist.SetHelperText(ColonyTextBox, string.Empty);
-            HintAssist.SetHelperText(CityTextBox, string.Empty);
-            HintAssist.SetHelperText(PostalCodeTextBox, string.Empty);
+            for (int i = 1; i < addresses.Count; i++)
+            {
+                AdressesViewListBox.Items.Add(addresses[i].Replace("\r\n", "").Replace("\n", "").Replace("\r", ""));
+            }
         }
 
         public void ShowSearchResults(object sender, KeyEventArgs e)
@@ -167,23 +330,21 @@ namespace ItalianPizza.Views
 
         public void BackToCustomerRegistration(object sender, RoutedEventArgs e)
         {
+            RemoveValidationAssistant(false);
             ThirdLayerInformationBorder.Visibility = Visibility.Visible;
             QuarterLayerInformationBorder.Visibility = Visibility.Visible;
             CustomerInformationGrid.Visibility = Visibility.Visible;
-
             FifthLayerBorder.Visibility = Visibility.Hidden;
             InvalidFieldsGrid.Visibility = Visibility.Hidden;
         }
 
         private void ExitSpecificCustomerInformation(object sender, RoutedEventArgs e)
         {
-            if (CustomerHeaderTextBlock.Text == "Registro de cliente")
+            string header = CustomerHeaderTextBlock.Text;
+
+            if (string.Equals(header, "Registro de cliente") || string.Equals(header, "Actualización de cliente"))
             {
-                FifthLayerBorder.Visibility = Visibility.Visible;
-                InvalidFieldsGrid.Visibility = Visibility.Visible;
-            }
-            else if (CustomerHeaderTextBlock.Text == "Actualización de cliente")
-            {
+                RemoveValidationAssistant(true);
                 FifthLayerBorder.Visibility = Visibility.Visible;
                 InvalidFieldsGrid.Visibility = Visibility.Visible;
             }
@@ -206,43 +367,75 @@ namespace ItalianPizza.Views
             DeleteConfirmationGrid.Visibility = Visibility.Hidden;
         }
 
+        public void ExitDetailedInformation(object sender, RoutedEventArgs e)
+        {
+            ThirdLayerInformationBorder.Visibility = Visibility.Hidden;
+            CustomerViewGrid.Visibility = Visibility.Hidden;
+            SeventhLayerBorder.Visibility = Visibility.Hidden;
+        }
+
         public void ShowCustomerUpdateDialog(object sender, RoutedEventArgs e)
         {
-            ShowCustomerDialogs(true);
+            AddressListBox.Items.Clear();
+            ShowCustomerDialogs();
+            RemoveValidationAssistant(false);
             CustomerHeaderTextBlock.Text = "Actualización de cliente";
-
-            AddAddressButton.Visibility = Visibility.Visible;
-            DeleteAddressButton.Visibility = Visibility.Visible;
-            AcceptButtonTextBlock.Text = "Guardar";
-            AcceptButton.Visibility = Visibility.Visible;
-            DateOfBirthDatePicker.SelectedDate = DateTime.Now;
+            AddressListBox.Items.Clear();
+            DeleteAddressButton.IsEnabled = true;
+            //AddAddressButton.Visibility = Visibility.Visible;
+            //DeleteAddressButton.Visibility = Visibility.Visible;
+            AcceptButton.Visibility = Visibility.Collapsed;
+            SaveButton.Visibility = Visibility.Visible;
             FieldsEnabledMessageTextBlock.Visibility = Visibility.Visible;
             FieldsEnabledMessageTextBlock.Text = "Formulario de actualización";
 
-            HintAssist.SetHelperText(CustomerNameTextBox, string.Empty);
-            HintAssist.SetHelperText(CustomerLastNameTextBox, string.Empty);
-            HintAssist.SetHelperText(CustomerEmailTextBox, string.Empty);
-            HintAssist.SetHelperText(CustomerPhoneTextBox, string.Empty);
-            HintAssist.SetHelperText(DateOfBirthDatePicker, string.Empty);
-            HintAssist.SetHelperText(StreetNameTextBox, string.Empty);
-            HintAssist.SetHelperText(OutsideNumberTextBox, string.Empty);
-            HintAssist.SetHelperText(InsideNumberTextBox, string.Empty);
-            HintAssist.SetHelperText(ColonyTextBox, string.Empty);
-            HintAssist.SetHelperText(CityTextBox, string.Empty);
-            HintAssist.SetHelperText(PostalCodeTextBox, string.Empty);
+            CustomerContract customer = (CustomerContract)CustomerListBox.SelectedItem;
+            if (customer != null)
+            {
+                CustomerNameTextBox.Text = customer.Name;
+                CustomerLastNameTextBox.Text = customer.LastName;
+                DateOfBirthDatePicker.SelectedDate = customer.DateOfBirth;
+                CustomerPhoneTextBox.Text = customer.Phone;
+                CustomerEmailTextBox.Text = customer.Email;
+
+                foreach (AddressContract address in allAddresses)
+                {
+                    if (addressIdRemoved.Count > 0)
+                    {
+                        foreach (int addressId in addressIdRemoved)
+                        {
+                            if ((address.IdCustomer == customer.IdUserCustomer) &&
+                                (address.IdAddresses != addressId))
+                            {
+                                AddressListBox.Items.Add(address);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (address.IdCustomer == customer.IdUserCustomer)
+                        {
+                            AddressListBox.Items.Add(address);
+                        }
+                    }
+                }
+            }
         }
 
         public void AddAddress(object sender, RoutedEventArgs e)
         {
-            int addressNumber = AddressListBox.Items.Count + 1;
-            string addAddress = 
-            StreetNameTextBox.Text + " #" + 
-            OutsideNumberTextBox.Text + ", " +
-            InsideNumberTextBox.Text + ", Col" +
-            ColonyTextBox.Text + ", " +
-            CityTextBox.Text + ", " +
-            PostalCodeTextBox.Text;
-            AddressListBox.Items.Add(addressNumber + ".\n" + addAddress);
+            AddressContract address = new AddressContract
+            {
+                Colony = ColonyTextBox.Text,
+                City = CityTextBox.Text,
+                InsideNumber = InsideNumberTextBox.Text,
+                OutsideNumber = OutsideNumberTextBox.Text,
+                PostalCode = PostalCodeTextBox.Text,
+                StreetName = StreetNameTextBox.Text
+            };
+
+            AddressListBox.Items.Add(address);
+
             StreetNameTextBox.Text = "";
             OutsideNumberTextBox.Text = "";
             InsideNumberTextBox.Text = "";
@@ -256,25 +449,15 @@ namespace ItalianPizza.Views
         {
             if (AddressListBox.SelectedItem != null)
             {
+                if (SaveButton.IsVisible)
+                {
+                    addressIdRemoved.Add(((AddressContract)AddressListBox.SelectedItem).IdAddresses);
+                }
+
                 AddressListBox.Items.RemoveAt
                 (
                     AddressListBox.Items.IndexOf(AddressListBox.SelectedItem)
                 );
-
-                addressList.Clear();
-
-                foreach (var step in AddressListBox.Items)
-                {
-                    string[] value = step.ToString().Split('\n');
-                    addressList.Add(value[1]);
-                }
-
-                AddressListBox.Items.Clear();
-
-                for (int i = 0; i < addressList.Count; i++)
-                {
-                    AddressListBox.Items.Add((i + 1) + ".\n" + addressList[i]);
-                }
 
                 DeleteAddressButton.IsEnabled = AddressListBox.Items.Count >= 1;
             }
@@ -290,27 +473,31 @@ namespace ItalianPizza.Views
             DeleteConfirmationGrid.Visibility = Visibility.Visible;
         }
 
-        public void ShowConfirmationToast(object sender, RoutedEventArgs e)
+        public void AcceptDeleteConfirmationButton(object sender, RoutedEventArgs e)
+        {
+            CustomerContract customerContract = (CustomerContract)CustomerListBox.SelectedItem;
+
+            if (customerContract != null)
+            {
+                RequestDeleteCustomer(customerContract.IdUserCustomer);
+                DeleteConfirmationGrid.Visibility = Visibility.Hidden;
+                FifthLayerBorder.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                MessageBox.Show("sin selección");
+            }
+        }
+
+        public void SaveRegisterOrUpdateCustomer(object sender, RoutedEventArgs e)
         {
             ThirdLayerInformationBorder.Visibility = Visibility.Hidden;
             QuarterLayerInformationBorder.Visibility = Visibility.Hidden;
             CustomerInformationGrid.Visibility = Visibility.Hidden;
-            DeleteConfirmationGrid.Visibility = Visibility.Hidden;
-
             FifthLayerBorder.Visibility = Visibility.Hidden;
             InvalidFieldsGrid.Visibility = Visibility.Hidden;
 
-            //BackToEmployeeRegistration(sender, e);
-
-            notificationManager.Show(
-                new NotificationContent
-                {
-                    Title = "Confirmación",
-                    Message = "Proceso Realizado",
-                    Type = NotificationType.Success,
-                }, areaName: "ConfirmationToast", expirationTime: TimeSpan.FromSeconds(2)
-            );
-
+            RequestRegisterCustomer();
         }
 
         public void ShowUnselectedItemToast()
@@ -324,6 +511,34 @@ namespace ItalianPizza.Views
                 }, areaName: "ConfirmationToast", expirationTime: TimeSpan.FromSeconds(2)
             );
         }
+
+        public void PersonalizeToast(NotificationType notificationType, string message)
+        {
+            notificationManager.Show(
+                new NotificationContent
+                {
+                    Title = "Confirmación",
+                    Message = message,
+                    Type = notificationType,
+                }, areaName: "ConfirmationToast", expirationTime: TimeSpan.FromSeconds(2)
+            );
+        }
+
+        public void RemoveValidationAssistant(bool isNotVisible)
+        {
+            ValidationAssist.SetSuppress(CustomerNameTextBox, isNotVisible);
+            ValidationAssist.SetSuppress(CustomerLastNameTextBox, isNotVisible);
+            ValidationAssist.SetSuppress(DateOfBirthDatePicker, isNotVisible);
+            ValidationAssist.SetSuppress(CustomerPhoneTextBox, isNotVisible);
+            ValidationAssist.SetSuppress(CustomerEmailTextBox, isNotVisible);
+            ValidationAssist.SetSuppress(StreetNameTextBox, isNotVisible);
+            ValidationAssist.SetSuppress(OutsideNumberTextBox, isNotVisible);
+            ValidationAssist.SetSuppress(InsideNumberTextBox, isNotVisible);
+            ValidationAssist.SetSuppress(ColonyTextBox, isNotVisible);
+            ValidationAssist.SetSuppress(CityTextBox, isNotVisible);
+            ValidationAssist.SetSuppress(PostalCodeTextBox, isNotVisible);
+        }
+
         #endregion
     }
 }

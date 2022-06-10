@@ -1,23 +1,13 @@
-<<<<<<< HEAD
-﻿c:\Users\Javier Blas\Documents\Codigo-Italian-Pizza\obj\Debug\GeneratedInternalTypeHelper.g.cs
-Fc:\Users\Javier Blas\Documents\Codigo-Italian-Pizza\App.xaml;;
-Fc:\Users\Javier Blas\Documents\Codigo-Italian-Pizza\Views\CheckOrdersPage.xaml;;
-Fc:\Users\Javier Blas\Documents\Codigo-Italian-Pizza\Views\ErrorPage.xaml;;
-Fc:\Users\Javier Blas\Documents\Codigo-Italian-Pizza\Views\ListCustomersPage.xaml;;
-Fc:\Users\Javier Blas\Documents\Codigo-Italian-Pizza\Views\ListEmployeesPage.xaml;;
-Fc:\Users\Javier Blas\Documents\Codigo-Italian-Pizza\Views\MainPage.xaml;;
-Fc:\Users\Javier Blas\Documents\Codigo-Italian-Pizza\Views\MainWindow.xaml;;
-=======
-﻿C:\Users\Propietario\Desktop\Codigo-Italian-Pizza\obj\Debug\GeneratedInternalTypeHelper.g.cs
-FC:\Users\Propietario\Desktop\Codigo-Italian-Pizza\App.xaml;;
-FC:\Users\Propietario\Desktop\Codigo-Italian-Pizza\Views\CheckFoodRecipesPage.xaml;;
-FC:\Users\Propietario\Desktop\Codigo-Italian-Pizza\Views\CheckOrdersPage.xaml;;
-FC:\Users\Propietario\Desktop\Codigo-Italian-Pizza\Views\FinancesPage.xaml;;
-FC:\Users\Propietario\Desktop\Codigo-Italian-Pizza\Views\ErrorPage.xaml;;
-FC:\Users\Propietario\Desktop\Codigo-Italian-Pizza\Views\ListCustomersPage.xaml;;
-FC:\Users\Propietario\Desktop\Codigo-Italian-Pizza\Views\ListEmployeesPage.xaml;;
-FC:\Users\Propietario\Desktop\Codigo-Italian-Pizza\Views\InventoryPage.xaml;;
-FC:\Users\Propietario\Desktop\Codigo-Italian-Pizza\Views\MainPage.xaml;;
-FC:\Users\Propietario\Desktop\Codigo-Italian-Pizza\Views\MainWindow.xaml;;
->>>>>>> b275e869c7c30e2c8aa74c46d01f8eac4a69bd48
+﻿C:\Users\Javier Blas\Documents\Codigo-Italian-Pizza\obj\Debug\GeneratedInternalTypeHelper.g.cs
+FC:\Users\Javier Blas\Documents\Codigo-Italian-Pizza\App.xaml;;
+FC:\Users\Javier Blas\Documents\Codigo-Italian-Pizza\Views\CheckFoodRecipesPage.xaml;;
+FC:\Users\Javier Blas\Documents\Codigo-Italian-Pizza\Views\CheckOrdersPage.xaml;;
+FC:\Users\Javier Blas\Documents\Codigo-Italian-Pizza\Views\FinancesPage.xaml;;
+FC:\Users\Javier Blas\Documents\Codigo-Italian-Pizza\Views\ErrorPage.xaml;;
+FC:\Users\Javier Blas\Documents\Codigo-Italian-Pizza\Views\ListCustomersPage.xaml;;
+FC:\Users\Javier Blas\Documents\Codigo-Italian-Pizza\Views\ListEmployeesPage.xaml;;
+FC:\Users\Javier Blas\Documents\Codigo-Italian-Pizza\Views\InventoryPage.xaml;;
+FC:\Users\Javier Blas\Documents\Codigo-Italian-Pizza\Views\Login.xaml;;
+FC:\Users\Javier Blas\Documents\Codigo-Italian-Pizza\Views\MainPage.xaml;;
+FC:\Users\Javier Blas\Documents\Codigo-Italian-Pizza\Views\MainWindow.xaml;;
 

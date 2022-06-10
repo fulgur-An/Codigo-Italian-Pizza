@@ -37,24 +37,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FontAwesome5, Version=2.1.6.0, Culture=neutral, PublicKeyToken=9cfaf01297a008f8, processorArchitecture=MSIL">
-      <HintPath>packages\FontAwesome5.2.1.6\lib\net472\FontAwesome5.dll</HintPath>
-    </Reference>
-    <Reference Include="FontAwesome5.Net, Version=2.1.6.0, Culture=neutral, PublicKeyToken=9cfaf01297a008f8, processorArchitecture=MSIL">
-      <HintPath>packages\FontAwesome5.2.1.6\lib\net472\FontAwesome5.Net.dll</HintPath>
-    </Reference>
-    <Reference Include="MaterialDesignColors, Version=2.0.5.0, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">
-      <HintPath>packages\MaterialDesignColors.2.0.5\lib\net452\MaterialDesignColors.dll</HintPath>
-    </Reference>
-    <Reference Include="MaterialDesignThemes.Wpf, Version=4.4.0.0, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">
-      <HintPath>packages\MaterialDesignThemes.4.4.0\lib\net452\MaterialDesignThemes.Wpf.dll</HintPath>
-    </Reference>
-    <Reference Include="Notifications.Wpf, Version=0.1.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Notifications.Wpf.0.1.1\lib\net461\Notifications.Wpf.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -105,6 +91,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Login.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -121,6 +111,7 @@
     <Compile Include="BusinessObjects\CustomerViewModel.cs" />
     <Compile Include="BusinessObjects\EmployeeViewModel.cs" />
     <Compile Include="BusinessObjects\WorkShiftViewModel.cs" />
+    <Compile Include="ItalianPizzaServiceCallback.cs" />
     <Compile Include="Validations\AlphabeticCharacter.cs" />
     <Compile Include="Validations\DecimalNumber.cs" />
     <Compile Include="Validations\Email.cs" />
@@ -133,11 +124,6 @@
     <Compile Include="BusinessObjects\OrderViewModel.cs" />
     <Compile Include="BusinessObjects\QuantityFoodRecipeViewModel.cs" />
     <Compile Include="BusinessObjects\QuantityItemViewModel.cs" />
-    <Compile Include="Validations\AlphabeticCharacter.cs" />
-    <Compile Include="Validations\DecimalNumber.cs" />
-    <Compile Include="Validations\Integer.cs" />
-    <Compile Include="Validations\NotNull.cs" />
-    <Compile Include="Validations\NotNullList.cs" />
     <Compile Include="Views\CheckFoodRecipesPage.xaml.cs">
       <DependentUpon>CheckFoodRecipesPage.xaml</DependentUpon>
     </Compile>
@@ -158,6 +144,9 @@
     </Compile>
     <Compile Include="Views\InventoryPage.xaml.cs">
       <DependentUpon>InventoryPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Login.xaml.cs">
+      <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -229,6 +218,15 @@
   <ItemGroup>
     <Resource Include="Images\cooking.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Backend-ItalianPizza\BackendItalianPizza.csproj">
+      <Project>{F39885F7-163B-4DC6-9BDF-65AEBC612148}</Project>
+      <Name>BackendItalianPizza</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Server-ItalianPizza\ServerItalianPizza.csproj">
+      <Project>{64E1A512-639A-481C-B4A2-1349A9781C9B}</Project>
+      <Name>ServerItalianPizza</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

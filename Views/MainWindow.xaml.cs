@@ -22,16 +22,21 @@ namespace ItalianPizza
     public partial class MainWindow : Window
     {
         private string usernameLoggedIn;
-        
-        public MainWindow()
+        private string role;
+
+        public MainWindow(string usernameLoggedIn, string role)
         {
             InitializeComponent();
-            this.usernameLoggedIn = UserLoggedInTextBlock.Text;
+            this.usernameLoggedIn = usernameLoggedIn;
+            this.role = role;
             MainPage mainPage = new MainPage();
             NavigationFrame.NavigationService.Navigate(mainPage);
+            UserLoggedInTextBlock.Text = this.usernameLoggedIn;
+            EmployeeRoleTextBlock.Text = this.role;
         }
 
         #region GUI Methods
+
 
         public void ClearMenuSelections()
         {

@@ -122,62 +122,92 @@
             <!--#region Table body-->
             <Border Background="#5B5B5B" Height="350" Width="709" Margin="0,110,0,-100" CornerRadius="0,0,5,5" 
                 Opacity="0"/>
-            <ListBox Height="350" Width="709" Margin="0,110,0,-100" HorizontalAlignment="Center">
-                <ListBoxItem BorderBrush="#CFCFCF" BorderThickness="0,0,0,1">
-                    <StackPanel Orientation="Horizontal" Height="35" Width="709" Cursor="Hand" Background="Transparent">
-                        <Grid Width="250">
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-                                <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" TextWrapping="Wrap">
-                                Javier Alberto Calderón Blas
-                                </TextBlock>
-                            </StackPanel>
-                        </Grid>
+            <ListBox Height="350" Width="709" Margin="0,110,0,-100" HorizontalAlignment="Center" ItemsSource="{Binding}"
+                     Name="CustomerListBox">
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="BorderThickness" Value="0,0,0,1px" />
+                        <Setter Property="BorderBrush" Value="#CFCFCF" />
+                    </Style>
+                </ListBox.ItemContainerStyle>
+                <ListBox.ItemTemplate>
+                    <DataTemplate >
+                        <materialDesign:TransitioningContent OpeningEffectsOffset="{materialDesign:IndexedItemOffsetMultiplier 0:0:0.05}">
+                            <materialDesign:TransitioningContent.OpeningEffects>
+                                <materialDesign:TransitionEffect Kind="SlideInFromLeft"/>
+                            </materialDesign:TransitioningContent.OpeningEffects>
+                            <StackPanel Orientation="Horizontal" Height="auto" Width="709" Cursor="Hand" Background="Transparent">
+                                <Grid Width="250">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                        <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" TextWrapping="Wrap">
+                                            <TextBlock.Text>
+                                                <MultiBinding StringFormat="{}{0} {1}">
+                                                    <Binding Path="Name" />
+                                                    <Binding Path="LastName" />
+                                                </MultiBinding>
+                                            </TextBlock.Text>
+                                        </TextBlock>
+                                    </StackPanel>
+                                </Grid>
 
-                        <Grid Width="229.5">
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <TextBlock FontFamily="Tw Cen MT" FontSize="16" Foreground="#FFF" TextWrapping="Wrap">
-                                Obrero #56
-                                </TextBlock>
-                            </StackPanel>
-                        </Grid>
+                                <Grid Width="229.5">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" TextWrapping="Wrap"
+                                                   Background="Transparent" Width="229.5" 
+                                                   Text="{Binding FullAddress}">
+                                        </TextBlock>
+                                    </StackPanel>
+                                </Grid>
 
-                        <Grid Width="114.5">
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" TextWrapping="Wrap">
-                                2282546754
-                                </TextBlock>
-                            </StackPanel>
-                        </Grid>
+                                <Grid Width="114.5">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" TextWrapping="Wrap"
+                                                   TextAlignment="Justify" Background="Transparent"
+                                                   Text="{Binding Phone}">
+                                        </TextBlock>
+                                    </StackPanel>
+                                </Grid>
 
-                        <Grid Width="114.5" Background="Transparent">
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,14,0">
-                                <Button materialDesign:ButtonAssist.CornerRadius="5" Background="#5B5B5B" BorderBrush="{x:Null}"
-                                        Visibility="Visible" Margin="0,0,10,0" ToolTip="Visualizar pedido" Click="ShowSpecificCustomerInformation"
-                                        Padding="4,0,4,0" HorizontalAlignment="Center">
+                                <Grid Width="114.5" Background="Transparent">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,14,0">
 
-                                    <fa5:ImageAwesome Icon="Solid_Eye" Height="18" Width="18" Foreground="#FFF" VerticalAlignment="Center" 
+                                        <Grid>
+                                            <Border Background="#5B5B5B" Height="32px" CornerRadius="5" MouseLeftButtonUp="ShowSpecificCustomerInformation" />
+                                            <Grid Visibility="Visible" Margin="0,0,0,0" ToolTip="Visualizar Cliente" MouseLeftButtonUp="ShowSpecificCustomerInformation"
+                                                  HorizontalAlignment="Center"  Height="32px" Width="23px">
+
+                                                <fa5:ImageAwesome Icon="Solid_Eye" Height="18" Width="18" Foreground="#FFF" VerticalAlignment="Center" 
                                                       Margin="0,0,0,0"/>
-                                </Button>
+                                            </Grid>
+                                        </Grid>
 
-                                <Button materialDesign:ButtonAssist.CornerRadius="5" Background="#5B5B5B" BorderBrush="{x:Null}"
-                                        Visibility="Visible" Margin="0,0,10,0" ToolTip="Actualizar pedido" Click="ShowCustomerUpdateDialog"
-                                        Padding="4,0,4,0" HorizontalAlignment="Center">
+                                        <Grid Margin="5px,0,5px,0">
+                                            <Border Background="#5B5B5B" Height="32px" CornerRadius="5" MouseLeftButtonUp="ShowCustomerUpdateDialog"/>
+                                            <Grid 
+                                                  Visibility="Visible" Margin="0,0,0,0" ToolTip="Actualizar Cliente" MouseLeftButtonUp="ShowCustomerUpdateDialog"
+                                                  HorizontalAlignment="Center" Height="32px" Width="23px">
 
-                                    <fa5:ImageAwesome Icon="Solid_Pen" Height="18" Width="18" Foreground="#FFF" VerticalAlignment="Center" 
+                                                <fa5:ImageAwesome Icon="Solid_Pen" Height="18" Width="18" Foreground="#FFF" VerticalAlignment="Center" 
                                                       Margin="0,0,0,0"/>
-                                </Button>
+                                            </Grid>
+                                        </Grid>
 
-                                <Button materialDesign:ButtonAssist.CornerRadius="5" Background="#5B5B5B" BorderBrush="{x:Null}"
-                                        Visibility="Visible" Margin="0,0,0,0" ToolTip="Cancelar pedido" Click="ShowEmployeDeleteDialog"
-                                        Padding="4,0,4,0" HorizontalAlignment="Center">
+                                        <Grid>
+                                            <Border Background="#5B5B5B" Height="32px" CornerRadius="5" MouseLeftButtonUp="ShowEmployeDeleteDialog"/>
+                                            <Grid 
+                                                  Visibility="Visible" Margin="0,0,0,0" ToolTip="Eliminar Cliente" MouseLeftButtonUp="ShowEmployeDeleteDialog"
+                                                  HorizontalAlignment="Center" Height="32px" Width="23px">
 
-                                    <fa5:ImageAwesome Icon="Solid_Trash" Height="18" Width="18" Foreground="#FFF" VerticalAlignment="Center" 
+                                                <fa5:ImageAwesome Icon="Solid_Trash" Height="18" Width="18" Foreground="#FFF" VerticalAlignment="Center" 
                                                       Margin="0,0,0,0"/>
-                                </Button>
+                                            </Grid>
+                                        </Grid>
+                                    </StackPanel>
+                                </Grid>
                             </StackPanel>
-                        </Grid>
-                    </StackPanel>
-                </ListBoxItem>
+                        </materialDesign:TransitioningContent>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
             </ListBox>
             <!--#endregion-->
         </Grid>
@@ -292,7 +322,7 @@
               Name="CustomerInformationGrid" Visibility="Hidden" Background="Transparent">
 
             <TextBlock FontFamily="Tw Cen MT" FontSize="13" Foreground="#8D8D8D" HorizontalAlignment="Center"
-                       Margin="0,7,0,0" Name="FieldsEnabledMessageTextBlock" Visibility="Hidden">
+                       Margin="0,-2px,0,0" Name="FieldsEnabledMessageTextBlock" Visibility="Hidden">
                         Campos habilitados para su edición
             </TextBlock>
 
@@ -306,22 +336,22 @@
             </StackPanel>
 
             <TextBlock FontFamily="Tw Cen MT" FontSize="50" Foreground="#000" VerticalAlignment="Top" HorizontalAlignment="Center"
-                       Margin="0,-38,0,0" Name="CustomerHeaderTextBlock">
+                       Margin="0,-50,0,0" Name="CustomerHeaderTextBlock">
                     Cliente
             </TextBlock>
 
-            <StackPanel Orientation="Vertical" Margin="0,20,0,0" Background="{x:Null}" HorizontalAlignment="Center"
+            <StackPanel Orientation="Vertical" Margin="0,15,0,0" Background="{x:Null}" HorizontalAlignment="Center"
                         Width="700">
 
                 <!--#region Customer Information-->
 
                 <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
                     <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left">
-                        *Nombre
+                        Nombre*
                     </TextBlock>
                     <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left" 
                                Margin="265,0,0,0">
-                        *Apellidos
+                        Apellidos*
                     </TextBlock>
                 </StackPanel>
 
@@ -383,11 +413,11 @@
 
                 <StackPanel Orientation="Horizontal" Margin="0,22,0,0">
                     <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left" 
-                               Margin="0,0,175,0">
-                        *Correo eléctronico
+                               Margin="0,0,155,0">
+                        Fecha de nacimiento*
                     </TextBlock>
                     <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left">
-                        *Teléfono
+                        Teléfono*
                     </TextBlock>
                 </StackPanel>
 
@@ -395,26 +425,20 @@
                     <Grid Margin="0,0,0,0">
                         <Border Background="{x:Null}" CornerRadius="5" Width="290" Height="35" HorizontalAlignment="Left"
                                 BorderBrush="#8D8D8D" BorderThickness="1" Grid.ColumnSpan="2"/>
-                        <TextBox materialDesign:HintAssist.HelperText="Correo eléctronico del empleado"  
-                                  materialDesign:HintAssist.Hint="Ingresa el correo eléctronico del empleado" 
-                                  HorizontalAlignment="Left" materialDesign:TextFieldAssist.HasClearButton="True"
-                                  Width="290" Height="35" Padding="6" VerticalContentAlignment="Center"
-                                  FontFamily="Tw Cen MT" FontSize="15" BorderBrush="#000" Foreground="#000" 
-                                  Background="Transparent" BorderThickness="0.01"
-                                  materialDesign:HintAssist.FloatingOffset="0,0" 
-                                  materialDesign:HintAssist.HelperTextFontSize="13"
-                                  materialDesign:HintAssist.Background="Transparent" 
-                                  materialDesign:HintAssist.Foreground="Transparent"                         
-                                  Name="CustomerEmailTextBox" Grid.ColumnSpan="2">
-
-                            <TextBox.Text>
-                                <Binding Path="Email" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                        <DatePicker Width="290" Foreground="#000"
+                                    Height="35" Padding="6" FontFamily="Tw Cen MT" FontSize="15" HorizontalAlignment="Left"
+                                    BorderBrush="#000" materialDesign:HintAssist.Hint="Ingresar fecha" Cursor="Hand"
+                                    materialDesign:HintAssist.HelperText="Establece una fecha" IsEnabled="true" 
+                                    materialDesign:HintAssist.HelperTextFontSize="13" Background="Transparent"
+                                    Name="DateOfBirthDatePicker">
+                            <DatePicker.SelectedDate>
+                                <Binding Path="DateOfBirth" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
                                     <Binding.ValidationRules>
-                                        <validations:Email ValidatesOnTargetUpdated="True"/>
+                                        <validations:NotNull ValidatesOnTargetUpdated="True"/>
                                     </Binding.ValidationRules>
                                 </Binding>
-                            </TextBox.Text>
-                        </TextBox>
+                            </DatePicker.SelectedDate>
+                        </DatePicker>
                     </Grid>
 
                     <Grid Margin="60,0,0,0">
@@ -446,34 +470,40 @@
                 <StackPanel Orientation="Horizontal" Margin="0,22,0,0">
                     <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left"
                                Margin="0,0,90,0">
-                        *Fecha de nacimiento
+                        *Correo eléctronico
                     </TextBlock>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
                     <Grid Margin="0,0,0,0">
-                        <Border Background="{x:Null}" CornerRadius="5" Width="290" Height="35" HorizontalAlignment="Left"
+                        <Border Background="{x:Null}" CornerRadius="5" Width="690" Height="35" HorizontalAlignment="Left"
                                 BorderBrush="#8D8D8D" BorderThickness="1" Grid.ColumnSpan="2"/>
-                        <DatePicker Width="290" Foreground="#000"
-                                    Height="35" Padding="6" FontFamily="Tw Cen MT" FontSize="15" HorizontalAlignment="Left"
-                                    BorderBrush="#000" materialDesign:HintAssist.Hint="Ingresar fecha" Cursor="Hand"
-                                    materialDesign:HintAssist.HelperText="Establece una fecha" IsEnabled="False" 
-                                    materialDesign:HintAssist.HelperTextFontSize="13" Background="Transparent"
-                                    Name="DateOfBirthDatePicker">
-                            <DatePicker.SelectedDate>
-                                <Binding Path="DateOfBirth" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                        <TextBox materialDesign:HintAssist.HelperText="Correo eléctronico del empleado"  
+                                  materialDesign:HintAssist.Hint="Ingresa el correo eléctronico del empleado" 
+                                  HorizontalAlignment="Left" materialDesign:TextFieldAssist.HasClearButton="True"
+                                  Width="690" Height="35" Padding="6" VerticalContentAlignment="Center"
+                                  FontFamily="Tw Cen MT" FontSize="15" BorderBrush="#000" Foreground="#000" 
+                                  Background="Transparent" BorderThickness="0.01"
+                                  materialDesign:HintAssist.FloatingOffset="0,0" 
+                                  materialDesign:HintAssist.HelperTextFontSize="13"
+                                  materialDesign:HintAssist.Background="Transparent" 
+                                  materialDesign:HintAssist.Foreground="Transparent"                         
+                                  Name="CustomerEmailTextBox" Grid.ColumnSpan="2">
+
+                            <TextBox.Text>
+                                <Binding Path="Email" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
                                     <Binding.ValidationRules>
-                                        <validations:NotNull ValidatesOnTargetUpdated="True"/>
+                                        <validations:Email ValidatesOnTargetUpdated="True"/>
                                     </Binding.ValidationRules>
                                 </Binding>
-                            </DatePicker.SelectedDate>
-                        </DatePicker>
+                            </TextBox.Text>
+                        </TextBox>
                     </Grid>
                 </StackPanel>
 
-                <StackPanel Orientation="Horizontal" Margin="290,35,0,0">
+                <StackPanel Orientation="Horizontal" Margin="290,50,0,0" HorizontalAlignment="Left">
                     <TextBlock FontFamily="Tw Cen MT" FontSize="32" Foreground="#000" VerticalAlignment="Top" HorizontalAlignment="Center"
-                       Margin="0,-38,0,0" Name="AddressHeaderTextBlock">
+                       Margin="0,-38,0,0" Name="AddressHeaderTextBlock" >
                         Dirección
                     </TextBlock>
                 </StackPanel>
@@ -481,11 +511,11 @@
                 <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
                     <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left" 
                                Margin="0,0,220,0">
-                        *Calle
+                        Calle*
                     </TextBlock>
                     <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left"
                                Margin="0,0,65,0">
-                        *Número exterior
+                        Número exterior*
                     </TextBlock>
                     <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left">
                         Número interior
@@ -564,14 +594,14 @@
                 <StackPanel Orientation="Horizontal" Margin="0,29,0,0">
                     <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left" 
                                Margin="0,0,200,0">
-                        *Colonia
+                        Colonia*
                     </TextBlock>
                     <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left"
                                Margin="0,0,145,0">
-                        *Ciudad
+                        Ciudad*
                     </TextBlock>
                     <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left">
-                        *Código postal
+                        Código postal*
                     </TextBlock>
                 </StackPanel>
 
@@ -650,101 +680,207 @@
                             </TextBox.Text>
                         </TextBox>
                     </Grid>
+
                 </StackPanel>
 
-                <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
-                    <Button VerticalAlignment="Bottom" materialDesign:ButtonAssist.CornerRadius="8"
-                                Height="32" Margin="10,35,0,0" Width="222" BorderBrush="{x:Null}" Background="#2C2C2E"
-                                Name="AddAddressButton" Click="AddAddress">
-                        <StackPanel Orientation="Horizontal">
-                            <fa5:ImageAwesome Icon="Solid_HouseUser" Height="13" Width="13" Foreground="#FFF" VerticalAlignment="Center" 
-                                          ToolTip="Agregar paso" Margin="0,0,4px,0"/>
-                            <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" HorizontalAlignment="Left">
-                                    Agregar dirección
-                            </TextBlock>
-                        </StackPanel>
+                <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left" 
+                               Margin="0,25px,0,0">
+                        Lista de direcciones*
+                </TextBlock>
 
-                        <Button.Style>
-                            <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedDarkButton}">
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding ElementName=StreetNameTextBox, 
-                                                     Path=(Validation.HasError)}" Value="True">
-                                        <Setter Property="IsEnabled" Value="False"/>
-                                    </DataTrigger>
+                <StackPanel Orientation="Horizontal" Background="Transparent" Margin="0,-15px,0,0" Width="560px" HorizontalAlignment="Left" 
+                            Height="120px">
+                    <StackPanel Orientation="Vertical" Margin="0,0,0,0" Height="95px"  Width="100px" HorizontalAlignment="Left" Background="Transparent"
+                                VerticalAlignment="Bottom">
+                        <Button VerticalAlignment="Center" materialDesign:ButtonAssist.CornerRadius="8"  HorizontalAlignment="Left"
+                                Margin="0,0,0,0" Width="100" Height="40px" BorderBrush="{x:Null}" Background="#2C2C2E"
+                                    Name="AddAddressButton" Click="AddAddress">
+                            <Grid Margin="10px,-5px,0,0">
+                                <fa5:ImageAwesome Icon="Solid_HouseUser" Height="13" Width="13" Foreground="#FFF" VerticalAlignment="Center" 
+                                              ToolTip="Agregar dirreción" Margin="-70px,0px,0,0"/>
+                                <TextBlock FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF"
+                                           TextWrapping="Wrap" TextAlignment="Center">
+                                        Agregar                                
+                                        dirección
+                                </TextBlock>
+                            </Grid>
 
-                                    <DataTrigger Binding="{Binding ElementName=OutsideNumberTextBox, 
-                                                     Path=(Validation.HasError)}" Value="True">
-                                        <Setter Property="IsEnabled" Value="False"/>
-                                    </DataTrigger>
+                            <Button.Style>
+                                <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedDarkButton}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ElementName=StreetNameTextBox, 
+                                                         Path=(Validation.HasError)}" Value="True">
+                                            <Setter Property="IsEnabled" Value="False"/>
+                                        </DataTrigger>
 
-                                    <DataTrigger Binding="{Binding ElementName=InsideNumberTextBox, 
-                                                     Path=(Validation.HasError)}" Value="True">
-                                        <Setter Property="IsEnabled" Value="False"/>
-                                    </DataTrigger>
+                                        <DataTrigger Binding="{Binding ElementName=OutsideNumberTextBox, 
+                                                         Path=(Validation.HasError)}" Value="True">
+                                            <Setter Property="IsEnabled" Value="False"/>
+                                        </DataTrigger>
 
-                                    <DataTrigger Binding="{Binding ElementName=ColonyTextBox, 
-                                                     Path=(Validation.HasError)}" Value="True">
-                                        <Setter Property="IsEnabled" Value="False"/>
-                                    </DataTrigger>
+                                        <DataTrigger Binding="{Binding ElementName=InsideNumberTextBox, 
+                                                         Path=(Validation.HasError)}" Value="True">
+                                            <Setter Property="IsEnabled" Value="False"/>
+                                        </DataTrigger>
 
-                                    <DataTrigger Binding="{Binding ElementName=CityTextBox, 
-                                                     Path=(Validation.HasError)}" Value="True">
-                                        <Setter Property="IsEnabled" Value="False"/>
-                                    </DataTrigger>
+                                        <DataTrigger Binding="{Binding ElementName=ColonyTextBox, 
+                                                         Path=(Validation.HasError)}" Value="True">
+                                            <Setter Property="IsEnabled" Value="False"/>
+                                        </DataTrigger>
 
-                                    <DataTrigger Binding="{Binding ElementName=PostalCodeTextBox, 
-                                                     Path=(Validation.HasError)}" Value="True">
-                                        <Setter Property="IsEnabled" Value="False"/>
-                                    </DataTrigger>
+                                        <DataTrigger Binding="{Binding ElementName=CityTextBox, 
+                                                         Path=(Validation.HasError)}" Value="True">
+                                            <Setter Property="IsEnabled" Value="False"/>
+                                        </DataTrigger>
 
-                                </Style.Triggers>
-                            </Style>
-                        </Button.Style>
-                    </Button>
+                                        <DataTrigger Binding="{Binding ElementName=PostalCodeTextBox, 
+                                                         Path=(Validation.HasError)}" Value="True">
+                                            <Setter Property="IsEnabled" Value="False"/>
+                                        </DataTrigger>
 
-                    <Button VerticalAlignment="Bottom" Background="#2C2C2E" materialDesign:ButtonAssist.CornerRadius="8"
-                                Height="32" Margin="10,35,0,0" Width="222" BorderBrush="{x:Null}"
-                                Name="DeleteAddressButton" Click="DeleteAddress" IsEnabled="False">
-                        <StackPanel Orientation="Horizontal">
-                            <fa5:ImageAwesome Icon="Solid_Trash" Height="13" Width="13" Foreground="#FFF" VerticalAlignment="Center" 
-                                          ToolTip="Agregar paso" Margin="0,0,4px,0"/>
-                            <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" HorizontalAlignment="Left">
-                                    Eliminar dirección
-                            </TextBlock>
-                        </StackPanel>
-                    </Button>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+
+                        <Button Background="#2C2C2E" materialDesign:ButtonAssist.CornerRadius="8" HorizontalAlignment="Left"
+                                    Height="40px" Margin="0,15px,0,0" Width="100px" BorderBrush="{x:Null}"
+                                    Name="DeleteAddressButton" Click="DeleteAddress" IsEnabled="False">
+                            <Grid Margin="10px,-1px,0,0">
+                                <fa5:ImageAwesome Icon="Solid_Trash" Height="13" Width="13" Foreground="#FFF" VerticalAlignment="Center" 
+                                              ToolTip="Eliminar dirección" Margin="-70px,0px,0,0"/>
+                                <TextBlock FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF"
+                                           TextWrapping="Wrap" TextAlignment="Center">
+                                        Eliminar                                
+                                        dirección
+                                </TextBlock>
+                            </Grid>
+                        </Button>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
+                        <Grid>
+                            <Border Width="450px" Height="95px" Background="Transparent" BorderBrush="#5B5B5B" BorderThickness="0.7"
+                                    CornerRadius="5" x:Name="AddressesBorder" HorizontalAlignment="Left" Margin="5px,0,0,0"
+                                    VerticalAlignment="Bottom"/>
+                            <ListBox ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Visible"
+                                     ScrollViewer.CanContentScroll="True" Width="450px" Height="95px" Background="Transparent"
+                                     Name="AddressListBox" VerticalAlignment="Bottom" ItemsSource="{Binding}">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#000" HorizontalAlignment="Left"
+                                                           TextAlignment="Justify" Text="{Binding StreetName}"/>
+
+                                                <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#000" HorizontalAlignment="Left"
+                                                           TextAlignment="Justify" Text=" #" Margin="0,0,0,0"/>
+
+                                                <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#000" HorizontalAlignment="Left"
+                                                           TextAlignment="Justify" Text="{Binding OutsideNumber}" Margin="0,0,0,0"/>
+
+                                                <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#000" HorizontalAlignment="Left"
+                                                           TextAlignment="Justify" Text=" Ext#" Margin="0,0,0,0"/>
+
+                                                <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#000" HorizontalAlignment="Left"
+                                                           TextAlignment="Justify" Text="{Binding InsideNumber}" Margin="0,0,0,0"/>
+
+                                                <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#000" HorizontalAlignment="Left"
+                                                           TextAlignment="Justify" Text=" Col. "/>
+
+                                                <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#000" HorizontalAlignment="Left"
+                                                           TextAlignment="Justify" Text="{Binding Colony}" Margin="0,0,0,0"/>
+
+                                                <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#000" HorizontalAlignment="Left"
+                                                           TextAlignment="Justify" Text=", CP " Margin="0,0,0,0"/>
+
+                                                <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#000" HorizontalAlignment="Left"
+                                                           TextAlignment="Justify" Text="{Binding PostalCode}" Margin="0,0,0,0"/>
+
+                                                <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#000" HorizontalAlignment="Left"
+                                                           TextAlignment="Justify" Text=", " Margin="0,0,0,0"/>
+
+                                                <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#000" HorizontalAlignment="Left"
+                                                           TextAlignment="Justify" Text="{Binding City}" Margin="0,0,0,0"/>
+                                            </StackPanel>
+                                        </Grid>
+
+                                        <!--<TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#000" HorizontalAlignment="Left"
+                                                   TextWrapping="Wrap" TextAlignment="Justify" Text="{Binding Path=.}"
+                                                   Width="396"/>-->
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </Grid>
+                    </StackPanel>
                 </StackPanel>
-
-                <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
-                    <Grid>
-                        <Border Width="475" Height="84" Background="Transparent" BorderBrush="#5B5B5B" BorderThickness="0.7"
-                                CornerRadius="5" x:Name="AddressesBorder"/>
-                        <ListBox ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                                 ScrollViewer.CanContentScroll="False" Width="475" Height="80" Background="Transparent"
-                                 Name="AddressListBox">
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-                                    <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#000" HorizontalAlignment="Left"
-                                               TextWrapping="Wrap" TextAlignment="Justify" Text="{Binding Path=.}"
-                                               Width="396"/>
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>
-                    </Grid>
-                </StackPanel>
-
             </StackPanel>
 
             <!--Buttons Register-->
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,0,70">
                 <Button Width="120" Margin="0,0,28,0" materialDesign:ButtonAssist.CornerRadius="8" Height="40"
                         Background="#2C2C2E" BorderBrush="{x:Null}" Visibility="Hidden"
-                        Name="AcceptButton" Click="ShowConfirmationToast" >
+                        Name="AcceptButton" Click="SaveRegisterOrUpdateCustomer">
                     <StackPanel Orientation="Horizontal">
-                        <fa5:ImageAwesome Icon="Solid_Pen" Height="13" Width="13" Foreground="#FFF" VerticalAlignment="Center" 
+                        <fa5:ImageAwesome Icon="Solid_Check" Height="13" Width="13" Foreground="#FFF" VerticalAlignment="Center" 
                                           Margin="0,0,4px,0"/>
                         <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" HorizontalAlignment="Left"
                                    Name="AcceptButtonTextBlock">
+                            Aceptar
+                        </TextBlock>
+                    </StackPanel>
+
+                    <Button.Style>
+                        <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedDarkButton}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=CustomerNameTextBox, 
+                                                     Path=(Validation.HasError)}" Value="True">
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                </DataTrigger>
+
+                                <DataTrigger Binding="{Binding ElementName=CustomerLastNameTextBox, 
+                                                     Path=(Validation.HasError)}" Value="True">
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                </DataTrigger>
+
+                                <DataTrigger Binding="{Binding ElementName=CustomerEmailTextBox, 
+                                                     Path=(Validation.HasError)}" Value="True">
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                </DataTrigger>
+
+                                <DataTrigger Binding="{Binding ElementName=CustomerPhoneTextBox, 
+                                                     Path=(Validation.HasError)}" Value="True">
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                </DataTrigger>
+
+                                <DataTrigger Binding="{Binding ElementName=DateOfBirthDatePicker, 
+                                                     Path=(Validation.HasError)}" Value="True">
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                </DataTrigger>
+
+                                <DataTrigger Binding="{Binding ElementName=AddressListBox, 
+                                                     Path=(Validation.HasError)}" Value="True">
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                </DataTrigger>
+
+                                <DataTrigger Binding="{Binding ElementName=DeleteAddressButton, 
+                                                     Path=IsEnabled}" Value="False">
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+
+
+                <Button Width="120" Margin="0,0,28,0" materialDesign:ButtonAssist.CornerRadius="8" Height="40"
+                        Background="#2C2C2E" BorderBrush="{x:Null}" Visibility="Collapsed"
+                        Name="SaveButton" Click="SaveRegisterOrUpdateCustomer">
+                    <StackPanel Orientation="Horizontal">
+                        <fa5:ImageAwesome Icon="Solid_Save" Height="13" Width="13" Foreground="#FFF" VerticalAlignment="Center" 
+                                          Margin="0,0,4px,0"/>
+                        <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" HorizontalAlignment="Left"
+                                   >
                             Guardar
                         </TextBlock>
                     </StackPanel>
@@ -782,6 +918,10 @@
                                     <Setter Property="IsEnabled" Value="False"/>
                                 </DataTrigger>
 
+                                <DataTrigger Binding="{Binding ElementName=DeleteAddressButton, 
+                                                     Path=IsEnabled}" Value="False">
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                </DataTrigger>
                             </Style.Triggers>
                         </Style>
                     </Button.Style>
@@ -852,7 +992,7 @@
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,15,0,0">
                     <Button Width="90" materialDesign:ButtonAssist.CornerRadius="8" Background="#2C2C2E" BorderBrush="{x:Null}"
-                            Height="30" Click="ShowConfirmationToast">
+                            Height="30" Click="AcceptDeleteConfirmationButton">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock FontFamily="Tw Cen MT" FontSize="15" Foreground="#FFF">
                             Aceptar
@@ -874,12 +1014,160 @@
         <!--#endregion-->
         <!--#endregion-->
 
-
-
         <!--#region Process Confirmation-->
         <notifications:NotificationArea x:Name="ConfirmationToast" Position="BottomRight" MaxItems="3"
                                     notifications:Notification.CloseOnClick="false" Margin="0,0,15,50"/>
         <!--#endregion-->
 
+        <Border Background="#fff" Height="650px" Width="500px" Margin="0,-37px,0,0" CornerRadius="10" Name="SeventhLayerBorder" Visibility="Hidden"/>
+        <Grid Background="Transparent" Height="650px" Width="500px" Margin="0,-37px,0,0" Name="CustomerViewGrid" Visibility="Hidden">
+
+            <StackPanel Orientation="Vertical">
+                <Grid>
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock FontFamily="Tw Cen MT" FontSize="50" Foreground="#000" VerticalAlignment="Top" HorizontalAlignment="Center"
+                               Margin="0,0,0,0">
+                            Cliente
+                        </TextBlock>
+                        <TextBlock FontFamily="Tw Cen MT" FontSize="13" Foreground="#8D8D8D" HorizontalAlignment="Center"
+                               Margin="0,-2px,0,0">
+                                Información detallada
+                        </TextBlock>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,4px,5px,0" Background="Transparent"
+                        Cursor="Hand" Width="51" Height="20" VerticalAlignment="Top" 
+                        Style="{StaticResource StackPanelHoverStyle}" MouseLeftButtonUp="ExitDetailedInformation">
+                        <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#000" HorizontalAlignment="Left"
+                                   materialDesign:TextFieldAssist.UnderlineBrush="Pink">                            
+                            Salir
+                        </TextBlock>
+                        <materialDesign:PackIcon Kind="Close" Foreground="#000" Width="20" Height="20"/>
+                    </StackPanel>
+                </Grid>
+
+
+                <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left" Margin="40px,0,0,0">                        
+                    <Grid>
+                        <TextBlock Text="Nombre" Margin="20px,0,0,0"/>
+                        <fa5:ImageAwesome Icon="Solid_Heart" Height="15" Width="15" Foreground="#000" VerticalAlignment="Center"
+                                          HorizontalAlignment="Left"
+                                          Margin="0,0,0,0"/>
+                    </Grid>
+                </TextBlock>
+                <Grid>
+                    <Border Background="{x:Null}" CornerRadius="5,5,0,0" Width="420px" Height="35" HorizontalAlignment="Center"
+                                BorderBrush="#8D8D8D" BorderThickness="1,1,1,0"/>
+                    <TextBox x:Name="CustomerNameViewTextBox"
+                             IsEnabled="False"
+                             HorizontalAlignment="Center" 
+                             Width="420" Height="35" Padding="6" VerticalContentAlignment="Center"
+                             FontFamily="Tw Cen MT" FontSize="15" BorderBrush="#000" Foreground="#000" 
+                             Background="Transparent"  
+                             materialDesign:HintAssist.HelperTextFontSize="13" />
+                </Grid>
+
+                <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left" Margin="40px,15px,0,0">
+                        <fa5:ImageAwesome Icon="Solid_Heart" Height="15" Width="15" Foreground="#000" VerticalAlignment="Center"
+                                          HorizontalAlignment="Left"
+                                          Margin="0,0,0,0"/>
+                        <TextBlock Text="Apellido" Margin="0,0,0,0"/>
+                </TextBlock>
+                <Grid>
+                    <Border Background="{x:Null}" CornerRadius="5,5,0,0" Width="420px" Height="35" HorizontalAlignment="Center"
+                                BorderBrush="#8D8D8D" BorderThickness="1,1,1,0"/>
+                    <TextBox x:Name="CustomerLastNameViewTextBox"
+                             IsEnabled="False"
+                             HorizontalAlignment="Center" 
+                             Width="420" Height="35" Padding="6" VerticalContentAlignment="Center"
+                             FontFamily="Tw Cen MT" FontSize="15" BorderBrush="#000" Foreground="#000" 
+                             Background="Transparent"  
+                             materialDesign:HintAssist.HelperTextFontSize="13" />
+                </Grid>
+
+                <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left" Margin="40px,15px,0,0">
+                        <materialDesign:PackIcon Kind="Email" Height="17" Width="17" Foreground="#000" VerticalAlignment="Center"
+                                          HorizontalAlignment="Left"
+                                          Margin="0,0,0,0"/>
+                        <TextBlock Text="Correo eléctronico" Margin="0,0,0,0"/>
+                </TextBlock>
+                <Grid>
+                    <Border Background="{x:Null}" CornerRadius="5,5,0,0" Width="420px" Height="35" HorizontalAlignment="Center"
+                                BorderBrush="#8D8D8D" BorderThickness="1,1,1,0"/>
+                    <TextBox x:Name="CustomerEmailViewTextBox"
+                             IsEnabled="False"
+                             HorizontalAlignment="Center" 
+                             Width="420" Height="35" Padding="6" VerticalContentAlignment="Center"
+                             FontFamily="Tw Cen MT" FontSize="15" BorderBrush="#000" Foreground="#000" 
+                             Background="Transparent"  
+                             materialDesign:HintAssist.HelperTextFontSize="13" />
+                </Grid>
+
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left" Margin="40px,15px,0,0">
+                            <fa5:ImageAwesome Icon="Solid_Phone" Height="15" Width="15" Foreground="#000" VerticalAlignment="Center"
+                                          HorizontalAlignment="Left"
+                                          Margin="0,0,0,0"/>
+                            <TextBlock Text="Teléfono" Margin="0,0,0,0"/>
+                        </TextBlock>
+                        <Grid>
+                            <Border Background="{x:Null}" CornerRadius="5,5,0,0" Width="190px" Height="35" HorizontalAlignment="Left" Margin="40px,0,40px,0"
+                                BorderBrush="#8D8D8D" BorderThickness="1,1,1,0"/>
+                            <TextBox x:Name="CustomerPhoneViewTextBox"
+                                     IsEnabled="False"
+                                     HorizontalAlignment="Center" 
+                                     Width="200px" Height="35" Padding="6" VerticalContentAlignment="Center"
+                                     FontFamily="Tw Cen MT" FontSize="15" BorderBrush="#000" Foreground="#000" 
+                                     Background="Transparent"  
+                                     materialDesign:HintAssist.HelperTextFontSize="13" />
+                        </Grid>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left" Margin="-10px,15px,0,0">
+                            <fa5:ImageAwesome Icon="Solid_BirthdayCake" Height="15" Width="15" Foreground="#000" VerticalAlignment="Center"
+                                          HorizontalAlignment="Left"
+                                          Margin="0,0,0,0"/>
+                            <TextBlock Text="Fecha de Nacimiento" Margin="0,0,0,0"/>
+                        </TextBlock>
+                        <Grid>
+                            <Border Background="{x:Null}" CornerRadius="5,5,0,0" Width="190px" Height="35" HorizontalAlignment="Left"
+                                BorderBrush="#8D8D8D" BorderThickness="1,1,1,0"/>
+                            <DatePicker Name="CustomerViewDatePicker"
+                                         IsEnabled="False"
+                                         HorizontalAlignment="Center" 
+                                         Width="190px" Height="35" Padding="6" VerticalContentAlignment="Center"
+                                         FontFamily="Tw Cen MT" FontSize="15" BorderBrush="#000" Foreground="#000" 
+                                         Background="Transparent"  
+                                         materialDesign:HintAssist.HelperTextFontSize="13" />
+                        </Grid>
+                    </StackPanel>
+                </StackPanel>
+
+                <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left" Margin="40px,15px,0,0">
+                        <fa5:ImageAwesome Icon="Solid_Home" Height="17" Width="17" Foreground="#000" VerticalAlignment="Center"
+                                          HorizontalAlignment="Left"
+                                          Margin="0,0,0,0"/>
+                        <TextBlock Text="Direcciones" Margin="0,0,0,0"/>
+                </TextBlock>
+
+                <Grid>
+                    <Border Background="Transparent" Height="240px" HorizontalAlignment="Center" Width="420px" CornerRadius="5" 
+                            BorderBrush="#8D8D8D" BorderThickness="1"/>
+                    <ListBox ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Visible"
+                             ScrollViewer.CanContentScroll="True" Width="420px" Height="240px" Background="Transparent"
+                             VerticalAlignment="Bottom" ItemsSource="{Binding}" Name="AdressesViewListBox">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#000" HorizontalAlignment="Left"
+                                               TextWrapping="Wrap" TextAlignment="Justify" Text="{Binding Path=.}"
+                                               Width="396"/>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Page>

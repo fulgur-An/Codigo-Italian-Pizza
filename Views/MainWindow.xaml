@@ -63,10 +63,11 @@
                     <TextBlock Foreground="#FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center" 
                                Margin="0,20px,0,0" FontFamily="Trebuchet MS" FontSize="15" 
                                Name="UserLoggedInTextBlock">
-                        Username del Empleado
+                        José Daniel Camarillo Villa
                     </TextBlock>
                     <TextBlock Foreground="#FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center" 
-                               Margin="0,2px,0,0" FontFamily="Trebuchet MS" FontSize="15" Opacity="0.5">                    
+                               Margin="0,2px,0,0" FontFamily="Trebuchet MS" FontSize="15" Opacity="0.5"
+                               Name="EmployeeRoleTextBlock">                    
                         Puesto
                     </TextBlock>
                 </StackPanel>
