@@ -4,6 +4,21 @@
     "C:\\Users\\Propietario\\Desktop\\Codigo-Italian-Pizza\\ItalianPizza.csproj": {}
   },
   "projects": {
+    "C:\\Users\\Propietario\\Desktop\\Backend\\BackendItalianPizza.csproj": {
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Propietario\\Desktop\\Backend\\BackendItalianPizza.csproj",
+        "projectName": "BackendItalianPizza",
+        "projectPath": "C:\\Users\\Propietario\\Desktop\\Backend\\BackendItalianPizza.csproj",
+        "frameworks": {
+          "net472": {
+            "projectReferences": {}
+          }
+        }
+      },
+      "frameworks": {
+        "net472": {}
+      }
+    },
     "C:\\Users\\Propietario\\Desktop\\Codigo-Italian-Pizza\\ItalianPizza.csproj": {
       "version": "1.0.0",
       "restore": {
@@ -33,20 +48,31 @@
         },
         "frameworks": {
           "net472": {
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\Users\\Propietario\\Desktop\\Backend\\BackendItalianPizza.csproj": {
+                "projectPath": "C:\\Users\\Propietario\\Desktop\\Backend\\BackendItalianPizza.csproj"
+              },
+              "C:\\Users\\Propietario\\Desktop\\ServerItalianPizza\\ServerItalianPizza.csproj": {
+                "projectPath": "C:\\Users\\Propietario\\Desktop\\ServerItalianPizza\\ServerItalianPizza.csproj"
+              }
+            }
           }
         }
       },
       "frameworks": {
         "net472": {
           "dependencies": {
+            "EntityFramework": {
+              "target": "Package",
+              "version": "[6.4.4, )"
+            },
             "FontAwesome5": {
               "target": "Package",
               "version": "[2.1.6, )"
             },
             "MaterialDesignThemes": {
               "target": "Package",
-              "version": "[4.4.0, )"
+              "version": "[4.5.0, )"
             },
             "Microsoft.Toolkit.Uwp.Notifications": {
               "target": "Package",
@@ -73,6 +99,25 @@
         "win-x86": {
           "#import": []
         }
+      }
+    },
+    "C:\\Users\\Propietario\\Desktop\\ServerItalianPizza\\ServerItalianPizza.csproj": {
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Propietario\\Desktop\\ServerItalianPizza\\ServerItalianPizza.csproj",
+        "projectName": "ServerItalianPizza",
+        "projectPath": "C:\\Users\\Propietario\\Desktop\\ServerItalianPizza\\ServerItalianPizza.csproj",
+        "frameworks": {
+          "net472": {
+            "projectReferences": {
+              "C:\\Users\\Propietario\\Desktop\\Backend\\BackendItalianPizza.csproj": {
+                "projectPath": "C:\\Users\\Propietario\\Desktop\\Backend\\BackendItalianPizza.csproj"
+              }
+            }
+          }
+        }
+      },
+      "frameworks": {
+        "net472": {}
       }
     }
   }

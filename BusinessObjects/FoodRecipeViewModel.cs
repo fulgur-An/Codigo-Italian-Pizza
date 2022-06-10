@@ -9,11 +9,16 @@ namespace ItalianPizza.BusinessObjects
 {
    public class FoodRecipeViewModel
    {
+        public int IdFoodRecipe { get; set; }
         public string Name { get; set; }
         public string Portions { get; set; }
         public string Price { get; set; }
         public string Description { get; set; }
         public string IngredientName { get; set; }
         public string QuantityItem { get; set; }
+        public string Ingredients { get; set; }
+        public string CustomerName { get; set; }
+
+        public int IdOrder { get; set; }
     }
 }

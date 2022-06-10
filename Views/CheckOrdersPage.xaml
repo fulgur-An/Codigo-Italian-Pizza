@@ -100,7 +100,7 @@
                         <fa5:ImageAwesome Icon="Solid_Heart" Height="21" Width="21" Foreground="#FFF" VerticalAlignment="Center" 
                                           Margin="0,0,10,0"/>
                         <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" VerticalAlignment="Center">
-                            Cliente
+                            ID pedido / Cliente
                         </TextBlock>
                     </StackPanel>
                 </Grid>
@@ -141,76 +141,89 @@
             <!--#region Table body-->
             <Border Background="#5B5B5B" Height="350" Width="709" Margin="0,110,0,-100" CornerRadius="0,0,5,5" 
                 Opacity="0"/>
-            <ListBox Height="350" Width="709" Margin="0,110,0,-100" HorizontalAlignment="Center">
-                <ListBoxItem BorderBrush="#CFCFCF" BorderThickness="0,0,0,0.5">
-                    <StackPanel Orientation="Horizontal" Height="35" Width="709" Cursor="Hand" Background="Transparent">
-                        <Grid Width="250">
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-                                <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" TextWrapping="Wrap">
-                                José Daniel Camarillo Villa
-                                </TextBlock>
-                            </StackPanel>
-                        </Grid>
+            <ListBox Height="350" Width="709" Margin="0,110,0,-100" HorizontalAlignment="Center" Name="OrderListBox" ItemsSource="{Binding}">
 
-                        <Grid Width="229.5">
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-                                <TextBlock FontFamily="Tw Cen MT" FontSize="16" Foreground="#FFF" TextWrapping="Wrap">
-                                13 de Abril de 2022 6:20 PM
-                                </TextBlock>
-                            </StackPanel>
-                        </Grid>
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="BorderThickness" Value="0,0,0,1px" />
+                        <Setter Property="BorderBrush" Value="#CFCFCF" />
+                    </Style>
+                </ListBox.ItemContainerStyle>
+                
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <materialDesign:TransitioningContent OpeningEffectsOffset="{materialDesign:IndexedItemOffsetMultiplier 0:0:0.05}">
+                            <materialDesign:TransitioningContent.OpeningEffects>
+                                <materialDesign:TransitionEffect Kind="SlideInFromRight"/>
+                            </materialDesign:TransitioningContent.OpeningEffects>
+                            <StackPanel Orientation="Horizontal" Height="35" Width="709" Cursor="Hand" Background="Transparent" Margin="0,0,0,10px">
+                                <Grid Width="250">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                        <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" TextWrapping="Wrap">
+                                            <TextBlock.Text>
+                                                <MultiBinding StringFormat="{}{0}/{1}">
+                                                    <Binding Path="IdOrder" />
+                                                    <Binding Path="CustomerFullName" />
+                                                </MultiBinding>
+                                            </TextBlock.Text>
+                                        </TextBlock>
+                                    </StackPanel>
+                                </Grid>
 
-                        <Grid Width="114.5">
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-                                <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" TextWrapping="Wrap">
-                                En proceso
-                                </TextBlock>
-                            </StackPanel>
-                        </Grid>
+                                <Grid Width="229.5" Margin="10px,0,0,0">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                        <TextBlock FontFamily="Tw Cen MT" FontSize="16" Foreground="#FFF" TextWrapping="Wrap"
+                                                   Text="{Binding Date}">
+                                        </TextBlock>
+                                    </StackPanel>
+                                </Grid>
 
-                        <Grid Width="114.5" Background="Transparent">
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,14,0">
-                                <Button materialDesign:ButtonAssist.CornerRadius="5" Background="#5B5B5B" BorderBrush="{x:Null}"
-                                        Visibility="Visible" Margin="0,0,10,0" ToolTip="Visualizar pedido" Click="ShowSpecificOrderInformation"
-                                        Padding="4,0,4,0" HorizontalAlignment="Center">
+                                <Grid Width="114.5">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                        <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" TextWrapping="Wrap"
+                                                   Text="{Binding Status}">
+                                        </TextBlock>
+                                    </StackPanel>
+                                </Grid>
 
-                                    <fa5:ImageAwesome Icon="Solid_Eye" Height="18" Width="18" Foreground="#FFF" VerticalAlignment="Center" 
+                                <Grid Width="114.5" Background="Transparent" Margin="-10px,0,0,0">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,14,0">
+
+                                        <Grid>
+                                            <Border Background="#5B5B5B" Height="32px" CornerRadius="5" MouseLeftButtonUp="ShowSpecificOrderInformation"/>
+                                            <Grid Visibility="Visible" Margin="0,0,0,0" ToolTip="Visualizar pedido" MouseLeftButtonUp="ShowSpecificOrderInformation"
+                                                  HorizontalAlignment="Center"  Height="32px" Width="23px">
+
+                                                <fa5:ImageAwesome Icon="Solid_Eye" Height="18" Width="18" Foreground="#FFF" VerticalAlignment="Center" 
                                                       Margin="0,0,0,0"/>
-                                </Button>
-                                
-                                
-                                <Button materialDesign:ButtonAssist.CornerRadius="5" Background="#5B5B5B" BorderBrush="{x:Null}"
-                                        Visibility="Visible" Margin="0,0,10,0" ToolTip="Actualizar pedido" Click="ShowOrderUpdateDialog"
-                                        Padding="4,0,4,0" HorizontalAlignment="Center">
+                                            </Grid>
+                                        </Grid>
 
-                                    <fa5:ImageAwesome Icon="Solid_Pen" Height="18" Width="18" Foreground="#FFF" VerticalAlignment="Center" 
+                                        <Grid Margin="5px,0,5px,0">
+                                            <Border Background="#5B5B5B" Height="32px" CornerRadius="5" />
+                                            <Grid Visibility="Visible" Margin="0,0,0,0" ToolTip="Actualizar pedido" 
+                                          HorizontalAlignment="Center" Height="32px" Width="23px">
+
+                                                <fa5:ImageAwesome Icon="Solid_Pen" Height="18" Width="18" Foreground="#FFF" VerticalAlignment="Center" 
                                                       Margin="0,0,0,0"/>
-                                </Button>
+                                            </Grid>
+                                        </Grid>
 
-                                <Button materialDesign:ButtonAssist.CornerRadius="5" Background="#5B5B5B" BorderBrush="{x:Null}"
-                                        Visibility="Visible" Margin="0,0,0,0" ToolTip="Cancelar pedido"
-                                        Padding="4,0,4,0" HorizontalAlignment="Center" Click="ShowOrderCancellationDialog">
+                                        <Grid>
+                                            <Border Background="#5B5B5B" Height="32px" CornerRadius="5" MouseLeftButtonUp="ShowOrderCancellationDialog"/>
+                                            <Grid Visibility="Visible" Margin="0,0,0,0" ToolTip="Cancelar pedido" MouseLeftButtonUp="ShowOrderCancellationDialog"
+                                          HorizontalAlignment="Center" Height="32px" Width="23px">
 
-                                    <fa5:ImageAwesome Icon="Solid_Trash" Height="18" Width="18" Foreground="#FFF" VerticalAlignment="Center" 
+                                                <fa5:ImageAwesome Icon="Solid_Trash" Height="18" Width="18" Foreground="#FFF" VerticalAlignment="Center" 
                                                       Margin="0,0,0,0"/>
-                                </Button>
+                                            </Grid>
+                                        </Grid>
+                                    </StackPanel>
+                                </Grid>
                             </StackPanel>
-                        </Grid>
-                    </StackPanel>
-                </ListBoxItem>
-
-                <!--<ListBox.ItemTemplate>
-                <DataTemplate>
-                    <materialDesign:TransitioningContent OpeningEffectsOffset="{materialDesign:IndexedItemOffsetMultiplier 0:0:0.05}">
-                        <materialDesign:TransitioningContent.OpeningEffects>
-                            <materialDesign:TransitionEffect Kind="SlideInFromRight"/>
-                        </materialDesign:TransitioningContent.OpeningEffects>                        
-                       <Stackpanel>
-                            
-                        </Stackpanel>           
-                    </materialDesign:TransitioningContent>
-                </DataTemplate>
-            </ListBox.ItemTemplate>-->
+                        </materialDesign:TransitioningContent>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
             </ListBox>
             <!--#endregion-->
         </Grid>
@@ -496,7 +509,7 @@
                                       materialDesign:HintAssist.HelperTextFontSize="13"
                                       materialDesign:HintAssist.Background="Transparent" 
                                       materialDesign:HintAssist.Foreground="Transparent"
-                                      Name="CustomerNameComboBox">
+                                      Name="CustomerNameComboBox" SelectionChanged="FilterSelectedCustomerAddresses">
 
                                     <ComboBox.Text>
                                         <Binding Path="CustomerName" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
@@ -506,7 +519,18 @@
                                         </Binding>
                                     </ComboBox.Text>
 
-                                    <ComboBoxItem>José Daniel Camarillo Villa</ComboBoxItem>
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock>
+                                                <TextBlock.Text>
+                                                    <MultiBinding StringFormat="{}{0} {1}">
+                                                        <Binding Path="Name" />
+                                                        <Binding Path="LastName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
                                 </ComboBox>
                             </Grid>
                         </StackPanel>
@@ -540,6 +564,47 @@
                                         </Binding.ValidationRules>
                                     </Binding>
                                 </ComboBox.Text>
+
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock>
+                                            <TextBlock.Text>
+                                                <MultiBinding StringFormat="{}{0} #{1} Ext#{2}, Col. {3} CP. {4}, {5}">
+                                                    <Binding Path="StreetName" />
+                                                    <Binding Path="OutsideNumber" />
+                                                    <Binding Path="InsideNumber" />
+                                                    <Binding Path="Colony" />
+                                                    <Binding Path="PostalCode" />
+                                                    <Binding Path="City" />
+                                                </MultiBinding>
+                                            </TextBlock.Text>
+                                        </TextBlock>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+
+
+                            <ComboBox materialDesign:HintAssist.HelperText="Seleciona una dirección del cliente"  
+                                      materialDesign:HintAssist.Hint="Selecciona una opción" 
+                                      HorizontalAlignment="Left" Visibility="Collapsed"
+                                      Width="430" Height="35" Padding="6" VerticalContentAlignment="Center"
+                                      FontFamily="Tw Cen MT" FontSize="15" BorderBrush="#000" Foreground="#000" 
+                                      Background="Transparent" BorderThickness="0.01"
+                                      materialDesign:HintAssist.FloatingOffset="0,0"
+                                      materialDesign:HintAssist.Background="Transparent" 
+                                      materialDesign:HintAssist.Foreground="Transparent"
+                                      materialDesign:HintAssist.HelperTextFontSize="13"
+                                      Name="OrderTableComboBox">
+                                <!--<ComboBoxItem>Fidencio Ocaña #64. Col. Francisco Ferrer Guardia CP.91020</ComboBoxItem>-->
+
+                                <ComboBox.Text>
+                                    <Binding Path="Address" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                                        <Binding.ValidationRules>
+                                            <validations:NotNull ValidatesOnTargetUpdated="True"/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </ComboBox.Text>
+
                             </ComboBox>
                         </Grid>
                     </StackPanel>
@@ -580,10 +645,24 @@
                                 </Binding>
                             </ComboBox.Text>
 
-                            <ComboBoxItem>Pizza Grande $100</ComboBoxItem>
+                            <!--<ComboBoxItem>Pizza Grande $100</ComboBoxItem>
                             <ComboBoxItem>Pizza Mediana $200</ComboBoxItem>
                             <ComboBoxItem>Pizza casera $300</ComboBoxItem>
-                            <ComboBoxItem>Pizza de piña $400</ComboBoxItem>
+                            <ComboBoxItem>Pizza de piña $400</ComboBoxItem>-->
+
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock>
+                                        <TextBlock.Text>
+                                            <MultiBinding StringFormat="{}{0} ${1}">
+                                                <Binding Path="Name" />
+                                                <Binding Path="Price" />
+                                            </MultiBinding>
+                                        </TextBlock.Text>
+                                    </TextBlock>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                            
                         </ComboBox>
                     </Grid>
                     <StackPanel Orientation="Horizontal">
@@ -662,9 +741,22 @@
                                 </Binding>
                             </ComboBox.Text>
 
-                            <ComboBoxItem>Fanta 500ml $15</ComboBoxItem>
+                            <!--<ComboBoxItem>Fanta 500ml $15</ComboBoxItem>
                             <ComboBoxItem>Coca Cola 1L $25</ComboBoxItem>
-                            <ComboBoxItem>Boing de guayaba 500ml $20</ComboBoxItem>
+                            <ComboBoxItem>Boing de guayaba 500ml $20</ComboBoxItem>-->
+
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock>
+                                        <TextBlock.Text>
+                                            <MultiBinding StringFormat="{}{0} ${1}">
+                                                <Binding Path="Name" />
+                                                <Binding Path="Price" />
+                                            </MultiBinding>
+                                        </TextBlock.Text>
+                                    </TextBlock>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
                         </ComboBox>
                     </Grid>
                     <StackPanel Orientation="Horizontal">
@@ -1045,7 +1137,7 @@
         <!--#endregion-->
         
         <!--#region Process Confirmation-->
-        <notifications:NotificationArea x:Name="ConfirmationToast" Position="BottomRight" MaxItems="3" 
+        <notifications:NotificationArea x:Name="ConfirmationToast" Position="BottomRight" MaxItems="5" 
                                         notifications:Notification.CloseOnClick="false" Margin="0,0,15,50" />
         <!--#endregion-->
     </Grid>

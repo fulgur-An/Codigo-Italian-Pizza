@@ -5,6 +5,10 @@ VisualStudioVersion = 16.0.32228.343
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ItalianPizza", "ItalianPizza.csproj", "{527256F4-119F-4BC1-BF03-0B56F6B22D2A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackendItalianPizza", "..\Backend\BackendItalianPizza.csproj", "{F39885F7-163B-4DC6-9BDF-65AEBC612148}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerItalianPizza", "..\ServerItalianPizza\ServerItalianPizza.csproj", "{64E1A512-639A-481C-B4A2-1349A9781C9B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{527256F4-119F-4BC1-BF03-0B56F6B22D2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{527256F4-119F-4BC1-BF03-0B56F6B22D2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{527256F4-119F-4BC1-BF03-0B56F6B22D2A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F39885F7-163B-4DC6-9BDF-65AEBC612148}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F39885F7-163B-4DC6-9BDF-65AEBC612148}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F39885F7-163B-4DC6-9BDF-65AEBC612148}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F39885F7-163B-4DC6-9BDF-65AEBC612148}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64E1A512-639A-481C-B4A2-1349A9781C9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64E1A512-639A-481C-B4A2-1349A9781C9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64E1A512-639A-481C-B4A2-1349A9781C9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64E1A512-639A-481C-B4A2-1349A9781C9B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

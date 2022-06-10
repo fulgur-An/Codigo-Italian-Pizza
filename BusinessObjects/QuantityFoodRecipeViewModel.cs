@@ -8,6 +8,8 @@ namespace ItalianPizza.BusinessObjects
 {
     public class QuantityFoodRecipeViewModel
     {
+        public int IdFoodRecipe { get; set; }
+
         public string Cantidad { get; set; }
 
         public string Nombre { get; set; }

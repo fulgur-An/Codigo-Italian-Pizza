@@ -1,0 +1,4 @@
+﻿[*.cs]
+
+# IDE0058: El valor de la expresión no se utiliza nunca.
+csharp_style_unused_value_expression_statement_preference = discard_variable

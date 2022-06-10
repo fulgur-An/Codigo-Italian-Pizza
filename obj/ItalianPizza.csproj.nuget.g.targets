@@ -5,6 +5,7 @@
   </PropertyGroup>
   <ImportGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
     <Import Project="$(NuGetPackageRoot)system.runtime.windowsruntime\4.6.0\buildTransitive\net461\System.Runtime.WindowsRuntime.targets" Condition="Exists('$(NuGetPackageRoot)system.runtime.windowsruntime\4.6.0\buildTransitive\net461\System.Runtime.WindowsRuntime.targets')" />
-    <Import Project="$(NuGetPackageRoot)materialdesignthemes\4.4.0\build\MaterialDesignThemes.targets" Condition="Exists('$(NuGetPackageRoot)materialdesignthemes\4.4.0\build\MaterialDesignThemes.targets')" />
+    <Import Project="$(NuGetPackageRoot)materialdesignthemes\4.5.0\build\MaterialDesignThemes.targets" Condition="Exists('$(NuGetPackageRoot)materialdesignthemes\4.5.0\build\MaterialDesignThemes.targets')" />
+    <Import Project="$(NuGetPackageRoot)entityframework\6.4.4\buildTransitive\EntityFramework.targets" Condition="Exists('$(NuGetPackageRoot)entityframework\6.4.4\buildTransitive\EntityFramework.targets')" />
   </ImportGroup>
 </Project>

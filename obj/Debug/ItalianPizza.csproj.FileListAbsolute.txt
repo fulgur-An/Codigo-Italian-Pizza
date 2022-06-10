@@ -34,6 +34,8 @@ C:\Users\Propietario\Desktop\Codigo-Italian-Pizza\bin\Debug\ItalianPizza.exe.con
 C:\Users\Propietario\Desktop\Codigo-Italian-Pizza\bin\Debug\ItalianPizza.exe
 C:\Users\Propietario\Desktop\Codigo-Italian-Pizza\bin\Debug\ItalianPizza.pdb
 C:\Users\Propietario\Desktop\Codigo-Italian-Pizza\bin\Debug\BouncyCastle.Crypto.dll
+C:\Users\Propietario\Desktop\Codigo-Italian-Pizza\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Propietario\Desktop\Codigo-Italian-Pizza\bin\Debug\EntityFramework.dll
 C:\Users\Propietario\Desktop\Codigo-Italian-Pizza\bin\Debug\FontAwesome5.Net.dll
 C:\Users\Propietario\Desktop\Codigo-Italian-Pizza\bin\Debug\FontAwesome5.dll
 C:\Users\Propietario\Desktop\Codigo-Italian-Pizza\bin\Debug\itextsharp.dll
@@ -45,6 +47,14 @@ C:\Users\Propietario\Desktop\Codigo-Italian-Pizza\bin\Debug\Microsoft.Toolkit.Uw
 C:\Users\Propietario\Desktop\Codigo-Italian-Pizza\bin\Debug\Microsoft.Toolkit.Uwp.Notifications.pdb
 C:\Users\Propietario\Desktop\Codigo-Italian-Pizza\bin\Debug\Notifications.Wpf.dll
 C:\Users\Propietario\Desktop\Codigo-Italian-Pizza\bin\Debug\System.ValueTuple.dll
+C:\Users\Propietario\Desktop\Codigo-Italian-Pizza\bin\Debug\Backend.dll
+C:\Users\Propietario\Desktop\Codigo-Italian-Pizza\bin\Debug\ServerItalianPizza.exe
+C:\Users\Propietario\Desktop\Codigo-Italian-Pizza\bin\Debug\Backend.pdb
+C:\Users\Propietario\Desktop\Codigo-Italian-Pizza\bin\Debug\Backend.dll.config
+C:\Users\Propietario\Desktop\Codigo-Italian-Pizza\bin\Debug\ServerItalianPizza.pdb
+C:\Users\Propietario\Desktop\Codigo-Italian-Pizza\bin\Debug\ServerItalianPizza.exe.config
+C:\Users\Propietario\Desktop\Codigo-Italian-Pizza\obj\Debug\ItalianPizza.csproj.AssemblyReference.cache
+C:\Users\Propietario\Desktop\Codigo-Italian-Pizza\obj\Debug\ItalianPizza.exe.config
 C:\Users\Propietario\Desktop\Codigo-Italian-Pizza\obj\Debug\Views\HoverStylesDictionary.baml
 C:\Users\Propietario\Desktop\Codigo-Italian-Pizza\obj\Debug\Views\CheckFoodRecipesPage.g.cs
 C:\Users\Propietario\Desktop\Codigo-Italian-Pizza\obj\Debug\Views\CheckOrdersPage.g.cs
@@ -76,4 +86,3 @@ C:\Users\Propietario\Desktop\Codigo-Italian-Pizza\obj\Debug\ItalianPizza.csproj.
 C:\Users\Propietario\Desktop\Codigo-Italian-Pizza\obj\Debug\ItalianPizza.csproj.CopyComplete
 C:\Users\Propietario\Desktop\Codigo-Italian-Pizza\obj\Debug\ItalianPizza.exe
 C:\Users\Propietario\Desktop\Codigo-Italian-Pizza\obj\Debug\ItalianPizza.pdb
-C:\Users\Propietario\Desktop\Codigo-Italian-Pizza\obj\Debug\ItalianPizza.csproj.AssemblyReference.cache
