@@ -212,10 +212,10 @@
                                             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left"
                                             Margin="0,0,0,0">
                                                 <materialDesign:PackIcon Kind="CardText" Foreground="#FFF" VerticalAlignment="Center"
-                                                                 HorizontalAlignment="Center" Height="25" Width="25" Margin="6,0,0,0"/>
-                                                <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" VerticalAlignment="Center"
-                                               HorizontalAlignment="Center" Margin="10,0,0,0">
-                                           Nombre
+                                                                 HorizontalAlignment="Center" Height="20" Width="20" Margin="2,0,0,0"/>
+                                                <TextBlock FontFamily="Tw Cen MT" FontSize="15" Foreground="#FFF" VerticalAlignment="Center"
+                                               HorizontalAlignment="Center" Margin="4,0,0,0">
+                                           Cantidad / Nombre
                                                 </TextBlock>
                                             </StackPanel>
                                         </Grid>

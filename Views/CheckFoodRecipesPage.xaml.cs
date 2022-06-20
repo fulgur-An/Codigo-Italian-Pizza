@@ -10,6 +10,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -55,6 +56,8 @@ namespace ItalianPizza.Views
             this.DataContext = foodRecipe;
             this.usernameLoggedIn = usernameLoggedIn;
             RequestFoodRecipeList();
+            Thread.Sleep(500);
+            RequestGetFoodRecipesToPrepare();
         }
 
         #region Request
@@ -219,6 +222,15 @@ namespace ItalianPizza.Views
             serverProxy = new ServerItalianPizzaProxy(service);
             channel = serverProxy.ChannelFactory.CreateChannel();
             channel.GetFoodRecipeListToPrepare();
+        }
+
+        public void RequestMarkRecipeAsDone(int orderId, int foodRecipeId)
+        {
+            ItalianPizzaServiceCallback service = new ItalianPizzaServiceCallback();
+            service.MarkRecipeAsDoneEvent += ConfirmFoodRecipeMade;
+            serverProxy = new ServerItalianPizzaProxy(service);
+            channel = serverProxy.ChannelFactory.CreateChannel();
+            channel.MarkRecipeAsDone(orderId, foodRecipeId);
         }
 
         #endregion
@@ -424,6 +436,26 @@ namespace ItalianPizza.Views
             }
         }
 
+        public void ConfirmFoodRecipeMade(int result, bool foodRecipeMade, string information)
+        {
+            if (result > 0)
+            {
+                NotificationType notificationType = NotificationType.Success;
+                PersonalizeToast(notificationType, "Proceso Realizado");
+
+                //FoodRecipeToPrepareListBox.Items.Clear();
+                //FoodRecipeToPrepareListBox.ItemsSource = null;
+                //RequestGetFoodRecipesToPrepare();
+                FoodRecipeToPrepareListBox.Items.Refresh();
+            }
+
+            if (foodRecipeMade)
+            {
+                NotificationType notificationType = NotificationType.Success;
+                PersonalizeToast(notificationType, information + ", ha sido realizado. Estatus: Realizado");
+            }
+        }
+
         #endregion
 
         #region GUI Methods
@@ -434,13 +466,18 @@ namespace ItalianPizza.Views
             
             if (foodRecipeViewModel != null)
             {
-                MessageBox.Show(foodRecipeViewModel.IdOrder + "");
+                RequestMarkRecipeAsDone(foodRecipeViewModel.IdOrder, foodRecipeViewModel.IdFoodRecipe);
+
+                FoodRecipeToPrepareListBox.Items.Remove(foodRecipeViewModel);
+
+                if (FoodRecipeToPrepareListBox.Items.Count == 0)
+                {
+                    SearchResultMessageTextBlock.Text = "No hay Platillos que preparar";
+                    FoodRecipeTableGrid.Visibility = Visibility.Hidden;
+                    FoodRecipeToPrepareListBox.Visibility = Visibility.Hidden;
+                    InitialMessageBorder.Visibility = Visibility.Visible;
+                }                
             }
-            else
-            {
-                MessageBox.Show("no entré");
-            }
-            
         }
 
         public ESearchFilters GetFitlerSelected()
@@ -747,15 +784,25 @@ namespace ItalianPizza.Views
                 HintAssist.SetHelperText(SearchTextBox, "Campo de búsqueda desactivado. Lista de recetas por preparar");
                 SearchFilterTextBlock.Text = "Consulta: " + "Recetas de platillos por preparar";
                 SearchTextBox.Text = "";
-                
-                RequestGetFoodRecipesToPrepare();
-                FoodRecipeTableGrid.Visibility = Visibility.Visible;
-                FoodRecipeToPrepareListBox.Visibility = Visibility.Visible;
-                FoodRecipeListBox.Visibility = Visibility.Collapsed;
-                InitialMessageBorder.Visibility = Visibility.Hidden;
+                                
+                if (!(FoodRecipeToPrepareListBox.Items.Count > 0))
+                {
+                    SearchResultMessageTextBlock.Text = "No hay Platillos que preparar";
+                    FoodRecipeTableGrid.Visibility = Visibility.Hidden;
+                    FoodRecipeToPrepareListBox.Visibility = Visibility.Hidden;
+                    InitialMessageBorder.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    FoodRecipeTableGrid.Visibility = Visibility.Visible;
+                    FoodRecipeToPrepareListBox.Visibility = Visibility.Visible;
+                    FoodRecipeListBox.Visibility = Visibility.Collapsed;
+                    InitialMessageBorder.Visibility = Visibility.Hidden;
+                }
             }
             else if (NameFilterRadioButton.IsChecked == true)
             {
+                SearchResultMessageTextBlock.Text = "Realiza una búsqueda";
                 HintAssist.SetHint(SearchTextBox, "Filtro seleccionado: Nombre");
                 HintAssist.SetHelperText(SearchTextBox, "Ingresa el nombre de alguna receta de platillo");
                 SearchFilterTextBlock.Text = "Consulta: " + "Nombre" + "/" + "Búsqueda";
@@ -768,6 +815,7 @@ namespace ItalianPizza.Views
             }
             else if (IngredientFilterRadioButton.IsChecked == true)
             {
+                SearchResultMessageTextBlock.Text = "No hay Platillos que preparar";
                 HintAssist.SetHint(SearchTextBox, "Filtro seleccionado: Ingrediente");
                 HintAssist.SetHelperText(SearchTextBox, "Ingresa algún el nombre de algún ingrediente");
                 SearchFilterTextBlock.Text = "Consulta: " + "Ingrediente" + "/" + "Búsqueda";
@@ -780,6 +828,7 @@ namespace ItalianPizza.Views
             }
             else if (PortionsFilterRadioButton.IsChecked == true)
             {
+                SearchResultMessageTextBlock.Text = "No hay Platillos que preparar";
                 HintAssist.SetHint(SearchTextBox, "Filtro seleccionado: N° Porciones");
                 HintAssist.SetHelperText(SearchTextBox, "Ingresa el número de porciones del platillo");
                 SearchFilterTextBlock.Text = "Consulta: " + "N° Porciones" + "/" + "Búsqueda";
@@ -926,7 +975,8 @@ namespace ItalianPizza.Views
             } 
             else
             {
-                ShowUnselectedItemToast();
+                NotificationType notificationType = NotificationType.Warning;
+                PersonalizeToast(notificationType, "Selecciona un elemento de la lista. Proceso no realizado");
             }
         }
 
@@ -1002,7 +1052,8 @@ namespace ItalianPizza.Views
             }
             else
             {
-                ShowUnselectedItemToast();
+                NotificationType notificationType = NotificationType.Warning;
+                PersonalizeToast(notificationType, "Selecciona un elemento de la lista. Proceso no realizado");
             }
         }
 
@@ -1017,38 +1068,23 @@ namespace ItalianPizza.Views
 
         public void PersonalizeToast(NotificationType notificationType, string message)
         {
-            notificationManager.Show(
-                new NotificationContent
-                {
-                    Title = "Confirmación",
-                    Message = message,
-                    Type = notificationType,
-                }, areaName: "ConfirmationToast", expirationTime: TimeSpan.FromSeconds(2)
-            );
-        }
+            //notificationManager.Show(
+            //    new NotificationContent
+            //    {
+            //        Title = "Confirmación",
+            //        Message = message,
+            //        Type = notificationType,
+            //    }, areaName: "ConfirmationToast", expirationTime: TimeSpan.FromSeconds(2)
+            //);
 
-        public void ShowUnrealizedChangesToast(object sender, RoutedEventArgs e)
-        {
-            notificationManager.Show(
-                new NotificationContent
-                {
-                    Title = "Sin cambios en la actualización",
-                    Message = "Proceso no realizado",
-                    Type = NotificationType.Warning,
-                }, areaName: "ConfirmationToast", expirationTime: TimeSpan.FromSeconds(2)
-            );
-        }
+            NotificationContent notificationContent = new NotificationContent
+            {
+                Title = "Confirmación",
+                Message = message,
+                Type = notificationType,
+            };
 
-        public void ShowUnselectedItemToast()
-        {
-            notificationManager.Show(
-                new NotificationContent
-                {
-                    Title = "Selecciona un elemento de la lista",
-                    Message = "Proceso no realizado",
-                    Type = NotificationType.Warning,
-                }, areaName: "ConfirmationToast", expirationTime: TimeSpan.FromSeconds(2)
-            );
+            notificationManager.Show(notificationContent);
         }
 
         public void EmptyUIElements()

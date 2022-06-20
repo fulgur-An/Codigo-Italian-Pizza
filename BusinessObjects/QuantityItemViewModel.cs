@@ -15,5 +15,7 @@ namespace ItalianPizza.BusinessObjects
         public string Nombre { get; set; }
 
         public string Precio { get; set; }
+
+        public int IdOrder { get; set; }
     }
 }

@@ -55,7 +55,11 @@ namespace ItalianPizza
         public delegate void GetFoodRecipeListToPrepareDelegate(List<FoodRecipeContract> foodRecipes, List<IngredientContract> ingredients);
         public event GetFoodRecipeListToPrepareDelegate GetFoodRecipeListToPrepareEvent;
 
+        public delegate void UpdateOrderDelegate(int result);
+        public event UpdateOrderDelegate UpdateOrderEvent;
 
+        public delegate void MarkRecipeAsDoneDelegate(int result, bool foodRecipeMade, string information);
+        public event MarkRecipeAsDoneDelegate MarkRecipeAsDoneEvent;
 
 
 
@@ -190,6 +194,23 @@ namespace ItalianPizza
                 GetFoodRecipeListToPrepareEvent(foodRecipes, ingredients);
             }
         }
+
+        public void UpdateOrder(int result)
+        {
+            if (UpdateOrderEvent != null)
+            {
+                UpdateOrderEvent(result);
+            }
+        }
+
+        public void MarkRecipeAsDone(int result, bool foodRecipeMade, string information)
+        {
+            if (MarkRecipeAsDoneEvent != null)
+            {
+                MarkRecipeAsDoneEvent(result,  foodRecipeMade, information);
+            }
+        }
+
 
 
 

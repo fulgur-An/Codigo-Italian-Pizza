@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -39,6 +40,13 @@ namespace ItalianPizza.Views
         private List<QuantityItemViewModel> itemList = new List<QuantityItemViewModel>();        
 
         private readonly NotificationManager notificationManager = new NotificationManager();
+        public enum ESearchFilters
+        {
+            NameFilter = 1,
+            DateFilter = 2,
+            StatusFilter = 3,
+            NoSelection = 4
+        }
 
         public CheckOrdersPage(string usernameLoggedIn)
         {
@@ -54,6 +62,7 @@ namespace ItalianPizza.Views
             //RequestItemList();
             //RequestCustomerList();
             RequestGetEmployeeId();
+            RequestGetOrderList();
         }
 
         #region Request
@@ -160,6 +169,67 @@ namespace ItalianPizza.Views
             channel.RegisterOrder(order, quantityFoodRecipeContracts, quantityItemContracts);
         }
 
+        public void RequestUpdateOrder(int orderId)
+        {
+            List<QuantityFoodRecipeContract> quantityFoodRecipeContracts = new List<QuantityFoodRecipeContract>();
+            List<QuantityItemContract> quantityItemContracts = new List<QuantityItemContract>();
+
+            foreach (QuantityFoodRecipeViewModel quantityFoodRecipe in OrderFoodRecipeDataGrid.Items)
+            {
+                string[] value = quantityFoodRecipe.Precio.Split('$');
+                decimal price = 0;
+
+                QuantityFoodRecipeContract quantityFoodRecipeContract = new QuantityFoodRecipeContract
+                {
+                    IdFoodRecipe = quantityFoodRecipe.IdFoodRecipe,
+                    QuantityOfFoodRecipes = int.Parse(quantityFoodRecipe.Cantidad),
+                    IdOrder = quantityFoodRecipe.IdOrder
+                };
+
+                if (value.Length > 1)
+                {
+                    quantityFoodRecipeContract.Price = decimal.TryParse(value[0], out price) ? decimal.Parse(value[0]) : decimal.Parse(value[1]);
+                }
+                else
+                {
+                    quantityFoodRecipeContract.Price = decimal.Parse(value[0]);
+                }
+
+                quantityFoodRecipeContracts.Add(quantityFoodRecipeContract);
+            }
+
+            foreach (QuantityItemViewModel quantityItem in OrderItemsDataGrid.Items)
+            {
+                string[] value = quantityItem.Precio.Split('$');                
+                decimal price = 0;
+
+                QuantityItemContract quantityItemContract = new QuantityItemContract
+                {
+                    IdItem = quantityItem.IdItem,
+                    QuantityOfItems = int.Parse(quantityItem.Cantidad),            
+                    IdOrder = quantityItem.IdOrder
+                };
+
+                if (value.Length > 1)
+                {
+                    quantityItemContract.Price = decimal.TryParse(value[0], out price) ? decimal.Parse(value[0]) : decimal.Parse(value[1]);
+                }
+                else
+                {
+                    quantityItemContract.Price = decimal.Parse(value[0]);
+                }
+
+                quantityItemContracts.Add(quantityItemContract);
+            }
+
+            ItalianPizzaServiceCallback service = new ItalianPizzaServiceCallback();
+            service.UpdateOrderEvent += ConfirmUpdateOrder;
+            serverProxy = new ServerItalianPizzaProxy(service);
+            channel = serverProxy.ChannelFactory.CreateChannel();
+            channel.UpdateOrder(orderId, quantityFoodRecipeContracts, quantityItemContracts);
+            //MessageBox.Show(((QuantityFoodRecipeViewModel)OrderFoodRecipeDataGrid.Items[0]).IdOrder + "");
+        }
+
         public void RequestGetOrderList()
         {
             ItalianPizzaServiceCallback service = new ItalianPizzaServiceCallback();
@@ -228,6 +298,9 @@ namespace ItalianPizza.Views
             {
                 NotificationType notificationType = NotificationType.Success;
                 PersonalizeToast(notificationType, "Proceso Realizado");
+                OrderListBox.Items.Clear();
+                allOrderContracts.Clear();
+                RequestGetOrderList();
 
             }
             else if ((foodRecipeErrors.Count > 0) || (itemErrors.Count > 0))
@@ -248,28 +321,58 @@ namespace ItalianPizza.Views
             }
         }
 
+        public void ConfirmUpdateOrder(int result)
+        {
+            if (result == -1)
+            {
+                NotificationType notificationType = NotificationType.Warning;
+                PersonalizeToast(notificationType, "Proceso no realizado");
+                QuarterLayerInformationBorder.Visibility = Visibility.Visible;
+                OrderInformationGrid.Visibility = Visibility.Visible;
+
+            }
+            else if (result > 0)
+            {
+                NotificationType notificationType = NotificationType.Success;
+                PersonalizeToast(notificationType, "Proceso Realizado");
+                OrderListBox.Items.Clear();
+
+                allOrderContracts.Clear();
+                RequestGetOrderList();
+            }
+        }
+
         private List<QuantityItemContract> allQuantityItemContracts = new List<QuantityItemContract>();
         private List<QuantityFoodRecipeContract> allQuantityFoodRecipeContracts = new List<QuantityFoodRecipeContract>();
-
+        private List<OrderContract> allOrderContracts = new List<OrderContract>();
+        private List<QuantityItemContract> auxiliaryItems = new List<QuantityItemContract>();
+        private List<QuantityFoodRecipeContract> auxiliaryFoodRecipes = new List<QuantityFoodRecipeContract>();
         public void LoadAllOrders(List<OrderContract> orderContracts, List<QuantityFoodRecipeContract> quantityFoodRecipeContracts, List<QuantityItemContract> quantityItemContracts)
         {
-            OrderListBox.Items.Clear();
             allQuantityFoodRecipeContracts.Clear();
             allQuantityItemContracts.Clear();
+            auxiliaryFoodRecipes.Clear();
+            auxiliaryItems.Clear();
 
             foreach (OrderContract orderContract in orderContracts)
             {
-                OrderListBox.Items.Add(orderContract);
+                if (!OrderListBox.Items.Contains(orderContract))
+                {
+                    OrderListBox.Items.Add(orderContract);
+                    allOrderContracts.Add(orderContract);
+                }
             }
 
             foreach (QuantityFoodRecipeContract quantityFoodRecipeContract in quantityFoodRecipeContracts)
             {
                 allQuantityFoodRecipeContracts.Add(quantityFoodRecipeContract);
+                auxiliaryFoodRecipes.Add(quantityFoodRecipeContract);
             }
 
             foreach (QuantityItemContract quantityItemContract in quantityItemContracts)
             {
                 allQuantityItemContracts.Add(quantityItemContract);
+                auxiliaryItems.Add(quantityItemContract);
             }
         }
 
@@ -278,7 +381,8 @@ namespace ItalianPizza.Views
             if (result > 0)
             {
                 NotificationType notificationType = NotificationType.Success;
-                PersonalizeToast(notificationType, "Proceso Realizado");    
+                PersonalizeToast(notificationType, "Proceso Realizado");
+                allOrderContracts.Clear();
                 RequestGetOrderList();
             }
         }
@@ -286,6 +390,30 @@ namespace ItalianPizza.Views
         #endregion
 
         #region GUI Methods  
+
+        public ESearchFilters GetFilterSelected()
+        {
+            ESearchFilters filterSelected = new ESearchFilters();
+
+            if (CustomerFilterRadioButton.IsChecked == true)
+            {
+                filterSelected = ESearchFilters.NameFilter;
+            }
+            else if (DateFilterRadioButton.IsChecked == true)
+            {
+                filterSelected = ESearchFilters.DateFilter;
+            }
+            else if (StatusFilterRadioButton.IsChecked == true)
+            {
+                filterSelected = ESearchFilters.StatusFilter;
+            }
+            else
+            {
+                filterSelected = ESearchFilters.NoSelection;
+            }
+
+            return filterSelected;
+        }
 
         public void FilterSelectedCustomerAddresses(object sender, SelectionChangedEventArgs e)
         {
@@ -345,7 +473,7 @@ namespace ItalianPizza.Views
             OrderHeaderTextBlock.Text = "Registro de Pedido";
             HeaderAddressTextblock.Text = "Dirección*";
             AddProductsGrid.Visibility = Visibility.Visible;
-            RegisterCustomerButton.Visibility = Visibility.Visible;
+            //RegisterCustomerButton.Visibility = Visibility.Visible;
             AcceptOrderRegistrationButtton.Visibility = Visibility.Visible;
             GenerateOrderTicketButton.Visibility = Visibility.Collapsed;
             AddFoodRecipeButton.Visibility = Visibility.Visible;
@@ -418,7 +546,6 @@ namespace ItalianPizza.Views
             QuantityFoodRecipeViewModel foodRecipe = new QuantityFoodRecipeViewModel();
             FoodRecipeContract foodRecipeContract = (FoodRecipeContract)FoodRecipeComboBox.SelectedItem;
 
-            //string[] value = FoodRecipeComboBox.Text.Split('$');
             string[] value = (foodRecipeContract.Name + " $" + foodRecipeContract.Price).Split('$');
             foodRecipe.IdFoodRecipe = foodRecipeContract.IdFoodRecipe;
             foodRecipe.Cantidad = "1";
@@ -441,23 +568,34 @@ namespace ItalianPizza.Views
                     }
                 }
 
+                OrderContract orderContract = (OrderContract)OrderListBox.SelectedItem;
+
+                if (orderContract != null)
+                {
+                    foreach (QuantityFoodRecipeContract quantityFoodRecipeContract in allQuantityFoodRecipeContracts)
+                    {
+                        if (orderContract.IdOrder == quantityFoodRecipeContract.IdOrder)
+                        {
+                            if (string.Equals(foodRecipe.Nombre.Trim(), quantityFoodRecipeContract.Name.Trim()))
+                            {
+
+                                isFound = true;
+                            }
+                        }
+                    }
+                }
+                               
                 if (!isFound)
                 {
                     foodRecipeList.Add(foodRecipe);
                 }
             }
 
-            //foreach (QuantityFoodRecipeViewModel quantityFoodRecipeView in foodRecipeList)
-            //{
-            //    OrderFoodRecipeDataGrid.Items.Add(quantityFoodRecipeView);
-            //}
-
             OrderFoodRecipeDataGrid.ItemsSource = foodRecipeList;
             OrderFoodRecipeDataGrid.Items.Refresh();
             UpdateOrderTotal();
             FoodRecipeComboBox.SelectedIndex = -1;
             DeleteFoodRecipeButton.IsEnabled = true;
-
         }
 
         public void DeleteRecipeToOrder(object sender, RoutedEventArgs e)
@@ -469,6 +607,20 @@ namespace ItalianPizza.Views
                 OrderFoodRecipeDataGrid.Items.Refresh();
                 UpdateOrderTotal();
 
+                if (!(foodRecipe.IdOrder == 0))
+                {
+                    QuantityFoodRecipeContract elimination = new QuantityFoodRecipeContract(); ;
+                    foreach (QuantityFoodRecipeContract quantityFoodRecipeContract in allQuantityFoodRecipeContracts)
+                    {
+                        if (foodRecipe.IdOrder == foodRecipe.IdOrder && foodRecipe.Nombre.Equals(quantityFoodRecipeContract.Name))
+                        {
+                            elimination = quantityFoodRecipeContract;
+                        }
+                    }
+
+                    allQuantityFoodRecipeContracts.Remove(elimination);
+                }
+
                 if (OrderFoodRecipeDataGrid.Items.Count <= 0)
                 {
                     DeleteFoodRecipeButton.IsEnabled = false;
@@ -476,7 +628,8 @@ namespace ItalianPizza.Views
             }
             else
             {
-                ShowUnselectedItemToast();
+                NotificationType notificationType = NotificationType.Warning;
+                PersonalizeToast(notificationType, "Selecciona un elemento de la lista. Proceso no realizado");
             }
         }
 
@@ -508,17 +661,28 @@ namespace ItalianPizza.Views
                     }
                 }
 
+                OrderContract orderContract = (OrderContract)OrderListBox.SelectedItem;
+
+                if (orderContract != null)
+                {
+                    foreach (QuantityItemContract quantityItemContract in allQuantityItemContracts)
+                    {
+                        if (orderContract.IdOrder == quantityItemContract.IdOrder)
+                        {
+                            if (string.Equals(item.Nombre.Trim(), quantityItemContract.Name.Trim()))
+                            {
+                                isFound = true;
+                            }
+                        }
+                    }
+                }                
+
                 if (!isFound)
                 {
                     itemList.Add(item);
                 }
             }
-
-            //foreach (QuantityItemViewModel quantityItemView in itemList)
-            //{
-            //    OrderItemsDataGrid.Items.Add(quantityItemView);
-            //}
-
+            
             OrderItemsDataGrid.ItemsSource = itemList;
             OrderItemsDataGrid.Items.Refresh();
             UpdateOrderTotal();
@@ -535,6 +699,20 @@ namespace ItalianPizza.Views
                 OrderItemsDataGrid.Items.Refresh();
                 UpdateOrderTotal();
 
+                if (!(item.IdOrder == 0))
+                {
+                    QuantityItemContract elimination = new QuantityItemContract(); ;
+                    foreach (QuantityItemContract quantityItemContract in allQuantityItemContracts)
+                    {
+                        if (item.IdOrder == item.IdOrder && item.Nombre.Equals(quantityItemContract.Name))
+                        {
+                            elimination = quantityItemContract;
+                        }
+                    }
+
+                    allQuantityItemContracts.Remove(elimination);
+                }
+
                 if (OrderItemsDataGrid.Items.Count <= 0)
                 {
                     DeleteItemButton.IsEnabled = false;
@@ -542,7 +720,8 @@ namespace ItalianPizza.Views
             }
             else
             {
-                ShowUnselectedItemToast();
+                NotificationType notificationType = NotificationType.Warning;
+                PersonalizeToast(notificationType, "Selecciona un elemento de la lista. Proceso no realizado");
             }
         }
 
@@ -591,12 +770,14 @@ namespace ItalianPizza.Views
             AdaptOrderGUI(680, 310, 370, 300, 2);
             OrderStatusComboBox.IsEnabled = false;            
             AddProductsGrid.Visibility = Visibility.Hidden;
-            RegisterCustomerButton.Visibility = Visibility.Collapsed;
+            //RegisterCustomerButton.Visibility = Visibility.Collapsed;
             AcceptOrderRegistrationButtton.Visibility = Visibility.Collapsed;
             GenerateOrderTicketButton.Visibility = Visibility.Visible;
             FieldsEnabledMessageTextBlock.Visibility = Visibility.Visible;
             FieldsEnabledMessageTextBlock.Text = "Información detallada";
-            
+            OrderFoodRecipeDataGrid.IsEnabled = false;
+            OrderItemsDataGrid.IsEnabled = false;
+
             if (OrderListBox.SelectedItem != null)
             {
                 CustomerNameComboBox.Items.Clear();
@@ -692,13 +873,83 @@ namespace ItalianPizza.Views
             }
         }
 
-        public void ShowSearchResults(object sender, KeyEventArgs e)
+        public void ShowSearchResults(object sender, TextChangedEventArgs e)
         {
-            if (e.Key == Key.Return)
+            string search = SearchTextBox.Text;
+            ESearchFilters searchFilters = GetFilterSelected();      
+            List<OrderContract> orderContracts = new List<OrderContract>();
+            OrderListBox.Items.Clear();
+
+            foreach (OrderContract order in allOrderContracts)
             {
-                RequestGetOrderList();
-                InitialMessageBorder.Visibility = Visibility.Hidden;
-                OrderTableGrid.Visibility = Visibility.Visible;
+                orderContracts.Add(order);
+            }
+
+            if ((orderContracts.Count > 0) && (searchFilters != ESearchFilters.NoSelection))
+            {
+                if (!string.IsNullOrWhiteSpace(search))
+                {
+                    InitialMessageBorder.Visibility = Visibility.Collapsed;
+                    OrderTableGrid.Visibility = Visibility.Visible;
+
+                    if (CustomerFilterRadioButton.IsChecked == true)
+                    {
+                        SearchFilterTextBlock.Text = "Consulta: Cliente/" + search;
+                        foreach (OrderContract orderContract in orderContracts)
+                        {
+                            string customerName = orderContract.CustomerFullName;
+                            if (customerName.ToLower().StartsWith(search.Trim().ToLower()))
+                            {
+                                OrderListBox.Items.Add(orderContract);
+                            }
+                        }
+                    }
+
+                    if (DateFilterRadioButton.IsChecked == true)
+                    {
+                        SearchFilterTextBlock.Text = "Consulta: Fecha/" + search;
+
+                        foreach (OrderContract orderContract in orderContracts)
+                        {
+                            string orderDate = orderContract.Date.ToShortDateString();
+
+                            if (orderDate.ToLower().StartsWith(search.Trim().ToLower()))
+                            {
+                                OrderListBox.Items.Add(orderContract);
+                            }
+                        }
+                    }
+
+                    if (StatusFilterRadioButton.IsChecked == true)
+                    {
+                        SearchFilterTextBlock.Text = "Consulta: Estatus/" + search;
+
+                        foreach (OrderContract orderContract in orderContracts)
+                        {
+                            string orderStatus = orderContract.Status;
+
+                            if (orderStatus.ToLower().StartsWith(SearchTextBox.Text.Trim().ToLower()))
+                            {
+                                OrderListBox.Items.Add(orderContract);
+                            }
+                        }
+                    }                    
+                }
+
+                if (OrderListBox.Items.Count == 0)
+                {
+                    SearchResultMessageTextBlock.Text = "Sin resultados de búsqueda";
+                    InitialMessageBorder.Visibility = Visibility.Visible;
+                    OrderTableGrid.Visibility = Visibility.Collapsed;
+                    OrderListBox.Items.Clear();
+                }
+            }
+            else if (string.IsNullOrWhiteSpace(search))
+            {
+                SearchResultMessageTextBlock.Text = "Realiza una búsqueda";
+                InitialMessageBorder.Visibility = Visibility.Visible;
+                OrderTableGrid.Visibility = Visibility.Collapsed;
+                OrderListBox.Items.Clear();
             }
         }
 
@@ -734,16 +985,34 @@ namespace ItalianPizza.Views
             {
                 HintAssist.SetHint(SearchTextBox, "Filtro seleccionado: Cliente");
                 HintAssist.SetHelperText(SearchTextBox, "Ingresa el nombre del cliente");
+                OrderListBox.Items.Clear();
+                InitialMessageBorder.Visibility = Visibility.Visible;
+                OrderTableGrid.Visibility = Visibility.Hidden;
+                SearchResultMessageTextBlock.Text = "Realiza una búsqueda";
+                SearchFilterTextBlock.Text = "Consulta: Cliente/Búsqueda";
+                SearchTextBox.Text = "";
             }
             else if (DateFilterRadioButton.IsChecked == true)
             {
                 HintAssist.SetHint(SearchTextBox, "Filtro seleccionado: Fecha");
                 HintAssist.SetHelperText(SearchTextBox, "Ingresa una fecha en el formato: dd/mm/aaaaa");
+                OrderListBox.Items.Clear();
+                InitialMessageBorder.Visibility = Visibility.Visible;
+                OrderTableGrid.Visibility = Visibility.Hidden;
+                SearchResultMessageTextBlock.Text = "Realiza una búsqueda";
+                SearchFilterTextBlock.Text = "Consulta: Fecha/Búsqueda";
+                SearchTextBox.Text = "";
             }
             else if (StatusFilterRadioButton.IsChecked == true)
             {
                 HintAssist.SetHint(SearchTextBox, "Filtro seleccionado: Estatus");
-                HintAssist.SetHelperText(SearchTextBox, "Ingresa algún estatus: En Proceso, Entregado, Cancelado");
+                HintAssist.SetHelperText(SearchTextBox, "Ingresa algún estatus: En Proceso, Realizado, Cancelada");
+                OrderListBox.Items.Clear();
+                InitialMessageBorder.Visibility = Visibility.Visible;
+                OrderTableGrid.Visibility = Visibility.Hidden;
+                SearchResultMessageTextBlock.Text = "Realiza una búsqueda";
+                SearchFilterTextBlock.Text = "Consulta: Estatus/Búsqueda";
+                SearchTextBox.Text = "";
             }
         }
 
@@ -755,6 +1024,7 @@ namespace ItalianPizza.Views
             SearchTextBox.Text = "";
             InitialMessageBorder.Visibility = Visibility.Visible;
             OrderTableGrid.Visibility = Visibility.Hidden;
+            SearchFilterTextBlock.Text = "Consulta: Filtro/Búsqueda";
             SearchResultMessageTextBlock.Text = "Realiza una búsqueda";
             HintAssist.SetHint(SearchTextBox, "Buscar");
             HintAssist.SetHelperText(SearchTextBox, "Selecciona un filtro de búsqueda");
@@ -786,7 +1056,7 @@ namespace ItalianPizza.Views
                         else
                         {
                             NotificationType notificationType = NotificationType.Warning;
-                            PersonalizeToast(notificationType, "El pedido debe estar 'En proceso'. Operación no realizada'");
+                            PersonalizeToast(notificationType, "El pedido debe estar 'En Proceso'. Operación no realizada'");
                         }
                     }
                 }
@@ -808,6 +1078,14 @@ namespace ItalianPizza.Views
 
         public void ShowOrderUpdateDialog(object sender, RoutedEventArgs e)
         {
+            itemList.Clear();
+            foodRecipeList.Clear();
+            FoodRecipeComboBox.Items.Clear();
+            ItemsComboBox.Items.Clear();
+            RequestFoodRecipeList();
+            RequestItemList();
+            //RequestGetOrderList();
+
             AdaptOrderGUI(430, 200, 230, 160, 1);
             AddProductsGrid.Visibility = Visibility.Visible;
             QuarterLayerInformationBorder.Visibility = Visibility.Visible;
@@ -817,11 +1095,19 @@ namespace ItalianPizza.Views
             AcceptOrderRegistrationButtton.Visibility = Visibility.Collapsed;
             FieldsEnabledMessageTextBlock.Visibility = Visibility.Visible;
             FieldsEnabledMessageTextBlock.Text = "Formulario de actualización";
+            //RegisterCustomerButton.Visibility = Visibility.Hidden;
+            DeleteFoodRecipeButton.IsEnabled = true;
+            DeleteItemButton.IsEnabled = true;                
+
             CustomerNameComboBox.IsEnabled = false;
-            OrderStatusComboBox.IsEnabled = true;
+            OrderStatusComboBox.IsEnabled = false;
             OrderAddressComboBox.IsEnabled = false;
+            OrderTableComboBox.IsEnabled = false;
+            OrderTypeComboBox.IsEnabled = false;
             OrderFoodRecipeDataGrid.IsEnabled = true;
-            OrderFoodRecipeDataGrid.CanUserAddRows = true;
+            OrderItemsDataGrid.IsEnabled = true;
+            OrderFoodRecipeDataGrid.ItemsSource = null;
+            OrderItemsDataGrid.ItemsSource = null;
 
             HintAssist.SetHelperText(CustomerNameComboBox, "Este campo no puedo modificarse");
             HintAssist.SetHelperText(OrderDateDatePicker, "Este campo no puedo modificarse");
@@ -829,6 +1115,106 @@ namespace ItalianPizza.Views
             HintAssist.SetHelperText(OrderStatusComboBox, string.Empty);
             HintAssist.SetHelperText(OrderAddressComboBox, "Este campo no puedo modificarse");
             HintAssist.SetHelperText(OrderTypeComboBox, "Este campo no puedo modificarse");
+
+            OrderContract orderContract = (OrderContract)OrderListBox.SelectedItem;
+
+            if (orderContract != null)
+            {
+                OrderHeaderTextBlock.Text = "Pedido ID " + orderContract.IdOrder;
+                OrderDateDatePicker.SelectedDate = orderContract.Date;
+                OrderDateTimePicker.SelectedTime = orderContract.Date;
+                OrderTotalTextBlock.Text = orderContract.TotalToPay + "";
+                CustomerNameComboBox.Items.Clear();
+
+                CustomerContract customer = new CustomerContract();
+                string[] fullname = orderContract.CustomerFullName.Split(' ');
+                string name = "";
+                string lastName = fullname[fullname.Length - 2] + " " + fullname[fullname.Length - 1];
+
+                for (int i = 0; i < fullname.Length - 2; i++)
+                {
+                    name += fullname[i] + " ";
+                }
+
+                customer.Name = name;
+                customer.LastName = lastName;
+                CustomerNameComboBox.Items.Add(customer);
+                CustomerNameComboBox.SelectedIndex = 0;
+
+
+                if (orderContract.TypeOrder.Equals("Local"))
+                {
+                    OrderTypeComboBox.SelectedIndex = 1;
+                    OrderTableComboBox.Items.Clear();
+                    OrderTableComboBox.Items.Add(orderContract.TableNumber);
+                    OrderTableComboBox.SelectedIndex = 0;
+                    OrderAddressComboBox.Visibility = Visibility.Hidden;
+                    OrderTableComboBox.Visibility = Visibility.Visible;
+                }
+                else {
+                    OrderTypeComboBox.SelectedIndex = 0;
+                    OrderAddressComboBox.Items.Clear();
+                    OrderAddressComboBox.Items.Add(orderContract.Address);
+                    OrderAddressComboBox.SelectedIndex = 0;
+                    OrderAddressComboBox.Visibility = Visibility.Visible;
+                    OrderTableComboBox.Visibility = Visibility.Hidden;
+                }
+
+                
+
+                foreach (QuantityFoodRecipeContract quantityFoodRecipeContract in auxiliaryFoodRecipes)
+                {
+                    if (orderContract.IdOrder == quantityFoodRecipeContract.IdOrder)
+                    {
+                        foodRecipeList.Add(new QuantityFoodRecipeViewModel
+                        {
+                            IdFoodRecipe = quantityFoodRecipeContract.IdFoodRecipe,
+                            Cantidad = quantityFoodRecipeContract.QuantityOfFoodRecipes + "",
+                            Nombre = quantityFoodRecipeContract.Name,
+                            Precio = "$" + quantityFoodRecipeContract.Price,
+                            IdOrder = quantityFoodRecipeContract.IdOrder
+                        });
+                    }
+                }
+
+                foreach (QuantityItemContract quantityItemContract in auxiliaryItems)
+                {
+                    if (orderContract.IdOrder == quantityItemContract.IdOrder)
+                    {
+                        itemList.Add(new QuantityItemViewModel
+                        {
+                            IdItem = quantityItemContract.IdItem,
+                            Cantidad = quantityItemContract.QuantityOfItems + "",
+                            Nombre = quantityItemContract.Name,
+                            Precio = "$" + quantityItemContract.Price,
+                            IdOrder = quantityItemContract.IdOrder
+                        });
+                    }
+                }
+
+                OrderFoodRecipeDataGrid.ItemsSource = foodRecipeList;
+                OrderItemsDataGrid.ItemsSource = itemList;
+            }
+        }
+
+        public void ReceiveOrderModification(object sender, RoutedEventArgs e)
+        {
+            OrderContract order = (OrderContract)OrderListBox.SelectedItem;
+
+            if ((order != null) && order.Status.Equals("En proceso"))
+            {
+                RequestUpdateOrder(order.IdOrder);
+            }
+            else
+            {
+                NotificationType notificationType = NotificationType.Warning;
+                PersonalizeToast(notificationType, "El pedido debe estar 'En proceso. Operación no realizada'");
+            }
+
+            ThirdLayerInformationBorder.Visibility = Visibility.Hidden;
+            QuarterLayerInformationBorder.Visibility = Visibility.Hidden;
+            OrderInformationGrid.Visibility = Visibility.Hidden;
+            BackToOrderRegistration(sender, e);
         }
 
         public void AdaptOrderGUI(int largeFieldsWidth, int smallFieldsWidth, int marginExtra, int titleMargin, int span)
@@ -881,40 +1267,16 @@ namespace ItalianPizza.Views
             BackToOrderRegistration(sender, e);
         }
 
-        public void ShowUnrealizedChangesToast(object sender, RoutedEventArgs e)
-        {
-            notificationManager.Show(
-                new NotificationContent
-                {
-                    Title = "Sin cambios en la actualización",
-                    Message = "Proceso no realizado",
-                    Type = NotificationType.Warning,
-              }, areaName: "ConfirmationToast", expirationTime: TimeSpan.FromSeconds(2)
-            );
-        }
-
-        public void ShowUnselectedItemToast()
-        {
-            notificationManager.Show(
-                new NotificationContent
-                {
-                    Title = "Selecciona un elemento de la lista",
-                    Message = "Proceso no realizado",
-                    Type = NotificationType.Warning,
-                }, areaName: "ConfirmationToast", expirationTime: TimeSpan.FromSeconds(2)
-            );
-        }
-
         public void PersonalizeToast(NotificationType notificationType, string message)
         {
-            notificationManager.Show(
-                new NotificationContent
-                {
-                    Title = "Confirmación",
-                    Message = message,
-                    Type = notificationType,
-                }, areaName: "ConfirmationToast", expirationTime: TimeSpan.FromSeconds(2)
-            );
+            NotificationContent notificationContent = new NotificationContent
+            {
+                Title = "Confirmación",
+                Message = message,
+                Type = notificationType,
+            };
+          
+            notificationManager.Show(notificationContent);
         }
 
         public void RemoveValidationAssistant(bool isNotVisible)

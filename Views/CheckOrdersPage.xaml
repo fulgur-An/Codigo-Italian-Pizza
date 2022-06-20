@@ -36,7 +36,8 @@
             </StackPanel>
         </Button>
 
-        <TextBlock FontFamily="Tw Cen MT" FontSize="25" Foreground="#FFF" VerticalAlignment="Top" Margin="30,205,0,0">
+        <TextBlock FontFamily="Tw Cen MT" FontSize="25" Foreground="#FFF" VerticalAlignment="Top" Margin="30,205,0,0"  
+                   Name="SearchFilterTextBlock">
                     Consulta: Filtro/Búsqueda
         </TextBlock>
         <!--<TextBlock FontFamily="Tw Cen MT" FontSize="25" Foreground="#FFF" VerticalAlignment="Top" Margin="30,205,0,0">
@@ -64,7 +65,7 @@
         <!--#region OrderTable -->        
         <Grid Visibility="Hidden" x:Name="OrderTableGrid">
             <!--#region Sort and Recharge-->
-            <StackPanel Orientation="Horizontal" Margin="0,200,35,0" HorizontalAlignment="Right">
+            <!--<StackPanel Orientation="Horizontal" Margin="0,200,35,0" HorizontalAlignment="Right">
                 <Button Background="{x:Null}" Width="85" Height="40" VerticalAlignment="Top" Cursor="Hand" Padding="0" 
                 BorderBrush="Transparent">
                     <StackPanel Orientation="Horizontal">
@@ -81,14 +82,14 @@
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="Reload" Margin="0,0,5,0" Foreground="#FFF" VerticalAlignment="Center"
                                              Height="18" Width="18"/>
-                        <!--<fa5:ImageAwesome Icon="" Height="11" Width="11" Foreground="#FFF" VerticalAlignment="Center" 
-                                              Margin="0,0,5,0"/>-->
+                        --><!--<fa5:ImageAwesome Icon="" Height="11" Width="11" Foreground="#FFF" VerticalAlignment="Center" 
+                                              Margin="0,0,5,0"/>--><!--
                         <TextBlock Foreground="#FFFFFF" FontFamily="Tw Cen MT" FontSize="16" Padding="0" VerticalAlignment="Center">
                             Refrescar
                         </TextBlock>
                     </StackPanel>
                 </Button>
-            </StackPanel>
+            </StackPanel>-->
             <!--#endregion-->
 
             <!--#region Table headers #2C2C2E-->
@@ -200,8 +201,8 @@
                                         </Grid>
 
                                         <Grid Margin="5px,0,5px,0">
-                                            <Border Background="#5B5B5B" Height="32px" CornerRadius="5" />
-                                            <Grid Visibility="Visible" Margin="0,0,0,0" ToolTip="Actualizar pedido" 
+                                            <Border Background="#5B5B5B" Height="32px" CornerRadius="5" MouseLeftButtonUp="ShowOrderUpdateDialog"/>
+                                            <Grid Visibility="Visible" Margin="0,0,0,0" ToolTip="Actualizar pedido" MouseLeftButtonUp="ShowOrderUpdateDialog"
                                           HorizontalAlignment="Center" Height="32px" Width="23px">
 
                                                 <fa5:ImageAwesome Icon="Solid_Pen" Height="18" Width="18" Foreground="#FFF" VerticalAlignment="Center" 
@@ -242,7 +243,7 @@
                      materialDesign:HintAssist.FloatingScale="1" BorderThickness="0"
                      materialDesign:HintAssist.FloatingOffset="0, -40"                               
                      materialDesign:TextFieldAssist.HasClearButton="True"
-                     KeyUp="ShowSearchResults" materialDesign:ValidationAssist.Background="Transparent"
+                     TextChanged="ShowSearchResults" materialDesign:ValidationAssist.Background="Transparent"
                      Name="SearchTextBox">
                 <!--<TextBox.Text>
                     <Binding Path="." UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
@@ -377,7 +378,7 @@
                     Pedido
                 </TextBlock>
 
-                <Button Padding="10,0,10,0" Height="30" Margin="0,13,34,0" HorizontalAlignment="Right" Background="#2C2C2E"
+                <!--<Button Padding="10,0,10,0" Height="30" Margin="0,13,34,0" HorizontalAlignment="Right" Background="#2C2C2E"
                     BorderBrush="{x:Null}" VerticalAlignment="Top" materialDesign:ButtonAssist.CornerRadius="8"
                     Name="RegisterCustomerButton" Cursor="Hand">
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
@@ -387,7 +388,7 @@
                                 Registrar Cliente
                         </TextBlock>
                     </StackPanel>
-                </Button>
+                </Button>-->
             </Grid>
 
             <Grid Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="1" Height="auto" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,-20,0,0"
@@ -881,7 +882,7 @@
 
                     <Button Width="120" Margin="0,0,0,0" materialDesign:ButtonAssist.CornerRadius="8" Height="40"
                         Background="#2C2C2E" BorderBrush="{x:Null}" Visibility="Collapsed" ToolTip="Actualizar pedido"
-                        Name="SaveOrderButton" Click="ShowConfirmationToast">
+                        Name="SaveOrderButton" Click="ReceiveOrderModification">
                         <StackPanel Orientation="Horizontal">
                             <fa5:ImageAwesome Icon="Solid_Save" Height="13" Width="13" Foreground="#FFF" VerticalAlignment="Center" 
                                       ToolTip="Selecciona un filtro" Margin="0,0,4px,0"/>
@@ -889,6 +890,44 @@
                             Guardar
                             </TextBlock>
                         </StackPanel>
+
+                        <Button.Style>
+                            <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedDarkButton}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ElementName=OrderTypeComboBox, 
+                                                     Path=(Validation.HasError)}" Value="True">
+                                        <Setter Property="IsEnabled" Value="False"/>
+                                    </DataTrigger>
+
+                                    <DataTrigger Binding="{Binding ElementName=OrderAddressComboBox, 
+                                                     Path=(Validation.HasError)}" Value="True">
+                                        <Setter Property="IsEnabled" Value="False"/>
+                                    </DataTrigger>
+
+                                    <DataTrigger Binding="{Binding ElementName=DeleteFoodRecipeButton, 
+                                                     Path=IsEnabled}" Value="False">
+                                        <Setter Property="IsEnabled" Value="False"/>
+                                    </DataTrigger>
+
+                                    <DataTrigger Binding="{Binding ElementName=DeleteItemButton, 
+                                                     Path=IsEnabled}" Value="False">
+                                        <Setter Property="IsEnabled" Value="False"/>
+                                    </DataTrigger>
+
+
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions >
+                                            <Condition Binding="{Binding ElementName=CustomerNameStackPanel, 
+                                                       Path=Visibility}" Value="Visible"/>
+
+                                            <Condition Binding="{Binding ElementName=CustomerNameComboBox, 
+                                                       Path=(Validation.HasError)}" Value="True"/>
+                                        </MultiDataTrigger.Conditions>
+                                        <Setter Property="IsEnabled" Value="False"/>
+                                    </MultiDataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
                     </Button>
 
                     <!--<Button Width="120" materialDesign:ButtonAssist.CornerRadius="8" Background="#2C2C2E" BorderBrush="{x:Null}"
@@ -940,32 +979,8 @@
                         </DataGrid.Resources>
 
                         <DataGrid.Columns>
-                            <!--<DataGridTemplateColumn Header="Cantidad" Width="90" CanUserResize="False">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                            <Button Padding="0" Background="#2C2C2E" Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
-                                                    Height="15" Width="15" Margin="0,0,0,0" BorderBrush="{x:Null}"
-                                                    Click="IncreaseRecipeAmount">
-                                                <fa5:ImageAwesome Icon="Solid_Plus" Height="7" Width="7"  Foreground="#FFFFFF" Margin="0"
-                                                                  VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                            </Button>
-
-                                            <TextBlock Text="{Binding Quantity}" Margin="5,0,5,0"  FontFamily="Tw Cen MT" FontSize="15" 
-                                                       Foreground="#000" TextWrapping="Wrap"/>
-
-                                            <Button Padding="0" Background="#2C2C2E" Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
-                                                    Height="15" Width="15" BorderBrush="{x:Null}">
-                                                <fa5:ImageAwesome Icon="Solid_Minus" Height="7" Width="7"  Foreground="#FFFFFF" Margin="0"
-                                                                  VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                            </Button>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>-->
-
                             <DataGridTextColumn Header="Cantidad" CanUserResize="False" Width="90"
-                                                ElementStyle="{StaticResource WrapText}" IsReadOnly="False" x:Name="QuantityDataGridTextColumn">
+                                                ElementStyle="{StaticResource WrapText}" IsReadOnly="False">
                                 <DataGridTextColumn.Binding>
                                     <Binding Path="Cantidad" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
                                         <Binding.ValidationRules>
@@ -980,20 +995,6 @@
 
                             <DataGridTextColumn Header="Precio" CanUserResize="False" Width="*" Binding="{Binding Precio}"
                                                 ElementStyle="{StaticResource WrapText}" IsReadOnly="True"/>
-                            
-                            <!--<DataGridTemplateColumn Header="Eliminar" Width="90" IsReadOnly="True" CanUserResize="False">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
-                                            <Button Padding="0" Background="#2C2C2E" Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
-                                                    Height="15" Width="15" BorderBrush="{x:Null}">
-                                                <fa5:ImageAwesome Icon="Solid_Trash" Height="7" Width="7"  Foreground="#FFFFFF" Margin="0"
-                                                                  VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                            </Button>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>-->
                         </DataGrid.Columns>
                     </DataGrid>
 
@@ -1019,8 +1020,7 @@
                         
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Cantidad" CanUserResize="False" Width="90"
-                                                ElementStyle="{StaticResource WrapText}" IsReadOnly="False"
-                                                >
+                                                ElementStyle="{StaticResource WrapText}" IsReadOnly="False">
                                 <DataGridTextColumn.Binding>
                                     <Binding Path="Cantidad" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
                                         <Binding.ValidationRules>
