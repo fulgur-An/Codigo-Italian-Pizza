@@ -64,6 +64,15 @@ C:\Users\rub_i\Desktop\Codigo-Italian-Pizza\obj\Debug\ItalianPizza.csproj.CoreCo
 C:\Users\rub_i\Desktop\Codigo-Italian-Pizza\obj\Debug\ItalianPizza.csproj.CopyComplete
 C:\Users\rub_i\Desktop\Codigo-Italian-Pizza\obj\Debug\ItalianPizza.exe
 C:\Users\rub_i\Desktop\Codigo-Italian-Pizza\obj\Debug\ItalianPizza.pdb
-C:\Users\rub_i\Desktop\Codigo-Italian-Pizza\obj\Debug\Views\ChekProviderPage.g.cs
-C:\Users\rub_i\Desktop\Codigo-Italian-Pizza\obj\Debug\Views\ChekProviderPage.baml
 C:\Users\rub_i\Desktop\Codigo-Italian-Pizza\bin\Debug\Notifications.Wpf.dll
+C:\Users\rub_i\Desktop\Codigo-Italian-Pizza\obj\Debug\Views\CheckProviderPage.g.cs
+C:\Users\rub_i\Desktop\Codigo-Italian-Pizza\obj\Debug\Views\CheckProviderPage.baml
+C:\Users\rub_i\Desktop\Codigo-Italian-Pizza\bin\Debug\Backend.dll
+C:\Users\rub_i\Desktop\Codigo-Italian-Pizza\bin\Debug\EntityFramework.dll
+C:\Users\rub_i\Desktop\Codigo-Italian-Pizza\bin\Debug\Backend.pdb
+C:\Users\rub_i\Desktop\Codigo-Italian-Pizza\bin\Debug\Backend.dll.config
+C:\Users\rub_i\Desktop\Codigo-Italian-Pizza\bin\Debug\EntityFramework.xml
+C:\Users\rub_i\Desktop\Codigo-Italian-Pizza\bin\Debug\ServerItalianPizza.exe
+C:\Users\rub_i\Desktop\Codigo-Italian-Pizza\bin\Debug\ServerItalianPizza.pdb
+C:\Users\rub_i\Desktop\Codigo-Italian-Pizza\bin\Debug\ServerItalianPizza.exe.config
+C:\Users\rub_i\Desktop\Codigo-Italian-Pizza\obj\Debug\GeneratedInternalTypeHelper.g.cs

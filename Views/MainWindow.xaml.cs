@@ -53,10 +53,10 @@ namespace ItalianPizza
             OrdersGreendBorder.Visibility = Visibility;
         }
 
-        public void OpenPoviderModule(object sender, RoutedEventArgs e)
+        public void OpenProviderModule(object sender, RoutedEventArgs e)
         {
-            ChekProviderPage ChekProviderPage = new ChekProviderPage(usernameLoggedIn);
-            NavigationFrame.NavigationService.Navigate(ChekProviderPage);
+            CheckProviderPage checkProviderPage = new CheckProviderPage(usernameLoggedIn);
+            NavigationFrame.NavigationService.Navigate(checkProviderPage);
             ProviderStackPanel.Opacity = 1;
             ProviderGreenBorder.Visibility = Visibility;
         }

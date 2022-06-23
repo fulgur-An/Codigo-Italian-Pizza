@@ -54,6 +54,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -76,7 +77,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ChekProviderPage.xaml">
+    <Page Include="Views\CheckProviderPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -100,11 +101,20 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="BusinessObjects\ProviderViewModel.cs" />
+    <Compile Include="ItalianPizzaServiceCallback.cs" />
+    <Compile Include="Validations\AlphabeticCharacter.cs" />
+    <Compile Include="Validations\DecimalNumber.cs" />
+    <Compile Include="Validations\Email.cs" />
+    <Compile Include="Validations\Integer.cs" />
+    <Compile Include="Validations\NotNull.cs" />
+    <Compile Include="Validations\NotNullList.cs" />
+    <Compile Include="Validations\Phone.cs" />
     <Compile Include="Views\CheckOrdersPage.xaml.cs">
       <DependentUpon>CheckOrdersPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ChekProviderPage.xaml.cs">
-      <DependentUpon>ChekProviderPage.xaml</DependentUpon>
+    <Compile Include="Views\CheckProviderPage.xaml.cs">
+      <DependentUpon>CheckProviderPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ErrorPage.xaml.cs">
       <DependentUpon>ErrorPage.xaml</DependentUpon>
@@ -149,6 +159,16 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\background_rotate.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Backend-ItalianPizza\BackendItalianPizza.csproj">
+      <Project>{F39885F7-163B-4DC6-9BDF-65AEBC612148}</Project>
+      <Name>BackendItalianPizza</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Server-ItalianPizza\ServerItalianPizza.csproj">
+      <Project>{64E1A512-639A-481C-B4A2-1349A9781C9B}</Project>
+      <Name>ServerItalianPizza</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="packages\MaterialDesignThemes.4.4.0\build\MaterialDesignThemes.targets" Condition="Exists('packages\MaterialDesignThemes.4.4.0\build\MaterialDesignThemes.targets')" />
