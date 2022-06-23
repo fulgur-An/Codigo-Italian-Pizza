@@ -169,6 +169,23 @@
                             Cursor="Hand" Style="{StaticResource StackPanelHoverStyle}" Visibility="Visible"
                             MouseLeftButtonUp="LogOut" Name="LogOutStackPanel">
                     <Border Width="6px" Height="40" Background="#49E12F" CornerRadius="0,3,3,0" Visibility="Visible"/>
+                <StackPanel Orientation="Horizontal" Height="50px" Background="Transparent" Cursor="Hand" 
+                            Style="{StaticResource StackPanelHoverStyle}" Name="ProviderStackPanel"
+                            MouseLeftButtonUp="OpenProviderModule"> 
+                <Border Width="6px" Height="40" Background="#49E12F" CornerRadius="0,3,3,0" Visibility="Hidden"
+                        Name="ProviderGreenBorder"/>
+                <fa5:ImageAwesome Icon="Solid_Coins" Height="20" Width="20" Margin="25,0,0,0" 
+                                     Foreground="#FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                                     ToolTip="Usuarios" />
+                <TextBlock Foreground="#FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                               Margin="18px,0,0,0" FontFamily="Trebuchet MS" FontSize="15">                    
+                        Proveedores
+                </TextBlock>
+            </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Height="50px" Background="Transparent" Margin="0,42,0,0"
+                            Cursor="Hand" Style="{StaticResource StackPanelHoverStyle}" Visibility="Visible">
+                    <Border Width="6px" Height="40" Background="#49E12F" CornerRadius="0,3,3,0" Visibility="Hidden"/>
                     <materialDesign:PackIcon Kind="ExitToApp" Foreground="#FFFFFF" VerticalAlignment="Center"
                                              HorizontalAlignment="Center" Height="25" Width="25" Margin="21,0,0,0"/>
                     <TextBlock Foreground="#FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center" 

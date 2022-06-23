@@ -184,6 +184,14 @@ namespace ItalianPizza
         }
 
 
+        public void OpenProviderModule(object sender, RoutedEventArgs e)
+        {
+            CheckProviderPage checkProviderPage = new CheckProviderPage(usernameLoggedIn);
+            NavigationFrame.NavigationService.Navigate(checkProviderPage);
+            ProviderStackPanel.Opacity = 1;
+            ProviderGreenBorder.Visibility = Visibility;
+        }
+
         #endregion
 
 
