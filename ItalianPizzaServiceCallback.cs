@@ -10,17 +10,7 @@ namespace ItalianPizza
 {
     public class ItalianPizzaServiceCallback : IItalianPizzaServiceCallback
     {
-        public delegate void RegisterCustomerDelegate(int result);
-        public event RegisterCustomerDelegate RegisterCustomerEvent;
-
-        public delegate void DeleteCustomerByIdDelegate(int result);
-        public event DeleteCustomerByIdDelegate DeleteCustomerByIdEvent;
-
-        public delegate void GetCustomerListSortedByNameDelegate(List<CustomerContract> customerContracts, List<AddressContract> addressContracts);
-        public event GetCustomerListSortedByNameDelegate GetCustomerListSortedByNameEvent;
-
-        public delegate void UpdateCustomerDelegate(int result);
-        public event UpdateCustomerDelegate UpdateCustomerEvent;
+        
 
         public delegate void LoginEmployeeDelegate(EmployeeContract employee, bool confirmLogin);
         public event LoginEmployeeDelegate LoginEmployeeEvent;
@@ -48,38 +38,6 @@ namespace ItalianPizza
 
         public delegate void GetEmployeeRoleDelegate(string employeeRole);
         public event GetEmployeeRoleDelegate GetEmployeeRoleEvent;
-
-        public void RegisterCustomer(int result)
-        {
-            if (RegisterCustomerEvent != null)
-            {
-                RegisterCustomerEvent(result);
-            }
-        }
-
-        public void DeleteCustomerById(int result)
-        {
-            if (DeleteCustomerByIdEvent != null)
-            {
-                DeleteCustomerByIdEvent(result);
-            }
-        }
-
-        public void GetCustomerListSortedByName(List<CustomerContract> customerContracts, List<AddressContract> addressContracts)
-        {
-            if (GetCustomerListSortedByNameEvent != null)
-            {
-                GetCustomerListSortedByNameEvent(customerContracts, addressContracts);
-            }
-        }
-
-        public void UpdateCustomer(int result)
-        {
-            if (UpdateCustomerEvent != null)
-            {
-                UpdateCustomerEvent(result);
-            }
-        }
 
         public void LoginEmployee(EmployeeContract employee, bool confirmLogin)
         {
