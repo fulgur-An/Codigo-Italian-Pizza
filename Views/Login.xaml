@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:local="clr-namespace:ItalianPizza.Views" xmlns:validations="clr-namespace:ItalianPizza.Validations"
+        xmlns:local="clr-namespace:ItalianPizza.Views" xmlns:validations="clr-namespace:ItalianPizza.Validations" xmlns:fa5="http://schemas.fontawesome.com/icons/"
         mc:Ignorable="d"
         Title="Login" Height="500" Width="350" 
         ResizeMode="NoResize" 
@@ -31,26 +31,49 @@
                 <DropShadowEffect BlurRadius="15" Direction="0" RenderingBias="Quality" ShadowDepth="1" Color="#FFBBBBBB"/>
             </Rectangle.Effect>
         </Rectangle>
-        
-        <Grid VerticalAlignment="Bottom" Margin="35,80" Height="240">
-            <Label Content="BIENVENIDO" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="5" Foreground="Gray" FontSize="25" FontFamily="Tw Cen MT"/>
-            <StackPanel VerticalAlignment="Center" Margin="15">
-                <TextBox x:Name="Username" Margin="0,10" materialDesign:HintAssist.Hint="Username" Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
-                         FontFamily="Tw Cen MT" FontSize="18">
-                </TextBox>
-                <PasswordBox x:Name="Password" Margin="0,10" materialDesign:HintAssist.Hint="Password" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" 
-                         FontFamily="Tw Cen MT" FontSize="18">
-                </PasswordBox>
-            </StackPanel>
-        </Grid>
-        <Button VerticalAlignment="Bottom" materialDesign:ButtonAssist.CornerRadius="8"  HorizontalAlignment="Center"
-                                Margin="0,90" Width="150" Height="40px" BorderBrush="{x:Null}" Background="#2C2C2E"
-                                Name="AddAddressButton" Click="LoginEmployee" Content="LOGIN"></Button>
-        <!--//Width="150" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,65"  Click="LoginEmployee"/>-->
+
         <Image Source="../Images/pizza.png" Width="100" Height="100" VerticalAlignment="Top" Margin="0,0,0,0"/>
         <TextBlock FontFamily="Tw Cen MT" FontSize="40" Foreground="#FFF" Margin="0,100px,0,0"  TextWrapping="Wrap" 
                    TextAlignment="Center" VerticalAlignment="Top" Height="40px">
                    ItalianPizza
         </TextBlock>
+
+        <Grid VerticalAlignment="Bottom" Margin="35,80" Height="240">
+            <Label Content="BIENVENIDO" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="5" Foreground="Gray" FontSize="25" FontFamily="Tw Cen MT"/>
+            <StackPanel VerticalAlignment="Center" Margin="15">
+                <TextBox x:Name="EmployeeUsernameTextBox" Margin="0,10" materialDesign:HintAssist.Hint="Username" Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                         FontFamily="Tw Cen MT" FontSize="18">
+                </TextBox>
+
+                <PasswordBox x:Name="EmployeePasswordPasswordBox" Margin="0,10" materialDesign:HintAssist.Hint="Password" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" 
+                         FontFamily="Tw Cen MT" FontSize="18">
+
+                </PasswordBox>
+                
+            </StackPanel>
+        </Grid>
+
+        <Button VerticalAlignment="Bottom" materialDesign:ButtonAssist.CornerRadius="8"  HorizontalAlignment="Center"
+                                Margin="0,80" Width="100" Height="40px" BorderBrush="{x:Null}" Background="#2C2C2E"
+                                Click="LoginEmployee" Content="LOGIN">
+            <Button.Style>
+                <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedDarkButton}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=EmployeeUsernameTextBox, 
+                                                     Path=(Validation.HasError)}" Value="True">
+                            <Setter Property="IsEnabled" Value="False"/>
+                        </DataTrigger>
+
+                        <DataTrigger Binding="{Binding ElementName=EmployeePasswordTextBox, 
+                                                     Path=(Validation.HasError)}" Value="True">
+                            <Setter Property="IsEnabled" Value="False"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+
+        <TextBox x:Name="EmployeePasswordTextBox" Visibility="Hidden" Margin="0,0,0,0">
+        </TextBox>
     </Grid>
 </Window>

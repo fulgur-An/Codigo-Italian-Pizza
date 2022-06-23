@@ -15,7 +15,7 @@ namespace ItalianPizza.Validations
                 return new ValidationResult(false, "El campo es obligatorio");
             }
 
-            string regularPhrase = @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z";
+            string regularPhrase = @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$";
 
             if (!Regex.IsMatch(text, regularPhrase))
             {

@@ -24,5 +24,6 @@ namespace ItalianPizza.Views
         {
             InitializeComponent();
         }
+
     }
 }

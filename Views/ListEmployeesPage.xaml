@@ -28,7 +28,8 @@
                               VerticalAlignment="Center" />
             </StackPanel>
         </Button>
-        <TextBlock FontFamily="Tw Cen MT" FontSize="25" Foreground="#FFF" VerticalAlignment="Top" Margin="30,205,0,0">
+        <TextBlock FontFamily="Tw Cen MT" FontSize="25" Foreground="#FFF" VerticalAlignment="Top" Margin="30,205,0,0"
+                   Name="SearchFilterTextBlock">
                     Consulta: Filtro/Búsqueda
         </TextBlock>
 
@@ -81,7 +82,7 @@
             <StackPanel Orientation="Horizontal" Height="45" Width="709" Margin="0,175,0,360">
                 <Grid Width="250">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <fa5:ImageAwesome Icon="Solid_User" Height="21" Width="21" Foreground="#FFF" VerticalAlignment="Center" 
+                        <fa5:ImageAwesome Icon="Solid_User" Height="20" Width="10" Foreground="#FFF" VerticalAlignment="Center" 
                                           Margin="0,0,10,0"/>
                         <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" VerticalAlignment="Center">
                             Empleado
@@ -89,29 +90,29 @@
                     </StackPanel>
                 </Grid>
 
-                <Grid Width="229.5">
+                <Grid Width="150">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <fa5:ImageAwesome Icon="Solid_Users" Height="21" Width="21" Foreground="#FFF" VerticalAlignment="Center" 
+                        <fa5:ImageAwesome Icon="Solid_Users" Height="21" Width="20" Foreground="#FFF" VerticalAlignment="Center" 
                                           Margin="0,0,10,0"/>
                         <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" VerticalAlignment="Center">
-                            Rol 
+                            Rol
                         </TextBlock>
                     </StackPanel>
                 </Grid>
 
                 <Grid Width="114.75">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <fa5:ImageAwesome Icon="Solid_Clock" Height="21" Width="21" Foreground="#FFF" VerticalAlignment="Center" 
-                                          Margin="0,0,10,0"/>
+                        <fa5:ImageAwesome Icon="Solid_Clock" Height="21" Width="15" Foreground="#FFF" VerticalAlignment="Center" 
+                                          Margin="10,0,10,0"/>
                         <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" VerticalAlignment="Center">
                             Turno
                         </TextBlock>
                     </StackPanel>
                 </Grid>
 
-                <Grid Width="114.75">
+                <Grid Width="120">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" VerticalAlignment="Center">
+                        <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" VerticalAlignment="Center" Margin="30,0,0,0">
                             Operaciones
                         </TextBlock>
                     </StackPanel>
@@ -122,62 +123,92 @@
             <!--#region Table body-->
             <Border Background="#5B5B5B" Height="350" Width="709" Margin="0,110,0,-100" CornerRadius="0,0,5,5" 
                 Opacity="0"/>
-            <ListBox Height="350" Width="709" Margin="0,110,0,-100" HorizontalAlignment="Center">
-                <ListBoxItem BorderBrush="#CFCFCF" BorderThickness="0,0,0,1">
-                    <StackPanel Orientation="Horizontal" Height="35" Width="709" Cursor="Hand" Background="Transparent">
-                        <Grid Width="250">
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-                                <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" TextWrapping="Wrap">
-                                Javier Alberto Calderón Blas
-                                </TextBlock>
+            <ListBox Height="350" Width="709" Margin="0,110,0,-100" HorizontalAlignment="Center" ItemsSource="{Binding}"
+                     Name="EmployeeListBox">
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="BorderThickness" Value="0,0,0,1px"/>
+                        <Setter Property="BorderBrush" Value="#CFCFCF"/>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <materialDesign:TransitioningContent OpeningEffectsOffset="{materialDesign:IndexedItemOffsetMultiplier 0:0:0.05}">
+                            <materialDesign:TransitioningContent.OpeningEffects>
+                                <materialDesign:TransitionEffect Kind="SlideInFromLeft"/>
+                            </materialDesign:TransitioningContent.OpeningEffects>
+                            <StackPanel Margin="0,5px,0,5px" Orientation="Horizontal" Height="auto" Width="709" Cursor="Hand" Background="Transparent">
+                                <Grid Width="250">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                        <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" TextWrapping="Wrap">
+                                            <TextBlock.Text>
+                                                <MultiBinding StringFormat="{}{0} {1}">
+                                                    <Binding Path="Name"/>
+                                                    <Binding Path="LastName"/>
+                                                </MultiBinding>
+                                            </TextBlock.Text>
+                                        </TextBlock>
+                                    </StackPanel>
+                                </Grid>
+
+                                <Grid Width="150">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" TextWrapping="Wrap"
+                                                   Background="Transparent"
+                                                   Text="{Binding Role}" Margin="0,0,0,0">
+
+                                        </TextBlock>
+                                    </StackPanel>
+                                </Grid>
+
+                                <Grid Width="114.75">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" TextWrapping="Wrap"
+                                                   TextAlignment="Justify" Background="Transparent"
+                                                   Text="{Binding Workshift}">
+
+                                        </TextBlock>
+                                    </StackPanel>
+                                </Grid>
+
+                                <Grid Width="120" Background="Transparent" Margin="0,0,0,0">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,0">
+
+                                        <Grid Margin="32px,0,10px,0">
+                                            <Border Background="#5B5B5B" Height="32px" CornerRadius="5" MouseLeftButtonUp="ShowSpecificEmployeeInformation"/>
+                                            <Grid Visibility="Visible" Margin="0,0,0,0" ToolTip="Visualizar empleado" MouseLeftButtonUp="ShowSpecificEmployeeInformation"
+                                                  HorizontalAlignment="Center" Height="32px" Width="23px">
+
+                                                <fa5:ImageAwesome Icon="Solid_Eye" Height="18" Width="18" Foreground="#FFF" VerticalAlignment="Center"
+                                                                  Margin="0,0,0,0"/>
+                                            </Grid>
+                                        </Grid>
+
+                                        <Grid Margin="5px,0,10px,0">
+                                            <Border Background="#5B5B5B" Height="32px" CornerRadius="5" MouseLeftButtonUp="ShowEmployeeUpdateDialog"/>
+                                            <Grid Visibility="Visible" Margin="0,0,0,0" ToolTip="Actualizar empleado" MouseLeftButtonUp="ShowEmployeeUpdateDialog"
+                                                  HorizontalAlignment="Center" Height="32px" Width="23px">
+
+                                                <fa5:ImageAwesome Icon="Solid_Pen" Height="18" Width="18" Foreground="#FFF" VerticalAlignment="Center"
+                                                                  Margin="0,0,0,0"/>
+                                            </Grid>
+                                        </Grid>
+
+                                        <Grid Margin="5px,0,10px,0">
+                                            <Border Background="#5B5B5B" Height="32px" Width="23px" CornerRadius="5" MouseLeftButtonUp="ShowEmployeeDeleteDialog"/>
+                                            <Grid Visibility="Visible" Margin="0,0,0,0" Height="32px" Width="23px" ToolTip="Eliminar empleado" 
+                                                  MouseLeftButtonUp="ShowEmployeeDeleteDialog">
+
+                                                <fa5:ImageAwesome Icon="Solid_Trash" Height="18" Width="18" Foreground="#FFF" VerticalAlignment="Center"
+                                                                  Margin="0,0,0,0"/>
+                                            </Grid>
+                                        </Grid>
+                                    </StackPanel>
+                                </Grid>
                             </StackPanel>
-                        </Grid>
-
-                        <Grid Width="229.5">
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <TextBlock FontFamily="Tw Cen MT" FontSize="16" Foreground="#FFF" TextWrapping="Wrap">
-                                Mesero
-                                </TextBlock>
-                            </StackPanel>
-                        </Grid>
-
-                        <Grid Width="114.5">
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" TextWrapping="Wrap">
-                                9:00 - 17:00
-                                </TextBlock>
-                            </StackPanel>
-                        </Grid>
-
-                        <Grid Width="114.5" Background="Transparent">
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,14,0">
-                                <Button materialDesign:ButtonAssist.CornerRadius="5" Background="#5B5B5B" BorderBrush="{x:Null}"
-                                        Visibility="Visible" Margin="0,0,10,0" ToolTip="Visualizar pedido" Click="ShowSpecificEmployeeInformation"
-                                        Padding="4,0,4,0" HorizontalAlignment="Center">
-
-                                    <fa5:ImageAwesome Icon="Solid_Eye" Height="18" Width="18" Foreground="#FFF" VerticalAlignment="Center" 
-                                                      Margin="0,0,0,0"/>
-                                </Button>
-                                
-                                <Button materialDesign:ButtonAssist.CornerRadius="5" Background="#5B5B5B" BorderBrush="{x:Null}"
-                                        Visibility="Visible" Margin="0,0,10,0" ToolTip="Actualizar pedido" Click="ShowEmployeeUpdateDialog"
-                                        Padding="4,0,4,0" HorizontalAlignment="Center">
-
-                                    <fa5:ImageAwesome Icon="Solid_Pen" Height="18" Width="18" Foreground="#FFF" VerticalAlignment="Center" 
-                                                      Margin="0,0,0,0"/>
-                                </Button>
-
-                                <Button materialDesign:ButtonAssist.CornerRadius="5" Background="#5B5B5B" BorderBrush="{x:Null}"
-                                        Visibility="Visible" Margin="0,0,0,0" ToolTip="Cancelar pedido" Click="ShowEmployeDeleteDialog"
-                                        Padding="4,0,4,0" HorizontalAlignment="Center">
-
-                                    <fa5:ImageAwesome Icon="Solid_Trash" Height="18" Width="18" Foreground="#FFF" VerticalAlignment="Center" 
-                                                      Margin="0,0,0,0"/>
-                                </Button>
-                            </StackPanel>
-                        </Grid>
-                    </StackPanel>
-                </ListBoxItem>
+                        </materialDesign:TransitioningContent>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
             </ListBox>
             <!--#endregion-->
         </Grid>
@@ -312,16 +343,16 @@
 
             <StackPanel Orientation="Vertical" Margin="0,20,0,0" Background="{x:Null}" HorizontalAlignment="Center"
                         Width="700">
-                
+
                 <!--#region Employee Information-->
 
                 <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
                     <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left">
-                        *Nombre
+                        Nombre*
                     </TextBlock>
                     <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left" 
                                Margin="265,0,0,0">
-                        *Apellidos
+                        Apellidos*
                     </TextBlock>
                 </StackPanel>
 
@@ -344,7 +375,7 @@
                                   materialDesign:HintAssist.Background="Transparent" 
                                   materialDesign:HintAssist.Foreground="Transparent"                         
                                   Name="EmployeeNameTextBox" Grid.ColumnSpan="2">
-                            
+
                             <TextBox.Text>
                                 <Binding Path="Name" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
                                     <Binding.ValidationRules>
@@ -380,14 +411,14 @@
                         </TextBox>
                     </Grid>
                 </StackPanel>
-                
+
                 <StackPanel Orientation="Horizontal" Margin="0,40,0,0">
                     <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left" 
                                Margin="0,0,175,0">
-                        *Correo eléctronico
+                        Correo eléctronico*
                     </TextBlock>
                     <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left">
-                        *Teléfono
+                        Teléfono*
                     </TextBlock>
                 </StackPanel>
 
@@ -446,12 +477,14 @@
                 <StackPanel Orientation="Horizontal" Margin="0,40,0,0">
                     <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left" 
                                Margin="0,0,270,0" Name="UsernameTextBlock">
-                        *Usuario
+                        Usuario*
                     </TextBlock>
-                    <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left"
+                    <Grid x:Name="EmployeePasswordGrid">
+                        <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left"
                                Name="PasswordTextBlock">
-                        *Contraseña
+                        Contraseña*
                     </TextBlock>
+                    </Grid>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
@@ -480,7 +513,7 @@
                         </TextBox>
                     </Grid>
 
-                    <Grid Margin="60,0,0,0">
+                    <Grid Margin="60,0,0,0" x:Name="EmployeePasswordGrid2">
                         <Border Background="{x:Null}" CornerRadius="5" Width="340" Height="35" HorizontalAlignment="Left"
                                 BorderBrush="#8D8D8D" BorderThickness="1" Grid.ColumnSpan="2" Name="PasswordBorder"/>
                         <TextBox materialDesign:HintAssist.HelperText="Contraseña del empleado"  
@@ -509,14 +542,14 @@
                 <StackPanel Orientation="Horizontal" Margin="0,40,0,0">
                     <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left" 
                                Margin="0,0,205,0">
-                        *Rol
+                        Rol*
                     </TextBlock>
                     <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left"
                                Margin="0,0,90,0">
                         Fecha de admisión
                     </TextBlock>
                     <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left">
-                        *Salario
+                        Salario*
                     </TextBlock>
                 </StackPanel>
 
@@ -535,7 +568,7 @@
                                       materialDesign:HintAssist.Foreground="Transparent"
                                       materialDesign:HintAssist.HelperTextFontSize="13"
                                       Name="EmployeeTypeComboBox" DropDownClosed="ChangeEmployeeType">
-                            
+
                             <ComboBox.Text>
                                 <Binding Path="Role" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
                                     <Binding.ValidationRules>
@@ -560,7 +593,7 @@
                                     BorderBrush="#000" materialDesign:HintAssist.Hint="Fecha establecida" Cursor="Hand"
                                     materialDesign:HintAssist.HelperText="Fecha actual establecida" IsEnabled="False" 
                                     materialDesign:HintAssist.HelperTextFontSize="13" Background="Transparent"
-                                    Name="AdmissionDateDatePicker"/>
+                                    Name="EmployeeAdmissionDateDatePicker"/>
                     </Grid>
 
                     <Grid Margin="70,0,0,0">
@@ -599,11 +632,11 @@
                 <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
                     <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left" 
                                Margin="0,0,75,0">
-                        *Hora de entrada
+                        Hora de entrada*
                     </TextBlock>
                     <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left"
                                Margin="0,0,115,0">
-                        *Hora de salida
+                        Hora de salida*
                     </TextBlock>
                     <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left">
                         Tiempo
@@ -614,8 +647,8 @@
                     <Grid Margin="0,0,0,0">
                         <Border Background="{x:Null}" CornerRadius="5" Width="190" Height="35" HorizontalAlignment="Left"
                                 BorderBrush="#8D8D8D" BorderThickness="1" Grid.ColumnSpan="2"/>
-                        <TextBox materialDesign:HintAssist.HelperText="Tiempo total establecido"  
-                                  materialDesign:HintAssist.Hint="Tiempo total" 
+                        <TextBox materialDesign:HintAssist.HelperText="Ingresa hora de entrada"  
+                                  materialDesign:HintAssist.Hint="Ej: 8" 
                                   HorizontalAlignment="Left" materialDesign:TextFieldAssist.HasClearButton="True"
                                   Width="190" Height="35" Padding="6" VerticalContentAlignment="Center"
                                   FontFamily="Tw Cen MT" FontSize="15" BorderBrush="#000" Foreground="#000" 
@@ -629,7 +662,7 @@
                             <TextBox.Text>
                                 <Binding Path="TimeOfEntry" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
                                     <Binding.ValidationRules>
-                                        <validations:Integer ValidatesOnTargetUpdated="True"/>
+                                        <validations:Time ValidatesOnTargetUpdated="True"/>
                                     </Binding.ValidationRules>
                                 </Binding>
                             </TextBox.Text>
@@ -639,8 +672,8 @@
                     <Grid Margin="55,0,0,0">
                         <Border Background="{x:Null}" CornerRadius="5" Width="190" Height="35" HorizontalAlignment="Left"
                                 BorderBrush="#8D8D8D" BorderThickness="1" Grid.ColumnSpan="2"/>
-                        <TextBox materialDesign:HintAssist.HelperText="Tiempo total establecido"  
-                                  materialDesign:HintAssist.Hint="Tiempo total" 
+                        <TextBox materialDesign:HintAssist.HelperText="Ingresa hora de salida"  
+                                  materialDesign:HintAssist.Hint="Ej: 15" 
                                   HorizontalAlignment="Left" materialDesign:TextFieldAssist.HasClearButton="True"
                                   Width="190" Height="35" Padding="6" VerticalContentAlignment="Center"
                                   FontFamily="Tw Cen MT" FontSize="15" BorderBrush="#000" Foreground="#000" 
@@ -654,7 +687,7 @@
                             <TextBox.Text>
                                 <Binding Path="DepartureTime" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
                                     <Binding.ValidationRules>
-                                        <validations:Integer ValidatesOnTargetUpdated="True"/>
+                                        <validations:Time ValidatesOnTargetUpdated="True"/>
                                     </Binding.ValidationRules>
                                 </Binding>
                             </TextBox.Text>
@@ -680,17 +713,17 @@
                 </StackPanel>
             </StackPanel>
 
-            <!--Buttons Register and Cancel-->
+            <!--Buttons Register-->
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,0,70">
                 <Button Width="120" Margin="0,0,28,0" materialDesign:ButtonAssist.CornerRadius="8" Height="40"
                         Background="#2C2C2E" BorderBrush="{x:Null}" Visibility="Hidden"
-                        Name="AcceptButton" Click="ShowConfirmationToast" >
+                        Name="AcceptButton" Click="SaveRegisterOrUpdateEmployee">
                     <StackPanel Orientation="Horizontal">
                         <fa5:ImageAwesome Icon="Solid_Pen" Height="13" Width="13" Foreground="#FFF" VerticalAlignment="Center" 
                                           Margin="0,0,4px,0"/>
                         <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" HorizontalAlignment="Left"
                                    Name="AcceptButtonTextBlock">
-                            Guardar
+                            Aceptar
                         </TextBlock>
                     </StackPanel>
 
@@ -751,10 +784,78 @@
                         </Style>
                     </Button.Style>
                 </Button>
+
+                <Button Width="120" Margin="0,0,28,0" materialDesign:ButtonAssist.CornerRadius="8" Height="40"
+                        Background="#2C2C2E" BorderBrush="{x:Null}" Visibility="Hidden"
+                        Name="SaveButton" Click="SaveRegisterOrUpdateEmployee">
+                    <StackPanel Orientation="Horizontal">
+                        <fa5:ImageAwesome Icon="Solid_Pen" Height="13" Width="13" Foreground="#FFF" VerticalAlignment="Center" 
+                                          Margin="0,0,4px,0"/>
+                        <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" HorizontalAlignment="Left">
+                            Guardar
+                        </TextBlock>
+                    </StackPanel>
+
+                    <Button.Style>
+                        <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedDarkButton}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=EmployeeNameTextBox, 
+                                                     Path=(Validation.HasError)}" Value="True">
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                </DataTrigger>
+
+                                <DataTrigger Binding="{Binding ElementName=EmployeeLastNameTextBox, 
+                                                     Path=(Validation.HasError)}" Value="True">
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                </DataTrigger>
+
+                                <DataTrigger Binding="{Binding ElementName=EmployeeEmailTextBox, 
+                                                     Path=(Validation.HasError)}" Value="True">
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                </DataTrigger>
+
+                                <DataTrigger Binding="{Binding ElementName=EmployeePhoneTextBox, 
+                                                     Path=(Validation.HasError)}" Value="True">
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                </DataTrigger>
+
+                                <DataTrigger Binding="{Binding ElementName=EmployeeTypeComboBox, 
+                                                     Path=(Validation.HasError)}" Value="True">
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                </DataTrigger>
+
+                                <DataTrigger Binding="{Binding ElementName=EmployeeSalaryTextBox, 
+                                                     Path=(Validation.HasError)}" Value="True">
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                </DataTrigger>
+
+                                <DataTrigger Binding="{Binding ElementName=EmployeeUsernameTextBox, 
+                                                     Path=(Validation.HasError)}" Value="True">
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                </DataTrigger>
+
+                                <DataTrigger Binding="{Binding ElementName=EmployeePasswordTextBox, 
+                                                     Path=(Validation.HasError)}" Value="True">
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                </DataTrigger>
+
+                                <DataTrigger Binding="{Binding ElementName=EmployeeTimeOfEntryTextBox, 
+                                                     Path=(Validation.HasError)}" Value="True">
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                </DataTrigger>
+
+                                <DataTrigger Binding="{Binding ElementName=EmployeeTimeOfEntryTextBox, 
+                                                     Path=(Validation.HasError)}" Value="True">
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
             </StackPanel>
         </Grid>
         <!--#endregion-->
-        
+
         <!--#region Dialogue Departure Confirmation-->
         <Border Background="#000" HorizontalAlignment="Center" VerticalAlignment="Center"
                 Width="776" Height="720" Margin="0,0,0,0"  Opacity="0.8" Visibility="Hidden"
@@ -817,7 +918,7 @@
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,15,0,0">
                     <Button Width="90" materialDesign:ButtonAssist.CornerRadius="8" Background="#2C2C2E" BorderBrush="{x:Null}"
-                            Height="30" Click="ShowConfirmationToast">
+                            Height="30" Click="AcceptDeleteConfirmationButton">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock FontFamily="Tw Cen MT" FontSize="15" Foreground="#FFF">
                             Aceptar
@@ -839,12 +940,308 @@
         <!--#endregion-->
         <!--#endregion-->
 
-        
-
         <!--#region Process Confirmation-->
         <notifications:NotificationArea x:Name="ConfirmationToast" Position="BottomRight" MaxItems="3"
                                     notifications:Notification.CloseOnClick="false" Margin="0,0,15,50"/>
         <!--#endregion-->
+
+
+        <Border Background="#fff" Height="700px" Width="700px" Margin="0,-5px,0,0" CornerRadius="10" Name="SeventhLayerBorder" Visibility="Hidden"/>
+        <Grid Background="Transparent" Height="660px" Width="680px" Margin="0,-37px,0,-30" Name="EmployeeViewGrid" Visibility="Hidden">
+
+            <StackPanel Orientation="Vertical">
+                <Grid Margin="0,0,0,0">
+                    <StackPanel Orientation="Vertical" Width="500px">
+                        <TextBlock FontFamily="Tw Cen MT" FontSize="50" Foreground="#000" VerticalAlignment="Top" HorizontalAlignment="Center"
+                               Margin="0,0,0,0">
+                            Empleado
+                        </TextBlock>
+                        <TextBlock FontFamily="Tw Cen MT" FontSize="13" Foreground="#8D8D8D" HorizontalAlignment="Center"
+                               Margin="0,-2px,0,0">
+                                Información detallada
+                        </TextBlock>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0px,5px,0" Background="Transparent"
+                        Cursor="Hand" Width="51" Height="20" VerticalAlignment="Top" 
+                        Style="{StaticResource StackPanelHoverStyle}" MouseLeftButtonUp="ExitDetailedInformation">
+                        <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#000" HorizontalAlignment="Left"
+                                   materialDesign:TextFieldAssist.UnderlineBrush="Pink">                            
+                            Salir
+                        </TextBlock>
+                        <materialDesign:PackIcon Kind="Close" Foreground="#000" Width="20" Height="20"/>
+                    </StackPanel>
+                </Grid>
+
+                <StackPanel Orientation="Horizontal" Margin="30,10,0,0">
+                    <fa5:ImageAwesome Icon="Solid_Heart" Height="15" Width="15" Foreground="#000" VerticalAlignment="Center"
+                                          HorizontalAlignment="Left"
+                                          Margin="0,0,0,0"/>
+                    <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left">
+                        Nombre
+                    </TextBlock>
+                    
+                    <fa5:ImageAwesome Icon="Solid_Heart" Height="15" Width="15" Foreground="#000" VerticalAlignment="Center"
+                                          HorizontalAlignment="Left"
+                                          Margin="265,0,0,0"/>
+                    <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left" 
+                               Margin="0,0,0,0">
+                        Apellidos
+                    </TextBlock>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="30,5,0,0">
+                    <Grid>
+                        <Border Background="{x:Null}" CornerRadius="5,5,0,0" Width="260px" Height="35" HorizontalAlignment="Center"
+                                BorderBrush="#8D8D8D" BorderThickness="1,1,1,0"/>
+                        <TextBox x:Name="EmployeeNameViewTextBox"
+                             IsEnabled="False"
+                             HorizontalAlignment="Center" 
+                             Width="260" Height="35" Padding="6" VerticalContentAlignment="Center"
+                             FontFamily="Tw Cen MT" FontSize="15" BorderBrush="#000" Foreground="#000" 
+                             Background="Transparent"  
+                             materialDesign:HintAssist.HelperTextFontSize="13" />
+                    </Grid>
+
+                    <Grid Margin="95,0,0,0">
+                        <Border Background="{x:Null}" CornerRadius="5,5,0,0" Width="260px" Height="35" HorizontalAlignment="Center"
+                                BorderBrush="#8D8D8D" BorderThickness="1,1,1,0"/>
+                        <TextBox x:Name="EmployeeLastNameViewTextBox"
+                             IsEnabled="False"
+                             HorizontalAlignment="Center" 
+                             Width="260" Height="35" Padding="6" VerticalContentAlignment="Center"
+                             FontFamily="Tw Cen MT" FontSize="15" BorderBrush="#000" Foreground="#000" 
+                             Background="Transparent"  
+                             materialDesign:HintAssist.HelperTextFontSize="13" />
+                    </Grid>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="30,10,0,0">
+                    <fa5:ImageAwesome Icon="Solid_Envelope" Height="15" Width="15" Foreground="#000" VerticalAlignment="Center"
+                                          HorizontalAlignment="Left"
+                                          Margin="0,0,0,0"/>
+                    <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left">
+                        Correo electrónico
+                    </TextBlock>
+
+                    <fa5:ImageAwesome Icon="Solid_Phone" Height="15" Width="15" Foreground="#000" VerticalAlignment="Center"
+                                          HorizontalAlignment="Left"
+                                          Margin="170,0,0,0"/>
+                    <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left" 
+                               Margin="0,0,0,0">
+                        Teléfono   
+                    </TextBlock>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="30,5,0,0">
+                    <Grid>
+                        <Border Background="{x:Null}" CornerRadius="5,5,0,0" Width="260px" Height="35" HorizontalAlignment="Center"
+                                BorderBrush="#8D8D8D" BorderThickness="1,1,1,0"/>
+                        <TextBox x:Name="EmployeeEmailViewTextBox"
+                             IsEnabled="False"
+                             HorizontalAlignment="Center" 
+                             Width="260" Height="35" Padding="6" VerticalContentAlignment="Center"
+                             FontFamily="Tw Cen MT" FontSize="15" BorderBrush="#000" Foreground="#000" 
+                             Background="Transparent"  
+                             materialDesign:HintAssist.HelperTextFontSize="13" />
+                    </Grid>
+
+                    <Grid Margin="95,0,0,0">
+                        <Border Background="{x:Null}" CornerRadius="5,5,0,0" Width="260px" Height="35" HorizontalAlignment="Center"
+                                BorderBrush="#8D8D8D" BorderThickness="1,1,1,0"/>
+                        <TextBox x:Name="EmployeePhoneViewTextBox"
+                             IsEnabled="False"
+                             HorizontalAlignment="Center" 
+                             Width="260" Height="35" Padding="6" VerticalContentAlignment="Center"
+                             FontFamily="Tw Cen MT" FontSize="15" BorderBrush="#000" Foreground="#000" 
+                             Background="Transparent"  
+                             materialDesign:HintAssist.HelperTextFontSize="13" />
+                    </Grid>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="30,10,0,0" Name="stackemployee">
+                    <fa5:ImageAwesome Icon="Solid_User" Height="15" Width="15" Foreground="#000" VerticalAlignment="Center"
+                                          HorizontalAlignment="Left"
+                                          Margin="0,0,0,0"/>
+                    <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left">
+                        Usuario
+                    </TextBlock>
+
+                    <Grid x:Name="EmployeeGrid">
+                    <fa5:ImageAwesome Icon="Solid_Key" Height="15" Width="15" Foreground="#000" VerticalAlignment="Center"
+                                          HorizontalAlignment="Left"
+                                          Margin="270,0,0,0" Name="EmployeePasswordIcon"/>
+                    <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left" 
+                                          Margin="0,0,0,0" Name="EmployeePasswordTexBlock">     
+                        Contraseña
+                    </TextBlock>
+                    </Grid>
+
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="30,5,0,0">
+                    <Grid>
+                        <Border Background="{x:Null}" CornerRadius="5,5,0,0" Width="260px" Height="35" HorizontalAlignment="Center"
+                                BorderBrush="#8D8D8D" BorderThickness="1,1,1,0"/>
+                        <TextBox x:Name="EmployeeUsernameViewTextBox"
+                             IsEnabled="False"
+                             HorizontalAlignment="Center" 
+                             Width="260" Height="35" Padding="6" VerticalContentAlignment="Center"
+                             FontFamily="Tw Cen MT" FontSize="15" BorderBrush="#000" Foreground="#000" 
+                             Background="Transparent"  
+                             materialDesign:HintAssist.HelperTextFontSize="13" />
+                    </Grid>
+
+                    <Grid Margin="95,0,0,0" x:Name="EmployeeGrid2">
+                        <Border Background="{x:Null}" CornerRadius="5,5,0,0" Width="260px" Height="35" HorizontalAlignment="Center"
+                                BorderBrush="#8D8D8D" BorderThickness="1,1,1,0"/>
+                        <TextBox x:Name="EmployeePasswordViewTextBox"
+                             IsEnabled="False"
+                             HorizontalAlignment="Center" 
+                             Width="260" Height="35" Padding="6" VerticalContentAlignment="Center"
+                             FontFamily="Tw Cen MT" FontSize="15" BorderBrush="#000" Foreground="#000" 
+                             Background="Transparent"  
+                             materialDesign:HintAssist.HelperTextFontSize="13" />
+                    </Grid>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="30,10,0,0">
+                    <fa5:ImageAwesome Icon="Solid_User" Height="15" Width="15" Foreground="#000" VerticalAlignment="Center"
+                                          HorizontalAlignment="Left"
+                                          Margin="0,0,0,0"/>
+                    <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left">
+                        Rol
+                    </TextBlock>
+
+                    <fa5:ImageAwesome Icon="Solid_Key" Height="15" Width="15" Foreground="#000" VerticalAlignment="Center"
+                                          HorizontalAlignment="Left"
+                                          Margin="155,0,0,0"/>
+                    <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left" 
+                               Margin="0,0,0,0">
+                        Fecha de admisión
+                    </TextBlock>
+                    
+                    <fa5:ImageAwesome Icon="Solid_Key" Height="15" Width="15" Foreground="#000" VerticalAlignment="Center"
+                                          HorizontalAlignment="Left"
+                                          Margin="75,0,0,0"/>
+                    <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left" 
+                               Margin="0,0,0,0">
+                        Salario
+                    </TextBlock>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="30,5,0,0">
+                    <Grid>
+                        <Border Background="{x:Null}" CornerRadius="5,5,0,0" Width="160px" Height="35" HorizontalAlignment="Center"
+                                BorderBrush="#8D8D8D" BorderThickness="1,1,1,0"/>
+                        <TextBox x:Name="EmployeeRoleViewTextBox"
+                             IsEnabled="False"
+                             HorizontalAlignment="Center" 
+                             Width="160" Height="35" Padding="6" VerticalContentAlignment="Center"
+                             FontFamily="Tw Cen MT" FontSize="15" BorderBrush="#000" Foreground="#000" 
+                             Background="Transparent"  
+                             materialDesign:HintAssist.HelperTextFontSize="13" />
+                    </Grid>
+
+                    <Grid Margin="40,0,0,0">
+                        <Border Background="{x:Null}" CornerRadius="5,5,0,0" Width="190px" Height="35" HorizontalAlignment="Left"
+                                BorderBrush="#8D8D8D" BorderThickness="1,1,1,0"/>
+                        <DatePicker Name="EmployeeViewDatePicker"
+                                         IsEnabled="False"
+                                         HorizontalAlignment="Center" 
+                                         Width="190px" Height="35" Padding="6" VerticalContentAlignment="Center"
+                                         FontFamily="Tw Cen MT" FontSize="15" BorderBrush="#000" Foreground="#000" 
+                                         Background="Transparent"  
+                                         materialDesign:HintAssist.HelperTextFontSize="13" />
+                    </Grid>
+
+                    <Grid Margin="65,0,0,0">
+                        <Border Background="{x:Null}" CornerRadius="5,5,0,0" Width="160px" Height="35" HorizontalAlignment="Center"
+                                BorderBrush="#8D8D8D" BorderThickness="1,1,1,0"/>
+                        <TextBox x:Name="EmployeeSalaryViewTextBox"
+                             IsEnabled="False"
+                             HorizontalAlignment="Center" 
+                             Width="160" Height="35" Padding="6" VerticalContentAlignment="Center"
+                             FontFamily="Tw Cen MT" FontSize="15" BorderBrush="#000" Foreground="#000" 
+                             Background="Transparent"  
+                             materialDesign:HintAssist.HelperTextFontSize="13" />
+                    </Grid>
+                </StackPanel>
+
+                <TextBlock FontFamily="Tw Cen MT" FontSize="30" Foreground="#000" HorizontalAlignment="Left" Margin="30px,20px,0,0">
+                        <fa5:ImageAwesome Icon="Solid_Clock" Height="22" Width="22" Foreground="#000" VerticalAlignment="Center"
+                                          HorizontalAlignment="Left"
+                                          Margin="0,0,0,0"/>
+                        <TextBlock Text="Turno" Margin="0,0,0,0"/>
+                </TextBlock>
+
+                <StackPanel Orientation="Horizontal" Margin="30,10,0,0">
+                    <fa5:ImageAwesome Icon="Solid_PersonBooth" Height="15" Width="15" Foreground="#000" VerticalAlignment="Center"
+                                          HorizontalAlignment="Left"
+                                          Margin="0,0,0,0"/>
+                    <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left">
+                        Hora de entrada
+                    </TextBlock>
+
+                    <fa5:ImageAwesome Icon="Solid_Running" Height="15" Width="15" Foreground="#000" VerticalAlignment="Center"
+                                          HorizontalAlignment="Left"
+                                          Margin="185,0,0,0"/>
+                    <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left" 
+                               Margin="0,0,0,0">
+                        Hora de salida
+                    </TextBlock>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="30,5,0,0">
+                    <Grid>
+                        <Border Background="{x:Null}" CornerRadius="5,5,0,0" Width="260px" Height="35" HorizontalAlignment="Center"
+                                BorderBrush="#8D8D8D" BorderThickness="1,1,1,0"/>
+                        <TextBox x:Name="EmployeeTimeOfEntryViewTextBox"
+                             IsEnabled="False"
+                             HorizontalAlignment="Center" 
+                             Width="260" Height="35" Padding="6" VerticalContentAlignment="Center"
+                             FontFamily="Tw Cen MT" FontSize="15" BorderBrush="#000" Foreground="#000" 
+                             Background="Transparent"  
+                             materialDesign:HintAssist.HelperTextFontSize="13" />
+                    </Grid>
+
+                    <Grid Margin="95,0,0,0">
+                        <Border Background="{x:Null}" CornerRadius="5,5,0,0" Width="260px" Height="35" HorizontalAlignment="Center"
+                                BorderBrush="#8D8D8D" BorderThickness="1,1,1,0"/>
+                        <TextBox x:Name="EmployeeDepartureTimeViewTextBox"
+                             IsEnabled="False"
+                             HorizontalAlignment="Center" 
+                             Width="260" Height="35" Padding="6" VerticalContentAlignment="Center"
+                             FontFamily="Tw Cen MT" FontSize="15" BorderBrush="#000" Foreground="#000" 
+                             Background="Transparent"  
+                             materialDesign:HintAssist.HelperTextFontSize="13" />
+                    </Grid>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="30,10,0,0">
+                    <fa5:ImageAwesome Icon="Solid_UserClock" Height="15" Width="15" Foreground="#000" VerticalAlignment="Center"
+                                          HorizontalAlignment="Left"
+                                          Margin="0,0,0,0"/>
+                    <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left">
+                        Tiempo total
+                    </TextBlock>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="30,5,0,0">
+                    <Grid>
+                        <Border Background="{x:Null}" CornerRadius="5,5,0,0" Width="260px" Height="35" HorizontalAlignment="Center"
+                                BorderBrush="#8D8D8D" BorderThickness="1,1,1,0"/>
+                        <TextBox x:Name="EmployeeTimeViewTextBox"
+                             IsEnabled="False"
+                             HorizontalAlignment="Center" 
+                             Width="260" Height="35" Padding="6" VerticalContentAlignment="Center"
+                             FontFamily="Tw Cen MT" FontSize="15" BorderBrush="#000" Foreground="#000" 
+                             Background="Transparent"  
+                             materialDesign:HintAssist.HelperTextFontSize="13" />
+                    </Grid>
+                 </StackPanel>
+            </StackPanel>
+        </Grid>
 
     </Grid>
 </Page>

@@ -41,6 +41,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -115,6 +116,7 @@
     <Compile Include="Validations\AlphabeticCharacter.cs" />
     <Compile Include="Validations\DecimalNumber.cs" />
     <Compile Include="Validations\Email.cs" />
+    <Compile Include="Validations\EncyptPassword.cs" />
     <Compile Include="Validations\Integer.cs" />
     <Compile Include="Validations\NotNull.cs" />
     <Compile Include="Validations\NotNullList.cs" />
@@ -124,6 +126,7 @@
     <Compile Include="BusinessObjects\OrderViewModel.cs" />
     <Compile Include="BusinessObjects\QuantityFoodRecipeViewModel.cs" />
     <Compile Include="BusinessObjects\QuantityItemViewModel.cs" />
+    <Compile Include="Validations\Time.cs" />
     <Compile Include="Views\CheckFoodRecipesPage.xaml.cs">
       <DependentUpon>CheckFoodRecipesPage.xaml</DependentUpon>
     </Compile>

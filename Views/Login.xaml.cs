@@ -1,17 +1,21 @@
 ﻿using Backend.Contracts;
 using Backend.Models;
 using Backend.Service;
+using ItalianPizza.Validations;
 using MaterialDesignThemes.Wpf;
+using Notifications.Wpf;
 using Server;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -27,6 +31,7 @@ namespace ItalianPizza.Views
     {
         private ServerItalianPizzaProxy serverProxy;
         private IItalianPizzaService channel;
+        private readonly NotificationManager notificationManager = new NotificationManager();
 
         public Login()
         {
@@ -68,10 +73,10 @@ namespace ItalianPizza.Views
             paletteHelper.SetTheme(theme);
         }
 
-        private void exitApp(object sender, RoutedEventArgs e)
-        {
-            Application.Current.Shutdown();
-        }
+        //private void exitApp(object sender, RoutedEventArgs e)
+        //{
+        //    Application.Current.Shutdown();
+        //}
 
         private void doLogin(object sender, RoutedEventArgs e)
         {
@@ -81,26 +86,40 @@ namespace ItalianPizza.Views
         private void LoginEmployee(object sender, RoutedEventArgs e)
         {
             
-                EmployeeContract employeeLogin = new EmployeeContract();
+            EmployeeContract employeeLogin = new EmployeeContract();
+            LogOutContract timeLogin = new LogOutContract();
 
-                employeeLogin.Username = Username.Text;
-                employeeLogin.Password = Password.Password;
+            string passwordEncrypt = EncyptPassword.SHA256(EmployeePasswordPasswordBox.Password);
+            string login = DateTime.Now.ToString("T");
 
-              if (Password.Password == employeeLogin.Password)
-                {
-                    
-                        ItalianPizzaServiceCallback service = new ItalianPizzaServiceCallback();
-                        service.LoginEmployeeEvent += ConfirmLogin;
-                        serverProxy = new ServerItalianPizzaProxy(service);
-                        channel = serverProxy.ChannelFactory.CreateChannel();
-                        channel.LoginEmployee(employeeLogin);
-                   
-                }
-                else
-                {
-                    MessageBox.Show("No existe el usuario", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
-            
+            EmployeePasswordTextBox.Text = EmployeePasswordPasswordBox.Password;
+
+            employeeLogin.Username = EmployeeUsernameTextBox.Text;
+            employeeLogin.Password = passwordEncrypt;
+
+            timeLogin.DepartureTime = login;
+
+            if (EmployeePasswordPasswordBox.Password == "" && EmployeeUsernameTextBox.Text == "")
+            {
+                System.Windows.MessageBox.Show("Campos inválidos", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            else if (EmployeePasswordPasswordBox.Password == "")
+            {
+                System.Windows.MessageBox.Show("Campo password inválido", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            else if (EmployeeUsernameTextBox.Text == "")
+            {
+                System.Windows.MessageBox.Show("Campo username inválido", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            else
+            {
+                ItalianPizzaServiceCallback service = new ItalianPizzaServiceCallback();
+                service.LoginEmployeeEvent += ConfirmLogin;
+                serverProxy = new ServerItalianPizzaProxy(service);
+                channel = serverProxy.ChannelFactory.CreateChannel();
+                channel.LoginEmployee(employeeLogin, timeLogin);
+            }
+             
         }
 
         private void ConfirmLogin(EmployeeContract employee, bool confirmLogin)
@@ -109,15 +128,28 @@ namespace ItalianPizza.Views
             {
                 string fullName = employee.Name + " " + employee.LastName;
                 string role = employee.Role;
-                MainWindow mainWindow = new MainWindow(fullName, role);
+                string username = EmployeeUsernameTextBox.Text;
+                MainWindow mainWindow = new MainWindow(fullName, role, username);
                 this.Close();
                 mainWindow.Show();
-            }
+            } 
             else
             {
-                MessageBox.Show("No es posible acceder al sistema");
+                System.Windows.MessageBox.Show("Usuario no encontrado", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
 
+       
+
+        public void PersonalizeToast(NotificationType notificationType, string message)
+        {
+            NotificationContent notificationContent = new NotificationContent
+            {
+                Title = "Confirmación",
+                Message = message,
+                Type = notificationType,
+            };
+            notificationManager.Show(notificationContent);
+        }
     }
 }

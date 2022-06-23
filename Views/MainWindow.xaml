@@ -7,8 +7,8 @@
         xmlns:fa5="http://schemas.fontawesome.com/icons/"  
         xmlns:local="clr-namespace:ItalianPizza"
         mc:Ignorable="d"
-        Title="Italian Pizza" Height="720" Width="1000" WindowStartupLocation="CenterScreen"
-        ResizeMode="NoResize" Icon="../Images/pizza.png">
+        Title="Italian Pizza" Height="720" Width="986" WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize" Icon="../Images/pizza.png" WindowStyle="None">
         
     <Grid>
         <!--<Grid.Background>
@@ -70,16 +70,21 @@
                                Name="EmployeeRoleTextBlock">                    
                         Puesto
                     </TextBlock>
+                    <TextBlock Foreground="#FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                               Margin="0,0px,0,0" FontFamily="Trebuchet MS" FontSize="15" 
+                               Name="UsernameTextBlock" Visibility="Hidden">
+   
+                    </TextBlock>
                 </StackPanel>
 
                 <Border Background="Transparent" Height="0.5" Margin="0,20,0,0" />
 
                 <TextBlock FontFamily="Trebuchet MS" FontSize="15" Foreground="#FFFFFF" Height="50px"
-                           Padding="0,15,0,0" Margin="25px,8px,0,0" Opacity="0.5">
+                           Padding="0,10,0,0" Margin="35px,0px,0,10" Opacity="0.5">
                     MENÚ
                 </TextBlock>
 
-                <StackPanel Orientation="Horizontal" Height="50px" Background="Transparent" Margin="0,-15,0,0"
+                <StackPanel Orientation="Horizontal" Height="50px" Background="Transparent" Margin="0,-25,0,0"
                             Cursor="Hand" Style="{StaticResource StackPanelHoverStyle}" MouseLeftButtonUp="OpenCustomerModule"
                             Name="CustomersStackPanel">
                     <Border Width="6px" Height="40" Background="#49E12F" CornerRadius="0,3,3,0" Visibility="Hidden"
@@ -160,9 +165,10 @@
                     </TextBlock>
                 </StackPanel>
 
-                <StackPanel Orientation="Horizontal" Height="50px" Background="Transparent" Margin="0,42,0,0"
-                            Cursor="Hand" Style="{StaticResource StackPanelHoverStyle}" Visibility="Visible">
-                    <Border Width="6px" Height="40" Background="#49E12F" CornerRadius="0,3,3,0" Visibility="Hidden"/>
+                <StackPanel Orientation="Horizontal" Height="50px" Background="Transparent" Margin="0,35,0,0"
+                            Cursor="Hand" Style="{StaticResource StackPanelHoverStyle}" Visibility="Visible"
+                            MouseLeftButtonUp="LogOut" Name="LogOutStackPanel">
+                    <Border Width="6px" Height="40" Background="#49E12F" CornerRadius="0,3,3,0" Visibility="Visible"/>
                     <materialDesign:PackIcon Kind="ExitToApp" Foreground="#FFFFFF" VerticalAlignment="Center"
                                              HorizontalAlignment="Center" Height="25" Width="25" Margin="21,0,0,0"/>
                     <TextBlock Foreground="#FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center" 

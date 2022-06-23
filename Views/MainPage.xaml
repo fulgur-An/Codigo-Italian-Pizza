@@ -14,5 +14,9 @@
         <Border Background="#27161E" Width="776" Height="720"/>
         <Label Content="Inicio" FontSize="100" Foreground="#FFF" VerticalAlignment="Center"
                HorizontalAlignment="Center"/>
+
+        
     </Grid>
+    
+    
 </Page>

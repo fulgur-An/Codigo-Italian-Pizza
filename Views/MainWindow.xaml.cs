@@ -1,4 +1,7 @@
-﻿using ItalianPizza.Views;
+﻿using Backend.Contracts;
+using Backend.Service;
+using ItalianPizza.Views;
+using Server;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,17 +26,45 @@ namespace ItalianPizza
     {
         private string usernameLoggedIn;
         private string role;
+        private string username;
+        private ServerItalianPizzaProxy serverProxy;
+        private IItalianPizzaService channel;
 
-        public MainWindow(string usernameLoggedIn, string role)
+        public MainWindow(string usernameLoggedIn, string role, string username)
         {
             InitializeComponent();
             this.usernameLoggedIn = usernameLoggedIn;
             this.role = role;
+            this.username = username;
             MainPage mainPage = new MainPage();
             NavigationFrame.NavigationService.Navigate(mainPage);
             UserLoggedInTextBlock.Text = this.usernameLoggedIn;
             EmployeeRoleTextBlock.Text = this.role;
+            UsernameTextBlock.Text = this.username;
         }
+
+        #region Request
+
+        public void RequestGetLogOut(string usernameEmployee)
+        {
+            ItalianPizzaServiceCallback service = new ItalianPizzaServiceCallback();
+            service.GetEmployeeLogOutEvent += LoadEmployeesLogOut;
+            serverProxy = new ServerItalianPizzaProxy(service);
+            channel = serverProxy.ChannelFactory.CreateChannel();
+            channel.GetEmployeeLogOut(usernameEmployee);
+        }
+
+        public void RequestUpdate(string usernameEmployee, LogOutContract logOutContract)
+        {
+            ItalianPizzaServiceCallback service = new ItalianPizzaServiceCallback();
+            service.UpdateLoginEvent += ConfirmLogOut;
+            serverProxy = new ServerItalianPizzaProxy(service);
+            channel = serverProxy.ChannelFactory.CreateChannel();
+            channel.UpdateLogin(usernameEmployee, logOutContract);
+        }
+
+        #endregion
+
 
         #region GUI Methods
 
@@ -128,6 +159,33 @@ namespace ItalianPizza
             FoodRecipesGreendBorder.Visibility = Visibility;
         }
 
+        private void LogOut(object sender, MouseButtonEventArgs e)
+        {
+            string usernameEmployee = UsernameTextBlock.Text;
+
+            RequestGetLogOut(usernameEmployee);
+        }
+
+        private void LoadEmployeesLogOut(LogOutContract logOutContract)
+        {
+            string usernameEmployee = UsernameTextBlock.Text;
+
+            RequestUpdate(usernameEmployee, logOutContract);
+        }
+
+        private void ConfirmLogOut(int result)
+        {
+            if (result == 1)
+            {
+                Login login = new Login();
+                this.Close();
+                login.Show();
+            }
+        }
+
+
         #endregion
+
+
     }
 }

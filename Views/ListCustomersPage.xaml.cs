@@ -270,6 +270,43 @@ namespace ItalianPizza.Views
             }
         }
 
+        //public void ShowSearchResults(object sender, TextChangedEventArgs e)
+        //{
+        //    string search = SearchTextBox.Text;
+
+        //if (EmployeeListBox.Items.Count > 0)
+        //{
+        //    if (!string.IsNullOrEmpty(search))
+        //    {
+        //        InitialMessageBorder.Visibility = Visibility.Hidden;
+        //        EmployeeTableGrid.Visibility = Visibility.Visible;
+
+        //        if (EmployeeFilterRadioButton.IsChecked == true)
+        //        {
+        //            //EmployeeListBox.Items.Clear();
+        //            SearchFilterTextBlock.Text = "Consulta: Empleado/" + search;
+
+        //            List<EmployeeContract> employeeContracts = new List<EmployeeContract>();
+
+        //            foreach (EmployeeContract employee in EmployeeListBox.Items)
+        //            {
+        //                employeeContracts.Add(employee);
+        //            }
+        //        }
+
+        //        if (RoleFilterRadioButton.IsChecked == true)
+        //        {
+        //            EmployeeListBox.Items.Clear();
+        //        }
+
+        //        if (WorkshiftFilterRadioButton.IsChecked == true)
+        //        {
+        //            EmployeeListBox.Items.Clear();
+        //        }
+        //    }
+        //}
+        //}
+
         public void ShowFilters(object sender, RoutedEventArgs e)
         {
             if (!FirstLayerFilterBorder.IsVisible)
@@ -467,7 +504,7 @@ namespace ItalianPizza.Views
             }
         }
 
-        public void ShowEmployeDeleteDialog(object sender, RoutedEventArgs e)
+        public void ShowCustomerDeleteDialog(object sender, RoutedEventArgs e)
         {
             FifthLayerBorder.Visibility = Visibility.Visible;
             DeleteConfirmationGrid.Visibility = Visibility.Visible;
@@ -514,14 +551,13 @@ namespace ItalianPizza.Views
 
         public void PersonalizeToast(NotificationType notificationType, string message)
         {
-            notificationManager.Show(
-                new NotificationContent
-                {
-                    Title = "Confirmación",
-                    Message = message,
-                    Type = notificationType,
-                }, areaName: "ConfirmationToast", expirationTime: TimeSpan.FromSeconds(2)
-            );
+            NotificationContent notificationContent = new NotificationContent
+            {
+                Title = "Confirmación",
+                Message = message,
+                Type = notificationType,
+            };
+            notificationManager.Show(notificationContent);
         }
 
         public void RemoveValidationAssistant(bool isNotVisible)

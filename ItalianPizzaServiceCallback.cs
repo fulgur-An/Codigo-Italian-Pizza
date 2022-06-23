@@ -25,17 +25,29 @@ namespace ItalianPizza
         public delegate void LoginEmployeeDelegate(EmployeeContract employee, bool confirmLogin);
         public event LoginEmployeeDelegate LoginEmployeeEvent;
 
-        //public delegate void RegisterEmployeeDelegate(int result);
-        //public event RegisterEmployeeDelegate RegisterEmployeeEvent;
+        public delegate void UpdateLoginDelegate(int result);
+        public event UpdateLoginDelegate UpdateLoginEvent;
 
-        //public delegate void DeleteEmployeeByIdDelegate(int result);
-        //public event DeleteEmployeeByIdDelegate DeleteEmployeeByIdEvent;
+        public delegate void RegisterEmployeeDelegate(int result);
+        public event RegisterEmployeeDelegate RegisterEmployeeEvent;
 
-        //public delegate void GetEmployeeListSortedByNameDelegate(List<EmployeeContract> employeeContracts, List<WorkshiftContract> workshiftContracts);
-        //public event GetEmployeeListSortedByNameDelegate GetEmployeeListSortedByNameEvent;
+        public delegate void DeleteEmployeeByIdDelegate(int result);
+        public event DeleteEmployeeByIdDelegate DeleteEmployeeByIdEvent;
 
-        //public delegate void UpdateEmployeeDelegate(int result);
-        //public event UpdateEmployeeDelegate UpdateEmployeeEvent;
+        public delegate void GetEmployeeListSortedByNameDelegate(List<EmployeeContract> employeeContracts);
+        public event GetEmployeeListSortedByNameDelegate GetEmployeeListSortedByNameEvent;
+
+        public delegate void UpdateEmployeeDelegate(int result);
+        public event UpdateEmployeeDelegate UpdateEmployeeEvent;
+
+        public delegate void GetEmployeeWorkshiftDelegate(WorkshiftContract workshiftContracts);
+        public event GetEmployeeWorkshiftDelegate GetEmployeeWorkshiftEvent;
+
+        public delegate void GetEmployeeLogOutDelegate(LogOutContract logOutContract);
+        public event GetEmployeeLogOutDelegate GetEmployeeLogOutEvent;
+
+        public delegate void GetEmployeeRoleDelegate(string employeeRole);
+        public event GetEmployeeRoleDelegate GetEmployeeRoleEvent;
 
         public void RegisterCustomer(int result)
         {
@@ -77,10 +89,74 @@ namespace ItalianPizza
             }
         }
 
+        public void UpdateLogin(int result)
+        {
+            if (UpdateLoginEvent != null)
+            {
+                UpdateLoginEvent(result);
+            }
+        }
+
+        public void RegisterEmployee(int result)
+        {
+            if (RegisterEmployeeEvent != null)
+            {
+                RegisterEmployeeEvent(result);
+            }
+        }
+
+        public void DeleteEmployeeById(int result)
+        {
+            if (DeleteEmployeeByIdEvent != null)
+            {
+                DeleteEmployeeByIdEvent(result);
+            }
+        }
+
+        public void GetEmployeeListSortedByName(List<EmployeeContract> employeeContracts)
+        {
+            if (GetEmployeeListSortedByNameEvent != null)
+            {
+                GetEmployeeListSortedByNameEvent(employeeContracts);
+            }
+        }
+
+        public void UpdateEmployee(int result)
+        {
+            if (UpdateEmployeeEvent != null)
+            {
+                UpdateEmployeeEvent(result);
+            }
+        }
+
+        public void GetEmployeeWorkshift(WorkshiftContract workshiftContracts)
+        {
+            if (GetEmployeeWorkshiftEvent != null)
+            {
+                GetEmployeeWorkshiftEvent(workshiftContracts);
+            }
+        }
+
+        public void GetEmployeeLogOut(LogOutContract logOutContract)
+        {
+            if (GetEmployeeLogOutEvent != null)
+            {
+                GetEmployeeLogOutEvent(logOutContract);
+            }
+        }
+
+        public void GetEmployeeRole(string employeeRole)
+        {
+            if (GetEmployeeRoleEvent != null)
+            {
+                GetEmployeeRoleEvent(employeeRole);
+            }
+        }
 
         public void GetFoodRecipeList(List<FoodRecipeContract> foodRecipes)
         {
             throw new NotImplementedException();
         }
+
     }
 }

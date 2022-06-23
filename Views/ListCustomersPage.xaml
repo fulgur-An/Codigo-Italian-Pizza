@@ -28,7 +28,8 @@
                               VerticalAlignment="Center" />
             </StackPanel>
         </Button>
-        <TextBlock FontFamily="Tw Cen MT" FontSize="25" Foreground="#FFF" VerticalAlignment="Top" Margin="30,205,0,0">
+        <TextBlock FontFamily="Tw Cen MT" FontSize="25" Foreground="#FFF" VerticalAlignment="Top" Margin="30,205,0,0"
+                   Name="SearchFilterTextBlock">
                     Consulta: Filtro/Búsqueda
         </TextBlock>
 
@@ -193,9 +194,9 @@
                                         </Grid>
 
                                         <Grid>
-                                            <Border Background="#5B5B5B" Height="32px" CornerRadius="5" MouseLeftButtonUp="ShowEmployeDeleteDialog"/>
+                                            <Border Background="#5B5B5B" Height="32px" CornerRadius="5" MouseLeftButtonUp="ShowCustomerDeleteDialog"/>
                                             <Grid 
-                                                  Visibility="Visible" Margin="0,0,0,0" ToolTip="Eliminar Cliente" MouseLeftButtonUp="ShowEmployeDeleteDialog"
+                                                  Visibility="Visible" Margin="0,0,0,0" ToolTip="Eliminar Cliente" MouseLeftButtonUp="ShowCustomerDeleteDialog"
                                                   HorizontalAlignment="Center" Height="32px" Width="23px">
 
                                                 <fa5:ImageAwesome Icon="Solid_Trash" Height="18" Width="18" Foreground="#FFF" VerticalAlignment="Center" 
@@ -363,8 +364,8 @@
                         </Grid.ColumnDefinitions>
                         <Border Background="{x:Null}" CornerRadius="5" Width="290" Height="35" HorizontalAlignment="Left"
                                 BorderBrush="#8D8D8D" BorderThickness="1" Grid.ColumnSpan="2"/>
-                        <TextBox materialDesign:HintAssist.HelperText="Nombre del empleado"  
-                                  materialDesign:HintAssist.Hint="Ingresa el nombre del empleado" 
+                        <TextBox materialDesign:HintAssist.HelperText="Nombre del cliente"  
+                                  materialDesign:HintAssist.Hint="Ingresa el nombre del cliente" 
                                   HorizontalAlignment="Left" materialDesign:TextFieldAssist.HasClearButton="True"
                                   Width="290" Height="35" Padding="6" VerticalContentAlignment="Center"
                                   FontFamily="Tw Cen MT" FontSize="15" BorderBrush="#000" Foreground="#000" 
@@ -388,8 +389,8 @@
                     <Grid Margin="60,0,0,0">
                         <Border Background="{x:Null}" CornerRadius="5" Width="340" Height="35" HorizontalAlignment="Left"
                                 BorderBrush="#8D8D8D" BorderThickness="1" Grid.ColumnSpan="2"/>
-                        <TextBox materialDesign:HintAssist.HelperText="Apellido del empleado"  
-                                  materialDesign:HintAssist.Hint="Ingresa los apellidos del empleado" 
+                        <TextBox materialDesign:HintAssist.HelperText="Apellido del cliente"  
+                                  materialDesign:HintAssist.Hint="Ingresa los apellidos del cliente" 
                                   HorizontalAlignment="Left" materialDesign:TextFieldAssist.HasClearButton="True"
                                   Width="340" Height="35" Padding="6" VerticalContentAlignment="Center"
                                   FontFamily="Tw Cen MT" FontSize="15" BorderBrush="#000" Foreground="#000" 
@@ -444,8 +445,8 @@
                     <Grid Margin="60,0,0,0">
                         <Border Background="{x:Null}" CornerRadius="5" Width="340" Height="35" HorizontalAlignment="Left"
                                 BorderBrush="#8D8D8D" BorderThickness="1" Grid.ColumnSpan="2"/>
-                        <TextBox materialDesign:HintAssist.HelperText="Teléfono del empleado"  
-                                  materialDesign:HintAssist.Hint="Ingresa el teléfono del empleado" 
+                        <TextBox materialDesign:HintAssist.HelperText="Teléfono del cliente"  
+                                  materialDesign:HintAssist.Hint="Ingresa el teléfono del cliente" 
                                   HorizontalAlignment="Left" materialDesign:TextFieldAssist.HasClearButton="True"
                                   Width="340" Height="35" Padding="6" VerticalContentAlignment="Center"
                                   FontFamily="Tw Cen MT" FontSize="15" BorderBrush="#000" Foreground="#000" 
@@ -470,7 +471,7 @@
                 <StackPanel Orientation="Horizontal" Margin="0,22,0,0">
                     <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left"
                                Margin="0,0,90,0">
-                        *Correo eléctronico
+                        Correo eléctronico*
                     </TextBlock>
                 </StackPanel>
 
@@ -478,8 +479,8 @@
                     <Grid Margin="0,0,0,0">
                         <Border Background="{x:Null}" CornerRadius="5" Width="690" Height="35" HorizontalAlignment="Left"
                                 BorderBrush="#8D8D8D" BorderThickness="1" Grid.ColumnSpan="2"/>
-                        <TextBox materialDesign:HintAssist.HelperText="Correo eléctronico del empleado"  
-                                  materialDesign:HintAssist.Hint="Ingresa el correo eléctronico del empleado" 
+                        <TextBox materialDesign:HintAssist.HelperText="Correo eléctronico del cliente"  
+                                  materialDesign:HintAssist.Hint="Ingresa el correo eléctronico del cliente" 
                                   HorizontalAlignment="Left" materialDesign:TextFieldAssist.HasClearButton="True"
                                   Width="690" Height="35" Padding="6" VerticalContentAlignment="Center"
                                   FontFamily="Tw Cen MT" FontSize="15" BorderBrush="#000" Foreground="#000" 
@@ -609,8 +610,8 @@
                     <Grid Margin="0,0,0,0">
                         <Border Background="{x:Null}" CornerRadius="5" Width="240" Height="35" HorizontalAlignment="Left"
                                 BorderBrush="#8D8D8D" BorderThickness="1" Grid.ColumnSpan="2"/>
-                        <TextBox materialDesign:HintAssist.HelperText="Tiempo total establecido"  
-                                  materialDesign:HintAssist.Hint="Tiempo total" 
+                        <TextBox materialDesign:HintAssist.HelperText="Colonia"  
+                                  materialDesign:HintAssist.Hint="Ingresa Colonia" 
                                   HorizontalAlignment="Left" materialDesign:TextFieldAssist.HasClearButton="True"
                                   Width="240" Height="35" Padding="6" VerticalContentAlignment="Center"
                                   FontFamily="Tw Cen MT" FontSize="15" BorderBrush="#000" Foreground="#000" 
@@ -634,8 +635,8 @@
                     <Grid Margin="42,0,0,0">
                         <Border Background="{x:Null}" CornerRadius="5" Width="190" Height="35" HorizontalAlignment="Left"
                                 BorderBrush="#8D8D8D" BorderThickness="1" Grid.ColumnSpan="2"/>
-                        <TextBox materialDesign:HintAssist.HelperText="Tiempo total establecido"  
-                                  materialDesign:HintAssist.Hint="Tiempo total" 
+                        <TextBox materialDesign:HintAssist.HelperText="Ciudad"  
+                                  materialDesign:HintAssist.Hint="Ingresa ciudad" 
                                   HorizontalAlignment="Left" materialDesign:TextFieldAssist.HasClearButton="True"
                                   Width="190" Height="35" Padding="6" VerticalContentAlignment="Center"
                                   FontFamily="Tw Cen MT" FontSize="15" BorderBrush="#000" Foreground="#000" 
@@ -879,8 +880,7 @@
                     <StackPanel Orientation="Horizontal">
                         <fa5:ImageAwesome Icon="Solid_Save" Height="13" Width="13" Foreground="#FFF" VerticalAlignment="Center" 
                                           Margin="0,0,4px,0"/>
-                        <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" HorizontalAlignment="Left"
-                                   >
+                        <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" HorizontalAlignment="Left">
                             Guardar
                         </TextBlock>
                     </StackPanel>
