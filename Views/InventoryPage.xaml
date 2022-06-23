@@ -45,18 +45,17 @@
         
         
         <!--Initial Message-->
-        <Border Background="#5B5B5B" Height="300" Width="550" Margin="0,120,0,0" CornerRadius="10" 
-                Opacity="0.4" x:Name="InitialMessageBorder">
-            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                <fa5:ImageAwesome Icon="Regular_Smile" Height="100" Width="100" Margin="0,0,0,20px" 
-                                     Foreground="#FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center" 
-                                     ToolTip="Usuarios" />
+        <Grid Background="Transparent" Margin="0,295,0,0" 
+                Opacity="0.4" x:Name="InitialMessageBorder" VerticalAlignment="Center">
+            <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center">
                 <TextBlock Foreground="#FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center" 
-                               Margin="0,0,0,0" FontFamily="Trebuchet MS" FontSize="50">
+                           Margin="0,0,0,30" FontFamily="Trebuchet MS" FontSize="50" Name="SearchResultMessageTextBlock"
+                           TextWrapping="Wrap" TextAlignment="Center">
                         Realiza una búsqueda
                 </TextBlock>
+                <Image Source="../Images/products.png" Width="300" Height="300" Margin="0,0,0,0" Opacity="1"/>
             </StackPanel>
-        </Border>
+        </Grid>
         <!--#endregion-->
 
         <!--#region InventoryTable -->
@@ -127,7 +126,7 @@
                     </StackPanel>
                 </Grid>
 
-                <Grid Width="100" Margin="20,0,0,0">
+                <Grid Width="100" Margin="10,0,0,0">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                         <StackPanel>
                             <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" VerticalAlignment="Center" HorizontalAlignment="Center">
@@ -141,7 +140,7 @@
                     </StackPanel>
                 </Grid>
 
-                <Grid Width="150" Margin="10,0,0,0">
+                <Grid Width="150" Margin="0,0,0,0">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                         <StackPanel>
                             <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" VerticalAlignment="Center" HorizontalAlignment="Center">
@@ -193,7 +192,7 @@
                                     </StackPanel>
                                 </Grid>
 
-                                <Grid Width="80" Margin="12,0,50,0">
+                                <Grid Width="80" Margin="12,0,20,0">
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                                         <TextBlock Text="{Binding Sku}" FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" TextWrapping="Wrap">
 
@@ -201,23 +200,23 @@
                                     </StackPanel>
                                 </Grid>
 
-                                <Grid Width="40" Margin="0,0,80,0">
+                                <Grid Width="100" Margin="0,0,30,0">
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                        <TextBlock Text="{Binding Name}" FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" TextWrapping="Wrap">
+                                        <TextBlock Text="{Binding LastStockTaking}" FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" TextWrapping="Wrap">
 
                                         </TextBlock>
                                     </StackPanel>
                                 </Grid>
 
-                                <Grid Width="40" Margin="0,0,50,0">
+                                <Grid Width="50" Margin="0,0,20,0">
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                        <TextBlock Text="{Binding Quantity}" FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" TextWrapping="Wrap">
+                                        <TextBlock Text="{Binding QuantityWhithUnit}" FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" TextWrapping="Wrap">
 
                                         </TextBlock>
                                     </StackPanel>
                                 </Grid>
 
-                                <Grid Width="40" Margin="0,0,30,0">
+                                <Grid Width="60" Margin="0,0,0,0">
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                                         <TextBlock Text="{Binding Price}" FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" TextWrapping="Wrap">
 1
@@ -225,14 +224,14 @@
                                     </StackPanel>
                                 </Grid>
 
-                                <Grid Width="40" Margin="0,0,0,0">
+                                <Grid Width="100" Margin="0,0,0,0">
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                        <TextBlock Text="{Binding Name}" FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" TextWrapping="Wrap">
+                                        <TextBlock Text="{Binding Total}" FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" TextWrapping="Wrap">
 
                                         </TextBlock>
                                     </StackPanel>
                                 </Grid>
-                                <Grid Width="30" Margin="14,0,0,0" >
+                                <Grid Width="30" Margin="0,0,0,0" >
                                     <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Top">
                                         <fa5:ImageAwesome Icon="Solid_Pen" x:Name="editIcon" Width="20" Height="20" Foreground="#C6BAFF" MouseLeftButtonUp="UpdateItemSpecification"/>
                                     </StackPanel>
@@ -268,7 +267,7 @@
             </Border>
             
             <StackPanel Orientation="Horizontal" Margin="608,8,0,0" MouseLeftButtonUp="PrintValidationInventoryResult">
-                <materialDesign:PackIcon Kind="PrinterCheck" Foreground="#fff" Width="50" Height="50"/>
+                <materialDesign:PackIcon Kind="Check" Foreground="#fff" Width="50" Height="50"/>
                 <TextBlock FontFamily="Tw Cen MT" FontSize="25" Foreground="#FFF" Margin="8,14,0,0">
                     Terminar
                 </TextBlock>
@@ -279,85 +278,6 @@
             <!--#region Validate inventory header table-->
             <Border Name="ValidateInventoryTableHeaderBorder" Background="#5B5B5B" Height="35" Width="719" Margin="0,0,0,520" CornerRadius="5,5,0,0" 
                 Opacity="0.4" Visibility="Visible"/>
-            <StackPanel Name="ValidateInventoryTableHeaderStackPanel" Orientation="Horizontal" Height="45" Width="719" Margin="0,0,0,530" Visibility="Hidden">
-
-                <Grid Width="40">
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <fa5:ImageAwesome Icon="Solid_SortNumericDown" Height="21" Width="21" Foreground="#FFF" VerticalAlignment="Center" 
-                                          Margin="0,0,0,0"/>
-                    </StackPanel>
-                </Grid>
-
-                <Grid Width="40">
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <fa5:ImageAwesome Icon="Solid_Edit" Height="21" Width="21" Foreground="#FFF" VerticalAlignment="Center" 
-                                          Margin="10,0,8,0"/>
-                    </StackPanel>
-                </Grid>
-
-                <Grid Width="150" Margin="-20,0,0,0">
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <fa5:ImageAwesome Icon="Solid_PizzaSlice" Height="21" Width="21" Foreground="#FFF" VerticalAlignment="Center" 
-                                          Margin="0,0,8,0"/>
-                        <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" VerticalAlignment="Center">
-                            Nombre
-                        </TextBlock>
-                    </StackPanel>
-                </Grid>
-
-                <Grid Width="100" Margin="0,0,0,0">
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <fa5:ImageAwesome Icon="Solid_Qrcode" Height="21" Width="21" Foreground="#FFF" VerticalAlignment="Center" 
-                                          Margin="0,0,8,0"/>
-                        <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" VerticalAlignment="Center">
-                            codigo
-                        </TextBlock>
-                    </StackPanel>
-                </Grid>
-
-                <Grid Width="100" Margin="0,0,0,0">
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <fa5:ImageAwesome Icon="Solid_Book" Height="21" Width="21" Foreground="#FFF" VerticalAlignment="Center" 
-                                          Margin="0,0,10,0"/>
-                        <StackPanel>
-                            <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" VerticalAlignment="Center" HorizontalAlignment="Center">
-                            Ultimo
-                            </TextBlock>
-                            <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" VerticalAlignment="Center" HorizontalAlignment="Center">
-                            inventario
-                            </TextBlock>
-                        </StackPanel>
-                    </StackPanel>
-                </Grid>
-
-                <Grid Width="100" Margin="10,0,0,0">
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <fa5:ImageAwesome Icon="Solid_Box" Height="21" Width="21" Foreground="#FFF" VerticalAlignment="Center" 
-                                          Margin="0,0,10,0"/>
-                        <StackPanel>
-                            <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" VerticalAlignment="Center" HorizontalAlignment="Center">
-                            Cantidad
-                            </TextBlock>
-                            <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" VerticalAlignment="Center" HorizontalAlignment="Center">
-                            actual
-                            </TextBlock>
-                        </StackPanel>
-
-                    </StackPanel>
-                </Grid>
-
-                <Grid Width="120" Margin="28,0,0,0">
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <fa5:ImageAwesome Icon="Solid_Qrcode" Height="21" Width="21" Foreground="#FFF" VerticalAlignment="Center" 
-                                          Margin="0,0,8,0"/>
-                        <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" VerticalAlignment="Center">
-                            Descripción
-                        </TextBlock>
-                    </StackPanel>
-                </Grid>
-
-            </StackPanel>
-
             <!--#endregion-->
 
             <!--#region validate Table body-->
@@ -385,9 +305,17 @@
 
                 <DataGrid.Columns>
 
-                    <DataGridTextColumn Header="id" CanUserResize="False" Width="45" Binding="{Binding IdItem}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="id" CanUserResize="False" Width="43" Binding="{Binding IdItem}" IsReadOnly="True"/>
 
-                    <DataGridTextColumn Header="Cantidad" CanUserResize="False" Width="90" IsReadOnly="False" x:Name="QuantityDataGridTextColumn">
+                    <DataGridTextColumn Header="Nombre" CanUserResize="False" Width="130" Binding="{Binding Name}" IsReadOnly="True"/>
+
+                    <DataGridTextColumn Header="Codigo" CanUserResize="False" Width="75" Binding="{Binding Sku}" IsReadOnly="True"/>
+
+                    <DataGridTextColumn Header="fecha" CanUserResize="False" Width="175" Binding="{Binding Date}" IsReadOnly="True"/>
+
+                    <DataGridTextColumn Header="Cantidad" CanUserResize="False" Width="85" Binding="{Binding CurrentAmount}" IsReadOnly="True"/>
+
+                    <DataGridTextColumn Header="Existencia" CanUserResize="False" Width="90" IsReadOnly="False" x:Name="QuantityDataGridTextColumn">
                         <DataGridTextColumn.Binding>
                             <Binding Path="PhysicalAmount" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
                                 <Binding.ValidationRules>
@@ -397,19 +325,11 @@
                         </DataGridTextColumn.Binding>
                     </DataGridTextColumn>
 
-                    <DataGridTextColumn Header="Nombre" CanUserResize="False" Width="150" Binding="{Binding Name}" IsReadOnly="True"/>
-
-                    <DataGridTextColumn Header="Codigo" CanUserResize="False" Width="75" Binding="{Binding Sku}" IsReadOnly="True"/>
-
-                    <DataGridTextColumn Header="fecha" CanUserResize="False" Width="75" Binding="{Binding LastStockTaking}" IsReadOnly="True"/>
-
-                    <DataGridTextColumn Header="Precio" CanUserResize="False" Width="75" Binding="{Binding CurrentAmount}" IsReadOnly="True"/>
-
-                    <DataGridTextColumn Header="Descripción" CanUserResize="False" Width="200" IsReadOnly="False" x:Name="DescriptionDataGridTextColumn">
+                    <DataGridTextColumn Header="Descripción" CanUserResize="False" Width="210" IsReadOnly="False" x:Name="DescriptionDataGridTextColumn" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" >
                         <DataGridTextColumn.Binding>
-                            <Binding Path="Description" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                            <Binding Path="Description" UpdateSourceTrigger="PropertyChanged" >
                                 <Binding.ValidationRules>
-                                    <validations:AlphabeticCharacter ValidatesOnTargetUpdated="True"/>
+                                    <validations:NotNull  ValidatesOnTargetUpdated="True"/>
                                 </Binding.ValidationRules>
                             </Binding>
                         </DataGridTextColumn.Binding>
@@ -702,21 +622,30 @@
                         </TextBlock>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal"  Background="Transparent" HorizontalAlignment="Stretch">
-                        <TextBox x:Name="ItemNameField"
-                        Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                        VerticalAlignment="Top"
-                        AcceptsReturn="True"
-                        TextWrapping="Wrap"
-                        MaxLength="24"
-                        materialDesign:HintAssist.Hint="Nombre del producto"
-                        materialDesign:HintAssist.HelperText="Escriba el nombre del producto"
-                        materialDesign:HintAssist.HelperTextFontSize="11"
-                        materialDesign:TextFieldAssist.HasClearButton="True"
-                        materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
-                        BorderBrush="#BC766F6F"
-                        Width="200"
-                        Margin="4,0,26,28" Background="#00000000"/>
-                        <TextBox x:Name="ItemCodeField"
+                        <TextBox Name="ItemNameField"
+                            Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                            VerticalAlignment="Top"
+                            AcceptsReturn="True"
+                            TextWrapping="Wrap"
+                            MaxLength="24"
+                            materialDesign:HintAssist.Hint="Nombre del producto"
+                            materialDesign:HintAssist.HelperText="Escriba el nombre del producto"
+                            materialDesign:HintAssist.HelperTextFontSize="11"
+                            materialDesign:TextFieldAssist.HasClearButton="True"
+                            materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
+                            BorderBrush="#BC766F6F"
+                            Width="200"
+                            Margin="4,0,26,28" Background="#00000000">
+
+                            <TextBox.Text>
+                                <Binding Path="Name" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                                    <Binding.ValidationRules>
+                                        <validations:AlphabeticCharacter ValidatesOnTargetUpdated="True"/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+                        <TextBox Name="ItemCodeField"
                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
                         VerticalAlignment="Top"
                         AcceptsReturn="True"
@@ -729,80 +658,124 @@
                         materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
                         BorderBrush="#BC766F6F" 
                         Width="200"
-                        Margin="0,0,0,28" Background="#00000000"/>
+                        Margin="0,0,0,28" Background="#00000000">
+
+                            <TextBox.Text>
+                                <Binding Path="Sku" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                                    <Binding.ValidationRules>
+                                        <validations:Integer ValidatesOnTargetUpdated="True"/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
                     </StackPanel>
                     <TextBlock FontFamily="Tw Cen MT" FontSize="23" Margin="0,0,0,8" Foreground="#000" HorizontalAlignment="Left">
-                    Descripción*
+                        Descripción*
                     </TextBlock>
-                    <TextBox x:Name="ItemDescriptionField"
-                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                    VerticalAlignment="Top"
-                    AcceptsReturn="True"
-                    TextWrapping="Wrap"
-                    VerticalScrollBarVisibility="Auto"
-                    materialDesign:HintAssist.Hint="Escriba la descripción"
-                    materialDesign:HintAssist.HelperText="Max 500 caracteres"
-                    materialDesign:HintAssist.HelperTextFontSize="11"
-                    materialDesign:TextFieldAssist.HasClearButton="True"
-                    MaxLength="500"
-                    BorderBrush="#BC766F6F"
-                    Margin="0,0,0,28"
-                    Background="#00000000"/>
-                    <StackPanel Orientation="Horizontal"  Background="Transparent" HorizontalAlignment="Stretch">
-                        <TextBlock FontFamily="Tw Cen MT" FontSize="23" Margin="0,0,80,8" Foreground="#000" HorizontalAlignment="Left" >
-                        Precio*
-                        </TextBlock>
-                        <TextBlock FontFamily="Tw Cen MT" FontSize="23" Margin="0,0,44,0" Foreground="#000" HorizontalAlignment="Left">
-                        Cantidad
-                        </TextBlock>
-                        <TextBlock FontFamily="Tw Cen MT" FontSize="20" Foreground="#000" HorizontalAlignment="Left">
-                    Foto del producto*
-                        </TextBlock>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal"  Background="Transparent" HorizontalAlignment="Stretch">
-                        <TextBox x:Name="ItemValueField"
+                    <TextBox Name="ItemDescriptionField"
                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
                         VerticalAlignment="Top"
                         AcceptsReturn="True"
                         TextWrapping="Wrap"
-                        MaxLength="5"
-                        materialDesign:HintAssist.Hint="$ 00.00"
-                        materialDesign:HintAssist.HelperText="Peso mexicano $"
+                        VerticalScrollBarVisibility="Auto"
+                        materialDesign:HintAssist.Hint="Escriba la descripción"
+                        materialDesign:HintAssist.HelperText="Max 500 caracteres"
                         materialDesign:HintAssist.HelperTextFontSize="11"
                         materialDesign:TextFieldAssist.HasClearButton="True"
-                        materialDesign:TextFieldAssist.PrefixText="$"
-
-                        materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
+                        MaxLength="500"
                         BorderBrush="#BC766F6F"
-                        Margin="0,0,18,28"
-                        Width="120"
-                        Background="#00000000"/>
-                        <StackPanel Orientation="Horizontal" Margin="0,0,0,28">
-                            <TextBox x:Name="ItemQuantityField"
+                        Margin="0,0,0,28"
+                        Background="#00000000">
+
+                        <TextBox.Text>
+                            <Binding Path="Description" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                                <Binding.ValidationRules>
+                                    <validations:NotNull ValidatesOnTargetUpdated="True"/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+                    <StackPanel Orientation="Horizontal"  Background="Transparent" HorizontalAlignment="Stretch">
+                        <TextBlock FontFamily="Tw Cen MT" FontSize="23" Margin="0,0,80,8" Foreground="#000" HorizontalAlignment="Left" >
+                            Precio*
+                        </TextBlock>
+                        <TextBlock FontFamily="Tw Cen MT" FontSize="23" Margin="0,0,44,0" Foreground="#000" HorizontalAlignment="Left">
+                            Cantidad
+                        </TextBlock>
+                        <TextBlock FontFamily="Tw Cen MT" FontSize="20" Foreground="#000" HorizontalAlignment="Left">
+                            Foto del producto*
+                        </TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal"  Background="Transparent" HorizontalAlignment="Stretch">
+                        <TextBox Name="ItemValueField"
                             Style="{StaticResource MaterialDesignOutlinedTextBox}"
                             VerticalAlignment="Top"
                             AcceptsReturn="True"
                             TextWrapping="Wrap"
                             MaxLength="5"
-                            materialDesign:HintAssist.Hint="00.0"
-                            materialDesign:HintAssist.HelperText="Escoja la unidad"
+                            materialDesign:HintAssist.Hint="$ 00.00"
+                            materialDesign:HintAssist.HelperText="Peso mexicano $"
                             materialDesign:HintAssist.HelperTextFontSize="11"
                             materialDesign:TextFieldAssist.HasClearButton="True"
+                            materialDesign:TextFieldAssist.PrefixText="$"
+
                             materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
                             BorderBrush="#BC766F6F"
-                            Width="70"
-                            Background="#00000000"/>
+                            Margin="0,0,18,28"
+                            Width="120"
+                            Background="#00000000">
+
+                            <TextBox.Text>
+                                <Binding Path="Price" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                                    <Binding.ValidationRules>
+                                        <validations:DecimalNumber ValidatesOnTargetUpdated="True"/>
+                                        <validations:NotNull ValidatesOnTargetUpdated="True"/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,28">
+                            <TextBox Name="ItemQuantityField"
+                                Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                VerticalAlignment="Top"
+                                AcceptsReturn="True"
+                                TextWrapping="Wrap"
+                                MaxLength="5"
+                                materialDesign:HintAssist.Hint="00.0"
+                                materialDesign:HintAssist.HelperText="Escoja la unidad"
+                                materialDesign:HintAssist.HelperTextFontSize="11"
+                                materialDesign:TextFieldAssist.HasClearButton="True"
+                                materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
+                                BorderBrush="#BC766F6F"
+                                Width="70"
+                                Background="#00000000">
+                                <TextBox.Text>
+                                    <Binding Path="Quantity" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                                        <Binding.ValidationRules>
+                                            <validations:Integer ValidatesOnTargetUpdated="True"/>
+                                            <validations:NotNull ValidatesOnTargetUpdated="True"/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
                             <ComboBox Name="ItemUnitOfMeasurementComboBox"
-                            materialDesign:HintAssist.Hint="U" Width="70"
-                            Style="{StaticResource MaterialDesignOutlinedComboBox}">
+                                materialDesign:HintAssist.Hint="U" Width="70"
+                                Style="{StaticResource MaterialDesignOutlinedComboBox}">
+                                <ComboBox.Text>
+                                    <Binding Path="UnitOfMeasurement" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                                        <Binding.ValidationRules>
+                                            <validations:NotNull ValidatesOnTargetUpdated="True"/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </ComboBox.Text>
                                 <ComboBoxItem
-                                Content="Kg" />
+                                    Content="Kg" />
                                 <ComboBoxItem
-                                Content="Gm" />
+                                    Content="Gm" />
                                 <ComboBoxItem
-                                Content="Ml" />
+                                    Content="Ml" />
                                 <ComboBoxItem
-                                Content="Pz" />
+                                    Content="Pz" />
                             </ComboBox>
                         </StackPanel>
                         
@@ -810,35 +783,44 @@
                     </StackPanel>
 
                     <TextBlock FontFamily="Tw Cen MT" FontSize="23"  Margin="0,0,0,8" Foreground="#000" HorizontalAlignment="Left">
-                    Restricciones
+                        Restricciones
                     </TextBlock>
-                    <TextBox x:Name="ItemRestrictionsField"
-                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                    VerticalAlignment="Top"
-                    AcceptsReturn="True"
-                    TextWrapping="Wrap"
-                    MaxLength="500"
-                    VerticalScrollBarVisibility="Auto"
-                    materialDesign:HintAssist.Hint="Restricciones del producto"
-                    materialDesign:HintAssist.HelperText="Descripción de restricciones"
-                    materialDesign:HintAssist.HelperTextFontSize="11"
-                    materialDesign:TextFieldAssist.HasClearButton="True"
-                    BorderBrush="#BC766F6F"
-                    Margin="0,0,0,28"
-                    Background="#00000000"/>
+                    <TextBox Name="ItemRestrictionsField"
+                        Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                        VerticalAlignment="Top"
+                        AcceptsReturn="True"
+                        TextWrapping="Wrap"
+                        MaxLength="500"
+                        VerticalScrollBarVisibility="Auto"
+                        materialDesign:HintAssist.Hint="Restricciones del producto"
+                        materialDesign:HintAssist.HelperText="Descripción de restricciones"
+                        materialDesign:HintAssist.HelperTextFontSize="11"
+                        materialDesign:TextFieldAssist.HasClearButton="True"
+                        BorderBrush="#BC766F6F"
+                        Margin="0,0,0,28"
+                        Background="#00000000">
+
+                        <TextBox.Text>
+                            <Binding Path="Restrictions" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                                <Binding.ValidationRules>
+                                    <validations:DecimalNumber ValidatesOnTargetUpdated="True"/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
 
                     <!--#endregion -->
                 </StackPanel>
 
                 <!--Buttons-->
-                <ToggleButton x:Name="isIngredientButton"
-                Content="{materialDesign:PackIcon Kind=Food}" HorizontalAlignment="Right" Margin="0,0,38,450"
-                Style="{StaticResource MaterialDesignActionToggleButton}"
-                ToolTip="MaterialDesignActionToggleButton"
-                IsChecked="False"
-                Height="34" Width="34"
-                materialDesign:ToggleButtonAssist.OnContent="{materialDesign:PackIcon Kind=FoodOff}"
-                materialDesign:ShadowAssist.ShadowDepth="Depth3" />
+                <ToggleButton Name="isIngredientButton"
+                    Content="{materialDesign:PackIcon Kind=Food}" HorizontalAlignment="Right" Margin="0,0,38,450"
+                    Style="{StaticResource MaterialDesignActionToggleButton}"
+                    ToolTip="MaterialDesignActionToggleButton"
+                    IsChecked="False"
+                    Height="34" Width="34"
+                    materialDesign:ToggleButtonAssist.OnContent="{materialDesign:PackIcon Kind=FoodOff}"
+                    materialDesign:ShadowAssist.ShadowDepth="Depth3" />
 
                 <Border Background="BlueViolet" Width="80" Height="80" CornerRadius="100" Margin="280,130,0,0" MouseLeftButtonUp="uploadImageItem">
                     <Grid>
@@ -858,9 +840,44 @@
                             <fa5:ImageAwesome Icon="Solid_Check" Height="13" Width="13" Foreground="#FFF" VerticalAlignment="Center" 
                                       ToolTip="Selecciona un filtro" Margin="0,0,4px,0"/>
                             <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" HorizontalAlignment="Left">
-                            Registrar
+                                Registrar
                             </TextBlock>
+                            
                         </StackPanel>
+                        <Button.Style>
+                            <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedDarkButton}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ElementName=ItemNameField, 
+                                                     Path=(Validation.HasError)}" Value="True">
+                                        <Setter Property="IsEnabled" Value="False"/>
+                                    </DataTrigger>
+
+                                    <DataTrigger Binding="{Binding ElementName=ItemCodeField, 
+                                                     Path=(Validation.HasError)}" Value="True">
+                                        <Setter Property="IsEnabled" Value="False"/>
+                                    </DataTrigger>
+
+                                    <DataTrigger Binding="{Binding ElementName=ItemDescriptionField, 
+                                                     Path=(Validation.HasError)}" Value="True">
+                                        <Setter Property="IsEnabled" Value="False"/>
+                                    </DataTrigger>
+
+                                    <DataTrigger Binding="{Binding ElementName=ItemValueField, 
+                                                     Path=(Validation.HasError)}" Value="True">
+                                        <Setter Property="IsEnabled" Value="False"/>
+                                    </DataTrigger>
+
+                                    <DataTrigger Binding="{Binding ElementName=ItemQuantityField, 
+                                                     Path=(Validation.HasError)}" Value="True">
+                                        <Setter Property="IsEnabled" Value="False"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding ElementName=ItemUnitOfMeasurementComboBox, 
+                                                     Path=(Validation.HasError)}" Value="True">
+                                        <Setter Property="IsEnabled" Value="False"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
                     </Button>
                     <!--Update button-->
                     <Button Name="UpdateItemDataButton" Width="120" Margin="0,0,40,0" Visibility="Collapsed" materialDesign:ButtonAssist.CornerRadius="8" Height="40" Click="UpdateItem"
@@ -869,9 +886,44 @@
                             <fa5:ImageAwesome Icon="Solid_Check" Height="13" Width="13" Foreground="#FFF" VerticalAlignment="Center" 
                                       ToolTip="Selecciona un filtro" Margin="0,0,4px,0"/>
                             <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" HorizontalAlignment="Left">
-                            Actualizar
+                                Actualizar
                             </TextBlock>
+                            
                         </StackPanel>
+                        <Button.Style>
+                            <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedDarkButton}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ElementName=ItemNameField, 
+                                                     Path=(Validation.HasError)}" Value="True">
+                                        <Setter Property="IsEnabled" Value="False"/>
+                                    </DataTrigger>
+
+                                    <DataTrigger Binding="{Binding ElementName=ItemCodeField, 
+                                                     Path=(Validation.HasError)}" Value="True">
+                                        <Setter Property="IsEnabled" Value="False"/>
+                                    </DataTrigger>
+
+                                    <DataTrigger Binding="{Binding ElementName=ItemDescriptionField, 
+                                                     Path=(Validation.HasError)}" Value="True">
+                                        <Setter Property="IsEnabled" Value="False"/>
+                                    </DataTrigger>
+
+                                    <DataTrigger Binding="{Binding ElementName=ItemValueField, 
+                                                     Path=(Validation.HasError)}" Value="True">
+                                        <Setter Property="IsEnabled" Value="False"/>
+                                    </DataTrigger>
+
+                                    <DataTrigger Binding="{Binding ElementName=ItemQuantityField, 
+                                                     Path=(Validation.HasError)}" Value="True">
+                                        <Setter Property="IsEnabled" Value="False"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding ElementName=ItemUnitOfMeasurementComboBox, 
+                                                     Path=(Validation.HasError)}" Value="True">
+                                        <Setter Property="IsEnabled" Value="False"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
                     </Button>
 
                     <Button Name="CancelRegisterItemButton" Width="120" materialDesign:ButtonAssist.CornerRadius="8" Background="#2C2C2E" BorderBrush="{x:Null}" Click="CancelProdecure"
@@ -880,7 +932,7 @@
                             <fa5:ImageAwesome Icon="Solid_Ban" Height="13" Width="13" Foreground="#FFF" VerticalAlignment="Center" 
                                       ToolTip="Selecciona un filtro" Margin="0,0,4px,0"/>
                             <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" HorizontalAlignment="Left">
-                            Cancelar
+                                Cancelar
                             </TextBlock>
                         </StackPanel>
                     </Button>

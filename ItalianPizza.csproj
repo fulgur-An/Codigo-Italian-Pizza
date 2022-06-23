@@ -113,8 +113,13 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="BusinessObjects\AddressViewModel.cs" />
+    <Compile Include="BusinessObjects\BillViewModel.cs" />
     <Compile Include="BusinessObjects\CustomerViewModel.cs" />
+    <Compile Include="BusinessObjects\DailyBalanceViewModel.cs" />
     <Compile Include="BusinessObjects\EmployeeViewModel.cs" />
+    <Compile Include="BusinessObjects\ItemViewModel.cs" />
+    <Compile Include="BusinessObjects\MonetaryExpeditureDailyBalanceViewModel.cs" />
+    <Compile Include="BusinessObjects\StockTakingViewModel.cs" />
     <Compile Include="BusinessObjects\WorkShiftViewModel.cs" />
     <Compile Include="GenerateFile.cs" />
     <Compile Include="ItalianPizzaServiceCallback.cs" />
@@ -122,6 +127,7 @@
     <Compile Include="Validations\DecimalNumber.cs" />
     <Compile Include="Validations\Email.cs" />
     <Compile Include="Validations\Integer.cs" />
+    <Compile Include="Validations\IntegerWithNull.cs" />
     <Compile Include="Validations\NotNull.cs" />
     <Compile Include="Validations\NotNullList.cs" />
     <Compile Include="Validations\Phone.cs" />
@@ -233,6 +239,10 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\finances.png" />
+    <Resource Include="Images\products.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

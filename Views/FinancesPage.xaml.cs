@@ -1,5 +1,7 @@
 ﻿using Backend.Contracts;
 using Backend.Service;
+using ItalianPizza.BusinessObjects;
+using MaterialDesignThemes.Wpf;
 using Notifications.Wpf;
 using Server;
 using System;
@@ -28,15 +30,18 @@ namespace ItalianPizza.Views
 
         private ServerItalianPizzaProxy serverItalianPizzaProxy;
         private IItalianPizzaService serviceChannel;
-
+        private DailyBalanceViewModel dailyBalanceViewModel = new DailyBalanceViewModel();
+        private MonetaryExpeditureDailyBalanceViewModel monetaryExpeditureViewModel = new MonetaryExpeditureDailyBalanceViewModel();
         private string usernameLoggedIn;
-
         private readonly NotificationManager notificationManager = new NotificationManager();
 
         public FinancesPage(string usernameLoggedIn)
         {
+            DataContext = monetaryExpeditureViewModel;
             InitializeComponent();
             this.usernameLoggedIn = usernameLoggedIn;
+            this.MonetaryExpeditureEmployee.Text = usernameLoggedIn;
+            this.DailyBalanceEmployeeField.Text = usernameLoggedIn;
         }
 
         #region service connection
@@ -58,12 +63,13 @@ namespace ItalianPizza.Views
 
         public void ConsultMonetaryExpediture()
         {
-
+            int option = GetFilterSelection();
+            string filter = SearchTextBox.Text;
             var service = new ItalianPizzaServiceCallback();
             service.GetMonetaryExpeditureEvent += ShowMonetaryExpeditureList;
             serverItalianPizzaProxy = new ServerItalianPizzaProxy(service);
             serviceChannel = serverItalianPizzaProxy.ChannelFactory.CreateChannel();
-            serviceChannel.GetMonetaryExpediture(DateTime.Now);
+            serviceChannel.GetMonetaryExpediture(filter, option);
 
         }
         #endregion
@@ -102,12 +108,13 @@ namespace ItalianPizza.Views
 
         public void ConsultDailyBalance()
         {
-
+            int option = GetFilterSelection();
+            string filter = SearchTextBox.Text;
             var service = new ItalianPizzaServiceCallback();
             service.GetDailyBalanceEvent += ShowDailyBalanceList;
             serverItalianPizzaProxy = new ServerItalianPizzaProxy(service);
             serviceChannel = serverItalianPizzaProxy.ChannelFactory.CreateChannel();
-            serviceChannel.GetDailyBalance(DateTime.Now);
+            serviceChannel.GetDailyBalance(filter, option);
 
         }
 
@@ -132,7 +139,7 @@ namespace ItalianPizza.Views
         {
             if (!result.Equals(0))
             {
-                ShowConfirmationFileToast();
+                PersonalizeToast(NotificationType.Success, "Proceso realizado","Confirmación");
             }
         }
 
@@ -151,7 +158,7 @@ namespace ItalianPizza.Views
         {
             if (!result.Equals(0))
             {
-                ShowConfirmationFileToast();
+                PersonalizeToast(NotificationType.Success, "Proceso realizado","Confirmación");
             }
         }
 
@@ -180,17 +187,30 @@ namespace ItalianPizza.Views
         #region GUI Methods
         public void ShowSearchResults(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Return)
+            if (true)
             {
-                //InitialMessageBorder.Visibility = Visibility.Hidden;
 
-                //InventoryTableGrid.Visibility = Visibility.Visible;
-                //RegionSearchGrid.Visibility = Visibility.Visible;
-                //MainElementsInventoryGrid.Visibility = Visibility.Visible;
-                //ValidateInventoryTableGrid.Visibility = Visibility.Hidden;
             }
             ConsultMonetaryExpediture();
             ConsultDailyBalance();
+        }
+
+        public int GetFilterSelection()
+        {
+            int option = 1;
+            if (employeeNameRadioButton.IsChecked.Value)
+            {
+                option = 1;
+            }
+            else if (quantityRadioButton.IsChecked.Value)
+            {
+                option = 2;
+            }
+            else if (dateRadioButton.IsChecked.Value)
+            {
+                option = 3;
+            }
+            return option;
         }
 
         public void ShowFilters(object sender, RoutedEventArgs e)
@@ -221,9 +241,10 @@ namespace ItalianPizza.Views
 
         private void AcceptDepartureConfirmation(object sender, RoutedEventArgs e)
         {
-            ShowWarningToast();
+            PersonalizeToast(NotificationType.Success, "Proceso cancelado","Atención");
             HideRegisterFinanceLayout();
             HideDepartureConfirmation(sender, e);
+            
         }
 
         public void HideRegisterFinanceLayout()
@@ -233,6 +254,7 @@ namespace ItalianPizza.Views
             MonetaryExpeditureInformationGrid.Visibility = Visibility.Hidden;
             ChoiceRegisterStackPanel.Visibility = Visibility.Hidden;
             DailyBalanceInformationGrid.Visibility = Visibility.Hidden;
+            ClearFields();
         }
 
         public void SaveRegistMonetaryExpediture(object sender, RoutedEventArgs e)
@@ -249,6 +271,7 @@ namespace ItalianPizza.Views
         {
             ConfirmationBackBorder.Visibility = Visibility.Hidden;
             DeparureConfirmationBorder.Visibility = Visibility.Hidden;
+            RemoveValidationAssistant(false);
         }
 
         public void OpenMonetaryExpeditureDrawer(object sender, RoutedEventArgs e)
@@ -287,42 +310,21 @@ namespace ItalianPizza.Views
         {
             ConfirmationBackBorder.Visibility = Visibility.Visible;
             DeparureConfirmationBorder.Visibility = Visibility.Visible;
-            
+            RemoveValidationAssistant(true);
+
         }
 
 
-        public void ShowConfirmationFileToast()
+        public void PersonalizeToast(NotificationType notificationType, string message, string title)
         {
-
-            try
+            NotificationContent notificationContent = new NotificationContent
             {
-                Console.WriteLine("Estoy entradno");
-                notificationManager.Show(
-                new NotificationContent
-                {
-                    Title = "Confirmación",
-                    Message = "Archivo creaado",
-                    Type = NotificationType.Success,
-                }, areaName: "ConfirmationToast", expirationTime: TimeSpan.FromSeconds(2)
-            );
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Estoy capturando la excepción HDTPM");
-            }
+                Title = title,
+                Message = message,
+                Type = NotificationType.Success,
+            };
+            notificationManager.Show(notificationContent);
             
-        }
-
-        public void ShowWarningToast()
-        {
-            notificationManager.Show(
-                new NotificationContent
-                {
-                    Title = "Warning",
-                    Message = "Proceso cancelado",
-                    Type = NotificationType.Warning,
-                }, areaName: "ConfirmationToast", expirationTime: TimeSpan.FromSeconds(2)
-            );
         }
 
         private void UnCheckDiaryBalance(object sender, RoutedEventArgs e)
@@ -331,6 +333,7 @@ namespace ItalianPizza.Views
             MonetaryExpeditureCheckbox.IsChecked = true;
             MonetaryExpeditureInformationGrid.Visibility = Visibility.Visible;
             DailyBalanceInformationGrid.Visibility = Visibility.Hidden;
+            
         }
 
         private void UnCheckMonetaryExpediture(object sender, RoutedEventArgs e)
@@ -339,6 +342,15 @@ namespace ItalianPizza.Views
             MonetaryExpeditureCheckbox.IsChecked = false;
             MonetaryExpeditureInformationGrid.Visibility = Visibility.Hidden;
             DailyBalanceInformationGrid.Visibility = Visibility.Visible;
+            
+        }
+
+
+        private void ClearFields()
+        {
+            DailyBalancePhysicBalanceField.Clear();
+            MonetaryExpeditureImportField.Clear();
+            MonetaryExpeditureDescriptionField.Clear();
         }
 
         private void OpenRegistLayout(object sender, MouseButtonEventArgs e)
@@ -348,84 +360,128 @@ namespace ItalianPizza.Views
             MonetaryExpeditureInformationGrid.Visibility = Visibility.Visible;
             ChoiceRegisterStackPanel.Visibility = Visibility.Visible;
             FillAmountsFields();
+
         }
 
         private void MilPesosKeyUp(object sender, KeyEventArgs e)
         {
-
-            string amountstring = milPesos.Text;
+            string amountstring = "0";
+            if (Bill1000Textbox.Text.All(Char.IsDigit))
+            {
+                amountstring = Bill1000Textbox.Text;
+            }
+            else
+            {
+                amountstring = "0";
+            }
             double amount = double.Parse(amountstring);
             Calculate(amount * 1000);
         }
 
         private void QuinientosPesosKeyUp(object sender, KeyEventArgs e)
         {
-
-            string amountstring = quinientosPesos.Text;
+            string amountstring = "0";
+            if (Bill500Textbox.Text.All(Char.IsDigit))
+            {
+                amountstring = Bill500Textbox.Text;
+                
+            }
             double amount = double.Parse(amountstring);
             Calculate(amount * 500);
         }
 
         private void DoscientosPesosKeyUp(object sender, KeyEventArgs e)
         {
-
-            string amountstring = doscientosPesos.Text;
+            string amountstring = "0";
+            if (Bill200Textbox.Text.All(Char.IsDigit))
+            {
+                amountstring = Bill200Textbox.Text;
+                
+            }
             double amount = double.Parse(amountstring);
             Calculate(amount * 200);
         }
 
         private void CienPesosKeyUp(object sender, KeyEventArgs e)
         {
-
-            string amountstring = cienPesos.Text;
+            string amountstring = "0";
+            if (Bill100Textbox.Text.All(Char.IsDigit))
+            {
+                amountstring = Bill100Textbox.Text;
+                
+            }
             double amount = double.Parse(amountstring);
             Calculate(amount * 100);
         }
 
         private void CincuentaPesosKeyUp(object sender, KeyEventArgs e)
         {
-
-            string amountstring = cincuentaPesos.Text;
+            string amountstring = "0";
+            if (Bill50Textbox.Text.All(Char.IsDigit))
+            {
+                amountstring = Bill50Textbox.Text;
+                
+            }
             double amount = double.Parse(amountstring);
             Calculate(amount * 50);
         }
 
         private void VeintePesosKeyUp(object sender, KeyEventArgs e)
         {
-
-            string amountstring = veintePesos.Text;
+            string amountstring = "0";
+            if (Bill20Textbox.Text.All(Char.IsDigit))
+            {
+                amountstring = Bill20Textbox.Text;
+                
+            }
             double amount = double.Parse(amountstring);
             Calculate(amount * 20);
         }
 
         private void DiezPesosKeyUp(object sender, KeyEventArgs e)
         {
-
-            string amountstring = diezPesos.Text;
+            string amountstring = "0";
+            if (Bill10Textbox.Text.All(Char.IsDigit))
+            {
+                amountstring = Bill10Textbox.Text;
+                
+            }
             double amount = double.Parse(amountstring);
             Calculate(amount * 10);
         }
 
         private void CincoPesosKeyUp(object sender, KeyEventArgs e)
         {
-
-            string amountstring = cincoPesos.Text;
+            string amountstring = "0";
+            if (Bill5Textbox.Text.All(Char.IsDigit))
+            {
+                amountstring = Bill5Textbox.Text;
+                
+            }
             double amount = double.Parse(amountstring);
             Calculate(amount * 5);
         }
 
         private void DosPesosKeyUp(object sender, KeyEventArgs e)
         {
-
-            string amountstring = dosPesos.Text;
+            string amountstring = "0";
+            if (Bill2Textbox.Text.All(Char.IsDigit))
+            {
+                amountstring = Bill2Textbox.Text;
+                
+            }
             double amount = double.Parse(amountstring);
             Calculate(amount * 2);
         }
 
         private void PesoKeyUp(object sender, KeyEventArgs e)
         {
-
-            string amountstring = peso.Text;
+            string amountstring = "0";
+            if (BillTextbox.Text.All(Char.IsDigit))
+            {
+                amountstring = BillTextbox.Text;
+                
+            }
             double amount = double.Parse(amountstring);
             Calculate(amount * 1);
         }
@@ -442,9 +498,14 @@ namespace ItalianPizza.Views
             DailyBalancePhysicBalanceField.Text = totalDouble.ToString();
         }
 
+        public void RemoveValidationAssistant(bool isNotVisible)
+        {
+            ValidationAssist.SetSuppress(DailyBalancePhysicBalanceField, isNotVisible);
+            ValidationAssist.SetSuppress(MonetaryExpeditureImportField, isNotVisible);
+            ValidationAssist.SetSuppress(MonetaryExpeditureDescriptionField, isNotVisible);
+        }
+
         #endregion
-
-
 
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Backend.Contracts;
 using Backend.Service;
+using ItalianPizza.BusinessObjects;
 using MaterialDesignThemes.Wpf;
 using Microsoft.Win32;
 using Notifications.Wpf;
@@ -33,12 +34,17 @@ namespace ItalianPizza.Views
         private IItalianPizzaService serviceChannel;
         private string saveFileDialogName;
         private string usernameLoggedIn;
+        private int idItemToUpdate;
+        private ItemViewModel itemViewMode = new ItemViewModel();
+        private StockTakingViewModel stockTakingViewModel = new StockTakingViewModel();
         private List<StockTakingContract> stocktakingToPrint = new List<StockTakingContract>();
         private readonly NotificationManager notificationManager = new NotificationManager();
 
         public InventoryPage(string usernameLoggedIn)
         {
             InitializeComponent();
+            DataContext = itemViewMode;
+            
             this.usernameLoggedIn = usernameLoggedIn;
         }
 
@@ -57,16 +63,21 @@ namespace ItalianPizza.Views
             int sku = int.Parse(ItemCodeField.Text);
             item.Sku = sku;
             //item.Photo = itemContract.Text;
-            item.Price = int.Parse(ItemValueField.Text);
+            item.Price = decimal.Parse(ItemValueField.Text);
             item.Quantity = int.Parse(ItemQuantityField.Text);
-            var bitmapImage = itemImage.Source as BitmapImage;
-            item.Photo = getJPGFromImageControl(bitmapImage);
+            if (itemImage.Source != null)
+            {
+                var bitmapImage = itemImage.Source as BitmapImage;
+                item.Photo = getJPGFromImageControl(bitmapImage);
+            }
+            
             item.Restrictions = ItemRestrictionsField.Text;
             item.UnitOfMeasurement = ItemUnitOfMeasurementComboBox.Text;
             item.NeedsFoodRecipe = !isIngredientButton.IsChecked.Value;
             item.IsIngredient = isIngredientButton.IsChecked.Value;
             item.IsEnabled = true;
             serviceChannel.RegisterItem(item);
+            ClearItemFields();
         }
 
         public void UpdateItem()
@@ -77,27 +88,32 @@ namespace ItalianPizza.Views
             serviceChannel = serverItalianPizzaProxy.ChannelFactory.CreateChannel();
 
             ItemContract item = new ItemContract();
+            item.IdItem = idItemToUpdate;
             item.Name = ItemNameField.Text;
             item.Description = ItemDescriptionField.Text;
             item.Sku = int.Parse(ItemCodeField.Text);
-            //item.Photo = itemContract.Text;
-            item.Price = int.Parse(ItemValueField.Text);
+            if (!itemImage.Source.Equals(null))
+            {
+                var bitmapImage = itemImage.Source as BitmapImage;
+                item.Photo = getJPGFromImageControl(bitmapImage);
+            }
+            item.Price = decimal.Parse(ItemValueField.Text);
             item.Quantity = int.Parse(ItemQuantityField.Text);
             item.Restrictions = ItemRestrictionsField.Text;
             item.UnitOfMeasurement = ItemUnitOfMeasurementComboBox.Text;
             item.NeedsFoodRecipe = !isIngredientButton.IsChecked.Value;
             item.IsIngredient = isIngredientButton.IsChecked.Value;
-            item.IsEnabled = true;
             serviceChannel.UpdateItem(item);
+            ClearItemFields();
         }
 
-        public void GetInventory(string filterString, int filterInt, int option)
+        public void GetInventory(string filterString, int option)
         {
             var service = new ItalianPizzaServiceCallback();
             service.GetItemListEvent += LoadInventory;
             serverItalianPizzaProxy = new ServerItalianPizzaProxy(service);
             serviceChannel = serverItalianPizzaProxy.ChannelFactory.CreateChannel();
-            serviceChannel.GetItemList(filterString, filterInt, option);
+            serviceChannel.GetItemList(filterString, option);
         }
 
         public void DeleteItem(int itemId)
@@ -162,11 +178,11 @@ namespace ItalianPizza.Views
         {
             if (result > 0)
             {
-                ShowConfirmationToast();
+                PersonalizeToast(NotificationType.Success, "Proceso realizado","Confirmación");
             }
             else
             {
-                ShowWarningToast();
+                PersonalizeToast(NotificationType.Success, "Proceso cancelado","Atención");
             }
         }
 
@@ -174,11 +190,11 @@ namespace ItalianPizza.Views
         {
             if (result > 0)
             {
-                ShowConfirmationToast();
+                PersonalizeToast(NotificationType.Success, "Proceso realizado","Confirmación");
             }
             else
             {
-                ShowWarningToast();
+                PersonalizeToast(NotificationType.Success, "Proceso cancelado","Atención");
             }
 
         }
@@ -191,7 +207,6 @@ namespace ItalianPizza.Views
                 InventoryTableBodyListBox.ItemsSource = null;
                 InventoryTableBodyListBox.ItemsSource = Items;
                 InventoryTableBodyListBox.Items.Refresh();
-                ShowConfirmationToast();
 
             }
         }
@@ -200,7 +215,7 @@ namespace ItalianPizza.Views
         {
             if (result != 0)
             {
-                ShowConfirmationToast();
+                PersonalizeToast(NotificationType.Success, "Proceso realizado","Confirmación");
             }
             
         }
@@ -220,15 +235,15 @@ namespace ItalianPizza.Views
                 }
                 catch (Exception ex)
                 {
-                    ShowWarningToast();
+                    PersonalizeToast(NotificationType.Success, "Proceso cancelado","Atención");
                 }
                 finally
                 {
-                    ShowConfirmationFileToast();
+                    PersonalizeToast(NotificationType.Success, "Archivo creado","Confirmación");
                 }
                 //stocktakingToPrint = stockTakings;
                 //ValidateInventoryTableBodyListBox.ItemsSource = stockTakings;
-                //ShowConfirmationToast();
+                //PersonalizeToast(NotificationType.Success, "Proceso realizado","Confirmación");
             }
         }
 
@@ -244,11 +259,11 @@ namespace ItalianPizza.Views
         {
             if (result > 0)
             {
-                ShowConfirmationToast();
+                PersonalizeToast(NotificationType.Success, "Proceso realizado","Confirmación");
             }
             else
             {
-                ShowWarningToast();
+                PersonalizeToast(NotificationType.Success, "Proceso cancelado","Atención");
             }
         }
 
@@ -304,18 +319,13 @@ namespace ItalianPizza.Views
             int option = GetFilterSelection();
 
             string searchFilter = GettInventory.Text;
-            int filterInt = 0;
             InitialMessageBorder.Visibility = Visibility.Hidden;
 
             InventoryTableGrid.Visibility = Visibility.Visible;
             RegionSearchGrid.Visibility = Visibility.Visible;
             MainElementsInventoryGrid.Visibility = Visibility.Visible;
             ValidateInventoryTableGrid.Visibility = Visibility.Hidden;
-            if (option != 1)
-            {
-                filterInt = int.Parse(searchFilter);
-            }
-            GetInventory(searchFilter, filterInt, option);
+            GetInventory(searchFilter, option);
         }
 
         public void ShowSelectedFilter(object sender, RoutedEventArgs e)
@@ -360,13 +370,14 @@ namespace ItalianPizza.Views
             MainElementsInventoryGrid.Visibility = Visibility.Hidden;
             ValidateInventoryTableGrid.Visibility = Visibility.Visible;
             LoadStockTakingList();
+            DataContext = stockTakingViewModel;
         }
 
         public void CancelValidationLayout(object sender, RoutedEventArgs e)
         {
             ShowConfirmationDeparture();
-            
-            
+
+            DataContext = itemViewMode;
         }
 
         public void HideValidateLayout()
@@ -440,6 +451,7 @@ namespace ItalianPizza.Views
         public void FillItemSpecification()
         {
             ItemContract item = InventoryTableBodyListBox.SelectedItem as ItemContract;
+            idItemToUpdate = item.IdItem;
             ItemNameField.Text = item.Name;
             ItemCodeField.Text = item.Sku.ToString();
             ItemDescriptionField.Text = item.Description;
@@ -448,7 +460,7 @@ namespace ItalianPizza.Views
             itemImage.Source = LoadImage(item.Photo);
             itemImage.Visibility = Visibility.Visible;
             uploadImageItemIcom.Visibility = Visibility.Collapsed;
-            ItemUnitOfMeasurementComboBox.SelectedValue = item.UnitOfMeasurement;
+            ItemUnitOfMeasurementComboBox.Text = item.UnitOfMeasurement;
             ItemRestrictionsField.Text = item.Restrictions;
         }
 
@@ -457,6 +469,7 @@ namespace ItalianPizza.Views
             ThirdLayerInformationBorder.Visibility = Visibility.Hidden;
             QuarterLayerInformationBorder.Visibility = Visibility.Hidden;
             OrderInformationGrid.Visibility = Visibility.Hidden;
+            ClearItemFields();
         }
         private void OpenRegistItem(object sender, RoutedEventArgs e)
         {
@@ -501,31 +514,6 @@ namespace ItalianPizza.Views
             ChageEnableProperty(false);
         }
 
-
-        //public void ShowUpdateFields(object sender, RoutedEventArgs e)
-        //{
-        //    ShowEspecificDataItem(sender, e);
-        //    GetOutStackPanel.Visibility = Visibility.Hidden;
-        //    RegisterItemButton.Visibility = Visibility.Collapsed;
-        //    CancelRegisterItemButton.Visibility = Visibility.Visible;
-        //    UpdateItemDataButton.Visibility = Visibility.Visible;
-        //    FieldsAreEditableTextBlock.Visibility = Visibility.Visible;
-        //    ChageEnableProperty(true);
-        //    if (DeleteItemGrid.Visibility == Visibility.Visible)
-        //    {
-        //        HideSpecificItemInformation(sender, e);
-        //    }
-        //else if (visualizeIcon.ismouseover)
-        //{
-        //    getoutstackpanel.visibility = visibility.visible;
-        //    registeritembutton.visibility = visibility.collapsed;
-        //    cancelregisteritembutton.visibility = visibility.hidden;
-        //    updateitemdatabutton.visibility = visibility.hidden;
-        //    fieldsareeditabletextblock.visibility = visibility.hidden;
-        //    chageenableproperty(false);
-        //}
-        //}
-
         public void ChageEnableProperty(bool enableProperty)
         {
             ItemNameField.IsEnabled = enableProperty;
@@ -540,15 +528,17 @@ namespace ItalianPizza.Views
 
         public void UpdateItem(object sender, RoutedEventArgs e)
         {
-            HideSpecificItemInformation(sender, e);
+            
             UpdateItem();
+            HideSpecificItemInformation(sender, e);
         }
 
         public void RegistItem(object sender, RoutedEventArgs e)
         {
-            HideSpecificItemInformation(sender, e);
+            
             RegisterItem();
-           
+            HideSpecificItemInformation(sender, e);
+
         }
         public void CancelProdecure(object sender, RoutedEventArgs e)
         {
@@ -559,18 +549,19 @@ namespace ItalianPizza.Views
         {
             ConfirmationBackBorder.Visibility = Visibility.Visible;
             DeparureConfirmationBorder.Visibility = Visibility.Visible;
-            
+            RemoveValidationAssistant(true);
         }
 
         public void HideDepartureConfirmation(object sender, RoutedEventArgs e)
         {
             ConfirmationBackBorder.Visibility = Visibility.Hidden;
             DeparureConfirmationBorder.Visibility = Visibility.Hidden;
+            RemoveValidationAssistant(false);
         }
 
         private void AcceptDepartureConfirmation(object sender, RoutedEventArgs e)
         {
-            ShowWarningToast();
+            PersonalizeToast(NotificationType.Success, "Proceso cancelado","Atención");
             HideSpecificItemInformation(sender, e);
             HideValidateLayout();
             HideDepartureConfirmation(sender, e);
@@ -580,7 +571,6 @@ namespace ItalianPizza.Views
         {
             SaveStockTaking();
             HideValidateLayout();
-            //ShowConfirmationFileToast();
         }
 
         public void GenerateReport(object sender, RoutedEventArgs e)
@@ -602,70 +592,17 @@ namespace ItalianPizza.Views
             uploadImageItemIcom.Visibility = Visibility.Visible;
         }
 
-        public void ShowConfirmationToast()
+        public void PersonalizeToast(NotificationType notificationType, string message, string title)
         {
-            //Console.WriteLine("Estoy fuera");
-            try
+            NotificationContent notificationContent = new NotificationContent
             {
-                //Console.WriteLine("Estoy entrando");
-                notificationManager.Show(
-                    new NotificationContent
-                    {
-                        Title = "Confirmación",
-                        Message = "Proceso Realizado",
-                        Type = NotificationType.Success,
-                    }, areaName: "ConfirmationToast", expirationTime: TimeSpan.FromSeconds(2)
-                );
-            }
-            catch (Exception ex)
-            {
-            }
-            
+                Title = title,
+                Message = message,
+                Type = notificationType
+            };
+            notificationManager.Show(notificationContent);
+
         }
-        public void ShowConfirmationFileToast()
-        {
-            //Console.WriteLine("Estoy fuera");
-            try
-            {
-                //Console.WriteLine("Estoy entrando");
-                notificationManager.Show(
-                    new NotificationContent
-                    {
-                        Title = "Confirmación",
-                        Message = "Archivo creaado",
-                        Type = NotificationType.Success,
-                    }, areaName: "ConfirmationToast", expirationTime: TimeSpan.FromSeconds(2)
-                );
-            }
-            catch (Exception ex)
-            {
-
-            }
-            
-        }
-
-        public void ShowWarningToast()
-        {
-            try
-            {
-                notificationManager.Show(
-                    new NotificationContent
-                    {
-                        Title = "Warning",
-                        Message = "Proceso cancelado",
-                        Type = NotificationType.Warning,
-                    }, areaName: "ConfirmationToast", expirationTime: TimeSpan.FromSeconds(2)
-                );
-            }
-            catch (Exception ex)
-            {
-
-            }
-            
-        }
-
-
-
 
 
         #endregion
@@ -697,7 +634,7 @@ namespace ItalianPizza.Views
                 }
                 catch (Exception ex)
                 {
-                    ShowWarningToast();
+                    PersonalizeToast(NotificationType.Success, "Proceso cancelado","Atención");
                 }
             }
         }
@@ -713,21 +650,30 @@ namespace ItalianPizza.Views
         public BitmapImage LoadImage(byte[] imageData)
         {
             BitmapImage image = new BitmapImage();
-            if (imageData == null || imageData.Length == 0)
+            try
+            {
+                
+                if (imageData == null || imageData.Length == 0)
+                {
+                    image = null;
+                }
+                using (MemoryStream memoryStream = new MemoryStream(imageData))
+                {
+                    memoryStream.Position = 0;
+                    image.BeginInit();
+                    image.CreateOptions = BitmapCreateOptions.PreservePixelFormat;
+                    image.CacheOption = BitmapCacheOption.OnLoad;
+                    image.UriSource = null;
+                    image.StreamSource = memoryStream;
+                    image.EndInit();
+                }
+                image.Freeze();
+                
+            }
+            catch (Exception)
             {
                 image = null;
             }
-            using (MemoryStream memoryStream = new MemoryStream(imageData))
-            {
-                memoryStream.Position = 0;
-                image.BeginInit();
-                image.CreateOptions = BitmapCreateOptions.PreservePixelFormat;
-                image.CacheOption = BitmapCacheOption.OnLoad;
-                image.UriSource = null;
-                image.StreamSource = memoryStream;
-                image.EndInit();
-            }
-            image.Freeze();
             return image;
         }
 
@@ -746,6 +692,17 @@ namespace ItalianPizza.Views
 
 
             
+        }
+
+        public void RemoveValidationAssistant(bool isNotVisible)
+        {
+            ValidationAssist.SetSuppress(ItemNameField, isNotVisible);
+            ValidationAssist.SetSuppress(ItemCodeField, isNotVisible);
+            ValidationAssist.SetSuppress(ItemDescriptionField, isNotVisible);
+            ValidationAssist.SetSuppress(ItemValueField, isNotVisible);
+            ValidationAssist.SetSuppress(ItemQuantityField, isNotVisible);
+            ValidationAssist.SetSuppress(ItemRestrictionsField, isNotVisible);
+            ValidationAssist.SetSuppress(ItemUnitOfMeasurementComboBox, isNotVisible);
         }
 
         #endregion

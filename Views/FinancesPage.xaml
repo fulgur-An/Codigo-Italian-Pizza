@@ -7,6 +7,7 @@
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:fa5="http://schemas.fontawesome.com/icons/"
       xmlns:notifications="clr-namespace:Notifications.Wpf.Controls;assembly=Notifications.Wpf"
+      xmlns:validations="clr-namespace:ItalianPizza.Validations"
       mc:Ignorable="d" 
       d:DesignHeight="720" d:DesignWidth="776"
       Title="FinancesPage">
@@ -29,18 +30,17 @@
 
 
         <!--Initial Message-->
-        <Border Background="#5B5B5B" Height="300" Width="550" Margin="0,120,0,0" CornerRadius="10" 
-                Opacity="0.4" x:Name="InitialMessageBorder">
-            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                <fa5:ImageAwesome Icon="Regular_Smile" Height="100" Width="100" Margin="0,0,0,20px" 
-                                     Foreground="#FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center" 
-                                     ToolTip="Usuarios" />
+        <Grid Background="Transparent" Margin="0,295,0,0" 
+                Opacity="0.4" x:Name="InitialMessageBorder" VerticalAlignment="Center">
+            <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center">
                 <TextBlock Foreground="#FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center" 
-                               Margin="0,0,0,0" FontFamily="Trebuchet MS" FontSize="50">
+                           Margin="0,0,0,30" FontFamily="Trebuchet MS" FontSize="50" Name="SearchResultMessageTextBlock"
+                           TextWrapping="Wrap" TextAlignment="Center">
                         Realiza una búsqueda
                 </TextBlock>
+                <Image Source="../Images/finances.png" Width="300" Height="300" Margin="0,0,0,0" Opacity="1"/>
             </StackPanel>
-        </Border>
+        </Grid>
         <!--#endregion-->
         
         <!--#region DrawerRegion-->
@@ -232,46 +232,46 @@
                                             <StackPanel Orientation="Horizontal" Height="35" Width="709" Cursor="Hand" Background="Transparent">
                                                 <Grid Width="100"  Margin="4,0,0,0">
                                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                        <TextBlock Text="{Binding CurrentDate}" FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" TextWrapping="Wrap"/>
+                                                        <TextBlock Text="{Binding DateString}" FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" TextWrapping="Wrap"/>
                                                     </StackPanel>
                                                 </Grid>
 
-                                                <Grid Width="40" Margin="38,0,0,0">
+                                                <Grid Width="70" Margin="8,0,0,0">
                                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                                                         <TextBlock Text="$" FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" TextWrapping="Wrap"/>
                                                         <TextBlock Text="{Binding EntryBalance}" FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" TextWrapping="Wrap"/>
                                                     </StackPanel>
                                                 </Grid>
 
-                                                <Grid Width="40" Margin="38,0,0,0">
+                                                <Grid Width="70" Margin="8,0,0,0">
                                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                                                         <TextBlock Text="$" FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" TextWrapping="Wrap"/>
                                                         <TextBlock Text="{Binding InitialBalance}" FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" TextWrapping="Wrap"/>
                                                     </StackPanel>
                                                 </Grid>
 
-                                                <Grid Width="40" Margin="38,0,0,0">
+                                                <Grid Width="70" Margin="8,0,0,0">
                                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                                                         <TextBlock Text="$" FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" TextWrapping="Wrap"/>
                                                         <TextBlock Text="{Binding ExitBalance}" FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" TextWrapping="Wrap"/>
                                                     </StackPanel>
                                                 </Grid>
 
-                                                <Grid Width="40" Margin="38,0,0,0">
+                                                <Grid Width="70" Margin="8,0,0,0">
                                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                                                         <TextBlock Text="$" FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" TextWrapping="Wrap"/>
                                                         <TextBlock Text="{Binding CashBalance}" FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" TextWrapping="Wrap"/>
                                                     </StackPanel>
                                                 </Grid>
 
-                                                <Grid Width="40" Margin="38,0,0,0">
+                                                <Grid Width="70" Margin="8,0,0,0">
                                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                                                         <TextBlock Text="$" FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" TextWrapping="Wrap"/>
                                                         <TextBlock Text="{Binding PhsycalBalance}" FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" TextWrapping="Wrap"/>
                                                     </StackPanel>
                                                 </Grid>
 
-                                                <Grid Width="200" Margin="28,0,0,0">
+                                                <Grid Width="200" Margin="8,0,0,0">
                                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                                                         <TextBlock FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" TextWrapping="Wrap">
                                                     Antonio de Jesús Domínguez García
@@ -395,7 +395,7 @@
                         <!--#region Table body-->
                         <Grid>
 
-                            <Border Name="monetaryExpeditureTableBodyBorder" Background="#5B5B5B" Height="350" Width="719" CornerRadius="0,0,5,5" 
+                            <Border Name="monetaryExpeditureTableBodyBorder" Background="#5B5B5B" Height="400" Width="719" CornerRadius="0,0,5,5" 
                                 Opacity="0" />
                             <ListBox Name="monetaryExpeditureTableBodyListBox" Height="350" Width="719"  HorizontalAlignment="Center" ItemsSource="{Binding}">
                                 <ListBox.ItemsPanel>
@@ -404,33 +404,30 @@
                                     </ItemsPanelTemplate>
                                 </ListBox.ItemsPanel>
                                 <ListBox.ItemTemplate>
-                                    <DataTemplate  >
-                                        <!-- BorderBrush="#CFCFCF" BorderThickness="0,0,0,1" HorizontalAlignment="Center"-->
+                                    <DataTemplate>
                                         <materialDesign:TransitioningContent OpeningEffectsOffset="{materialDesign:IndexedItemOffsetMultiplier 0:0:0.05}">
                                             <materialDesign:TransitioningContent.OpeningEffects>
                                                 <materialDesign:TransitionEffect Kind="SlideInFromRight"/>
                                             </materialDesign:TransitioningContent.OpeningEffects>
-                                            <StackPanel Orientation="Horizontal" Height="35" Width="709" Cursor="Hand" Background="Transparent" HorizontalAlignment="Center">
-                                                <Grid Width="50"  Margin="28,0,44,0" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                            <StackPanel Orientation="Horizontal" Width="709" Cursor="Hand" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Top">
+                                                <Grid Width="50"  Margin="28,0,34,0" HorizontalAlignment="Center" VerticalAlignment="Top">
+                                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
                                                         <TextBlock Text="{Binding Amount}" FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" TextWrapping="Wrap"/>
                                                     </StackPanel>
                                                 </Grid>
 
-                                                <Grid Width="200" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                        <TextBlock Text="{Binding Date}" FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" TextWrapping="Wrap"/>
+                                                <Grid Width="150"  HorizontalAlignment="Center" VerticalAlignment="Top">
+                                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
+                                                        <TextBlock Text="{Binding DateString}" FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" TextWrapping="Wrap"/>
                                                     </StackPanel>
                                                 </Grid>
 
-                                                <Grid Width="250" Margin="18,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                        <TextBlock Text="{Binding Description}" FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" TextWrapping="Wrap"/>
-                                                    </StackPanel>
+                                                <Grid Width="230" Height="Auto" Margin="8,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Top">
+                                                    <TextBlock Text="{Binding Description}" FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" TextWrapping="Wrap"/>
                                                 </Grid>
 
-                                                <Grid Width="200" Margin="18,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                <Grid Width="200"  Margin="8,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Top">
+                                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
                                                         <TextBlock Text="{Binding EmployeeName}" FontFamily="Tw Cen MT" FontSize="14" Foreground="#FFF" TextWrapping="Wrap"/>
                                                     </StackPanel>
                                                 </Grid>
@@ -453,7 +450,7 @@
 
         <!--#region Search -->
         <Grid Margin="0,50,120,0" Name="RegionSearchGrid" >
-            <TextBox Background="#2C2C2E" Width="550px" Height="50px" VerticalAlignment="Top"
+            <TextBox Name="SearchTextBox" Background="#2C2C2E" Width="550px" Height="50px" VerticalAlignment="Top"
                      HorizontalAlignment="Center" Style="{StaticResource  MaterialDesignOutlinedTextBox}"
                      TextWrapping="Wrap" materialDesign:HintAssist.Hint="Buscar" Foreground="#FFFFFF"
                      materialDesign:HintAssist.HelperText="Selecciona un filtro de búsqueda"
@@ -486,18 +483,18 @@
             <!--#region Filter -->
             <Border Background="Transparent" Width="776" Height="720" Margin="0,-50,-120,0" VerticalAlignment="Top"
                     HorizontalAlignment="Center" Name="SecondLayerFilterBorder"  MouseLeftButtonUp="HideFilters" Visibility="Hidden"/>
-            <Border Background="#CFCFCF" Width="250" Height="155" CornerRadius="5" VerticalAlignment="Top" 
+            <Border Background="#CFCFCF" Width="250" Height="130" CornerRadius="5" VerticalAlignment="Top" 
                     HorizontalAlignment="Right"  Margin="0,60,120,0" Name="FirstLayerFilterBorder"  Visibility="Hidden"/>
             <StackPanel Orientation="Vertical" VerticalAlignment="Top" Visibility="Hidden"
                         HorizontalAlignment="Right" Name="FiltersStackPanel">
-                <StackPanel Orientation="Horizontal" Margin="0,75,115,0" >
-                    <fa5:ImageAwesome Icon="Solid_Heart" Height="21" Width="21" Foreground="#000" VerticalAlignment="Center" 
+                <StackPanel Orientation="Horizontal" Margin="0,75,105,0" >
+                    <fa5:ImageAwesome Icon="Solid_Heart" Height="21" Width="21" Foreground="#000" VerticalAlignment="Center"
                                       Margin="12,0,10px,0"/>
                     <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#000" Margin="0,0,60,0">
                         Empleado
                     </TextBlock>
 
-                    <RadioButton Margin="40,0,19,0" Background="#000" Cursor="Hand" 
+                    <RadioButton Name="employeeNameRadioButton" Margin="20,0,29,0" Background="#000" Cursor="Hand" 
                                  Style="{StaticResource MaterialDesignSwitchToggleButton}" GroupName="Filters">
                         <materialDesign:ToggleButtonAssist.SwitchTrackOnBackground>
                             <SolidColorBrush Color="#000000" />
@@ -514,7 +511,7 @@
                     <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#000" Margin="0,0,50,0">
                         Cantidad
                     </TextBlock>
-                    <RadioButton Margin="57,0,0,0" Background="#000" Cursor="Hand"
+                    <RadioButton Name="quantityRadioButton" Margin="35,0,0,0" Background="#000" Cursor="Hand"
                                  Style="{StaticResource MaterialDesignSwitchToggleButton}" GroupName="Filters">
                         <materialDesign:ToggleButtonAssist.SwitchTrackOnBackground>
                             <SolidColorBrush Color="#000000" />
@@ -531,7 +528,7 @@
                     <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#000" Margin="0,0,45,0">
                         Fecha
                     </TextBlock>
-                    <RadioButton Margin="0,0,0,0" Background="#000" Cursor="Hand"
+                    <RadioButton Name="dateRadioButton" Margin="65,0,0,0" Background="#000" Cursor="Hand"
                                  Style="{StaticResource MaterialDesignSwitchToggleButton}" GroupName="Filters">
                         <materialDesign:ToggleButtonAssist.SwitchTrackOnBackground>
                             <SolidColorBrush Color="#000000" />
@@ -550,41 +547,41 @@
         <!--#region Dialogue Finance-->
         <Border Background="#000" Opacity="0.9"  x:Name="ThirdLayerInformationBorder" Visibility="Hidden"/>
         <Border Background="#FFF" CornerRadius="10" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Hidden"
-                Width="700" Height="600" Margin="0,0,0,0" Opacity="1" 
+                Width="750" Height="650" Margin="0,0,0,40" Opacity="1" 
                 Name="QuarterLayerInformationBorder"/>
+        
         <!--#region Monetary Expediture-->
         <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Width="700" Height="600" Margin="0,0,0,0"
               Name="MonetaryExpeditureInformationGrid" Visibility="Hidden">
-            <TextBlock Name="MonetaryExpeditureTextBlock" FontFamily="Tw Cen MT" FontSize="50" Foreground="#000" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="48,8,0,0" >
+            <TextBlock Name="MonetaryExpeditureTextBlock" FontFamily="Tw Cen MT" FontSize="50" Foreground="#000" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="28,8,0,0" >
                     Gasto monetario
             </TextBlock>
             <StackPanel Orientation="Vertical" Margin="0,68,0,0" Background="Transparent" HorizontalAlignment="Center"
-                        Width="600">
+                        Width="660">
                 
                 <!--#region Monetary expediture Information-->
                 
                 <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
                     <StackPanel Orientation="Vertical">
                         <StackPanel Orientation="Horizontal">
-                            <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="0,0,8,0">
-                                <TextBlock FontFamily="Tw Cen MT" FontSize="23" Margin="0,0,24,8" Foreground="#000" >
+                            <StackPanel Orientation="Vertical" HorizontalAlignment="Right">
+                                <TextBlock FontFamily="Tw Cen MT" FontSize="23" Margin="0,0,0,8" Foreground="#000">
                                     Empleado
                                 </TextBlock>
-                                <TextBox x:Name="MonetaryExpeditureNameField"
+                                <TextBox x:Name="MonetaryExpeditureEmployee"
                                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                     VerticalAlignment="Top"
                                     AcceptsReturn="True"
                                     TextWrapping="Wrap"
-                                    MaxLength="24"
-                                    Text="Antonio de Jesús Dompinguez García"
+                                    MaxLength="5"
                                     IsEnabled="False"
-                                    materialDesign:HintAssist.HelperText="Este campos no se puede modificar"
+                                    materialDesign:HintAssist.HelperText="Este campo no se puede modificar"
                                     materialDesign:HintAssist.HelperTextFontSize="11"
-                                    materialDesign:TextFieldAssist.HasClearButton="True"
                                     materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
                                     BorderBrush="#BC766F6F"
-                                    Width="200"
-                                    Margin="4,0,26,28" Background="#00000000"/>
+                                    Margin="0,0,18,28"
+                                    Width="250"
+                                    Background="#00000000"/>
                             </StackPanel>
                             <StackPanel Orientation="Vertical" HorizontalAlignment="Right">
                                 <TextBlock FontFamily="Tw Cen MT" FontSize="23" Margin="0,0,0,8" Foreground="#000">
@@ -605,7 +602,16 @@
                                     BorderBrush="#BC766F6F"
                                     Margin="0,0,18,28"
                                     Width="100"
-                                    Background="#00000000"/>
+                                    Background="#00000000">
+
+                                    <TextBox.Text>
+                                        <Binding Path="Amount" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                                            <Binding.ValidationRules>
+                                                <validations:DecimalNumber ValidatesOnTargetUpdated="True"/>
+                                            </Binding.ValidationRules>
+                                        </Binding>
+                                    </TextBox.Text>
+                                </TextBox>
                             </StackPanel>
                         </StackPanel>
                         <TextBlock FontFamily="Tw Cen MT" FontSize="23" Margin="0,0,0,8" Foreground="#000" HorizontalAlignment="Left">
@@ -626,10 +632,19 @@
                             Height="228"
                             BorderBrush="#BC766F6F"
                             Margin="0,0,28,28"
-                            Background="#00000000"/>
+                            Background="#00000000">
+
+                            <TextBox.Text>
+                                <Binding Path="Description" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                                    <Binding.ValidationRules>
+                                        <validations:NotNull ValidatesOnTargetUpdated="True"/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
                     </StackPanel>
                     
-                    <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Vertical" Margin="14,0,0,0">
                         <TextBlock FontFamily="Tw Cen MT" FontSize="23" Margin="0,0,0,8" Foreground="#000" HorizontalAlignment="Center">
                             Fecha
                         </TextBlock>
@@ -685,6 +700,21 @@
                                 Registrar
                             </TextBlock>
                         </StackPanel>
+                        <Button.Style>
+                            <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedDarkButton}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ElementName=MonetaryExpeditureImportField, 
+                                                     Path=(Validation.HasError)}" Value="True">
+                                        <Setter Property="IsEnabled" Value="False"/>
+                                    </DataTrigger>
+
+                                    <DataTrigger Binding="{Binding ElementName=MonetaryExpeditureDescriptionField, 
+                                                     Path=(Validation.HasError)}" Value="True">
+                                        <Setter Property="IsEnabled" Value="False"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
                     </Button>
 
                     <Button Name="CancelRegisterItemButton" Width="120" materialDesign:ButtonAssist.CornerRadius="8" Background="#2C2C2E" BorderBrush="{x:Null}" Click="CancelProdecure"
@@ -703,7 +733,7 @@
 
                 <!--#endregion -->
             </StackPanel>
-            <Grid Background="#19600076" Width="234" Height="358" Margin="368,0,0,20" />
+            <Grid Background="#19600076" Width="234" Height="358" Margin="375,0,0,20" />
             
             
             
@@ -711,13 +741,13 @@
         <!--#endregion-->
 
         <!--#region Daily Balance-->
-        <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Width="700" Height="600" Margin="0,0,0,0" Visibility="Hidden"
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Width="750" Height="650" Margin="0,0,0,0" Visibility="Hidden"
               Name="DailyBalanceInformationGrid" >
-            <TextBlock Name="DailyBalanceTextBlock" FontFamily="Tw Cen MT" FontSize="50" Foreground="#000" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="48,8,0,0">
+            <TextBlock Name="DailyBalanceTextBlock" FontFamily="Tw Cen MT" FontSize="50" Foreground="#000" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="48,0,0,0">
                     Balance diario
             </TextBlock>
             <!--#region Daily balance Information-->
-            <materialDesign:Flipper Margin="0,90,0,0">
+            <materialDesign:Flipper Margin="0,100,0,0">
                 <materialDesign:Flipper.FrontContent>
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,0" Background="Transparent" HorizontalAlignment="Center"
                         Width="650">
@@ -726,49 +756,30 @@
                             <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="28,0,0,0">
                                 <Button
                                     Command="{x:Static materialDesign:Flipper.FlipCommand}"
-                                    Margin="0 0 0 0"
+                                    Margin="0 0 0 0" 
+
                                     Content="Cash" />
-                                <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
-                                    <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="0,0,0,0">
-                                        <TextBlock FontFamily="Tw Cen MT" FontSize="23" Margin="0,0,4,8" Foreground="#000" >
-                                            Empleado
-                                        </TextBlock>
-                                        <TextBox x:Name="DailyBalanceNameField" IsEnabled="False" Text="Antonio de Jesús Domínguez García"
-                                            Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                            VerticalAlignment="Top"
-                                            AcceptsReturn="True"
-                                            TextWrapping="Wrap"
-                                            MaxLength="24"
-                                            materialDesign:HintAssist.HelperText="Este campos no se puede modificar"
-                                            materialDesign:HintAssist.HelperTextFontSize="11"
-                                            materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
-                                            BorderBrush="#BC766F6F"
-                                            Width="220"
-                                            Margin="0,0,0,8" Background="#00000000"/>
-                                    </StackPanel>
-                                    <StackPanel Orientation="Vertical" Margin="12,0,0,0">
-                                        <TextBlock FontFamily="Tw Cen MT" FontSize="23" Margin="0,0,0,8" Foreground="#000" HorizontalAlignment="Center">
-                                            Saldo físico
-                                        </TextBlock>
-                                        <TextBox x:Name="DailyBalancePhysicBalanceField" HorizontalAlignment="Center"  IsEnabled="False" Text="00.00"
-                                            Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                            VerticalAlignment="Top"
-                                            AcceptsReturn="True"
-                                            TextWrapping="Wrap"
-                                            MaxLength="5"
-                                            materialDesign:HintAssist.HelperText="Peso mexicano $"
-                                            materialDesign:HintAssist.HelperTextFontSize="11"
-                                            materialDesign:TextFieldAssist.PrefixText="$"
-                                            materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
-                                            BorderBrush="#BC766F6F"
-                                            Margin="0,0,0,0"
-                                            Width="90"
-                                            Background="#00000000"/>
-                                    </StackPanel>
+                                <StackPanel Orientation="Vertical" HorizontalAlignment="Right" Margin="0,10,0,0">
+                                    <TextBlock FontFamily="Tw Cen MT" FontSize="23" Margin="0,0,4,8" Foreground="#000" >
+                                        Empleado
+                                    </TextBlock>
+                                    <TextBox x:Name="DailyBalanceEmployeeField" IsEnabled="False" 
+                                        Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                        VerticalAlignment="Top"
+                                        AcceptsReturn="True"
+                                        TextWrapping="Wrap"
+                                        MaxLength="24"
+                                        materialDesign:HintAssist.HelperText="Este campos no se puede modificar"
+                                        materialDesign:HintAssist.HelperTextFontSize="11"
+                                        materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
+                                        BorderBrush="#BC766F6F"
+                                        Width="350"
+                                        Margin="0,0,0,8" Background="#00000000"/>
                                 </StackPanel>
+                                
                                 <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
                                     <StackPanel Orientation="Vertical">
-                                        <TextBlock FontFamily="Tw Cen MT" FontSize="23" Margin="0,0,0,8" Foreground="#000">
+                                        <TextBlock FontFamily="Tw Cen MT" FontSize="20" Margin="0,0,0,8" Foreground="#000">
                                             Saldo inicial
                                         </TextBlock>
                                         <TextBox x:Name="DailyBalanceInitialBalanceField" IsEnabled="False" Text="500"
@@ -783,12 +794,56 @@
                                             materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
                                             BorderBrush="#BC766F6F"
                                             Margin="0,0,18,8"
-                                            Width="160"
+                                            Width="100"
                                             Background="#00000000"/>
 
                                     </StackPanel>
                                     <StackPanel Orientation="Vertical">
-                                        <TextBlock FontFamily="Tw Cen MT" FontSize="23" Margin="0,0,0,8" Foreground="#000">
+                                        
+                                        <TextBlock FontFamily="Tw Cen MT" FontSize="20" Margin="0,0,0,8" Foreground="#000" HorizontalAlignment="Left" >
+                                            Entrada
+                                        </TextBlock>
+                                        <TextBox x:Name="DailyBalanceEntryBalanceField" IsEnabled="False" Text="500"
+                                            Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                            VerticalAlignment="Top"
+                                            AcceptsReturn="True"
+                                            TextWrapping="Wrap"
+                                            MaxLength="5"
+                                            materialDesign:HintAssist.HelperText="Peso mexicano $"
+                                            materialDesign:HintAssist.HelperTextFontSize="11"
+                                            materialDesign:TextFieldAssist.PrefixText="$"
+                                            materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
+                                            BorderBrush="#BC766F6F"
+                                            Margin="0,0,18,8"
+                                            Width="100"
+                                            Background="#00000000"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock FontFamily="Tw Cen MT" FontSize="20" Margin="0,0,0,8" Foreground="#000" HorizontalAlignment="Center">
+                                            Salida
+                                        </TextBlock>
+                                        <TextBox x:Name="DailyBalanceExitBalanceField" IsEnabled="False" Text="500"
+                                            Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                            VerticalAlignment="Top"
+                                            AcceptsReturn="True"
+                                            TextWrapping="Wrap"
+                                            MaxLength="5"
+                                            materialDesign:HintAssist.HelperText="Peso mexicano $"
+                                            materialDesign:HintAssist.HelperTextFontSize="11"
+                                            materialDesign:TextFieldAssist.PrefixText="$"
+                                            materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
+                                            BorderBrush="#BC766F6F"
+                                            Margin="0,0,0,8"
+                                            Width="100"
+                                            Background="#00000000"/>
+
+                                    </StackPanel>
+
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0,40,0,0" VerticalAlignment="Bottom">
+                                    
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock FontFamily="Tw Cen MT" FontSize="20" Margin="0,0,0,8" Foreground="#000">
                                             Saldo en caja
                                         </TextBlock>
                                         <TextBox x:Name="DailyBalanceCashBalanceField" IsEnabled="False" Text="500"
@@ -803,17 +858,14 @@
                                             materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
                                             BorderBrush="#BC766F6F"
                                             Margin="0,0,0,8"
-                                            Width="160"
+                                            Width="120"
                                             Background="#00000000"/>
                                     </StackPanel>
-
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal" Margin="0,40,0,0" VerticalAlignment="Bottom">
-                                    <StackPanel Orientation="Vertical">
-                                        <TextBlock FontFamily="Tw Cen MT" FontSize="23" Margin="0,0,0,8" Foreground="#000" HorizontalAlignment="Left" >
-                                            Saldo de entrada
+                                    <StackPanel Orientation="Vertical" Margin="100,0,0,0">
+                                        <TextBlock FontFamily="Tw Cen MT" FontSize="20" Margin="0,0,0,8" Foreground="#000" HorizontalAlignment="Center">
+                                            Saldo físico
                                         </TextBlock>
-                                        <TextBox x:Name="DailyBalanceEntryBalanceField" IsEnabled="False" Text="500"
+                                        <TextBox x:Name="DailyBalancePhysicBalanceField" HorizontalAlignment="Center" IsEnabled="False"
                                             Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                             VerticalAlignment="Top"
                                             AcceptsReturn="True"
@@ -824,29 +876,17 @@
                                             materialDesign:TextFieldAssist.PrefixText="$"
                                             materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
                                             BorderBrush="#BC766F6F"
-                                            Margin="0,0,18,8"
-                                            Width="160"
-                                            Background="#00000000"/>
-                                    </StackPanel>
-                                    <StackPanel Orientation="Vertical">
-                                        <TextBlock FontFamily="Tw Cen MT" FontSize="23" Margin="0,0,0,8" Foreground="#000" HorizontalAlignment="Center">
-                                            Saldo de salida
-                                        </TextBlock>
-                                        <TextBox x:Name="DailyBalanceExitBalanceField" IsEnabled="False" Text="500"
-                                            Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                            VerticalAlignment="Top"
-                                            AcceptsReturn="True"
-                                            TextWrapping="Wrap"
-                                            MaxLength="5"
-                                            materialDesign:HintAssist.HelperText="Peso mexicano $"
-                                            materialDesign:HintAssist.HelperTextFontSize="11"
-                                            materialDesign:TextFieldAssist.PrefixText="$"
-                                            materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
-                                            BorderBrush="#BC766F6F"
-                                            Margin="0,0,0,8"
-                                            Width="160"
-                                            Background="#00000000"/>
-
+                                            Margin="0,0,0,0"
+                                            Width="120"
+                                            Background="#00000000">
+                                            <TextBox.Text>
+                                                <Binding Path="PhsycalBalance" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                                                    <Binding.ValidationRules>
+                                                        <validations:NotNull ValidatesOnTargetUpdated="True"/>
+                                                    </Binding.ValidationRules>
+                                                </Binding>
+                                            </TextBox.Text>
+                                        </TextBox>
                                     </StackPanel>
 
                                 </StackPanel>
@@ -855,7 +895,7 @@
                             <!--#endregion-->
                             
                             <!--#region Calendar-->
-                            <StackPanel Orientation="Vertical" HorizontalAlignment="Right" Margin="20,14,0,0">
+                            <StackPanel Orientation="Vertical" HorizontalAlignment="Right" Height="350" Margin="20,14,0,0">
                                 <TextBlock FontFamily="Tw Cen MT" FontSize="23" Margin="18,0,0,4" Foreground="#000" HorizontalAlignment="Center">
                                     Fecha
                                 </TextBlock>
@@ -885,6 +925,7 @@
                                         </Style>
                                     </Grid.Resources>
                                     <Calendar
+                                        
                                         Background="{DynamicResource PrimaryHueLightBrush}"
                                         Foreground="{DynamicResource PrimaryHueLightForegroundBrush}"
                                         materialDesign:CalendarAssist.HeaderBackground="{DynamicResource PrimaryHueDarkBrush}"
@@ -893,7 +934,7 @@
                                         CalendarButtonStyle="{StaticResource SecondaryCalendarButton}" />
                                 </Grid>
                             </StackPanel>
-                            <Grid Background="#19600076" Width="234" Height="358" Margin="388,40,0,0" />
+                            <Grid Background="#19600076" Width="234" Height="320" Margin="400,50,0,0" />
                         </Grid>
 
                         <!--#endregion -->
@@ -915,7 +956,7 @@
                             <StackPanel
                                     Orientation="Horizontal">
                                 <Button
-                                    Style="{StaticResource MaterialDesignToolForegroundButton}"
+                                    Style="{StaticResource MaterialDesignToolForegroundButton}" 
                                     Command="{x:Static materialDesign:Flipper.FlipCommand}"
                                     HorizontalAlignment="Left">
                                     <materialDesign:PackIcon
@@ -942,11 +983,12 @@
                         </materialDesign:ColorZone>
                         <StackPanel Grid.Row="1" Orientation="Horizontal">
                             <StackPanel HorizontalAlignment="Center" Margin="20,0,48,0">
+                                
                                 <StackPanel Orientation="Horizontal" Margin="0,18,0,0" HorizontalAlignment="Right">
                                     <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,18,0">
                                         $1,000
                                     </TextBlock>
-                                    <TextBox x:Name="milPesos"  KeyUp="MilPesosKeyUp"
+                                    <TextBox x:Name="Bill1000Textbox"  KeyUp="MilPesosKeyUp"
                                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                         AcceptsReturn="True"
                                         TextWrapping="Wrap"
@@ -956,7 +998,17 @@
                                         materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
                                         BorderBrush="#BC766F6F"
                                         Width="100" Height="50"
-                                        Margin="0,0,0,0" Background="#00000000"/>
+                                        Margin="0,0,0,0" Background="#00000000">
+
+                                        <TextBox.Text>
+                                            <Binding Path="Bill1000" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                                                <Binding.ValidationRules>
+                                                    <validations:IntegerWithNull ValidatesOnTargetUpdated="True"/>
+                                                </Binding.ValidationRules>
+                                            </Binding>
+                                        </TextBox.Text>
+
+                                    </TextBox>
                                     <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="18,0,0,0">
                                         $0.00
                                     </TextBlock>
@@ -965,7 +1017,7 @@
                                     <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,18,0">
                                         $500
                                     </TextBlock>
-                                    <TextBox x:Name="quinientosPesos" KeyUp="QuinientosPesosKeyUp"
+                                    <TextBox x:Name="Bill500Textbox" KeyUp="QuinientosPesosKeyUp"
                                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                         AcceptsReturn="True"
                                         TextWrapping="Wrap"
@@ -975,7 +1027,17 @@
                                         materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
                                         BorderBrush="#BC766F6F"
                                         Width="100" Height="50"
-                                        Margin="0,0,0,0" Background="#00000000"/>
+                                        Margin="0,0,0,0" Background="#00000000">
+
+                                        <TextBox.Text>
+                                            <Binding Path="Bill500" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                                                <Binding.ValidationRules>
+                                                    <validations:IntegerWithNull ValidatesOnTargetUpdated="True"/>
+                                                </Binding.ValidationRules>
+                                            </Binding>
+                                        </TextBox.Text>
+
+                                    </TextBox>
                                     <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="18,0,0,0">
                                         $0.00
                                     </TextBlock>
@@ -984,7 +1046,7 @@
                                     <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,18,0">
                                         $200
                                     </TextBlock>
-                                    <TextBox x:Name="doscientosPesos" KeyUp="DoscientosPesosKeyUp"
+                                    <TextBox x:Name="Bill200Textbox" KeyUp="DoscientosPesosKeyUp"
                                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                         AcceptsReturn="True"
                                         TextWrapping="Wrap"
@@ -994,7 +1056,17 @@
                                         materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
                                         BorderBrush="#BC766F6F"
                                         Width="100" Height="50"
-                                        Margin="0,0,0,0" Background="#00000000"/>
+                                        Margin="0,0,0,0" Background="#00000000">
+
+                                        <TextBox.Text>
+                                            <Binding Path="Bill200" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                                                <Binding.ValidationRules>
+                                                    <validations:IntegerWithNull ValidatesOnTargetUpdated="True"/>
+                                                </Binding.ValidationRules>
+                                            </Binding>
+                                        </TextBox.Text>
+
+                                    </TextBox>
                                     <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="18,0,0,0">
                                         $0.00
                                     </TextBlock>
@@ -1003,7 +1075,7 @@
                                     <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,18,0">
                                         $100
                                     </TextBlock>
-                                    <TextBox x:Name="cienPesos" KeyUp="CienPesosKeyUp"
+                                    <TextBox x:Name="Bill100Textbox" KeyUp="CienPesosKeyUp"
                                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                         AcceptsReturn="True"
                                         TextWrapping="Wrap"
@@ -1013,7 +1085,17 @@
                                         materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
                                         BorderBrush="#BC766F6F"
                                         Width="100" Height="50"
-                                        Margin="0,0,0,0" Background="#00000000"/>
+                                        Margin="0,0,0,0" Background="#00000000">
+
+                                        <TextBox.Text>
+                                            <Binding Path="Bill100" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                                                <Binding.ValidationRules>
+                                                    <validations:IntegerWithNull ValidatesOnTargetUpdated="True"/>
+                                                </Binding.ValidationRules>
+                                            </Binding>
+                                        </TextBox.Text>
+
+                                    </TextBox>
                                     <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="18,0,0,0">
                                         $0.00
                                     </TextBlock>
@@ -1022,7 +1104,7 @@
                                     <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,18,0">
                                         $50
                                     </TextBlock>
-                                    <TextBox x:Name="cincuentaPesos" KeyUp="CincuentaPesosKeyUp"
+                                    <TextBox x:Name="Bill50Textbox" KeyUp="CincuentaPesosKeyUp"
                                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                         AcceptsReturn="True"
                                         TextWrapping="Wrap"
@@ -1032,7 +1114,17 @@
                                         materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
                                         BorderBrush="#BC766F6F"
                                         Width="100" Height="50"
-                                        Margin="0,0,0,0" Background="#00000000"/>
+                                        Margin="0,0,0,0" Background="#00000000">
+
+                                        <TextBox.Text>
+                                            <Binding Path="Bill50" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                                                <Binding.ValidationRules>
+                                                    <validations:IntegerWithNull ValidatesOnTargetUpdated="True"/>
+                                                </Binding.ValidationRules>
+                                            </Binding>
+                                        </TextBox.Text>
+
+                                    </TextBox>
                                     <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="18,0,0,0">
                                         $0.00
                                     </TextBlock>
@@ -1043,7 +1135,7 @@
                                     <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,18,0">
                                         $20
                                     </TextBlock>
-                                    <TextBox x:Name="veintePesos" KeyUp="VeintePesosKeyUp"
+                                    <TextBox x:Name="Bill20Textbox" KeyUp="VeintePesosKeyUp"
                                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                         AcceptsReturn="True"
                                         TextWrapping="Wrap"
@@ -1053,7 +1145,17 @@
                                         materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
                                         BorderBrush="#BC766F6F"
                                         Width="100" Height="50"
-                                        Margin="0,0,0,0" Background="#00000000"/>
+                                        Margin="0,0,0,0" Background="#00000000">
+
+                                        <TextBox.Text>
+                                            <Binding Path="Bill20" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                                                <Binding.ValidationRules>
+                                                    <validations:IntegerWithNull ValidatesOnTargetUpdated="True"/>
+                                                </Binding.ValidationRules>
+                                            </Binding>
+                                        </TextBox.Text>
+
+                                    </TextBox>
                                     <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="18,0,0,0">
                                         $0.00
                                     </TextBlock>
@@ -1062,7 +1164,7 @@
                                     <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,18,0">
                                         $10
                                     </TextBlock>
-                                    <TextBox x:Name="diezPesos" KeyUp="DiezPesosKeyUp"
+                                    <TextBox x:Name="Bill10Textbox" KeyUp="DiezPesosKeyUp"
                                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                         AcceptsReturn="True"
                                         TextWrapping="Wrap"
@@ -1072,7 +1174,17 @@
                                         materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
                                         BorderBrush="#BC766F6F"
                                         Width="100" Height="50"
-                                        Margin="0,0,0,0" Background="#00000000"/>
+                                        Margin="0,0,0,0" Background="#00000000">
+
+                                        <TextBox.Text>
+                                            <Binding Path="Bill10" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                                                <Binding.ValidationRules>
+                                                    <validations:IntegerWithNull ValidatesOnTargetUpdated="True"/>
+                                                </Binding.ValidationRules>
+                                            </Binding>
+                                        </TextBox.Text>
+
+                                    </TextBox>
                                     <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="18,0,0,0">
                                         $0.00
                                     </TextBlock>
@@ -1081,7 +1193,7 @@
                                     <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,18,0">
                                        $5
                                     </TextBlock>
-                                    <TextBox x:Name="cincoPesos" KeyUp="CincoPesosKeyUp"
+                                    <TextBox x:Name="Bill5Textbox" KeyUp="CincoPesosKeyUp"
                                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                         AcceptsReturn="True"
                                         TextWrapping="Wrap"
@@ -1091,7 +1203,17 @@
                                         materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
                                         BorderBrush="#BC766F6F"
                                         Width="100" Height="50"
-                                        Margin="0,0,0,0" Background="#00000000"/>
+                                        Margin="0,0,0,0" Background="#00000000">
+
+                                        <TextBox.Text>
+                                            <Binding Path="Bill5" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                                                <Binding.ValidationRules>
+                                                    <validations:IntegerWithNull ValidatesOnTargetUpdated="True"/>
+                                                </Binding.ValidationRules>
+                                            </Binding>
+                                        </TextBox.Text>
+
+                                    </TextBox>
                                     <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="18,0,0,0">
                                         $0.00
                                     </TextBlock>
@@ -1100,7 +1222,7 @@
                                     <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,18,0">
                                        $2
                                     </TextBlock>
-                                    <TextBox x:Name="dosPesos" KeyUp="DosPesosKeyUp"
+                                    <TextBox x:Name="Bill2Textbox" KeyUp="DosPesosKeyUp"
                                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                         AcceptsReturn="True"
                                         TextWrapping="Wrap"
@@ -1110,7 +1232,17 @@
                                         materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
                                         BorderBrush="#BC766F6F"
                                         Width="100" Height="50"
-                                        Margin="0,0,0,0" Background="#00000000"/>
+                                        Margin="0,0,0,0" Background="#00000000">
+
+                                        <TextBox.Text>
+                                            <Binding Path="Bill2" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                                                <Binding.ValidationRules>
+                                                    <validations:IntegerWithNull ValidatesOnTargetUpdated="True"/>
+                                                </Binding.ValidationRules>
+                                            </Binding>
+                                        </TextBox.Text>
+
+                                    </TextBox>
                                     <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="18,0,0,0">
                                         $0.00
                                     </TextBlock>
@@ -1119,7 +1251,7 @@
                                     <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,18,0">
                                        $1
                                     </TextBlock>
-                                    <TextBox x:Name="peso" KeyUp="PesoKeyUp"
+                                    <TextBox x:Name="BillTextbox" KeyUp="PesoKeyUp"
                                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                         AcceptsReturn="True"
                                         TextWrapping="Wrap"
@@ -1129,7 +1261,17 @@
                                         materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
                                         BorderBrush="#BC766F6F"
                                         Width="100" Height="50"
-                                        Margin="0,0,0,0" Background="#00000000"/>
+                                        Margin="0,0,0,0" Background="#00000000">
+
+                                        <TextBox.Text>
+                                            <Binding Path="Bill1" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                                                <Binding.ValidationRules>
+                                                    <validations:IntegerWithNull ValidatesOnTargetUpdated="True"/>
+                                                </Binding.ValidationRules>
+                                            </Binding>
+                                        </TextBox.Text>
+
+                                    </TextBox>
                                     <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="18,0,0,0">
                                         $0.00
                                     </TextBlock>
@@ -1140,7 +1282,7 @@
                 </materialDesign:Flipper.BackContent>
             </materialDesign:Flipper>
             
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,20">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,80">
                 <!--Register button-->
                 <Button Name="DailyBalanceRegisterItemButton" Width="120" Margin="0,0,140,0" materialDesign:ButtonAssist.CornerRadius="8" Height="40" 
                         Background="#2C2C2E" BorderBrush="{x:Null}" Click="SaveRegistDailyBalance">
@@ -1151,6 +1293,56 @@
                                 Registrar
                         </TextBlock>
                     </StackPanel>
+                    <Button.Style>
+                        <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedDarkButton}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=DailyBalancePhysicBalanceField, 
+                                                     Path=(Validation.HasError)}" Value="True">
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding ElementName=Bill1000Textbox, 
+                                                     Path=(Validation.HasError)}" Value="True">
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding ElementName=Bill500Textbox, 
+                                                     Path=(Validation.HasError)}" Value="True">
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding ElementName=Bill200Textbox, 
+                                                     Path=(Validation.HasError)}" Value="True">
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding ElementName=Bill100Textbox, 
+                                                     Path=(Validation.HasError)}" Value="True">
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding ElementName=Bill50Textbox, 
+                                                     Path=(Validation.HasError)}" Value="True">
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding ElementName=Bill20Textbox, 
+                                                     Path=(Validation.HasError)}" Value="True">
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding ElementName=Bill10Textbox, 
+                                                     Path=(Validation.HasError)}" Value="True">
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding ElementName=Bill5Textbox, 
+                                                     Path=(Validation.HasError)}" Value="True">
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding ElementName=Bill2Textbox, 
+                                                     Path=(Validation.HasError)}" Value="True">
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding ElementName=BillTextbox, 
+                                                     Path=(Validation.HasError)}" Value="True">
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
                 </Button>
 
                 <Button Name="DailyBalanceCancelRegisterItemButton" Width="120" materialDesign:ButtonAssist.CornerRadius="8" Background="#2C2C2E" BorderBrush="{x:Null}" Click="CancelProdecure"
@@ -1169,7 +1361,7 @@
         </Grid>
         
         <!--#endregion-->
-        <StackPanel Name="ChoiceRegisterStackPanel" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,78,48,0" Visibility="Hidden">
+        <StackPanel Name="ChoiceRegisterStackPanel" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,48,48,0" Visibility="Hidden">
             <CheckBox Name="MonetaryExpeditureCheckbox" Click="UnCheckDiaryBalance"
                     IsChecked="True"
                     Style="{StaticResource MaterialDesignFilterChipPrimaryOutlineCheckBox}"
