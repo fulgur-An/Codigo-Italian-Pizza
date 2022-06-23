@@ -194,9 +194,15 @@
                                         </Grid>
 
                                         <Grid>
+<<<<<<< HEAD
                                             <Border Background="#5B5B5B" Height="32px" CornerRadius="5" MouseLeftButtonUp="ShowCustomerDeleteDialog"/>
                                             <Grid 
                                                   Visibility="Visible" Margin="0,0,0,0" ToolTip="Eliminar Cliente" MouseLeftButtonUp="ShowCustomerDeleteDialog"
+=======
+                                            <Border Background="#5B5B5B" Height="32px" CornerRadius="5" MouseLeftButtonUp="ShowEmployeDeleteDialog"/>
+                                            <Grid 
+                                                  Visibility="Visible" Margin="0,0,0,0" ToolTip="Eliminar Cliente" MouseLeftButtonUp="ShowEmployeDeleteDialog"
+>>>>>>> CamarilloVilla
                                                   HorizontalAlignment="Center" Height="32px" Width="23px">
 
                                                 <fa5:ImageAwesome Icon="Solid_Trash" Height="18" Width="18" Foreground="#FFF" VerticalAlignment="Center" 
@@ -681,7 +687,6 @@
                             </TextBox.Text>
                         </TextBox>
                     </Grid>
-
                 </StackPanel>
 
                 <TextBlock FontFamily="Tw Cen MT" FontSize="23" Foreground="#000" HorizontalAlignment="Left" 
@@ -773,7 +778,6 @@
                                             <StackPanel Orientation="Horizontal">
                                                 <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#000" HorizontalAlignment="Left"
                                                            TextAlignment="Justify" Text="{Binding StreetName}"/>
-
                                                 <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#000" HorizontalAlignment="Left"
                                                            TextAlignment="Justify" Text=" #" Margin="0,0,0,0"/>
 
@@ -805,7 +809,6 @@
                                                            TextAlignment="Justify" Text="{Binding City}" Margin="0,0,0,0"/>
                                             </StackPanel>
                                         </Grid>
-
                                         <!--<TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#000" HorizontalAlignment="Left"
                                                    TextWrapping="Wrap" TextAlignment="Justify" Text="{Binding Path=.}"
                                                    Width="396"/>-->

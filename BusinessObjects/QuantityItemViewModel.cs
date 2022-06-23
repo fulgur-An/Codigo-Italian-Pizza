@@ -8,10 +8,14 @@ namespace ItalianPizza.BusinessObjects
 {
     public class QuantityItemViewModel
     {
+        public int IdItem { get; set; }
+
         public string Cantidad { get; set; }
 
         public string Nombre { get; set; }
 
         public string Precio { get; set; }
+
+        public int IdOrder { get; set; }
     }
 }

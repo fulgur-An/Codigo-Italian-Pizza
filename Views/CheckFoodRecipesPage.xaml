@@ -14,11 +14,16 @@
 
     <Grid>
         <Border Background="#27161E" Width="776" Height="720" Opacity="0.91"/>
+        <!--<Border Background="#27161E" Width="776" Height="720" Opacity="1"/>-->
 
         <!--#region Main Elements-->
         <Button ToolTip="Registrar receta de platillo" Height="40" Width="125" Padding="0" Background="{x:Null}"
                 Margin="30,158,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" BorderBrush="{x:Null}"
+
+
                 Click="ShowFoodRecipeRegistrarionDialogue">
+
+
             <StackPanel Orientation="Horizontal" Cursor="Hand">
                 <TextBlock Foreground="#FFFFFF" FontFamily="Tw Cen MT" FontSize="30" 
                        Padding="0" HorizontalAlignment="Center">
@@ -29,7 +34,8 @@
             </StackPanel>
         </Button>
 
-        <TextBlock FontFamily="Tw Cen MT" FontSize="25" Foreground="#FFF" VerticalAlignment="Top" Margin="30,205,0,0">
+        <TextBlock FontFamily="Tw Cen MT" FontSize="25" Foreground="#FFF" VerticalAlignment="Top" Margin="30,205,0,0"
+                   Name="SearchFilterTextBlock">
                     Consulta: Filtro/Búsqueda
         </TextBlock>
 
@@ -37,13 +43,10 @@
         <Grid Background="Transparent" Margin="0,295,0,0" 
                 Opacity="0.4" x:Name="InitialMessageBorder" VerticalAlignment="Center">
             <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center">
-                <!--<fa5:ImageAwesome Icon="Regular_Smile" Height="100" Width="100" Margin="0,0,0,20px" 
-                                     Foreground="#FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center" 
-                                     ToolTip="Usuarios" />-->
                 <TextBlock Foreground="#FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center" 
                            Margin="0,0,0,30" FontFamily="Trebuchet MS" FontSize="50" Name="SearchResultMessageTextBlock"
                            TextWrapping="Wrap" TextAlignment="Center">
-                        Sin resultados de búsqueda
+                        Realiza una búsqueda
                 </TextBlock>
                 <Image Source="../Images/cooking.png" Width="300" Height="300" Margin="0,0,0,0" Opacity="1"/>
             </StackPanel>
@@ -53,9 +56,9 @@
         <!--#region Food Recipes Table -->
         <Grid Visibility="Hidden" x:Name="FoodRecipeTableGrid">
             <!--#region Sort and Recharge-->
-            <StackPanel Orientation="Horizontal" Margin="0,200,35,0" HorizontalAlignment="Right">
+            <StackPanel Orientation="Horizontal" Margin="0,200,35,0" HorizontalAlignment="Right" Visibility="Collapsed">
                 <Button Background="{x:Null}" Width="85" Height="40" VerticalAlignment="Top" Cursor="Hand" Padding="0" 
-                BorderBrush="Transparent">
+                BorderBrush="Transparent" Click="SortRecipesAscending">
                     <StackPanel Orientation="Horizontal">
                         <fa5:ImageAwesome Icon="Solid_Sort" Height="11" Width="11" Foreground="#FFF" VerticalAlignment="Center" 
                                               Margin="0,0,5,0"/>
@@ -66,7 +69,7 @@
                 </Button>
 
                 <Button Background="{x:Null}" Width="85" Height="40" VerticalAlignment="Top" Cursor="Hand" Padding="0" 
-                BorderBrush="Transparent">
+                BorderBrush="Transparent" Click="RefreshRecipeList">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="Reload" Margin="0,0,5,0" Foreground="#FFF" VerticalAlignment="Center"
                                              Height="18" Width="18"/>
@@ -82,193 +85,251 @@
 
             <Border Height="400" Width="709" Margin="0,75,0,-100" CornerRadius="10" 
                     Opacity="1" BorderBrush="#5B5B5B" BorderThickness="0.5" />
-                        
+
             <ListBox Width="709" Margin="0,75,0,-100" HorizontalAlignment="Center" Background="Transparent"
                      ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                     ScrollViewer.CanContentScroll="False" Height="400" Cursor="Hand">
-                <ListBoxItem BorderBrush="#CFCFCF" BorderThickness="0,0,0,0" 
-                             Height="auto" MouseLeftButtonUp="ShowSpecificFoodRecipeInformation">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="150"  />
-                            <ColumnDefinition Width="559" />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="auto"/>
-                        </Grid.RowDefinitions>
-                        
-                        <!--#region Table headers-->
-                        <Grid Grid.Column="0" Grid.Row="0">
-                            <Border Background="#5B5B5B" CornerRadius="5,0,0,5" 
+                     ScrollViewer.CanContentScroll="False" Height="400" Cursor="Hand" Name="FoodRecipeListBox" ItemsSource="{Binding}"
+                     MouseLeftButtonUp="RequestGetFoodRecipeById">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <materialDesign:TransitioningContent OpeningEffectsOffset="{materialDesign:IndexedItemOffsetMultiplier 0:0:0.05}">
+                            <materialDesign:TransitioningContent.OpeningEffects>
+                                <materialDesign:TransitionEffect Kind="SlideInFromLeft"/>
+                            </materialDesign:TransitioningContent.OpeningEffects>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="150"  />
+                                    <ColumnDefinition Width="559" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                </Grid.RowDefinitions>
+
+                                <!--#region Table headers-->
+                                <Grid Grid.Column="0" Grid.Row="0">
+                                    <Border Background="#5B5B5B" CornerRadius="5,0,0,5" 
                                     Opacity="0.4" Height="auto" Width="auto"/>
 
-                            <StackPanel Orientation="Vertical" Height="auto" Width="150" HorizontalAlignment="Left">
-                                <Grid Height="35" Background="Transparent" Margin="0,5,0,0">
-                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left"
+                                    <StackPanel Orientation="Vertical" Height="auto" Width="150" HorizontalAlignment="Left">
+                                        <Grid Height="35" Background="Transparent" Margin="0,5,0,0">
+                                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left"
                                             Margin="0,0,0,0">
-                                        <materialDesign:PackIcon Kind="CardText" Foreground="#FFF" VerticalAlignment="Center"
+                                                <materialDesign:PackIcon Kind="CardText" Foreground="#FFF" VerticalAlignment="Center"
                                                                  HorizontalAlignment="Center" Height="25" Width="25" Margin="6,0,0,0"/>
-                                        <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" VerticalAlignment="Center"
+                                                <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" VerticalAlignment="Center"
                                                HorizontalAlignment="Center" Margin="10,0,0,0">
                                            Nombre
-                                        </TextBlock>
-                                    </StackPanel>
-                                </Grid>
+                                                </TextBlock>
+                                            </StackPanel>
+                                        </Grid>
 
-                                <Grid Height="35" Background="Transparent" Margin="0,5,0,0">
-                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-                                        <materialDesign:PackIcon Kind="PeopleGroup" Foreground="#FFF" VerticalAlignment="Center"
+                                        <Grid Height="35" Background="Transparent" Margin="0,5,0,0">
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                                <materialDesign:PackIcon Kind="PeopleGroup" Foreground="#FFF" VerticalAlignment="Center"
                                                              HorizontalAlignment="Center" Height="25" Width="25" Margin="7,0,9,0"/>
-                                        <TextBlock FontFamily="Tw Cen MT" FontSize="16" Foreground="#FFF" VerticalAlignment="Center">
+                                                <TextBlock FontFamily="Tw Cen MT" FontSize="16" Foreground="#FFF" VerticalAlignment="Center">
                                             N° de porciones
-                                        </TextBlock>
-                                    </StackPanel>
-                                </Grid>
+                                                </TextBlock>
+                                            </StackPanel>
+                                        </Grid>
 
-                                <Grid Height="auto" Background="Transparent" Margin="0,10,0,0" VerticalAlignment="Top">
-                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                        <materialDesign:PackIcon Kind="FoodDrumstick" Foreground="#FFF" VerticalAlignment="Center"
+                                        <Grid Height="auto" Background="Transparent" Margin="0,10,0,0" VerticalAlignment="Top">
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                <materialDesign:PackIcon Kind="FoodDrumstick" Foreground="#FFF" VerticalAlignment="Center"
                                                                  HorizontalAlignment="Center" Height="26" Width="26" Margin="0,0,0,0"/>
-                                        <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" VerticalAlignment="Center" 
+                                                <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" VerticalAlignment="Center" 
                                                    Margin="10,0,0,0" HorizontalAlignment="Center">
                                             Ingredientes
-                                        </TextBlock>
+                                                </TextBlock>
+                                            </StackPanel>
+                                        </Grid>
                                     </StackPanel>
                                 </Grid>
-                            </StackPanel>
-                        </Grid>
-                        <!--#endregion-->
-                        
-                        <!--#region Table Body-->
-                        <Grid Grid.Column="1" Grid.Row="0" Margin="0,0,35,0" VerticalAlignment="Center">
-                            <Border Background="Transparent" CornerRadius="0,5,5,0" Opacity="0.4" BorderBrush="#CFCFCF"
+                                <!--#endregion-->
+
+                                <!--#region Table Body-->
+                                <Grid Grid.Column="1" Grid.Row="0" Margin="0,0,35,0" VerticalAlignment="Center">
+                                    <Border Background="Transparent" CornerRadius="0,5,5,0" Opacity="0.4" BorderBrush="#CFCFCF"
                                     BorderThickness="0,1,1,1"/>
-                            
-                            <StackPanel Orientation="Vertical" Cursor="Hand" Background="Transparent"
+
+                                    <StackPanel Orientation="Vertical" Cursor="Hand" Background="Transparent"
                                         Visibility="Visible" Margin="0,0,0,0">
-                                <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" TextWrapping="Wrap"
+                                        <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" TextWrapping="Wrap"
                                            VerticalAlignment="Center" Height="35" Margin="0,5,0,5" Background="Transparent"
-                                           HorizontalAlignment="Left" Padding="7">
-                                    Pizza grande casera
-                                </TextBlock>
-                                
-                                <TextBlock FontFamily="Tw Cen MT" FontSize="16" Foreground="#FFF" TextWrapping="Wrap"
+                                           HorizontalAlignment="Left" Padding="7" Text="{Binding Name}">
+                                        </TextBlock>
+
+                                        <TextBlock FontFamily="Tw Cen MT" FontSize="16" Foreground="#FFF" TextWrapping="Wrap"
                                            Height="36.5" Margin="0,0,0,5" VerticalAlignment="Center" HorizontalAlignment="Left"
-                                           Background="Transparent" Padding="10">
-                                    08
-                                </TextBlock>
+                                           Background="Transparent" Padding="10" Text="{Binding Portions}">
 
-                                <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" TextWrapping="Wrap"
-                                           TextAlignment="Justify" Background="Transparent" Height="auto" Width="auto" Padding="10">
-                                           1 Taza Harina todo uso, 
-                                            Ajo En Polvo al gusto, 
-                                            Orégano Fresco al gusto, 
-                                            1/2 Cucharadita Sal, 
-                                            5 Cucharadas de Agua, 
-                                            5 Cucharadas Aceite De Oliva, 
-                                            1/4 Taza Pasta de tomate, 
-                                            2 Cucharadas Salsa De Tomate MAGGI®, 
-                                            Sal de Ajo al gusto, 
-                                            Sal de cebolla al gusto, 
-                                            1 Unidad Tomate Riñón,
-                                            1 Taza Queso Mozzarella, 
-                                            2 Tazas Jamón, 
-                                            1/2 Taza Aceitunas Verdes, 
-                                            Ají En Polvo al gusto
-                                </TextBlock>
-                            </StackPanel>
-                        </Grid>                        
-                        
-                        <!--#endregion-->
-                    </Grid>
-                </ListBoxItem>
+                                        </TextBlock>
 
-                <ListBoxItem BorderBrush="#CFCFCF" 
-                             Height="auto">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="150"  />
-                            <ColumnDefinition Width="559" />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="auto"/>
-                        </Grid.RowDefinitions>
+                                        <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" TextWrapping="Wrap"
+                                           TextAlignment="Justify" Background="Transparent" Height="auto" Width="auto" Padding="10"
+                                               Text="{Binding Ingredients}">
+                                        </TextBlock>
 
-                        <!--#region Table headers-->
-                        <Grid Grid.Column="0" Grid.Row="0" Margin="0,0,0,0">
-                            <Border Background="#5B5B5B" CornerRadius="5,0,0,5" 
+                                    </StackPanel>
+                                </Grid>
+
+                                <!--#endregion-->
+                            </Grid>
+                        </materialDesign:TransitioningContent>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+            <!-- FOOD RECIPES TO PREPARE  -->
+
+
+            <ListBox Width="709" Margin="0,75,0,-100" HorizontalAlignment="Center" Background="Transparent" Visibility="Collapsed"
+                     ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                     ScrollViewer.CanContentScroll="False" Height="400" Cursor="Hand" Name="FoodRecipeToPrepareListBox" ItemsSource="{Binding}"
+                     MouseLeftButtonUp="RequestGetFoodRecipeById">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <materialDesign:TransitioningContent OpeningEffectsOffset="{materialDesign:IndexedItemOffsetMultiplier 0:0:0.05}">
+                            <materialDesign:TransitioningContent.OpeningEffects>
+                                <materialDesign:TransitionEffect Kind="SlideInFromLeft"/>
+                            </materialDesign:TransitioningContent.OpeningEffects>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="150"  />
+                                    <ColumnDefinition Width="559" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                </Grid.RowDefinitions>
+
+                                <!--#region Table headers-->
+                                <Grid Grid.Column="0" Grid.Row="0">
+                                    <Border Background="#5B5B5B" CornerRadius="5,0,0,5" 
                                     Opacity="0.4" Height="auto" Width="auto"/>
 
-                            <StackPanel Orientation="Vertical" Height="auto" Width="150" HorizontalAlignment="Left">
-                                <Grid Height="35" Background="Transparent" Margin="0,5,0,0">
-                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left"
+                                    <StackPanel Orientation="Vertical" Height="auto" Width="150" HorizontalAlignment="Left">
+                                        <Grid Height="35" Background="Transparent" Margin="0,5,0,0">
+                                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left"
                                             Margin="0,0,0,0">
-                                        <materialDesign:PackIcon Kind="CardText" Foreground="#FFF" VerticalAlignment="Center"
-                                                                 HorizontalAlignment="Center" Height="25" Width="25" Margin="6,0,0,0"/>
-                                        <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" VerticalAlignment="Center"
-                                               HorizontalAlignment="Center" Margin="10,0,0,0">
-                                           Nombre
-                                        </TextBlock>
-                                    </StackPanel>
-                                </Grid>
+                                                <materialDesign:PackIcon Kind="CardText" Foreground="#FFF" VerticalAlignment="Center"
+                                                                 HorizontalAlignment="Center" Height="20" Width="20" Margin="2,0,0,0"/>
+                                                <TextBlock FontFamily="Tw Cen MT" FontSize="15" Foreground="#FFF" VerticalAlignment="Center"
+                                               HorizontalAlignment="Center" Margin="4,0,0,0">
+                                           Cantidad / Nombre
+                                                </TextBlock>
+                                            </StackPanel>
+                                        </Grid>
 
-                                <Grid Height="35" Background="Transparent" Margin="0,5,0,0">
-                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-                                        <materialDesign:PackIcon Kind="PeopleGroup" Foreground="#FFF" VerticalAlignment="Center"
+                                        <Grid Height="35" Background="Transparent" Margin="0,5,0,0">
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                                <materialDesign:PackIcon Kind="PeopleGroup" Foreground="#FFF" VerticalAlignment="Center"
                                                              HorizontalAlignment="Center" Height="25" Width="25" Margin="7,0,9,0"/>
-                                        <TextBlock FontFamily="Tw Cen MT" FontSize="16" Foreground="#FFF" VerticalAlignment="Center">
+                                                <TextBlock FontFamily="Tw Cen MT" FontSize="16" Foreground="#FFF" VerticalAlignment="Center">
                                             N° de porciones
-                                        </TextBlock>
-                                    </StackPanel>
-                                </Grid>
+                                                </TextBlock>
+                                            </StackPanel>
+                                        </Grid>
 
-                                <Grid Height="auto" Background="Transparent" Margin="0,10,0,0" VerticalAlignment="Top">
-                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                        <materialDesign:PackIcon Kind="FoodDrumstick" Foreground="#FFF" VerticalAlignment="Center"
+                                        <Grid Height="auto" Background="Transparent" Margin="0,10,0,0" VerticalAlignment="Top">
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                <materialDesign:PackIcon Kind="FoodDrumstick" Foreground="#FFF" VerticalAlignment="Center"
                                                                  HorizontalAlignment="Center" Height="26" Width="26" Margin="0,0,0,0"/>
-                                        <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" VerticalAlignment="Center" 
+                                                <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" VerticalAlignment="Center" 
                                                    Margin="10,0,0,0" HorizontalAlignment="Center">
                                             Ingredientes
-                                        </TextBlock>
+                                                </TextBlock>
+                                            </StackPanel>
+                                        </Grid>
+
+                                        <Grid Height="auto" Background="Transparent" Margin="0,10,0,0" VerticalAlignment="Top">
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                <materialDesign:PackIcon Kind="User" Foreground="#FFF" VerticalAlignment="Center"
+                                                                 HorizontalAlignment="Center" Height="26" Width="26" Margin="0,0,0,0"/>
+                                                <TextBlock FontFamily="Tw Cen MT" FontSize="16" Foreground="#FFF" VerticalAlignment="Center" 
+                                                   Margin="5,0,0,0" HorizontalAlignment="Center">
+                                                    ID Pedido/Cliente
+                                                </TextBlock>
+                                            </StackPanel>
+                                        </Grid>
+
+                                        <Grid Height="auto" Background="Transparent" Margin="0,10,0,0" VerticalAlignment="Top">
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                <!--<materialDesign:PackIcon Kind="CheckDecagramOutline" Foreground="#FFF" VerticalAlignment="Center"
+                                                                 HorizontalAlignment="Center" Height="26" Width="26" Margin="0,0,0,0"/>-->
+                                                <TextBlock FontFamily="Tw Cen MT" FontSize="16" Foreground="#FFF" VerticalAlignment="Center" 
+                                                   Margin="5,10px,0,0" HorizontalAlignment="Center">
+                                                    Realizar receta
+                                                </TextBlock>
+                                            </StackPanel>
+                                        </Grid>
                                     </StackPanel>
                                 </Grid>
-                            </StackPanel>
-                        </Grid>
-                        <!--#endregion-->
+                                <!--#endregion-->
 
-                        <!--#region Table Body-->
-                        <Grid Grid.Column="1" Grid.Row="0" Margin="0,0,35,0" VerticalAlignment="Center">
-                            <Border Background="Transparent" CornerRadius="0,5,5,0" Opacity="0.4" BorderBrush="#CFCFCF"
+                                <!--#region Table Body-->
+                                <Grid Grid.Column="1" Grid.Row="0" Margin="0,0,35,0" VerticalAlignment="Center">
+                                    <Border Background="Transparent" CornerRadius="0,5,5,0" Opacity="0.4" BorderBrush="#CFCFCF"
                                     BorderThickness="0,1,1,1"/>
 
-                            <StackPanel Orientation="Vertical" Cursor="Hand" Background="Transparent"
+                                    <StackPanel Orientation="Vertical" Cursor="Hand" Background="Transparent"
                                         Visibility="Visible" Margin="0,0,0,0">
-                                <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" TextWrapping="Wrap"
+                                        <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" TextWrapping="Wrap"
                                            VerticalAlignment="Center" Height="35" Margin="0,5,0,5" Background="Transparent"
-                                           HorizontalAlignment="Left" Padding="7">
-                                    Pizza mediana casera
-                                </TextBlock>
+                                           HorizontalAlignment="Left" Padding="7" Text="{Binding Name}">
+                                            <!--<TextBlock.Text>
+                                                <MultiBinding StringFormat="{}{0} / {1}">
+                                                    <Binding Path="Name" />
+                                                    <Binding Path="Name" />
+                                                </MultiBinding>
+                                            </TextBlock.Text>-->
+                                        </TextBlock>
 
-                                <TextBlock FontFamily="Tw Cen MT" FontSize="16" Foreground="#FFF" TextWrapping="Wrap"
+                                        <TextBlock FontFamily="Tw Cen MT" FontSize="16" Foreground="#FFF" TextWrapping="Wrap"
                                            Height="36.5" Margin="0,0,0,5" VerticalAlignment="Center" HorizontalAlignment="Left"
-                                           Background="Transparent" Padding="10">
-                                    08
-                                </TextBlock>
+                                           Background="Transparent" Padding="10" Text="{Binding Portions}">
 
-                                <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" TextWrapping="Wrap"
-                                           TextAlignment="Justify" Background="Transparent" Height="auto" Width="auto" Padding="10">
-                                           1 Taza Harina todo uso, 
-                                            Ajo En Polvo al gusto, 
-                                            Orégano Fresco al gusto, 
-                                            1/2 Cucharadita Sal
-                                            
-                                </TextBlock>
-                            </StackPanel>
-                        </Grid>
+                                        </TextBlock>
 
-                        <!--#endregion-->
-                    </Grid>
-                </ListBoxItem>
+                                        <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" TextWrapping="Wrap"
+                                           TextAlignment="Justify" Background="Transparent" Height="auto" Width="auto" Padding="10"
+                                               Text="{Binding Ingredients}">
+                                        </TextBlock>
+
+                                        <TextBlock FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" TextWrapping="Wrap"
+                                           TextAlignment="Justify" Background="Transparent" Height="auto" Width="auto" Padding="10"
+                                               Text="{Binding CustomerName}">
+                                        </TextBlock>
+
+                                        <!--<CheckBox IsChecked="False" materialDesign:CheckBoxAssist.CheckBoxSize="35" Content="Checkbox"
+                                                  FontFamily="Tw Cen MT" FontSize="18" Foreground="#FFF" Checked="">
+                                            <CheckBox.Resources>
+                                                <SolidColorBrush x:Key="MaterialDesignCheckBoxOff" Color="#fff"/>
+                                                <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="Red"/>
+                                            </CheckBox.Resources>
+                                        </CheckBox>-->
+
+                                        <Grid Margin="10px,0,0,10px">
+                                            <Border Background="#5B5B5B" Height="32px" CornerRadius="10" MouseLeftButtonUp="MarkFoodRecipeAsDone"
+                                                    HorizontalAlignment="Left" Width="180px"/>
+                                            <StackPanel Visibility="Visible" Margin="0,0,0,0" ToolTip="Visualizar pedido" MouseLeftButtonUp="MarkFoodRecipeAsDone"
+                                                        HorizontalAlignment="Left"  Height="32px" Width="180px" Orientation="Horizontal" Background="Transparent">
+
+                                                <materialDesign:PackIcon Kind="CheckDecagramOutline" Foreground="#FFF" VerticalAlignment="Center"
+                                                                 HorizontalAlignment="Center" Height="26" Width="26" Margin="15px,0,0,0"/>
+                                                <TextBlock FontFamily="Tw Cen MT" FontSize="16" Foreground="#FFF" VerticalAlignment="Center" 
+                                                           Margin="5px,0,0,0" HorizontalAlignment="Center">
+                                                Receta Realizada
+                                                </TextBlock>
+                                            </StackPanel>
+                                        </Grid>
+                                    </StackPanel>
+                                </Grid>
+
+                                <!--#endregion-->
+                            </Grid>
+                        </materialDesign:TransitioningContent>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
             </ListBox>
         </Grid>
         
@@ -278,7 +339,7 @@
         <Grid Margin="0,50,120,0">
             <TextBox Background="#2C2C2E" Width="550px" Height="50px" VerticalAlignment="Top"
                      HorizontalAlignment="Center" Style="{StaticResource  MaterialDesignOutlinedTextBox}"
-                     TextWrapping="Wrap" materialDesign:HintAssist.Hint="Buscar" Foreground="#FFFFFF"
+                     materialDesign:HintAssist.Hint="Buscar" Foreground="#FFFFFF"
                      materialDesign:HintAssist.HelperText="Selecciona un filtro de búsqueda"
                      materialDesign:HintAssist.HelperTextFontSize="13"
                      FontFamily="Tw Cen MT" FontSize="18" AcceptsReturn="True" Cursor="Hand"
@@ -287,7 +348,8 @@
                      materialDesign:HintAssist.FloatingScale="1" BorderThickness="0"
                      materialDesign:HintAssist.FloatingOffset="0, -40"                               
                      materialDesign:TextFieldAssist.HasClearButton="True"
-                     KeyUp="ShowSearchResults"
+                     
+                     TextChanged="ShowSearchResults"
                      Name="SearchTextBox"/>
 
             <fa5:ImageAwesome Icon="Solid_Search" Height="18" Width="18" Foreground="#8D8D8D" VerticalAlignment="Top" 
@@ -443,7 +505,7 @@
                         <Border Background="{x:Null}" CornerRadius="5" Width="430" Height="35" HorizontalAlignment="Left"
                                 BorderBrush="#8D8D8D" BorderThickness="1"/>
                         <!--<materialDesign:Chip Content="José Daniel Camarillo Villa" FontFamily="Tw Cen MT" FontSize="15" Foreground="#000"/>-->
-                        <TextBox materialDesign:HintAssist.HelperText="Nombre de la receta de platillo"  
+                        <TextBox  materialDesign:HintAssist.HelperText="Nombre de la receta de platillo"  
                                   materialDesign:HintAssist.Hint="Ingresa el nombre de la receta del platillo" 
                                   HorizontalAlignment="Left" materialDesign:TextFieldAssist.HasClearButton="True"
                                   Width="430" Height="35" Padding="6" VerticalContentAlignment="Center"
@@ -453,7 +515,7 @@
                                   materialDesign:HintAssist.HelperTextFontSize="13"
                                   materialDesign:HintAssist.Background="Transparent" 
                                   materialDesign:HintAssist.Foreground="Transparent"
-                                  Name="FoodRecipeNameTextBox">
+                                  Name="FoodRecipeNameTextBox" >
 
                             <TextBox.Text>
                                 <Binding Path="Name" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">                                    
@@ -496,7 +558,7 @@
                                 <ComboBox.Text>
                                     <Binding Path="Portions" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
                                         <Binding.ValidationRules>
-                                            <validations:DecimalNumber ValidatesOnTargetUpdated="True"/>
+                                            <validations:Integer ValidatesOnTargetUpdated="True"/>
                                         </Binding.ValidationRules>
                                     </Binding>
                                 </ComboBox.Text>
@@ -719,7 +781,7 @@
                                   materialDesign:HintAssist.HelperTextFontSize="13"
                                   materialDesign:HintAssist.Background="Transparent" 
                                   materialDesign:HintAssist.Foreground="Transparent"
-                                  Name="IngredientesComboBox">
+                                  Name="IngredientsComboBox" ItemsSource="{Binding}">
 
                             <ComboBox.Text>
                                 <Binding Path="IngredientName" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
@@ -728,11 +790,17 @@
                                     </Binding.ValidationRules>
                                 </Binding>
                             </ComboBox.Text>
+
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Name}"></TextBlock>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
                             
-                            <ComboBoxItem>Jitomate</ComboBoxItem>
+                            <!--<ComboBoxItem>Jitomate</ComboBoxItem>
                             <ComboBoxItem>Masa</ComboBoxItem>
                             <ComboBoxItem>Ajo</ComboBoxItem>
-                            <ComboBoxItem>Cebolla</ComboBoxItem>
+                            <ComboBoxItem>Cebolla</ComboBoxItem>-->
                         </ComboBox>
                     </Grid>
 
@@ -779,7 +847,7 @@
                             <Button.Style>
                                 <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedDarkButton}">
                                     <Style.Triggers>
-                                        <DataTrigger Binding="{Binding ElementName=IngredientesComboBox, 
+                                        <DataTrigger Binding="{Binding ElementName=IngredientsComboBox, 
                                                      Path=(Validation.HasError)}" Value="True">
                                             <Setter Property="IsEnabled" Value="False"/>
                                         </DataTrigger>
@@ -823,7 +891,7 @@
                                 <Grid VerticalAlignment="Top">
                                     <StackPanel Orientation="Vertical" VerticalAlignment="Top">
                                         <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="0,0,0,0">
-                                            <Image Source="../Images/background.jpg" Height="30" Width="30"/>
+                                            <Image Source="{Binding IngredientPhoto}" Height="30" Width="30"   />
                                             <TextBlock FontFamily="Tw Cen MT" FontSize="15" Foreground="#000" HorizontalAlignment="Center"
                                                VerticalAlignment="Center" Margin="10,0,0,0" Text="{Binding IngredientName}" Name="IngredientNameTextBlock"
                                                Background="Transparent" Width="65" TextWrapping="Wrap">
@@ -917,7 +985,7 @@
 
                     <Button Width="120" Margin="0,0,0,0" materialDesign:ButtonAssist.CornerRadius="8" Height="40"
                             Background="#2C2C2E" BorderBrush="{x:Null}" Visibility="Collapsed" ToolTip="Guardar pedido"
-                            Name="SaveFoodRecipeButton" HorizontalAlignment="Right" Click="ShowUnrealizedChangesToast">
+                            Name="SaveFoodRecipeButton" HorizontalAlignment="Right" Click="ReceiveFoodRecipeModification">
                         <StackPanel Orientation="Horizontal">
                             <fa5:ImageAwesome Icon="Solid_Save" Height="13" Width="13" Foreground="#FFF" VerticalAlignment="Center" 
                                           ToolTip="Guardar actualización" Margin="0,0,4,0"/>

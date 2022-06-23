@@ -5,11 +5,9 @@ VisualStudioVersion = 17.1.32228.430
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ItalianPizza", "ItalianPizza.csproj", "{527256F4-119F-4BC1-BF03-0B56F6B22D2A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackendItalianPizza", "..\Backend-ItalianPizza\BackendItalianPizza.csproj", "{F39885F7-163B-4DC6-9BDF-65AEBC612148}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackendItalianPizza", "..\Backend\BackendItalianPizza.csproj", "{F39885F7-163B-4DC6-9BDF-65AEBC612148}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerItalianPizza", "..\Server-ItalianPizza\ServerItalianPizza.csproj", "{64E1A512-639A-481C-B4A2-1349A9781C9B}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestItalianPizza", "..\UnitTestItalianPizza\UnitTestItalianPizza.csproj", "{EEF34F4F-3E5C-4F77-AD14-5DD3F4153859}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerItalianPizza", "..\ServerItalianPizza\ServerItalianPizza.csproj", "{64E1A512-639A-481C-B4A2-1349A9781C9B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

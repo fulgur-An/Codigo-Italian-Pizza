@@ -4,11 +4,7 @@
 winexe
 C#
 .cs
-<<<<<<< HEAD
-C:\Users\Javier Blas\Documents\Codigo-Italian-Pizza\obj\Debug\
-=======
 C:\Users\antdg\Documents\Codigo-Italian-Pizza\obj\Debug\
->>>>>>> Antonio
 ItalianPizza
 none
 false
@@ -24,8 +20,13 @@ Views\CheckFoodRecipesPage.xaml;Views\CheckOrdersPage.xaml;Views\FinancesPage.xa
 C:\Users\antdg\Documents\Codigo-Italian-Pizza\App.xaml
 10847559312
 
+<<<<<<< HEAD
 381078112411
 2161490773141
+=======
+36428219155
+219505462923
+>>>>>>> CamarilloVilla
 Views\CheckFoodRecipesPage.xaml;Views\CheckOrdersPage.xaml;Views\FinancesPage.xaml;Views\HoverStylesDictionary.xaml;Views\ErrorPage.xaml;Views\ListCustomersPage.xaml;Views\ListEmployeesPage.xaml;Views\InventoryPage.xaml;Views\MainPage.xaml;Views\MainWindow.xaml;
 >>>>>>> Antonio
 

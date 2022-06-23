@@ -11,6 +11,24 @@
           "lib/BouncyCastle.Crypto.dll": {}
         }
       },
+      "EntityFramework/6.4.4": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "System.ComponentModel.DataAnnotations"
+        ],
+        "compile": {
+          "lib/net45/EntityFramework.SqlServer.dll": {},
+          "lib/net45/EntityFramework.dll": {}
+        },
+        "runtime": {
+          "lib/net45/EntityFramework.SqlServer.dll": {},
+          "lib/net45/EntityFramework.dll": {}
+        },
+        "build": {
+          "buildTransitive/EntityFramework.props": {},
+          "buildTransitive/EntityFramework.targets": {}
+        }
+      },
       "FontAwesome5/2.1.6": {
         "type": "package",
         "compile": {
@@ -34,7 +52,7 @@
           "lib/itextsharp.dll": {}
         }
       },
-      "MaterialDesignColors/2.0.5": {
+      "MaterialDesignColors/2.0.6": {
         "type": "package",
         "compile": {
           "lib/net452/MaterialDesignColors.dll": {}
@@ -43,10 +61,10 @@
           "lib/net452/MaterialDesignColors.dll": {}
         }
       },
-      "MaterialDesignThemes/4.4.0": {
+      "MaterialDesignThemes/4.5.0": {
         "type": "package",
         "dependencies": {
-          "MaterialDesignColors": "[2.0.5, 3.0.0)"
+          "MaterialDesignColors": "[2.0.6, 3.0.0)"
         },
         "compile": {
           "lib/net452/MaterialDesignThemes.Wpf.dll": {}
@@ -262,6 +280,24 @@
           "lib/BouncyCastle.Crypto.dll": {}
         }
       },
+      "EntityFramework/6.4.4": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "System.ComponentModel.DataAnnotations"
+        ],
+        "compile": {
+          "lib/net45/EntityFramework.SqlServer.dll": {},
+          "lib/net45/EntityFramework.dll": {}
+        },
+        "runtime": {
+          "lib/net45/EntityFramework.SqlServer.dll": {},
+          "lib/net45/EntityFramework.dll": {}
+        },
+        "build": {
+          "buildTransitive/EntityFramework.props": {},
+          "buildTransitive/EntityFramework.targets": {}
+        }
+      },
       "FontAwesome5/2.1.6": {
         "type": "package",
         "compile": {
@@ -285,7 +321,7 @@
           "lib/itextsharp.dll": {}
         }
       },
-      "MaterialDesignColors/2.0.5": {
+      "MaterialDesignColors/2.0.6": {
         "type": "package",
         "compile": {
           "lib/net452/MaterialDesignColors.dll": {}
@@ -294,10 +330,10 @@
           "lib/net452/MaterialDesignColors.dll": {}
         }
       },
-      "MaterialDesignThemes/4.4.0": {
+      "MaterialDesignThemes/4.5.0": {
         "type": "package",
         "dependencies": {
-          "MaterialDesignColors": "[2.0.5, 3.0.0)"
+          "MaterialDesignColors": "[2.0.6, 3.0.0)"
         },
         "compile": {
           "lib/net452/MaterialDesignThemes.Wpf.dll": {}
@@ -513,6 +549,24 @@
           "lib/BouncyCastle.Crypto.dll": {}
         }
       },
+      "EntityFramework/6.4.4": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "System.ComponentModel.DataAnnotations"
+        ],
+        "compile": {
+          "lib/net45/EntityFramework.SqlServer.dll": {},
+          "lib/net45/EntityFramework.dll": {}
+        },
+        "runtime": {
+          "lib/net45/EntityFramework.SqlServer.dll": {},
+          "lib/net45/EntityFramework.dll": {}
+        },
+        "build": {
+          "buildTransitive/EntityFramework.props": {},
+          "buildTransitive/EntityFramework.targets": {}
+        }
+      },
       "FontAwesome5/2.1.6": {
         "type": "package",
         "compile": {
@@ -536,7 +590,7 @@
           "lib/itextsharp.dll": {}
         }
       },
-      "MaterialDesignColors/2.0.5": {
+      "MaterialDesignColors/2.0.6": {
         "type": "package",
         "compile": {
           "lib/net452/MaterialDesignColors.dll": {}
@@ -545,10 +599,10 @@
           "lib/net452/MaterialDesignColors.dll": {}
         }
       },
-      "MaterialDesignThemes/4.4.0": {
+      "MaterialDesignThemes/4.5.0": {
         "type": "package",
         "dependencies": {
-          "MaterialDesignColors": "[2.0.5, 3.0.0)"
+          "MaterialDesignColors": "[2.0.6, 3.0.0)"
         },
         "compile": {
           "lib/net452/MaterialDesignThemes.Wpf.dll": {}
@@ -764,6 +818,24 @@
           "lib/BouncyCastle.Crypto.dll": {}
         }
       },
+      "EntityFramework/6.4.4": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "System.ComponentModel.DataAnnotations"
+        ],
+        "compile": {
+          "lib/net45/EntityFramework.SqlServer.dll": {},
+          "lib/net45/EntityFramework.dll": {}
+        },
+        "runtime": {
+          "lib/net45/EntityFramework.SqlServer.dll": {},
+          "lib/net45/EntityFramework.dll": {}
+        },
+        "build": {
+          "buildTransitive/EntityFramework.props": {},
+          "buildTransitive/EntityFramework.targets": {}
+        }
+      },
       "FontAwesome5/2.1.6": {
         "type": "package",
         "compile": {
@@ -787,7 +859,7 @@
           "lib/itextsharp.dll": {}
         }
       },
-      "MaterialDesignColors/2.0.5": {
+      "MaterialDesignColors/2.0.6": {
         "type": "package",
         "compile": {
           "lib/net452/MaterialDesignColors.dll": {}
@@ -796,10 +868,10 @@
           "lib/net452/MaterialDesignColors.dll": {}
         }
       },
-      "MaterialDesignThemes/4.4.0": {
+      "MaterialDesignThemes/4.5.0": {
         "type": "package",
         "dependencies": {
-          "MaterialDesignColors": "[2.0.5, 3.0.0)"
+          "MaterialDesignColors": "[2.0.6, 3.0.0)"
         },
         "compile": {
           "lib/net452/MaterialDesignThemes.Wpf.dll": {}
@@ -1020,6 +1092,63 @@
         "lib/BouncyCastle.Crypto.dll"
       ]
     },
+    "EntityFramework/6.4.4": {
+      "sha512": "yj1+/4tci7Panu3jKDHYizxwVm0Jvm7b7m057b5h4u8NUHGCR8WIWirBTw+8EptRffwftIWPBeIRGNKD1ewEMQ==",
+      "type": "package",
+      "path": "entityframework/6.4.4",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "build/EntityFramework.DefaultItems.props",
+        "build/EntityFramework.props",
+        "build/EntityFramework.targets",
+        "build/Microsoft.Data.Entity.Build.Tasks.dll",
+        "build/netcoreapp3.0/EntityFramework.props",
+        "build/netcoreapp3.0/EntityFramework.targets",
+        "buildTransitive/EntityFramework.props",
+        "buildTransitive/EntityFramework.targets",
+        "buildTransitive/netcoreapp3.0/EntityFramework.props",
+        "buildTransitive/netcoreapp3.0/EntityFramework.targets",
+        "content/net40/App.config.install.xdt",
+        "content/net40/App.config.transform",
+        "content/net40/Web.config.install.xdt",
+        "content/net40/Web.config.transform",
+        "entityframework.6.4.4.nupkg.sha512",
+        "entityframework.nuspec",
+        "lib/net40/EntityFramework.SqlServer.dll",
+        "lib/net40/EntityFramework.SqlServer.xml",
+        "lib/net40/EntityFramework.dll",
+        "lib/net40/EntityFramework.xml",
+        "lib/net45/EntityFramework.SqlServer.dll",
+        "lib/net45/EntityFramework.SqlServer.xml",
+        "lib/net45/EntityFramework.dll",
+        "lib/net45/EntityFramework.xml",
+        "lib/netstandard2.1/EntityFramework.SqlServer.dll",
+        "lib/netstandard2.1/EntityFramework.SqlServer.xml",
+        "lib/netstandard2.1/EntityFramework.dll",
+        "lib/netstandard2.1/EntityFramework.xml",
+        "tools/EntityFramework6.PS2.psd1",
+        "tools/EntityFramework6.PS2.psm1",
+        "tools/EntityFramework6.psd1",
+        "tools/EntityFramework6.psm1",
+        "tools/about_EntityFramework6.help.txt",
+        "tools/init.ps1",
+        "tools/install.ps1",
+        "tools/net40/any/ef6.exe",
+        "tools/net40/any/ef6.pdb",
+        "tools/net40/win-x86/ef6.exe",
+        "tools/net40/win-x86/ef6.pdb",
+        "tools/net45/any/ef6.exe",
+        "tools/net45/any/ef6.pdb",
+        "tools/net45/win-x86/ef6.exe",
+        "tools/net45/win-x86/ef6.pdb",
+        "tools/netcoreapp3.0/any/ef6.dll",
+        "tools/netcoreapp3.0/any/ef6.pdb",
+        "tools/netcoreapp3.0/any/ef6.runtimeconfig.json"
+      ]
+    },
     "FontAwesome5/2.1.6": {
       "sha512": "K/fuziBuB4B7D3ChlaBEaTJSuX0bk0PtyOQ3/TrsoL/fuAJnXoZrAwbNw+XYuhqLgvEq5SrVwTWPsbiY0gVkBw==",
       "type": "package",
@@ -1094,10 +1223,10 @@
         "notice.txt"
       ]
     },
-    "MaterialDesignColors/2.0.5": {
-      "sha512": "y5gEo4wo46CTiaTOiROPoKqTW5LJAu0g6b+yd0MslS3Fppu6hMheOIIkrmvvpFPbC4jbgAwakYYCzPKWbHC4LQ==",
+    "MaterialDesignColors/2.0.6": {
+      "sha512": "eZNiLlMy7Ag9f3MnhVxSzkG2IIGCaRfqZKt6npEcEjLQ9kSgCYO5oUd8AgJjhpfCKwyf+GO5VDc5R88QSDTHHg==",
       "type": "package",
-      "path": "materialdesigncolors/2.0.5",
+      "path": "materialdesigncolors/2.0.6",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -1106,14 +1235,14 @@
         "lib/net452/MaterialDesignColors.pdb",
         "lib/netcoreapp3.1/MaterialDesignColors.dll",
         "lib/netcoreapp3.1/MaterialDesignColors.pdb",
-        "materialdesigncolors.2.0.5.nupkg.sha512",
+        "materialdesigncolors.2.0.6.nupkg.sha512",
         "materialdesigncolors.nuspec"
       ]
     },
-    "MaterialDesignThemes/4.4.0": {
-      "sha512": "VdO8WvCYB6A6cDd181HLVgORn2IeNDMTlGxf2x91S1xsK6JYY3L1+WYxrkLJm4XEuvI0mY0biLM8MS6go+PQcw==",
+    "MaterialDesignThemes/4.5.0": {
+      "sha512": "G26hIGFwGH5q46CD59zGiAs4aLsASsKCCBqgnISPwIcq8pAfKRRAKxXfOQJgNDyIUnVm5Ug67gldsEgeWP6GoQ==",
       "type": "package",
-      "path": "materialdesignthemes/4.4.0",
+      "path": "materialdesignthemes/4.5.0",
       "hasTools": true,
       "files": [
         ".nupkg.metadata",
@@ -1144,7 +1273,7 @@
         "lib/netcoreapp3.1/MaterialDesignThemes.Wpf.dll",
         "lib/netcoreapp3.1/MaterialDesignThemes.Wpf.pdb",
         "lib/netcoreapp3.1/MaterialDesignThemes.Wpf.xml",
-        "materialdesignthemes.4.4.0.nupkg.sha512",
+        "materialdesignthemes.4.5.0.nupkg.sha512",
         "materialdesignthemes.nuspec",
         "tools/VisualStudioToolsManifest.xml"
       ]
@@ -1967,20 +2096,21 @@
     },
     "BackendItalianPizza/1.0.0": {
       "type": "project",
-      "path": "../Backend-ItalianPizza/BackendItalianPizza.csproj",
-      "msbuildProject": "../Backend-ItalianPizza/BackendItalianPizza.csproj"
+      "path": "../Backend/BackendItalianPizza.csproj",
+      "msbuildProject": "../Backend/BackendItalianPizza.csproj"
     },
     "ServerItalianPizza/1.0.0": {
       "type": "project",
-      "path": "../Server-ItalianPizza/ServerItalianPizza.csproj",
-      "msbuildProject": "../Server-ItalianPizza/ServerItalianPizza.csproj"
+      "path": "../ServerItalianPizza/ServerItalianPizza.csproj",
+      "msbuildProject": "../ServerItalianPizza/ServerItalianPizza.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETFramework,Version=v4.7.2": [
       "BackendItalianPizza >= 1.0.0",
+      "EntityFramework >= 6.4.4",
       "FontAwesome5 >= 2.1.6",
-      "MaterialDesignThemes >= 4.4.0",
+      "MaterialDesignThemes >= 4.5.0",
       "Microsoft.Toolkit.Uwp.Notifications >= 7.1.2",
       "Notifications.Wpf >= 0.1.1",
       "ServerItalianPizza >= 1.0.0",
@@ -2019,11 +2149,11 @@
       "frameworks": {
         "net472": {
           "projectReferences": {
-            "C:\\Users\\antdg\\Documents\\Backend-ItalianPizza\\BackendItalianPizza.csproj": {
-              "projectPath": "C:\\Users\\antdg\\Documents\\Backend-ItalianPizza\\BackendItalianPizza.csproj"
+            "C:\\Users\\Propietario\\Desktop\\Backend\\BackendItalianPizza.csproj": {
+              "projectPath": "C:\\Users\\Propietario\\Desktop\\Backend\\BackendItalianPizza.csproj"
             },
-            "C:\\Users\\antdg\\Documents\\Server-ItalianPizza\\ServerItalianPizza.csproj": {
-              "projectPath": "C:\\Users\\antdg\\Documents\\Server-ItalianPizza\\ServerItalianPizza.csproj"
+            "C:\\Users\\Propietario\\Desktop\\ServerItalianPizza\\ServerItalianPizza.csproj": {
+              "projectPath": "C:\\Users\\Propietario\\Desktop\\ServerItalianPizza\\ServerItalianPizza.csproj"
             }
           }
         }
@@ -2032,13 +2162,17 @@
     "frameworks": {
       "net472": {
         "dependencies": {
+          "EntityFramework": {
+            "target": "Package",
+            "version": "[6.4.4, )"
+          },
           "FontAwesome5": {
             "target": "Package",
             "version": "[2.1.6, )"
           },
           "MaterialDesignThemes": {
             "target": "Package",
-            "version": "[4.4.0, )"
+            "version": "[4.5.0, )"
           },
           "Microsoft.Toolkit.Uwp.Notifications": {
             "target": "Package",
