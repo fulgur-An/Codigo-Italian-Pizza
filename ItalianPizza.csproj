@@ -37,11 +37,26 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+<<<<<<< HEAD
+=======
+    <Reference Include="FontAwesome5.Net, Version=2.1.6.0, Culture=neutral, PublicKeyToken=9cfaf01297a008f8, processorArchitecture=MSIL">
+      <HintPath>packages\FontAwesome5.2.1.6\lib\net472\FontAwesome5.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="MaterialDesignColors, Version=2.0.5.0, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">
+      <HintPath>packages\MaterialDesignColors.2.0.5\lib\net452\MaterialDesignColors.dll</HintPath>
+    </Reference>
+    <Reference Include="MaterialDesignThemes.Wpf, Version=4.4.0.0, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">
+      <HintPath>packages\MaterialDesignThemes.4.4.0\lib\net452\MaterialDesignThemes.Wpf.dll</HintPath>
+    </Reference>
+>>>>>>> Antonio
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.ServiceModel" />
+<<<<<<< HEAD
     <Reference Include="System.Windows.Forms" />
+=======
+>>>>>>> Antonio
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -110,16 +125,26 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="BusinessObjects\AddressViewModel.cs" />
+    <Compile Include="BusinessObjects\BillViewModel.cs" />
     <Compile Include="BusinessObjects\CustomerViewModel.cs" />
+    <Compile Include="BusinessObjects\DailyBalanceViewModel.cs" />
     <Compile Include="BusinessObjects\EmployeeViewModel.cs" />
+    <Compile Include="BusinessObjects\ItemViewModel.cs" />
+    <Compile Include="BusinessObjects\MonetaryExpeditureDailyBalanceViewModel.cs" />
+    <Compile Include="BusinessObjects\StockTakingViewModel.cs" />
     <Compile Include="BusinessObjects\WorkShiftViewModel.cs" />
+<<<<<<< HEAD
     <Compile Include="BusinessObjects\ProviderViewModel.cs" />
+=======
+    <Compile Include="GenerateFile.cs" />
+>>>>>>> Antonio
     <Compile Include="ItalianPizzaServiceCallback.cs" />
     <Compile Include="Validations\AlphabeticCharacter.cs" />
     <Compile Include="Validations\DecimalNumber.cs" />
     <Compile Include="Validations\Email.cs" />
     <Compile Include="Validations\EncyptPassword.cs" />
     <Compile Include="Validations\Integer.cs" />
+    <Compile Include="Validations\IntegerWithNull.cs" />
     <Compile Include="Validations\NotNull.cs" />
     <Compile Include="Validations\NotNullList.cs" />
     <Compile Include="Validations\Phone.cs" />
@@ -128,7 +153,10 @@
     <Compile Include="BusinessObjects\OrderViewModel.cs" />
     <Compile Include="BusinessObjects\QuantityFoodRecipeViewModel.cs" />
     <Compile Include="BusinessObjects\QuantityItemViewModel.cs" />
+<<<<<<< HEAD
     <Compile Include="Validations\Time.cs" />
+=======
+>>>>>>> Antonio
     <Compile Include="Views\CheckFoodRecipesPage.xaml.cs">
       <DependentUpon>CheckFoodRecipesPage.xaml</DependentUpon>
     </Compile>
@@ -235,6 +263,18 @@
       <Project>{64E1A512-639A-481C-B4A2-1349A9781C9B}</Project>
       <Name>ServerItalianPizza</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+      <Project>{64e1a512-639a-481c-b4a2-1349a9781c9b}</Project>
+      <Name>ServerItalianPizza</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\finances.png" />
+    <Resource Include="Images\products.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

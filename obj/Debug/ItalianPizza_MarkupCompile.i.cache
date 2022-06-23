@@ -4,17 +4,30 @@
 winexe
 C#
 .cs
+<<<<<<< HEAD
 C:\Users\Javier Blas\Documents\Codigo-Italian-Pizza\obj\Debug\
+=======
+C:\Users\antdg\Documents\Codigo-Italian-Pizza\obj\Debug\
+>>>>>>> Antonio
 ItalianPizza
 none
 false
 DEBUG;TRACE
+<<<<<<< HEAD
 C:\Users\Javier Blas\Documents\Codigo-Italian-Pizza\App.xaml
 11-1846117015
 
 341677469282
 217836902270
 Views\CheckFoodRecipesPage.xaml;Views\CheckOrdersPage.xaml;Views\FinancesPage.xaml;Views\HoverStylesDictionary.xaml;Views\ErrorPage.xaml;Views\ListCustomersPage.xaml;Views\ListEmployeesPage.xaml;Views\InventoryPage.xaml;Views\Login.xaml;Views\MainPage.xaml;Views\MainWindow.xaml;
+=======
+C:\Users\antdg\Documents\Codigo-Italian-Pizza\App.xaml
+10847559312
+
+381078112411
+2161490773141
+Views\CheckFoodRecipesPage.xaml;Views\CheckOrdersPage.xaml;Views\FinancesPage.xaml;Views\HoverStylesDictionary.xaml;Views\ErrorPage.xaml;Views\ListCustomersPage.xaml;Views\ListEmployeesPage.xaml;Views\InventoryPage.xaml;Views\MainPage.xaml;Views\MainWindow.xaml;
+>>>>>>> Antonio
 
 True
 

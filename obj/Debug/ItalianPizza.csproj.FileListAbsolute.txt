@@ -77,6 +77,7 @@ C:\Users\Propietario\Desktop\Codigo-Italian-Pizza\obj\Debug\ItalianPizza.csproj.
 C:\Users\Propietario\Desktop\Codigo-Italian-Pizza\obj\Debug\ItalianPizza.exe
 C:\Users\Propietario\Desktop\Codigo-Italian-Pizza\obj\Debug\ItalianPizza.pdb
 C:\Users\Propietario\Desktop\Codigo-Italian-Pizza\obj\Debug\ItalianPizza.csproj.AssemblyReference.cache
+<<<<<<< HEAD
 C:\Users\Javier Blas\Documents\Codigo-Italian-Pizza\bin\Debug\ItalianPizza.exe.config
 C:\Users\Javier Blas\Documents\Codigo-Italian-Pizza\bin\Debug\ItalianPizza.exe
 C:\Users\Javier Blas\Documents\Codigo-Italian-Pizza\bin\Debug\ItalianPizza.pdb
@@ -134,3 +135,60 @@ C:\Users\Javier Blas\Documents\Codigo-Italian-Pizza\obj\Debug\ItalianPizza.cspro
 C:\Users\Javier Blas\Documents\Codigo-Italian-Pizza\obj\Debug\ItalianPizza.csproj.CopyComplete
 C:\Users\Javier Blas\Documents\Codigo-Italian-Pizza\obj\Debug\ItalianPizza.exe
 C:\Users\Javier Blas\Documents\Codigo-Italian-Pizza\obj\Debug\ItalianPizza.pdb
+=======
+C:\Users\antdg\Documents\Codigo-Italian-Pizza\bin\Debug\ItalianPizza.exe.config
+C:\Users\antdg\Documents\Codigo-Italian-Pizza\bin\Debug\ItalianPizza.exe
+C:\Users\antdg\Documents\Codigo-Italian-Pizza\bin\Debug\ItalianPizza.pdb
+C:\Users\antdg\Documents\Codigo-Italian-Pizza\bin\Debug\BouncyCastle.Crypto.dll
+C:\Users\antdg\Documents\Codigo-Italian-Pizza\bin\Debug\FontAwesome5.Net.dll
+C:\Users\antdg\Documents\Codigo-Italian-Pizza\bin\Debug\FontAwesome5.dll
+C:\Users\antdg\Documents\Codigo-Italian-Pizza\bin\Debug\itextsharp.dll
+C:\Users\antdg\Documents\Codigo-Italian-Pizza\bin\Debug\MaterialDesignColors.dll
+C:\Users\antdg\Documents\Codigo-Italian-Pizza\bin\Debug\MaterialDesignColors.pdb
+C:\Users\antdg\Documents\Codigo-Italian-Pizza\bin\Debug\MaterialDesignThemes.Wpf.dll
+C:\Users\antdg\Documents\Codigo-Italian-Pizza\bin\Debug\MaterialDesignThemes.Wpf.pdb
+C:\Users\antdg\Documents\Codigo-Italian-Pizza\bin\Debug\Microsoft.Toolkit.Uwp.Notifications.dll
+C:\Users\antdg\Documents\Codigo-Italian-Pizza\bin\Debug\Microsoft.Toolkit.Uwp.Notifications.pdb
+C:\Users\antdg\Documents\Codigo-Italian-Pizza\bin\Debug\Notifications.Wpf.dll
+C:\Users\antdg\Documents\Codigo-Italian-Pizza\bin\Debug\System.ValueTuple.dll
+C:\Users\antdg\Documents\Codigo-Italian-Pizza\bin\Debug\Backend.dll
+C:\Users\antdg\Documents\Codigo-Italian-Pizza\bin\Debug\ServerItalianPizza.exe
+C:\Users\antdg\Documents\Codigo-Italian-Pizza\bin\Debug\EntityFramework.dll
+C:\Users\antdg\Documents\Codigo-Italian-Pizza\bin\Debug\Backend.pdb
+C:\Users\antdg\Documents\Codigo-Italian-Pizza\bin\Debug\Backend.dll.config
+C:\Users\antdg\Documents\Codigo-Italian-Pizza\bin\Debug\ServerItalianPizza.pdb
+C:\Users\antdg\Documents\Codigo-Italian-Pizza\bin\Debug\ServerItalianPizza.exe.config
+C:\Users\antdg\Documents\Codigo-Italian-Pizza\bin\Debug\EntityFramework.xml
+C:\Users\antdg\Documents\Codigo-Italian-Pizza\obj\Debug\ItalianPizza.csproj.AssemblyReference.cache
+C:\Users\antdg\Documents\Codigo-Italian-Pizza\obj\Debug\Views\HoverStylesDictionary.baml
+C:\Users\antdg\Documents\Codigo-Italian-Pizza\obj\Debug\Views\CheckFoodRecipesPage.g.cs
+C:\Users\antdg\Documents\Codigo-Italian-Pizza\obj\Debug\Views\CheckOrdersPage.g.cs
+C:\Users\antdg\Documents\Codigo-Italian-Pizza\obj\Debug\Views\FinancesPage.g.cs
+C:\Users\antdg\Documents\Codigo-Italian-Pizza\obj\Debug\Views\ErrorPage.g.cs
+C:\Users\antdg\Documents\Codigo-Italian-Pizza\obj\Debug\Views\ListCustomersPage.g.cs
+C:\Users\antdg\Documents\Codigo-Italian-Pizza\obj\Debug\Views\ListEmployeesPage.g.cs
+C:\Users\antdg\Documents\Codigo-Italian-Pizza\obj\Debug\Views\InventoryPage.g.cs
+C:\Users\antdg\Documents\Codigo-Italian-Pizza\obj\Debug\Views\MainPage.g.cs
+C:\Users\antdg\Documents\Codigo-Italian-Pizza\obj\Debug\Views\MainWindow.g.cs
+C:\Users\antdg\Documents\Codigo-Italian-Pizza\obj\Debug\App.g.cs
+C:\Users\antdg\Documents\Codigo-Italian-Pizza\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\antdg\Documents\Codigo-Italian-Pizza\obj\Debug\ItalianPizza_MarkupCompile.cache
+C:\Users\antdg\Documents\Codigo-Italian-Pizza\obj\Debug\ItalianPizza_MarkupCompile.lref
+C:\Users\antdg\Documents\Codigo-Italian-Pizza\obj\Debug\App.baml
+C:\Users\antdg\Documents\Codigo-Italian-Pizza\obj\Debug\Views\CheckFoodRecipesPage.baml
+C:\Users\antdg\Documents\Codigo-Italian-Pizza\obj\Debug\Views\CheckOrdersPage.baml
+C:\Users\antdg\Documents\Codigo-Italian-Pizza\obj\Debug\Views\FinancesPage.baml
+C:\Users\antdg\Documents\Codigo-Italian-Pizza\obj\Debug\Views\ErrorPage.baml
+C:\Users\antdg\Documents\Codigo-Italian-Pizza\obj\Debug\Views\ListCustomersPage.baml
+C:\Users\antdg\Documents\Codigo-Italian-Pizza\obj\Debug\Views\ListEmployeesPage.baml
+C:\Users\antdg\Documents\Codigo-Italian-Pizza\obj\Debug\Views\InventoryPage.baml
+C:\Users\antdg\Documents\Codigo-Italian-Pizza\obj\Debug\Views\MainPage.baml
+C:\Users\antdg\Documents\Codigo-Italian-Pizza\obj\Debug\Views\MainWindow.baml
+C:\Users\antdg\Documents\Codigo-Italian-Pizza\obj\Debug\ItalianPizza.g.resources
+C:\Users\antdg\Documents\Codigo-Italian-Pizza\obj\Debug\ItalianPizza.Properties.Resources.resources
+C:\Users\antdg\Documents\Codigo-Italian-Pizza\obj\Debug\ItalianPizza.csproj.GenerateResource.cache
+C:\Users\antdg\Documents\Codigo-Italian-Pizza\obj\Debug\ItalianPizza.csproj.CoreCompileInputs.cache
+C:\Users\antdg\Documents\Codigo-Italian-Pizza\obj\Debug\ItalianPizza.csproj.CopyComplete
+C:\Users\antdg\Documents\Codigo-Italian-Pizza\obj\Debug\ItalianPizza.exe
+C:\Users\antdg\Documents\Codigo-Italian-Pizza\obj\Debug\ItalianPizza.pdb
+>>>>>>> Antonio
