@@ -1,0 +1,201 @@
+﻿<Window x:Class="ItalianPizza.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:fa5="http://schemas.fontawesome.com/icons/"  
+        xmlns:local="clr-namespace:ItalianPizza"
+        mc:Ignorable="d"
+        Title="Italian Pizza" Height="720" Width="986" WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize" Icon="../Images/pizza.png" WindowStyle="None">
+
+    <Grid>
+        <!--<Grid.Background>
+            <ImageBrush ImageSource="../Images/background.jpg" />
+        </Grid.Background>-->
+
+        <Grid.Background>
+            <LinearGradientBrush>
+                <LinearGradientBrush.RelativeTransform>
+                    <TransformGroup>
+                        <ScaleTransform CenterY="0.5" CenterX="0.5"/>
+                        <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                        <RotateTransform Angle="120" CenterY="0.5" CenterX="0.5"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </LinearGradientBrush.RelativeTransform>
+                <GradientStop Color="#FFFF00" Offset="0.0" />
+                <GradientStop Color="#FF0000" Offset="0.25" />
+                <GradientStop Color="#800080" Offset="0.75" />
+                <GradientStop Color="#3630A5" Offset="1.0" />
+            </LinearGradientBrush>
+        </Grid.Background>
+
+        <!--Tw Cen MT
+        Trebuchet MS-->
+        <!--#region Menu -->
+        <Border Background="#372727" Width="210px" HorizontalAlignment="Left" Opacity="0.8"/>
+        <Grid Width="210px" HorizontalAlignment="Left">
+            <StackPanel Orientation="Vertical" Background="Transparent">
+                <StackPanel Orientation="Horizontal" Margin="0,30px,0,0">
+                    <fa5:ImageAwesome Icon="Solid_PizzaSlice" Height="30" Width="30" Margin="25,0,0,0" 
+                                     Foreground="#FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                                     ToolTip="Usuarios" />
+                    <TextBlock Foreground="#FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                               Margin="10px,0,0,0" FontFamily="Trebuchet MS" FontSize="20" MouseLeftButtonUp="OpenStartupModule">                    
+                        ItalianPizza®
+                    </TextBlock>
+                </StackPanel>
+
+                <StackPanel Margin="15,35px,15,0" Orientation="Vertical">
+                    <Button HorizontalAlignment="Center" VerticalAlignment="Top" 
+                            Style="{StaticResource MaterialDesignFloatingActionLightButton}"
+                            Height="75" Width="75" Cursor="Hand">
+                        <Button.Effect>
+                            <DropShadowEffect ShadowDepth="20" Direction="270" Color="#000000"
+                                              Opacity="0.3" BlurRadius="50" />
+                        </Button.Effect>
+                        <Grid>
+                            <Image Width="100" Height="100" Margin="0"/>
+                        </Grid>
+                    </Button>
+                    <TextBlock Foreground="#FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                               Margin="0,20px,0,0" FontFamily="Trebuchet MS" FontSize="15" 
+                               Name="UserLoggedInTextBlock">
+                        José Daniel Camarillo Villa
+                    </TextBlock>
+                    <TextBlock Foreground="#FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                               Margin="0,2px,0,0" FontFamily="Trebuchet MS" FontSize="15" Opacity="0.5"
+                               Name="EmployeeRoleTextBlock">                    
+                        Puesto
+                    </TextBlock>
+                    <TextBlock Foreground="#FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                               Margin="0,0px,0,0" FontFamily="Trebuchet MS" FontSize="15" 
+                               Name="UsernameTextBlock" Visibility="Hidden">
+
+                    </TextBlock>
+                </StackPanel>
+
+                <Border Background="Transparent" Height="0.5" Margin="0,20,0,0" />
+
+                <TextBlock FontFamily="Trebuchet MS" FontSize="15" Foreground="#FFFFFF" Height="50px"
+                           Padding="0,10,0,0" Margin="35px,0px,0,10" Opacity="0.5">
+                    MENÚ
+                </TextBlock>
+
+                <StackPanel Orientation="Horizontal" Height="50px" Background="Transparent" Margin="0,-25,0,0"
+                            Cursor="Hand" Style="{StaticResource StackPanelHoverStyle}" MouseLeftButtonUp="OpenCustomerModule"
+                            Name="CustomersStackPanel">
+                    <Border Width="6px" Height="40" Background="#49E12F" CornerRadius="0,3,3,0" Visibility="Hidden"
+                            Name="CustomersGreendBorder"/>
+                    <fa5:ImageAwesome Icon="Solid_Heart" Height="20" Width="20" Margin="25,0,0,0" 
+                                     Foreground="#FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                                     ToolTip="Usuarios" />
+                    <TextBlock Foreground="#FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                               Margin="18px,0,0,0" FontFamily="Trebuchet MS" FontSize="15" >Clientes
+                    </TextBlock>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Height="50px" Background="Transparent" Cursor="Hand"
+                            Style="{StaticResource StackPanelHoverStyle}" MouseLeftButtonUp="OpenEmployeeModule"
+                            Name="EmployeesStackPanel">
+                    <Border Width="6px" Height="40" Background="#49E12F" CornerRadius="0,3,3,0" Visibility="Hidden"
+                            Name="EmployeesGreendBorder"/>
+                    <fa5:ImageAwesome Icon="Solid_User" Height="20" Width="20" Margin="25,0,0,0" 
+                                     Foreground="#FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                                     ToolTip="Usuarios" />
+                    <TextBlock Foreground="#FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                               Margin="18px,0,0,0" FontFamily="Trebuchet MS" FontSize="15">                    
+                        Empleados
+                    </TextBlock>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Height="50px" Background="Transparent" Cursor="Hand"
+                            Style="{StaticResource StackPanelHoverStyle}" MouseLeftButtonUp="OpenInventoryModule"
+                            Name="InventorysStackPanel">
+                    <Border Width="6px" Height="40" Background="#49E12F" CornerRadius="0,3,3,0" Visibility="Hidden"
+                            Name="IventorysGreenBorder"/>
+                    <materialDesign:PackIcon Kind="FoodDrumstick" Foreground="#FFFFFF" VerticalAlignment="Center"
+                                             HorizontalAlignment="Center" Height="25" Width="25" Margin="21,0,0,0"/>
+                    <TextBlock Foreground="#FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                               Margin="18px,0,0,0" FontFamily="Trebuchet MS" FontSize="15">
+                        Productos
+                    </TextBlock>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Height="50px" Background="Transparent" Cursor="Hand"
+                            Style="{StaticResource StackPanelHoverStyle}" MouseLeftButtonUp="OpenOrderModule"
+                            Name="OrdersStackPanel">
+                    <Border Width="6px" Height="40" Background="#49E12F" CornerRadius="0,3,3,0" Visibility="Hidden"
+                            Name="OrdersGreendBorder"/>
+                    <fa5:ImageAwesome Icon="Solid_ShoppingCart" Height="20" Width="20" Margin="25,0,0,0" 
+                                      Foreground="#FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                                      ToolTip="Usuarios" />
+                    <TextBlock Foreground="#FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                               Margin="18px,0,0,0" FontFamily="Trebuchet MS" FontSize="15">                    
+                        Pedidos
+                    </TextBlock>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Height="50px" Background="Transparent" Cursor="Hand"
+                            Style="{StaticResource StackPanelHoverStyle}" Name="FoodRecipeStackPanel" 
+                            MouseLeftButtonUp="OpeenFoodRecipeModule">
+                    <Border Width="6px" Height="40" Background="#49E12F" CornerRadius="0,3,3,0" Visibility="Hidden"
+                            Name="FoodRecipesGreendBorder"/>
+                    <materialDesign:PackIcon Kind="ChefHat" Foreground="#FFFFFF" VerticalAlignment="Center"
+                                             HorizontalAlignment="Center" Height="25" Width="25" Margin="21,0,0,0"/>
+                    <TextBlock Foreground="#FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                               Margin="18px,0,0,0" FontFamily="Trebuchet MS" FontSize="15">                    
+                        Cocina
+                    </TextBlock>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Height="50px" Background="Transparent" Cursor="Hand"
+                            Style="{StaticResource StackPanelHoverStyle}" MouseLeftButtonUp="OpenFinancesModule"
+                            Name="FinanceStackPanel">
+                    <Border Width="6px" Height="40" Background="#49E12F" CornerRadius="0,3,3,0" Visibility="Hidden"
+                            Name="FinanceGreenBorder"/>
+                    <fa5:ImageAwesome Icon="Solid_Coins" Height="20" Width="20" Margin="25,0,0,0" 
+                                     Foreground="#FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                                     ToolTip="Usuarios" />
+                    <TextBlock Foreground="#FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                               Margin="18px,0,0,0" FontFamily="Trebuchet MS" FontSize="15">                    
+                        Finanazas
+                    </TextBlock>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Height="50px" Background="Transparent" Cursor="Hand" 
+                            Style="{StaticResource StackPanelHoverStyle}" Name="ProviderStackPanel"
+                            MouseLeftButtonUp="OpenProviderModule">
+                    <Border Width="6px" Height="40" Background="#49E12F" CornerRadius="0,3,3,0" Visibility="Hidden"
+                        Name="ProviderGreenBorder"/>
+                    <fa5:ImageAwesome Icon="Solid_Coins" Height="20" Width="20" Margin="25,0,0,0" 
+                                     Foreground="#FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                                     ToolTip="Usuarios" />
+                    <TextBlock Foreground="#FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                               Margin="18px,0,0,0" FontFamily="Trebuchet MS" FontSize="15">                    
+                        Proveedores
+                    </TextBlock>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Height="50px" Background="Transparent" Margin="0,35,0,0"
+                            Cursor="Hand" Style="{StaticResource StackPanelHoverStyle}" Visibility="Visible"
+                            MouseLeftButtonUp="LogOut" Name="LogOutStackPanel">
+                    <Border Width="6px" Height="40" Background="#49E12F" CornerRadius="0,3,3,0" Visibility="Visible"/>
+                    <materialDesign:PackIcon Kind="ExitToApp" Foreground="#FFFFFF" VerticalAlignment="Center"
+                                             HorizontalAlignment="Center" Height="25" Width="25" Margin="21,0,0,0"/>
+                    <TextBlock Foreground="#FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                               Margin="18px,0,0,0" FontFamily="Trebuchet MS" FontSize="15">                    
+                        Salir
+                    </TextBlock>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+        <!--#endregion-->
+
+        <!--Menu options-->
+        <Frame Width="776" Height="720" Margin="209.7px,0,0,0" BorderBrush="#FFF"
+               Opacity="1" Name="NavigationFrame" NavigationUIVisibility="Hidden"/>
+    </Grid>
+</Window>

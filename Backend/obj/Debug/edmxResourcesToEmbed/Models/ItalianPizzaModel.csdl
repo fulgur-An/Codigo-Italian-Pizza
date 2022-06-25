@@ -1,0 +1,652 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ItalianPizzaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="DailyBalance">
+    <Key>
+      <PropertyRef Name="idDailyBalance" />
+    </Key>
+    <Property Name="EntryBalance" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="ExitBalance" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="InitialBalance" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="CashBalance" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="PhsycalBalance" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="CurrentDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="IdEmployee" Type="Int32" Nullable="false" />
+    <Property Name="idDailyBalance" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="Employee" Relationship="Self.FK_DailyBalances_Employees" FromRole="DailyBalances" ToRole="Employees" />
+  </EntityType>
+  <EntityType Name="MonetaryExpens">
+    <Key>
+      <PropertyRef Name="IdMonetaryExpenditure" />
+    </Key>
+    <Property Name="IdMonetaryExpenditure" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Amount" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="IdEmployee" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Employee" Relationship="Self.FK_MonetaryExpenses_Employees" FromRole="MonetaryExpenses" ToRole="Employees" />
+  </EntityType>
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="IdUserEmployee" />
+    </Key>
+    <Property Name="IdUserEmployee" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="AdmissionDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Password" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Role" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Salary" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="DailyBalances" Relationship="Self.FK_DailyBalances_Employees" FromRole="Employees" ToRole="DailyBalances" />
+    <NavigationProperty Name="MonetaryExpenses" Relationship="Self.FK_MonetaryExpenses_Employees" FromRole="Employees" ToRole="MonetaryExpenses" />
+    <NavigationProperty Name="Customers" Relationship="Self.FK_Customers_Employees" FromRole="Employees" ToRole="Customers" />
+    <NavigationProperty Name="LogOuts" Relationship="Self.FK_LogOuts_Employees" FromRole="Employees" ToRole="LogOuts" />
+    <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_Employees" FromRole="Employees" ToRole="Orders" />
+    <NavigationProperty Name="ProviderOrders" Relationship="Self.FK_ProviderOrders_Employees" FromRole="Employees" ToRole="ProviderOrders" />
+    <NavigationProperty Name="WorkShifts" Relationship="Self.FK_WorkShifts_Employees" FromRole="Employees" ToRole="WorkShifts" />
+  </EntityType>
+  <EntityType Name="LogOut">
+    <Key>
+      <PropertyRef Name="IdLogOut" />
+    </Key>
+    <Property Name="IdUserEmployee" Type="Int32" Nullable="false" />
+    <Property Name="DepartureTime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="TimeOfEntry" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="IdLogOut" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="Employee" Relationship="Self.FK_LogOuts_Employees" FromRole="LogOuts" ToRole="Employees" />
+  </EntityType>
+  <EntityType Name="WorkShift">
+    <Key>
+      <PropertyRef Name="IdWorkShift" />
+    </Key>
+    <Property Name="IdUserEmployee" Type="Int32" Nullable="false" />
+    <Property Name="DepartureTime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Time" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="TimeOfEntry" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="IdWorkShift" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="Employee" Relationship="Self.FK_WorkShifts_Employees" FromRole="WorkShifts" ToRole="Employees" />
+  </EntityType>
+  <EntityType Name="FoodRecipe">
+    <Key>
+      <PropertyRef Name="IdFoodRecipe" />
+    </Key>
+    <Property Name="IdFoodRecipe" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Price" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="NumberOfServings" Type="Int32" Nullable="false" />
+    <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="IsEnabled" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Ingredients" Relationship="Self.FK_Ingredients_FoodRecipes" FromRole="FoodRecipes" ToRole="Ingredients" />
+    <NavigationProperty Name="QuantityFoodRecipes" Relationship="Self.FK_QuantityFoodRecipe_FoodRecipes" FromRole="FoodRecipes" ToRole="QuantityFoodRecipe" />
+  </EntityType>
+  <EntityType Name="Ingredient">
+    <Key>
+      <PropertyRef Name="IdIngredient" />
+    </Key>
+    <Property Name="IdIngredient" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdFoodRecipe" Type="Int32" Nullable="false" />
+    <Property Name="IdItem" Type="Int32" Nullable="false" />
+    <Property Name="IngredientQuantity" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="IngredientName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="FoodRecipe" Relationship="Self.FK_Ingredients_FoodRecipes" FromRole="Ingredients" ToRole="FoodRecipes" />
+    <NavigationProperty Name="Item" Relationship="Self.FK_Ingredients_Items" FromRole="Ingredients" ToRole="Items" />
+  </EntityType>
+  <EntityType Name="Item">
+    <Key>
+      <PropertyRef Name="IdItem" />
+    </Key>
+    <Property Name="IdItem" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Sku" Type="Int32" Nullable="false" />
+    <Property Name="Photo" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="Price" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="Quantity" Type="Int32" Nullable="false" />
+    <Property Name="Restrictions" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+    <Property Name="UnitOfMeasurement" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="NeedsFoodRecipe" Type="Boolean" Nullable="false" />
+    <Property Name="IsIngredient" Type="Boolean" Nullable="false" />
+    <Property Name="IsEnabled" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Ingredients" Relationship="Self.FK_Ingredients_Items" FromRole="Items" ToRole="Ingredients" />
+    <NavigationProperty Name="QuantityItems" Relationship="Self.FK_QuantityItems_Items" FromRole="Items" ToRole="QuantityItems" />
+    <NavigationProperty Name="QuantityProviderOrders" Relationship="Self.FK_QuantityProviderOrder_Items" FromRole="Items" ToRole="QuantityProviderOrder" />
+    <NavigationProperty Name="Stocktakings" Relationship="Self.FK_Stocktaking_Items" FromRole="Items" ToRole="Stocktaking" />
+  </EntityType>
+  <EntityType Name="QuantityFoodRecipe">
+    <Key>
+      <PropertyRef Name="IdQuantityFoodRecipe" />
+    </Key>
+    <Property Name="IdOrder" Type="Int32" Nullable="false" />
+    <Property Name="IdFoodRecipe" Type="Int32" Nullable="false" />
+    <Property Name="QuantityOfFoodRecipes" Type="Int32" Nullable="false" />
+    <Property Name="Price" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="IdQuantityFoodRecipe" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IsDone" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="FoodRecipe" Relationship="Self.FK_QuantityFoodRecipe_FoodRecipes" FromRole="QuantityFoodRecipe" ToRole="FoodRecipes" />
+    <NavigationProperty Name="Order" Relationship="Self.FK_QuantityFoodRecipe_Orders" FromRole="QuantityFoodRecipe" ToRole="Orders" />
+  </EntityType>
+  <EntityType Name="QuantityItem">
+    <Key>
+      <PropertyRef Name="IdQuantityItem" />
+    </Key>
+    <Property Name="IdItem" Type="Int32" Nullable="false" />
+    <Property Name="IdOrder" Type="Int32" Nullable="false" />
+    <Property Name="QuantityOfItems" Type="Int32" Nullable="false" />
+    <Property Name="Price" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="IdQuantityItem" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IsDone" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Item" Relationship="Self.FK_QuantityItems_Items" FromRole="QuantityItems" ToRole="Items" />
+    <NavigationProperty Name="Order" Relationship="Self.FK_QuantityItems_Orders" FromRole="QuantityItems" ToRole="Orders" />
+  </EntityType>
+  <EntityType Name="Stocktaking">
+    <Key>
+      <PropertyRef Name="IdStocktaking" />
+    </Key>
+    <Property Name="CurrentAmount" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="PhysicalAmount" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="IdItem" Type="Int32" Nullable="false" />
+    <Property Name="IdStocktaking" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="Item" Relationship="Self.FK_Stocktaking_Items" FromRole="Stocktaking" ToRole="Items" />
+  </EntityType>
+  <EntityType Name="Address">
+    <Key>
+      <PropertyRef Name="IdAddresses" />
+    </Key>
+    <Property Name="Colony" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="InsideNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="OutsideNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="PostalCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="IdCustomer" Type="Int32" Nullable="false" />
+    <Property Name="StreetName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="IdAddresses" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="Customer" Relationship="Self.FK_Addresses_Customers" FromRole="Addresses" ToRole="Customers" />
+    <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_Addresses" FromRole="Addresses" ToRole="Orders" />
+  </EntityType>
+  <EntityType Name="ProviderOrder">
+    <Key>
+      <PropertyRef Name="IdProviderOrder" />
+    </Key>
+    <Property Name="IdProviderOrder" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DeliveryDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="TotalToPay" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="IdProvider" Type="Int32" Nullable="false" />
+    <Property Name="IdEmployee" Type="Int32" Nullable="false" />
+    <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="0" />
+    <NavigationProperty Name="Employee" Relationship="Self.FK_ProviderOrders_Employees" FromRole="ProviderOrders" ToRole="Employees" />
+    <NavigationProperty Name="Provider" Relationship="Self.FK_ProviderOrders_Providers" FromRole="ProviderOrders" ToRole="Providers" />
+    <NavigationProperty Name="QuantityProviderOrders" Relationship="Self.FK_QuantityProviderOrder_ProviderOrders" FromRole="ProviderOrders" ToRole="QuantityProviderOrder" />
+  </EntityType>
+  <EntityType Name="Provider">
+    <Key>
+      <PropertyRef Name="IdProvider" />
+    </Key>
+    <Property Name="IdProvider" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Category" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="RFC" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="IsEnabled" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="ProviderOrders" Relationship="Self.FK_ProviderOrders_Providers" FromRole="Providers" ToRole="ProviderOrders" />
+  </EntityType>
+  <EntityType Name="QuantityProviderOrder">
+    <Key>
+      <PropertyRef Name="IdQuantityProviderOrder" />
+    </Key>
+    <Property Name="IdItem" Type="Int32" Nullable="false" />
+    <Property Name="IdProviderOrder" Type="Int32" Nullable="false" />
+    <Property Name="QuantityOfProviderOrder" Type="Int32" Nullable="false" />
+    <Property Name="Price" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="IdQuantityProviderOrder" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="Item" Relationship="Self.FK_QuantityProviderOrder_Items" FromRole="QuantityProviderOrder" ToRole="Items" />
+    <NavigationProperty Name="ProviderOrder" Relationship="Self.FK_QuantityProviderOrder_ProviderOrders" FromRole="QuantityProviderOrder" ToRole="ProviderOrders" />
+  </EntityType>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="IdUserCustomer" />
+    </Key>
+    <Property Name="IdUserCustomer" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="DateOfBirth" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="IsEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="IdEmployee" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Employee" Relationship="Self.FK_Customers_Employees" FromRole="Customers" ToRole="Employees" />
+    <NavigationProperty Name="Addresses" Relationship="Self.FK_Addresses_Customers" FromRole="Customers" ToRole="Addresses" />
+    <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_Customers" FromRole="Customers" ToRole="Orders" />
+  </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="IdOrder" />
+    </Key>
+    <Property Name="IdOrder" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="TotalToPay" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="TableNumber" Type="Int32" />
+    <Property Name="IdCustomer" Type="Int32" />
+    <Property Name="TypeOrder" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="IdEmployee" Type="Int32" Nullable="false" />
+    <Property Name="IdAddress" Type="Int32" />
+    <NavigationProperty Name="Employee" Relationship="Self.FK_Orders_Employees" FromRole="Orders" ToRole="Employees" />
+    <NavigationProperty Name="QuantityFoodRecipes" Relationship="Self.FK_QuantityFoodRecipe_Orders" FromRole="Orders" ToRole="QuantityFoodRecipe" />
+    <NavigationProperty Name="QuantityItems" Relationship="Self.FK_QuantityItems_Orders" FromRole="Orders" ToRole="QuantityItems" />
+    <NavigationProperty Name="Address" Relationship="Self.FK_Orders_Addresses" FromRole="Orders" ToRole="Addresses" />
+    <NavigationProperty Name="Customer" Relationship="Self.FK_Orders_Customers" FromRole="Orders" ToRole="Customers" />
+    <NavigationProperty Name="Tickets" Relationship="Self.FK_Tickets_Orders" FromRole="Orders" ToRole="Tickets" />
+  </EntityType>
+  <EntityType Name="Ticket">
+    <Key>
+      <PropertyRef Name="IdTicket" />
+    </Key>
+    <Property Name="IdTicket" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdOrder" Type="Int32" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Order" Relationship="Self.FK_Tickets_Orders" FromRole="Tickets" ToRole="Orders" />
+  </EntityType>
+  <Association Name="FK_DailyBalances_Employees">
+    <End Role="Employees" Type="Self.Employee" Multiplicity="1" />
+    <End Role="DailyBalances" Type="Self.DailyBalance" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employees">
+        <PropertyRef Name="IdUserEmployee" />
+      </Principal>
+      <Dependent Role="DailyBalances">
+        <PropertyRef Name="IdEmployee" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MonetaryExpenses_Employees">
+    <End Role="Employees" Type="Self.Employee" Multiplicity="1" />
+    <End Role="MonetaryExpenses" Type="Self.MonetaryExpens" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employees">
+        <PropertyRef Name="IdUserEmployee" />
+      </Principal>
+      <Dependent Role="MonetaryExpenses">
+        <PropertyRef Name="IdEmployee" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Customers_Employees">
+    <End Role="Employees" Type="Self.Employee" Multiplicity="1" />
+    <End Role="Customers" Type="Self.Customer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employees">
+        <PropertyRef Name="IdUserEmployee" />
+      </Principal>
+      <Dependent Role="Customers">
+        <PropertyRef Name="IdEmployee" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LogOuts_Employees">
+    <End Role="Employees" Type="Self.Employee" Multiplicity="1" />
+    <End Role="LogOuts" Type="Self.LogOut" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employees">
+        <PropertyRef Name="IdUserEmployee" />
+      </Principal>
+      <Dependent Role="LogOuts">
+        <PropertyRef Name="IdUserEmployee" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Orders_Employees">
+    <End Role="Employees" Type="Self.Employee" Multiplicity="1" />
+    <End Role="Orders" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employees">
+        <PropertyRef Name="IdUserEmployee" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="IdEmployee" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProviderOrders_Employees">
+    <End Role="Employees" Type="Self.Employee" Multiplicity="1" />
+    <End Role="ProviderOrders" Type="Self.ProviderOrder" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employees">
+        <PropertyRef Name="IdUserEmployee" />
+      </Principal>
+      <Dependent Role="ProviderOrders">
+        <PropertyRef Name="IdEmployee" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_WorkShifts_Employees">
+    <End Role="Employees" Type="Self.Employee" Multiplicity="1" />
+    <End Role="WorkShifts" Type="Self.WorkShift" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employees">
+        <PropertyRef Name="IdUserEmployee" />
+      </Principal>
+      <Dependent Role="WorkShifts">
+        <PropertyRef Name="IdUserEmployee" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Ingredients_FoodRecipes">
+    <End Role="FoodRecipes" Type="Self.FoodRecipe" Multiplicity="1" />
+    <End Role="Ingredients" Type="Self.Ingredient" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FoodRecipes">
+        <PropertyRef Name="IdFoodRecipe" />
+      </Principal>
+      <Dependent Role="Ingredients">
+        <PropertyRef Name="IdFoodRecipe" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_QuantityFoodRecipe_FoodRecipes">
+    <End Role="FoodRecipes" Type="Self.FoodRecipe" Multiplicity="1" />
+    <End Role="QuantityFoodRecipe" Type="Self.QuantityFoodRecipe" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FoodRecipes">
+        <PropertyRef Name="IdFoodRecipe" />
+      </Principal>
+      <Dependent Role="QuantityFoodRecipe">
+        <PropertyRef Name="IdFoodRecipe" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Ingredients_Items">
+    <End Role="Items" Type="Self.Item" Multiplicity="1" />
+    <End Role="Ingredients" Type="Self.Ingredient" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Items">
+        <PropertyRef Name="IdItem" />
+      </Principal>
+      <Dependent Role="Ingredients">
+        <PropertyRef Name="IdItem" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_QuantityItems_Items">
+    <End Role="Items" Type="Self.Item" Multiplicity="1" />
+    <End Role="QuantityItems" Type="Self.QuantityItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Items">
+        <PropertyRef Name="IdItem" />
+      </Principal>
+      <Dependent Role="QuantityItems">
+        <PropertyRef Name="IdItem" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_QuantityProviderOrder_Items">
+    <End Role="Items" Type="Self.Item" Multiplicity="1" />
+    <End Role="QuantityProviderOrder" Type="Self.QuantityProviderOrder" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Items">
+        <PropertyRef Name="IdItem" />
+      </Principal>
+      <Dependent Role="QuantityProviderOrder">
+        <PropertyRef Name="IdItem" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Stocktaking_Items">
+    <End Role="Items" Type="Self.Item" Multiplicity="1" />
+    <End Role="Stocktaking" Type="Self.Stocktaking" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Items">
+        <PropertyRef Name="IdItem" />
+      </Principal>
+      <Dependent Role="Stocktaking">
+        <PropertyRef Name="IdItem" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_QuantityFoodRecipe_Orders">
+    <End Role="Orders" Type="Self.Order" Multiplicity="1" />
+    <End Role="QuantityFoodRecipe" Type="Self.QuantityFoodRecipe" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Orders">
+        <PropertyRef Name="IdOrder" />
+      </Principal>
+      <Dependent Role="QuantityFoodRecipe">
+        <PropertyRef Name="IdOrder" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_QuantityItems_Orders">
+    <End Role="Orders" Type="Self.Order" Multiplicity="1" />
+    <End Role="QuantityItems" Type="Self.QuantityItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Orders">
+        <PropertyRef Name="IdOrder" />
+      </Principal>
+      <Dependent Role="QuantityItems">
+        <PropertyRef Name="IdOrder" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Addresses_Customers">
+    <End Role="Customers" Type="Self.Customer" Multiplicity="1" />
+    <End Role="Addresses" Type="Self.Address" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customers">
+        <PropertyRef Name="IdUserCustomer" />
+      </Principal>
+      <Dependent Role="Addresses">
+        <PropertyRef Name="IdCustomer" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Orders_Addresses">
+    <End Role="Addresses" Type="Self.Address" Multiplicity="0..1" />
+    <End Role="Orders" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Addresses">
+        <PropertyRef Name="IdAddresses" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="IdAddress" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProviderOrders_Providers">
+    <End Role="Providers" Type="Self.Provider" Multiplicity="1" />
+    <End Role="ProviderOrders" Type="Self.ProviderOrder" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Providers">
+        <PropertyRef Name="IdProvider" />
+      </Principal>
+      <Dependent Role="ProviderOrders">
+        <PropertyRef Name="IdProvider" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_QuantityProviderOrder_ProviderOrders">
+    <End Role="ProviderOrders" Type="Self.ProviderOrder" Multiplicity="1" />
+    <End Role="QuantityProviderOrder" Type="Self.QuantityProviderOrder" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProviderOrders">
+        <PropertyRef Name="IdProviderOrder" />
+      </Principal>
+      <Dependent Role="QuantityProviderOrder">
+        <PropertyRef Name="IdProviderOrder" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Orders_Customers">
+    <End Role="Customers" Type="Self.Customer" Multiplicity="0..1" />
+    <End Role="Orders" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customers">
+        <PropertyRef Name="IdUserCustomer" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="IdCustomer" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tickets_Orders">
+    <End Role="Orders" Type="Self.Order" Multiplicity="1" />
+    <End Role="Tickets" Type="Self.Ticket" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Orders">
+        <PropertyRef Name="IdOrder" />
+      </Principal>
+      <Dependent Role="Tickets">
+        <PropertyRef Name="IdOrder" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ItalianPizzaContext" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="DailyBalances" EntityType="Self.DailyBalance" />
+    <EntitySet Name="MonetaryExpenses" EntityType="Self.MonetaryExpens" />
+    <EntitySet Name="Employees" EntityType="Self.Employee" />
+    <EntitySet Name="LogOuts" EntityType="Self.LogOut" />
+    <EntitySet Name="WorkShifts" EntityType="Self.WorkShift" />
+    <EntitySet Name="FoodRecipes" EntityType="Self.FoodRecipe" />
+    <EntitySet Name="Ingredients" EntityType="Self.Ingredient" />
+    <EntitySet Name="Items" EntityType="Self.Item" />
+    <EntitySet Name="QuantityFoodRecipes" EntityType="Self.QuantityFoodRecipe" />
+    <EntitySet Name="QuantityItems" EntityType="Self.QuantityItem" />
+    <EntitySet Name="Stocktakings" EntityType="Self.Stocktaking" />
+    <EntitySet Name="Addresses" EntityType="Self.Address" />
+    <EntitySet Name="ProviderOrders" EntityType="Self.ProviderOrder" />
+    <EntitySet Name="Providers" EntityType="Self.Provider" />
+    <EntitySet Name="QuantityProviderOrders" EntityType="Self.QuantityProviderOrder" />
+    <EntitySet Name="Customers" EntityType="Self.Customer" />
+    <EntitySet Name="Orders" EntityType="Self.Order" />
+    <EntitySet Name="Tickets" EntityType="Self.Ticket" />
+    <AssociationSet Name="FK_DailyBalances_Employees" Association="Self.FK_DailyBalances_Employees">
+      <End Role="Employees" EntitySet="Employees" />
+      <End Role="DailyBalances" EntitySet="DailyBalances" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MonetaryExpenses_Employees" Association="Self.FK_MonetaryExpenses_Employees">
+      <End Role="Employees" EntitySet="Employees" />
+      <End Role="MonetaryExpenses" EntitySet="MonetaryExpenses" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Customers_Employees" Association="Self.FK_Customers_Employees">
+      <End Role="Employees" EntitySet="Employees" />
+      <End Role="Customers" EntitySet="Customers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LogOuts_Employees" Association="Self.FK_LogOuts_Employees">
+      <End Role="Employees" EntitySet="Employees" />
+      <End Role="LogOuts" EntitySet="LogOuts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Orders_Employees" Association="Self.FK_Orders_Employees">
+      <End Role="Employees" EntitySet="Employees" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProviderOrders_Employees" Association="Self.FK_ProviderOrders_Employees">
+      <End Role="Employees" EntitySet="Employees" />
+      <End Role="ProviderOrders" EntitySet="ProviderOrders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_WorkShifts_Employees" Association="Self.FK_WorkShifts_Employees">
+      <End Role="Employees" EntitySet="Employees" />
+      <End Role="WorkShifts" EntitySet="WorkShifts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Ingredients_FoodRecipes" Association="Self.FK_Ingredients_FoodRecipes">
+      <End Role="FoodRecipes" EntitySet="FoodRecipes" />
+      <End Role="Ingredients" EntitySet="Ingredients" />
+    </AssociationSet>
+    <AssociationSet Name="FK_QuantityFoodRecipe_FoodRecipes" Association="Self.FK_QuantityFoodRecipe_FoodRecipes">
+      <End Role="FoodRecipes" EntitySet="FoodRecipes" />
+      <End Role="QuantityFoodRecipe" EntitySet="QuantityFoodRecipes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Ingredients_Items" Association="Self.FK_Ingredients_Items">
+      <End Role="Items" EntitySet="Items" />
+      <End Role="Ingredients" EntitySet="Ingredients" />
+    </AssociationSet>
+    <AssociationSet Name="FK_QuantityItems_Items" Association="Self.FK_QuantityItems_Items">
+      <End Role="Items" EntitySet="Items" />
+      <End Role="QuantityItems" EntitySet="QuantityItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_QuantityProviderOrder_Items" Association="Self.FK_QuantityProviderOrder_Items">
+      <End Role="Items" EntitySet="Items" />
+      <End Role="QuantityProviderOrder" EntitySet="QuantityProviderOrders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Stocktaking_Items" Association="Self.FK_Stocktaking_Items">
+      <End Role="Items" EntitySet="Items" />
+      <End Role="Stocktaking" EntitySet="Stocktakings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_QuantityFoodRecipe_Orders" Association="Self.FK_QuantityFoodRecipe_Orders">
+      <End Role="Orders" EntitySet="Orders" />
+      <End Role="QuantityFoodRecipe" EntitySet="QuantityFoodRecipes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_QuantityItems_Orders" Association="Self.FK_QuantityItems_Orders">
+      <End Role="Orders" EntitySet="Orders" />
+      <End Role="QuantityItems" EntitySet="QuantityItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Addresses_Customers" Association="Self.FK_Addresses_Customers">
+      <End Role="Customers" EntitySet="Customers" />
+      <End Role="Addresses" EntitySet="Addresses" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Orders_Addresses" Association="Self.FK_Orders_Addresses">
+      <End Role="Addresses" EntitySet="Addresses" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProviderOrders_Providers" Association="Self.FK_ProviderOrders_Providers">
+      <End Role="Providers" EntitySet="Providers" />
+      <End Role="ProviderOrders" EntitySet="ProviderOrders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_QuantityProviderOrder_ProviderOrders" Association="Self.FK_QuantityProviderOrder_ProviderOrders">
+      <End Role="ProviderOrders" EntitySet="ProviderOrders" />
+      <End Role="QuantityProviderOrder" EntitySet="QuantityProviderOrders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Orders_Customers" Association="Self.FK_Orders_Customers">
+      <End Role="Customers" EntitySet="Customers" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tickets_Orders" Association="Self.FK_Tickets_Orders">
+      <End Role="Orders" EntitySet="Orders" />
+      <End Role="Tickets" EntitySet="Tickets" />
+    </AssociationSet>
+    <FunctionImport Name="RegisterFoodRecipe">
+      <Parameter Name="Price" Mode="In" Type="Decimal" />
+      <Parameter Name="Name" Mode="In" Type="String" />
+      <Parameter Name="Description" Mode="In" Type="String" />
+      <Parameter Name="NumberOfServings" Mode="In" Type="String" />
+      <Parameter Name="Status" Mode="In" Type="String" />
+      <Parameter Name="IsEnable" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SPI_Customer">
+      <Parameter Name="email" Mode="In" Type="String" />
+      <Parameter Name="name" Mode="In" Type="String" />
+      <Parameter Name="lastName" Mode="In" Type="String" />
+      <Parameter Name="phone" Mode="In" Type="String" />
+      <Parameter Name="status" Mode="In" Type="String" />
+      <Parameter Name="dateOfBirth" Mode="In" Type="DateTime" />
+      <Parameter Name="isEnabled" Mode="In" Type="Boolean" />
+      <Parameter Name="idEmployee" Mode="In" Type="Int32" />
+      <Parameter Name="estado" Mode="InOut" Type="Int32" />
+      <Parameter Name="salida" Mode="InOut" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="SPS_Employee_Workshifts" ReturnType="Collection(ItalianPizzaModel.SPS_Employee_Workshifts_Result)">
+      <Parameter Name="iDEmployee" Mode="In" Type="Int32" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="SPS_Employee_Workshifts_Result">
+    <Property Type="Int32" Name="IdUserEmployee" Nullable="false" />
+    <Property Type="String" Name="Email" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="LastName" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Phone" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Status" Nullable="false" MaxLength="50" />
+    <Property Type="DateTime" Name="AdmissionDate" Nullable="false" />
+    <Property Type="String" Name="Password" Nullable="false" MaxLength="250" />
+    <Property Type="String" Name="Role" Nullable="false" MaxLength="50" />
+    <Property Type="Decimal" Name="Salary" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="String" Name="Username" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Workshifts" Nullable="true" MaxLength="100" />
+  </ComplexType>
+</Schema>

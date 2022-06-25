@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="37c915f6153948d68525f16bb93b64d1" Name="Diagram1">
+        <EntityTypeShape EntityType="ItalianPizzaModel.DailyBalance" Width="1.5" PointX="3" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ItalianPizzaModel.MonetaryExpens" Width="1.5" PointX="3" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ItalianPizzaModel.Employee" Width="1.5" PointX="0.75" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ItalianPizzaModel.LogOut" Width="1.5" PointX="3" PointY="12.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ItalianPizzaModel.WorkShift" Width="1.5" PointX="3" PointY="15.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ItalianPizzaModel.FoodRecipe" Width="1.5" PointX="7.5" PointY="22.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ItalianPizzaModel.Ingredient" Width="1.5" PointX="10.75" PointY="13.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ItalianPizzaModel.Item" Width="1.5" PointX="6" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ItalianPizzaModel.QuantityFoodRecipe" Width="1.5" PointX="9.75" PointY="17.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ItalianPizzaModel.QuantityItem" Width="1.5" PointX="12.75" PointY="17.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ItalianPizzaModel.Stocktaking" Width="1.5" PointX="8.25" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="ItalianPizzaModel.Address" Width="1.5" PointX="5.25" PointY="22.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ItalianPizzaModel.ProviderOrder" Width="1.5" PointX="6" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ItalianPizzaModel.Provider" Width="1.5" PointX="3.75" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ItalianPizzaModel.QuantityProviderOrder" Width="1.5" PointX="8.25" PointY="12.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ItalianPizzaModel.Customer" Width="1.5" PointX="3" PointY="22.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ItalianPizzaModel.Order" Width="1.5" PointX="7.5" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ItalianPizzaModel.Ticket" Width="1.5" PointX="9.75" PointY="24.375" IsExpanded="true" />
+        <AssociationConnector Association="ItalianPizzaModel.FK_DailyBalances_Employees" ManuallyRouted="false" />
+        <AssociationConnector Association="ItalianPizzaModel.FK_MonetaryExpenses_Employees" ManuallyRouted="false" />
+        <AssociationConnector Association="ItalianPizzaModel.FK_Customers_Employees" ManuallyRouted="false" />
+        <AssociationConnector Association="ItalianPizzaModel.FK_LogOuts_Employees" ManuallyRouted="false" />
+        <AssociationConnector Association="ItalianPizzaModel.FK_Orders_Employees" ManuallyRouted="false" />
+        <AssociationConnector Association="ItalianPizzaModel.FK_ProviderOrders_Employees" ManuallyRouted="false" />
+        <AssociationConnector Association="ItalianPizzaModel.FK_WorkShifts_Employees" ManuallyRouted="false" />
+        <AssociationConnector Association="ItalianPizzaModel.FK_Ingredients_FoodRecipes" ManuallyRouted="false" />
+        <AssociationConnector Association="ItalianPizzaModel.FK_QuantityFoodRecipe_FoodRecipes" ManuallyRouted="false" />
+        <AssociationConnector Association="ItalianPizzaModel.FK_Ingredients_Items" ManuallyRouted="false" />
+        <AssociationConnector Association="ItalianPizzaModel.FK_QuantityItems_Items" ManuallyRouted="false" />
+        <AssociationConnector Association="ItalianPizzaModel.FK_QuantityProviderOrder_Items" ManuallyRouted="false" />
+        <AssociationConnector Association="ItalianPizzaModel.FK_Stocktaking_Items" ManuallyRouted="false" />
+        <AssociationConnector Association="ItalianPizzaModel.FK_QuantityFoodRecipe_Orders" ManuallyRouted="false" />
+        <AssociationConnector Association="ItalianPizzaModel.FK_QuantityItems_Orders" ManuallyRouted="false" />
+        <AssociationConnector Association="ItalianPizzaModel.FK_Addresses_Customers" ManuallyRouted="false" />
+        <AssociationConnector Association="ItalianPizzaModel.FK_Orders_Addresses" ManuallyRouted="false" />
+        <AssociationConnector Association="ItalianPizzaModel.FK_ProviderOrders_Providers" ManuallyRouted="false" />
+        <AssociationConnector Association="ItalianPizzaModel.FK_QuantityProviderOrder_ProviderOrders" ManuallyRouted="false" />
+        <AssociationConnector Association="ItalianPizzaModel.FK_Orders_Customers" ManuallyRouted="false" />
+        <AssociationConnector Association="ItalianPizzaModel.FK_Tickets_Orders" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

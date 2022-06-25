@@ -1,0 +1,12 @@
+C:\Users\antdg\source\repos\ItalianPizza\Backend\bin\Debug\Backend.dll.config
+C:\Users\antdg\source\repos\ItalianPizza\Backend\bin\Debug\Backend.dll
+C:\Users\antdg\source\repos\ItalianPizza\Backend\bin\Debug\Backend.pdb
+C:\Users\antdg\source\repos\ItalianPizza\Backend\bin\Debug\EntityFramework.dll
+C:\Users\antdg\source\repos\ItalianPizza\Backend\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\antdg\source\repos\ItalianPizza\Backend\bin\Debug\EntityFramework.xml
+C:\Users\antdg\source\repos\ItalianPizza\Backend\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\antdg\source\repos\ItalianPizza\Backend\obj\Debug\Backend.csproj.CoreCompileInputs.cache
+C:\Users\antdg\source\repos\ItalianPizza\Backend\obj\Debug\Backend.csproj.CopyComplete
+C:\Users\antdg\source\repos\ItalianPizza\Backend\obj\Debug\Backend.dll
+C:\Users\antdg\source\repos\ItalianPizza\Backend\obj\Debug\Backend.pdb
+C:\Users\antdg\source\repos\ItalianPizza\Backend\obj\Debug\Backend.csproj.AssemblyReference.cache

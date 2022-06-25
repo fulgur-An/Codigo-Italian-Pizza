@@ -1,0 +1,16 @@
+C:\Users\Propietario\Desktop\ServerItalianPizza\bin\Debug\ServerItalianPizza.exe.config
+C:\Users\Propietario\Desktop\ServerItalianPizza\bin\Debug\ServerItalianPizza.exe
+C:\Users\Propietario\Desktop\ServerItalianPizza\bin\Debug\ServerItalianPizza.pdb
+C:\Users\Propietario\Desktop\ServerItalianPizza\bin\Debug\Backend.dll
+C:\Users\Propietario\Desktop\ServerItalianPizza\bin\Debug\EntityFramework.dll
+C:\Users\Propietario\Desktop\ServerItalianPizza\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Propietario\Desktop\ServerItalianPizza\bin\Debug\Backend.pdb
+C:\Users\Propietario\Desktop\ServerItalianPizza\bin\Debug\Backend.dll.config
+C:\Users\Propietario\Desktop\ServerItalianPizza\bin\Debug\EntityFramework.xml
+C:\Users\Propietario\Desktop\ServerItalianPizza\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Propietario\Desktop\ServerItalianPizza\obj\Debug\ServerItalianPizza.csproj.AssemblyReference.cache
+C:\Users\Propietario\Desktop\ServerItalianPizza\obj\Debug\ServerItalianPizza.exe.config
+C:\Users\Propietario\Desktop\ServerItalianPizza\obj\Debug\ServerItalianPizza.csproj.CoreCompileInputs.cache
+C:\Users\Propietario\Desktop\ServerItalianPizza\obj\Debug\ServerItalianPizza.csproj.CopyComplete
+C:\Users\Propietario\Desktop\ServerItalianPizza\obj\Debug\ServerItalianPizza.exe
+C:\Users\Propietario\Desktop\ServerItalianPizza\obj\Debug\ServerItalianPizza.pdb
